@@ -1,0 +1,132 @@
+<template>
+    <div class="bg-gray-900 text-white py3.5 px-6 shadow md:flex justify-between items-center">
+        <div class="flex items-center cursor-pointer">
+            <img class="mr-2" alt="App logo" src="../assets/topNav/appImage.png">
+            <span class="text-xl"> {{ $t("PandaSport") }}</span>
+
+            <ul class="md:flex md:items-center pl-5">
+            <li class="md:mx-4" v-for="link in Links" :key ="link.link">
+                <router-link :to="link.link" class="text-xl hover:text-green-500">{{ link.name }}</router-link>
+            </li>
+        </ul>
+        </div>
+
+        <div class="md:flex items-center">
+            <div class="md:flex relative">
+                <div class="">
+                    <img src="../assets/topNav/search.png" alt="Search Icon" class="absolute left-2.5 w-6 h-6 pr-1 m-1.5"/>
+                </div>
+                <div>
+                    <input v-model="searchText" type="text" placeholder="搜索赛事/ 球队" class="pl-10 w-52 h-10 rounded-2xl border-gray-300 text-xs bg-opacity-10 text-slate-600 bg-slate-50" />
+                </div>
+            <!-- <button v-if="searchText" @click="clearSearch" class="clear-button">
+                <i class="material-icons">clear</i>
+            </button> -->
+                <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between">
+                    <button class="md:flex cursor-pointer text-xl mr-2.5 items-center" @click="toggleDropdown">
+                    <img :src="img" alt="defaultFootBall Image" />
+                    <img  class="pl-1.5 py-1" src="../assets/topNav/arrowDown.png" alt="Arrow Down">
+                    </button>
+
+                    <div class="dropdown-content" :class="{ 'show-dropdown': isDropdownOpen }">
+
+                    <button class="dropdown-button" @click="selectOption(require('../assets/topNav/basketball.png'))">
+                        <img src="../assets/topNav/basketball.png" alt="Basketball" />
+                    </button>
+                    <button class="dropdown-button" @click="selectOption(require('../assets/topNav/football.png'))">
+                        <img src="../assets/topNav/football.png" alt="Football" />
+                    </button>
+                    </div>
+                </div>
+            </div>
+            <div class="md:flex items-center pl-1">
+              <div class="pr-1">
+                <!-- 注册Button -->
+                <router-link to="/register" class="px-1 hover:text-green-500">注册</router-link>
+                <router-link to="/login" class="px-1">登入</router-link>
+              </div>
+              <div>
+                <img src="../assets/topNav/defaultProfile.png" alt="Profile Picture" />
+              </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+const Links = [
+  { name: '首页', link: '/' },
+  { name: '直播', link: '/about' },
+  { name: '收藏', link: '/favourite' }
+]
+
+const img = ref(require('../assets/topNav/football.png'))
+const isDropdownOpen = ref(false)
+
+const toggleDropdown = () => {
+  isDropdownOpen.value = !isDropdownOpen.value
+}
+
+const selectOption = (image) => {
+  console.log(image)
+  img.value = image // Update the default image when an option is selected
+  isDropdownOpen.value = false // Close the dropdown
+}
+
+const searchText = ref('')
+
+// const clearSearch = () => {
+//   searchText.value = ''
+// }
+
+</script>
+
+<style>
+  /* Style the dropdown trigger button */
+  .dropdown-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 55px;
+  }
+
+  /* Style the dropdown content (hidden by default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    width: 40px;
+    z-index: 1;
+  }
+
+  /* Style the dropdown options */
+  .dropdown-content .dropdown-button {
+    display: block;
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Change color on hover */
+  .dropdown-content .dropdown-button:hover {
+    background-color: #ddd;
+    width: 40px;
+  }
+
+  .show-dropdown {
+    display: block !important;
+  }
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+
+</style>
