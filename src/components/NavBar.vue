@@ -2,13 +2,17 @@
     <div class="bg-gray-900 text-white py3.5 px-6 shadow md:flex justify-between items-center">
         <div class="flex items-center cursor-pointer">
             <img class="mr-2" alt="App logo" src="../assets/topNav/appImage.png">
-            <span class="text-xl"> {{ $t("PandaSport") }}</span>
+            <!-- <a href="/">asdasd</a>
+            <a href="/about">ABC</a> -->
+            <router-link to="/" class="text-xl hover:text-green-500">
+              <span class="text-xl text-green-500"> {{ $t("PandaSport") }}</span>
+            </router-link>
 
             <ul class="md:flex md:items-center pl-5">
             <li class="md:mx-4" v-for="link in Links" :key ="link.link">
-                <router-link :to="link.link" class="text-xl hover:text-green-500">{{ link.name }}</router-link>
+                <router-link :to="link.link" class="text-xl hover:text-green-500 text-white">{{ link.name }}</router-link>
             </li>
-        </ul>
+            </ul>
         </div>
 
         <div class="md:flex items-center">
@@ -17,7 +21,7 @@
                     <img src="../assets/topNav/search.png" alt="Search Icon" class="absolute left-2.5 w-6 h-6 pr-1 m-1.5"/>
                 </div>
                 <div>
-                    <input v-model="searchText" type="text" placeholder="搜索赛事/ 球队" class="pl-10 w-52 h-10 rounded-2xl border-gray-300 text-xs bg-opacity-10 text-slate-600 bg-slate-50" />
+                    <input v-model="searchText" type="text" placeholder="搜索赛事/ 球队" class="pl-10 w-52 h-10 rounded-2xl border-gray-300 text-xs bg-opacity-10 text-white bg-slate-50" />
                 </div>
             <!-- <button v-if="searchText" @click="clearSearch" class="clear-button">
                 <i class="material-icons">clear</i>
@@ -40,13 +44,17 @@
                 </div>
             </div>
             <div class="md:flex items-center pl-1">
-              <div class="pr-1">
-                <!-- 注册Button -->
-                <router-link to="/register" class="px-1 hover:text-green-500">注册</router-link>
-                <router-link to="/login" class="px-1">登入</router-link>
-              </div>
-              <div>
+              <div @click="toggleDropdownProfile" >
                 <img src="../assets/topNav/defaultProfile.png" alt="Profile Picture" />
+                <div v-show="showDropdown" class="absolute bg-gray-900 mt-1 p-1 py-3">
+                  <div class="pr-1 pt-1 pb-2 ">
+                <!-- 注册Button -->
+                    <router-link to="/register" class="px-1 hover:text-green-500 text-white">注册</router-link>
+                    <router-link to="/login" class="px-1 text-white">登入</router-link>
+                  </div>
+                <!-- Dropdown content, e.g., Logout link -->
+                  <router-link v-if="loggedIn" @click="logout" class="block text-black">退出登入</router-link>
+                </div>
               </div>
             </div>
         </div>
@@ -55,6 +63,9 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+// Navigation Bar
 const Links = [
   { name: '首页', link: '/' },
   { name: '直播', link: '/about' },
@@ -80,9 +91,36 @@ const searchText = ref('')
 //   searchText.value = ''
 // }
 
+// Profile
+const showDropdown = ref(false)
+const loggedIn = ref(false)
+
+const toggleDropdownProfile = () => {
+  showDropdown.value = !showDropdown.value
+}
+
+const router = useRouter()
+const logout = () => {
+  // Perform logout logic
+  // For example, redirect to the login page
+  router.push('/login')
+  // Update the loggedIn state accordingly
+  loggedIn.value = false
+}
+
 </script>
 
 <style>
+  .nav-button{
+    width: 60px;
+    background-color: #4C6B94;
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex
+  }
+
   /* Style the dropdown trigger button */
   .dropdown-button {
     background: none;
@@ -126,6 +164,7 @@ const searchText = ref('')
 
     &.router-link-exact-active {
       color: #42b983;
+      /* color: white; */
     }
   }
 
