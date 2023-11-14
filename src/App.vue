@@ -2,7 +2,7 @@
   <div class="w-full bg-gray-900">
     <Navbar/>
   </div>
-  <!-- <div class="w-full backdrop-brightness-90"> -->
+  <!-- <div class="" style="background-color:;"> -->
     <router-view />
     <!-- <HomeView/> -->
   <!-- </div> -->

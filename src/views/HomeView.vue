@@ -25,67 +25,183 @@
 
     <h2 class="text-2xl pr-5 py-5 font-semibold">热门赛程</h2>
     <!-- 热门赛程 1 Row 5 Column -->
-    <div class="grid grid-rows-1 grid-cols-9 gap-2 px-5">
+    <!-- <div class="grid grid-rows-1 grid-cols-9 gap-2 px-5"> -->
       <!-- Take 8 Column for the contents -->
-      <div class="col-span-3">
-        <div>
-        <!-- 热门赛程 Header -->
-          <div class="grid grid-rows-1 grid-cols-3 justify-around py-2 rounded-md" style="background-color: #D6F1DD;">
-            <div class="" style="border: 1px solid red;">
-              欧冠
+      <!-- <div class="col-span-2"> -->
+        <div class="flex gap-2 teamContainer">
+          <div class="" style="width: 190px;">
+            <!-- 热门赛程 Header -->
+          <div class="py-2 px-4 rounded-md flex justify-between" style="background-color: #D6F1DD;">
+            <div class="headerContainer">
+              <div class="text-sm">
+                欧冠
+              </div>
             </div>
-            <div>
+            <div class="text-base">
               12:00
             </div>
             <div>
-              收藏
+              <img src="../assets/content/Favourite.png" />
             </div>
           </div>
           <!-- 热门赛程 Contents -->
-          <div class="grid grid-rows-3 grid-cols-3">
-            <div>
-              2
+          <div class="flex justify-between">
+            <div class="flex flex-col items-center">
+              <div>2</div>
+              <div>
+                <img src="../assets/content/moneyBadge.png" />
+              </div>
+              <div class="w-20 overflow-hidden">球队名称球队名称球</div>
             </div>
-            <div>
-              开
+            <div class=" w-16 flex flex-col items-center py-2">
+              <div>开</div>
+              <div class="pt-1">VS</div>
             </div>
-            <div>
-              1
-            </div>
-            <div>
-              Logo
-            </div>
-            <div>
-              VS
-            </div>
-            <div>
-              Logo
-            </div>
-            <div>
-              Team Name
-            </div>
-            <div></div>
-            <div>
-              Team Name
+            <div class="flex flex-col items-center">
+              <div>1</div>
+              <div>
+                <img src="../assets/content/Badge.png" />
+              </div>
+              <div class="w-20 overflow-hidden">球队名称球队名称球</div>
+
             </div>
           </div>
-       </div>
-      </div>
+          </div>  
+          <div class="" style="width: 190px;">
+            <!-- 热门赛程 Header -->
+          <div class="py-2 px-4 rounded-md flex justify-between" style="background-color: #D6F1DD;">
+            <div class="headerContainer">
+              <div class="text-sm">
+                欧冠
+              </div>
+            </div>
+            <div class="text-base">
+              12:00
+            </div>
+            <div>
+              <img src="../assets/content/Favourite.png" />
+            </div>
+          </div>
+          <!-- 热门赛程 Contents -->
+          <div class="flex justify-between">
+            <div class="flex flex-col items-center">
+              <div>2</div>
+              <div>
+                <img src="../assets/content/moneyBadge.png" />
+              </div>
+              <div class="w-20 overflow-hidden">球队名称球队名称球</div>
+            </div>
+            <div class=" w-16 flex flex-col items-center py-2">
+              <div>开</div>
+              <div class="pt-1">VS</div>
+            </div>
+            <div class="flex flex-col items-center">
+              <div>1</div>
+              <div>
+                <img src="../assets/content/Badge.png" />
+              </div>
+              <div class="w-20 overflow-hidden">球队名称球队名称球</div>
 
-      <div class="col-span-1 w-3/5 bg-slate-500">
+            </div>
+          </div>
+          </div> 
+          <div class="" style="width: 190px;">
+            <!-- 热门赛程 Header -->
+          <div class="py-2 px-4 rounded-md flex justify-between" style="background-color: #D6F1DD;">
+            <div class="headerContainer">
+              <div class="text-sm">
+                欧冠
+              </div>
+            </div>
+            <div class="text-base">
+              12:00
+            </div>
+            <div>
+              <img src="../assets/content/Favourite.png" />
+            </div>
+          </div>
+          <!-- 热门赛程 Contents -->
+          <div class="flex justify-between">
+            <div class="flex flex-col items-center">
+              <div>2</div>
+              <div>
+                <img src="../assets/content/moneyBadge.png" />
+              </div>
+              <div class="w-20 overflow-hidden">球队名称球队名称球</div>
+            </div>
+            <div class=" w-16 flex flex-col items-center py-2">
+              <div>开</div>
+              <div class="pt-1">VS</div>
+            </div>
+            <div class="flex flex-col items-center">
+              <div>1</div>
+              <div>
+                <img src="../assets/content/Badge.png" />
+              </div>
+              <div class="w-20 overflow-hidden">球队名称球队名称球</div>
+
+            </div>
+          </div>
+          </div> 
+          <div class="" style="width: 190px;">
+            <!-- 热门赛程 Header -->
+          <div class="py-2 px-4 rounded-md flex justify-between" style="background-color: #D6F1DD;">
+            <div class="headerContainer">
+              <div class="text-sm">
+                欧冠
+              </div>
+            </div>
+            <div class="text-base">
+              12:00
+            </div>
+            <div>
+              <img src="../assets/content/Favourite.png" />
+            </div>
+          </div>
+          <!-- 热门赛程 Contents -->
+          <div class="flex justify-between">
+            <div class="flex flex-col items-center">
+              <div>2</div>
+              <div>
+                <img src="../assets/content/moneyBadge.png" />
+              </div>
+              <div class="w-20 overflow-hidden">球队名称球队名称球</div>
+            </div>
+            <div class=" w-16 flex flex-col items-center py-2">
+              <div>开</div>
+              <div class="pt-1">VS</div>
+            </div>
+            <div class="flex flex-col items-center">
+              <div>1</div>
+              <div>
+                <img src="../assets/content/Badge.png" />
+              </div>
+              <div class="w-20 overflow-hidden">球队名称球队名称球</div>
+
+            </div>
+          </div>
+          </div> 
+   
+          <!-- 全部赛程 Button -->
+          <div class="w-10 bg-slate-500">
         <!-- <img src="../assets/content/TeamMenu.png" /> -->
         <ButtonCom class="h-full">
           <div class="button">
-            <img src="../assets/content/TeamMenu.png" />
+            <img class="" src="../assets/content/TeamMenu.png" alt="全部赛程" />
           </div>
           <div>
             <p>全部赛程</p>
           </div>
         </ButtonCom>
-      </div>
-    </div>
-    <h2 class="text-2xl pr-5 py-5 font-semibold">热门主播榜</h2>
-    <div class="py-10 flex">
+        </div>
+          
+       </div>
+      <!-- </div> -->
+
+      
+    <!-- </div> -->
+    <h2 class="text-2xl pr-5 pt-5 font-semibold">热门主播榜</h2>
+    <div class="pb-10 pt-5 flex">
       <img class="w-64" src="../assets/content/champion.png" />
       <div class="md:mx-4 w-52 flex flex-col items-center py-3" v-for="link in streamer" :key ="link.link">
         <div class="">
@@ -104,10 +220,6 @@
       </div>
 
     </div>
-    <!-- <div class="flex-col items h-52 items-center">
-      <div>HALLO WORLD</div>
-      <div>YOU ARE IDIOT</div>
-    </div> -->
   </div>
 
   <!-- <div class="container bg-gray-900 text-white py3.5 px-6 shadow md:flex justify-between items-center ">
@@ -157,6 +269,16 @@ const streamer = [
   /* height: 50vh; */
 
 }
+
+.headerContainer{
+  background-color: white;
+  border-radius: 30px;
+  width: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .backgroundImg {
   display: flex;
   flex-direction: column;
@@ -196,7 +318,6 @@ const streamer = [
   margin-inline-end: 15%; */
   margin-top: 20px;
   height: 150px;
-  /* 添加其他样式以定义直播窗口的外观 */
 }
 
 .advertisement{
@@ -219,20 +340,21 @@ const streamer = [
   height: 100px;
 
 }
-
 .button{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 20px;
 }
 
-.player-photo {
-  border-radius: 50%;
-  /* 圆形边框 */
-  margin: 10px;
-  /* 添加外边距来调整布局 */
+/* 热门赛程 */
+.teamContainer{
+  width: 100%;
+  height: 180px;
+  margin: auto;
 }
+
 
 .footer {
   background-color: black;
