@@ -273,7 +273,7 @@ div {
   display: block;
 }
 
-.matchInfoList .all_match_btn[data-v-2fa142d2] {
+/* .matchInfoList .all_match_btn[data-v-2fa142d2] {
     display: block;
     width: 50px;
     height: 156px;
@@ -281,6 +281,6 @@ div {
     right: 0px;
     top: 10px;
     background: url(https://88zb.hhtlkp.cn/webImgs/changeSkin/kqzb-theme/public/all_match.png) 50% center / 100% 100% no-repeat;
-}
+}  */
 
 </style>
