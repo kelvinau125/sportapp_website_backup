@@ -69,7 +69,7 @@ import { RouterLink } from 'vue-router'
 // Navigation Bar
 const Links = [
   { name: '首页', link: '/' },
-  { name: '直播', link: '/about' },
+  { name: '直播', link: '/live' },
   { name: '收藏', link: '/favourite' }
 ]
 

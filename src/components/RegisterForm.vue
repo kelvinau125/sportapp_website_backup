@@ -6,21 +6,39 @@
         <input placeholder="请输入用户名" type="text" id="username" v-model="userData.username" />
       </div>
 
-      <div class="form-group">
+      <div class="form-group flex">
+        <!-- Country Code Dropdown -->
+        <select v-model="userData.countryCode" class="mr-2">
+          <option value="+86">+86</option>
+          <option value="+60">+60</option>
+          <!-- Add more country codes as needed -->
+        </select>
         <input placeholder="请输入手机号码" type="text" id="phone" v-model="userData.phone" />
       </div>
 
       <div class="form-group">
-        <input placeholder="请输入密码" type="password" id="password" v-model="userData.password" />
+        <div class="password-container">
+          <input placeholder="请输入密码" type="password" id="password" v-model="userData.password" />
+          <button class="button mr-1.5">
+            <img class="" src="../assets/hide.png" />
+          </button>
+        </div>
       </div>
 
       <div class="form-group">
-        <input placeholder="请再次输入密码" type="password" id="confirm-password" v-model="confirmPassword" />
+        <div class="password-container">
+          <input placeholder="请再次输入密码" type="password" id="confirm-password" v-model="confirmPassword" />
+          <button class="button mr-1.5">
+            <img class="" src="../assets/hide.png" />
+          </button>
+        </div>
       </div>
 
       <!-- <button class="bg-green-500 hover:bg-green-500" @click="register">注册</button> -->
       <ButtonCom class="w-screen">注册</ButtonCom>
-      <p>已经有账号？ <router-link to = "/login">现在登入</router-link></p>
+      <div class="flex justify-center">
+        <p>已经有账号？ <router-link to = "/login" class="text-green-500">现在登录</router-link></p>
+      </div>
     </div>
 
   </template>
@@ -34,6 +52,7 @@ export default {
   data () {
     return {
       userData: {
+        countryCode: '+86', // Default country code
         username: '',
         phone: '',
         password: ''
@@ -62,12 +81,34 @@ export default {
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    text-align: center;
+  }
+  select{
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  }
+
+  .password-container {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  width: 100%;
+  position: relative;
+  }
+  #password {
+    flex: 1;
+    padding-right: 30px; /* Space for the toggle button */
+  }
+
+  .button {
+  position: absolute;
+  right: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
   }
 
   .form-group {
     margin-bottom: 15px;
-    border: 1px solid #ccc
   }
 
   label {
