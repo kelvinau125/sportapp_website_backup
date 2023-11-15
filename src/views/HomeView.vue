@@ -28,8 +28,9 @@
     <!-- <div class="grid grid-rows-1 grid-cols-9 gap-2 px-5"> -->
       <!-- Take 8 Column for the contents -->
       <!-- <div class="col-span-2"> -->
-        <div class="flex gap-2 teamContainer">
-          <div class="" style="width: 190px;">
+        <!-- Overflow Setting -->
+        <div class="flex gap-2 teamContainer overflow-auto">
+          <div class="" style="width: 215px;">
             <!-- 热门赛程 Header -->
           <div class="py-2 px-4 rounded-md flex justify-between" style="background-color: #D6F1DD;">
             <div class="headerContainer">
@@ -67,7 +68,7 @@
             </div>
           </div>
           </div>  
-          <div class="" style="width: 190px;">
+          <div class="" style="width: 215px;">
             <!-- 热门赛程 Header -->
           <div class="py-2 px-4 rounded-md flex justify-between" style="background-color: #D6F1DD;">
             <div class="headerContainer">
@@ -104,8 +105,8 @@
 
             </div>
           </div>
-          </div> 
-          <div class="" style="width: 190px;">
+          </div>  
+          <div class="" style="width: 215px;">
             <!-- 热门赛程 Header -->
           <div class="py-2 px-4 rounded-md flex justify-between" style="background-color: #D6F1DD;">
             <div class="headerContainer">
@@ -117,7 +118,7 @@
               12:00
             </div>
             <div>
-              <img src="../assets/content/Favourite.png" />
+              <img src="../assets/content/Unfavourite.png" />
             </div>
           </div>
           <!-- 热门赛程 Contents -->
@@ -143,7 +144,7 @@
             </div>
           </div>
           </div> 
-          <div class="" style="width: 190px;">
+          <div class="" style="width: 215px;">
             <!-- 热门赛程 Header -->
           <div class="py-2 px-4 rounded-md flex justify-between" style="background-color: #D6F1DD;">
             <div class="headerContainer">
@@ -155,7 +156,7 @@
               12:00
             </div>
             <div>
-              <img src="../assets/content/Favourite.png" />
+              <img src="../assets/content/Unfavourite.png" />
             </div>
           </div>
           <!-- 热门赛程 Contents -->
@@ -181,20 +182,56 @@
             </div>
           </div>
           </div> 
+          <!-- <div class="" style="width: 200px;">
+          <div class="py-2 px-4 rounded-md flex justify-between" style="background-color: #D6F1DD;">
+            <div class="headerContainer">
+              <div class="text-sm">
+                欧冠
+              </div>
+            </div>
+            <div class="text-base">
+              12:00
+            </div>
+            <div>
+              <img src="../assets/content/Favourite.png" />
+            </div>
+          </div>
+          <div class="flex justify-between">
+            <div class="flex flex-col items-center">
+              <div>2</div>
+              <div>
+                <img src="../assets/content/moneyBadge.png" />
+              </div>
+              <div class="w-20 overflow-hidden">球队名称球队名称球</div>
+            </div>
+            <div class=" w-16 flex flex-col items-center py-2">
+              <div>开</div>
+              <div class="pt-1">VS</div>
+            </div>
+            <div class="flex flex-col items-center">
+              <div>1</div>
+              <div>
+                <img src="../assets/content/Badge.png" />
+              </div>
+              <div class="w-20 overflow-hidden">球队名称球队名称球</div>
+
+            </div>
+          </div>
+          </div>  -->
    
           <!-- 全部赛程 Button -->
-          <div class="w-10 bg-slate-500">
+          <div class="w-10">
         <!-- <img src="../assets/content/TeamMenu.png" /> -->
-        <ButtonCom class="h-full">
-          <div class="button">
-            <img class="" src="../assets/content/TeamMenu.png" alt="全部赛程" />
+            <ButtonCom class="h-full flex flex-col justify-center items-center">
+              <div class="button">
+                <img class="" src="../assets/content/TeamMenu.png" alt="全部赛程" />
+              </div>
+              <div>
+                <p>全部赛程</p>
+              </div>
+            </ButtonCom>
+            
           </div>
-          <div>
-            <p>全部赛程</p>
-          </div>
-        </ButtonCom>
-        </div>
-          
        </div>
       <!-- </div> -->
 
@@ -294,6 +331,7 @@ const streamer = [
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-bottom: 5px;
 }
 .live-window {
   background-color: rgba(255, 255, 255, 0.8);

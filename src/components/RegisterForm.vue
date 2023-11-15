@@ -83,15 +83,4 @@ export default {
     font-size: 16px;
   }
 
-  button {
-    /* width: 100%; */
-    /* padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px; */
-  }
-
   </style>

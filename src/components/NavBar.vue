@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-900 text-white py3.5 px-6 shadow md:flex justify-between items-center">
+    <div class="bg-gray-900 text-white py-2 px-6 shadow md:flex justify-between items-center">
         <div class="flex items-center cursor-pointer">
             <img class="mr-2" alt="App logo" src="../assets/topNav/appImage.png">
             <!-- <a href="/">asdasd</a>
@@ -64,6 +64,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { RouterLink } from 'vue-router'
 
 // Navigation Bar
 const Links = [
@@ -133,10 +134,12 @@ const logout = () => {
   .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    top: 100%;
+    --tw-bg-opacity: 1;
+    background-color: rgb(17 24 39 / var(--tw-bg-opacity));
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     width: 40px;
-    z-index: 1;
+    z-index: 1px;
   }
 
   /* Style the dropdown options */
