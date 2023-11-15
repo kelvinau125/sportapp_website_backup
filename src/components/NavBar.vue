@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-900 text-white py-2 px-6 shadow md:flex justify-between items-center">
+    <div class="bg-gray-900 text-white py-2 px-6 shadow md:flex justify-between items-center content">
         <div class="flex items-center cursor-pointer">
             <img class="mr-2" alt="App logo" src="../assets/topNav/appImage.png">
             <!-- <a href="/">asdasd</a>
@@ -58,7 +58,7 @@
               </div>
             </div>
         </div>
-    </div>
+      </div>
 </template>
 
 <script setup>
@@ -112,6 +112,13 @@ const logout = () => {
 </script>
 
 <style>
+
+.live-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 5px;
+}
   .nav-button{
     width: 60px;
     background-color: #4C6B94;

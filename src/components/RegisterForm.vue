@@ -45,6 +45,7 @@
 
 <script>
 import ButtonCom from './ButtonPress.vue'
+
 export default {
   components: {
     ButtonCom

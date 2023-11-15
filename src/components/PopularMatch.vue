@@ -1,5 +1,4 @@
 <template>
-    <div class="flex-col content">
     <h2 class="text-2xl pr-5 py-5 font-semibold">热门赛程</h2>
         <!-- Overflow Setting -->
         <div class="flex gap-2 teamContainer overflow-auto">
@@ -159,7 +158,7 @@
           <!-- 全部赛程 Button -->
           <div class="w-10">
         <!-- <img src="../assets/content/TeamMenu.png" /> -->
-            <ButtonCom class="h-full flex flex-col justify-center items-center">
+            <ButtonCom @click="toAllMatchPage" class="h-full flex flex-col justify-center items-center">
               <div class="button">
                 <img class="" src="../assets/content/TeamMenu.png" alt="全部赛程" />
               </div>
@@ -174,39 +173,28 @@
 
       
     <!-- </div> -->
-    <h2 class="text-2xl pr-5 pt-5 font-semibold">热门主播榜</h2>
-    <div class="pb-10 pt-5 flex">
-      <img class="w-64" src="../assets/content/champion.png" />
-      <div class="md:mx-4 w-52 flex flex-col items-center py-3" v-for="link in streamer" :key ="link.link">
-        <div class="">
-          <!-- <img :src="require(`../assets/main/${link.image}.png`)" alt="Link Image" class="w-20 h-20" /> -->
-          <img :src="require(`../assets/topNav/${link.image}.png`)" alt="Link Image" class="" style="width: 50px; height: 50px;" />
-        </div>
-        <div>
-          <p class="text-base hover:text-green-500">{{ link.name }}</p>
-
-        </div>
-        <div class="flex items-center">
-          <p class="text-base hover:text-green-500">{{ link.no }}</p>
-          <img class="w-5 h-5" src="../assets/content/Frame.png" alt="Frame Icon" >
-
-        </div>
-      </div>
-
-    </div>
-  </div>
+    
 </template>
 
 <script setup>
 import ButtonCom from '../components/ButtonPress.vue'
+import { useRouter } from 'vue-router'
 
-const streamer = [
-  { name: '主播名称', image: 'defaultProfile', no: '1234' },
-  { name: '主播名称', image: 'defaultProfile', no: '1234' },
-  { name: '主播名称', image: 'defaultProfile', no: '1234' },
-  { name: '主播名称', image: 'defaultProfile', no: '1234' },
-  { name: '主播名称', image: 'defaultProfile', no: '1234' },
-  { name: '主播名称', image: 'defaultProfile', no: '520' }
-]
+// const streamer = [
+//   { name: '主播名称', image: 'defaultProfile', no: '1234' },
+//   { name: '主播名称', image: 'defaultProfile', no: '1234' },
+//   { name: '主播名称', image: 'defaultProfile', no: '1234' },
+//   { name: '主播名称', image: 'defaultProfile', no: '1234' },
+//   { name: '主播名称', image: 'defaultProfile', no: '1234' },
+//   { name: '主播名称', image: 'defaultProfile', no: '520' }
+// ]
+
+const router = useRouter();
+
+const toAllMatchPage = () => {
+  //Navigating
+  // router.push({ name: 'allMatch' })
+  router.push({ name: 'live' })
+}
 
 </script>

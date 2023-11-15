@@ -1,20 +1,22 @@
 <template>
-  <div class="w-full flex flex-col">
+  <div class="h-screen">
+    <div class="w-full flex flex-col">
     <div class="backgroundImg">
       <div class="live-container">
         <div class="live-window ">
-        <div>直播窗口内容</div>
-      </div>
+          <div>直播窗口内容</div>
+        </div>
       </div>
       <div class="live-container">
         <div class="epic grid grid-cols-5 gap-3">
-          <div class="rounded-xl">Image 1</div>
-          <div class="rounded-xl">Image 2</div>
-          <div class="rounded-xl">Image 3</div>
-          <div class="rounded-xl">Image 4</div>
-          <div class="rounded-xl">Image 5</div>
+          <img src="../assets/main/moment5.png" alt="" class="rounded-lg col-span-1">
+          <img src="../assets/main/moment5.png" alt="" class="rounded-lg col-span-1">
+          <img src="../assets/main/moment5.png" alt="" class="rounded-lg col-span-1">
+          <img src="../assets/main/moment5.png" alt="" class="rounded-lg col-span-1">
+          <img src="../assets/main/moment5.png" alt="" class="rounded-lg col-span-1">
         </div>
       </div>
+
     </div>
     
   </div>
@@ -24,29 +26,34 @@
     </div>
   </div>
   <!-- Live PopularMatch Components -->
-  <PopularMatch/>
+  <div class="flex-col content">
+    <PopularMatch/>
+    <h2 class="text-2xl pr-5 pt-5 font-semibold">热门主播榜</h2>
+    <div class="pb-10 pt-5 flex">
+      <img class="w-64" src="../assets/content/champion.png" />
+      <div class="md:mx-4 w-52 flex flex-col items-center py-3" v-for="link in streamer" :key ="link.link">
+        <div class="">
+          <img :src="require(`../assets/topNav/${link.image}.png`)" alt="Link Image" class="" style="width: 50px; height: 50px;" />
+        </div>
+        <div>
+          <p class="text-base hover:text-green-500">{{ link.name }}</p>
 
-  <!-- <div class="container bg-gray-900 text-white py3.5 px-6 shadow md:flex justify-between items-center ">
-    <div class="player-photo">
-      <img src="../assets/main/Messi.png" alt="Player 1" />
+        </div>
+        <div class="flex items-center">
+          <p class="text-base hover:text-green-500">{{ link.no }}</p>
+          <img class="w-5 h-5" src="../assets/content/Frame.png" alt="Frame Icon" >
+
+        </div>
+      </div>
+
     </div>
 
-    <div class="">
-      <img src="../assets/main/lebron.png" alt="Player 2" />
-    </div>
   </div>
-  <div class="home">
-    Big Container
-    <div>
-      广告
-      看全球比赛 上熊猫体育 精彩赛事
-    </div>
-    <div>
+  
+  
+  </div>
 
-      asd
-    </div>
-  </div> -->
-
+  
 </template>
 
 <script setup>
@@ -54,14 +61,14 @@
 import PopularMatch from '../components/PopularMatch.vue'
 // import FooterBar from '@/components/FooterPage.vue'
 
-// const streamer = [
-//   { name: '主播名称', image: 'defaultProfile', no: '1234' },
-//   { name: '主播名称', image: 'defaultProfile', no: '1234' },
-//   { name: '主播名称', image: 'defaultProfile', no: '1234' },
-//   { name: '主播名称', image: 'defaultProfile', no: '1234' },
-//   { name: '主播名称', image: 'defaultProfile', no: '1234' },
-//   { name: '主播名称', image: 'defaultProfile', no: '520' }
-// ]
+const streamer = [
+  { name: '主播名称', image: 'defaultProfile', no: '1234' },
+  { name: '主播名称', image: 'defaultProfile', no: '1234' },
+  { name: '主播名称', image: 'defaultProfile', no: '1234' },
+  { name: '主播名称', image: 'defaultProfile', no: '1234' },
+  { name: '主播名称', image: 'defaultProfile', no: '1234' },
+  { name: '主播名称', image: 'defaultProfile', no: '520' }
+]
 
 </script>
 
@@ -122,8 +129,7 @@ import PopularMatch from '../components/PopularMatch.vue'
   width: 50%;
   /* margin-inline-start: 15%;
   margin-inline-end: 15%; */
-  margin-top: 20px;
-  height: 150px;
+  height: 113px;
 }
 
 .advertisement{
@@ -197,7 +203,7 @@ import PopularMatch from '../components/PopularMatch.vue'
 }
 
 div {
-  /* border: 1px solid black; */
+  border: 1px solid black;
   display: block;
 }
 

@@ -1,9 +1,9 @@
 <template>
-  <div class="w-full bg-gray-900">
+  <div class="w-full bg-gray-900 ">
     <Navbar/>
   </div>
+  <router-view />
   <!-- <div class="" style="background-color:;"> -->
-    <router-view />
     <!-- <HomeView/> -->
   <!-- </div> -->
   <!-- Footer -->
@@ -40,12 +40,18 @@ import Navbar from './components/NavBar.vue'
 </script>
 
 <style scoped lang="scss">
+body, html {
+  margin: 0;
+  padding: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin: 0;
+  padding: 0;
 }
 
 .search-container {
@@ -147,48 +153,6 @@ nav {
       margin: 5px;
       justify-content: space-between;
     }
-
-  // .dropdown-icon{
-  //   cursor: pointer;
-  //   font-size: 20px;
-  //   margin-right: 10px;
-  //   display: flex;
-  //   align-items: center;
-  // }
-
-  // .dropdown {
-  //   position: relative;
-  //   display: inline-block;
-  // }
-
-  // .dropbtn {
-  //   background-color: transparent;
-  //   border: none;
-  //   cursor: pointer;
-  //   color: #2c3e50;
-  // }
-
-  // .dropdown-content {
-  //   display: none;
-  //   position: absolute;
-  //   background-color: #fff;
-  //   border: 2px solid #ccc;
-  //   padding: 10px;
-  //   min-width: 160px;
-  //   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  //   z-index: 1;
-
-  //   a {
-  //     padding: 10px;
-  //     text-decoration: none;
-  //     display: block;
-  //     color: #2c3e50;
-  //   }
-  // }
-
-  // .dropdown:hover .dropdown-content {
-  //   display: block;
-  // }
 
   a {
     font-weight: bold;
