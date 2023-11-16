@@ -1,6 +1,6 @@
 <template>
-  <div class="backgroundImg">
-      <div class="live-container">
+  <FavouritePage>
+    <div class="live-container">
         <div class="content">
           <div class="pt-6">
             <PopularMatch/>  
@@ -30,16 +30,13 @@
         </div>
       </div>
 
-    </div>
-    <div class="content">
-      
+  </FavouritePage>
 
-
-    </div>
 </template>
 
 <script setup>
 import PopularMatch from '../components/PopularMatch.vue'
+import FavouritePage from '@/components/BackGround.vue'
 
 const liveData = [
   { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'NAME',  streamerIcon: 'defaultStreamerIcon'},
@@ -47,24 +44,26 @@ const liveData = [
   { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'NAME',  streamerIcon: 'defaultStreamerIcon'},
   { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'NAME',  streamerIcon: 'defaultStreamerIcon'},
   { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
 ]
 
 
 </script>
 
 <style>
-.backgroundImg {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background-image: url('../assets/main/background_2.png');
-  background-size:cover ;
-  background-position: center;
-  width: 100%;
-  height: 650px;
-}
-
 
 .content{
   width: 50%;

@@ -21,7 +21,7 @@ const routes = [
   {
     path: '/favourite',
     name: 'favourite',
-    component: () => import('../views/smtgView.vue')
+    component: () => import('../views/FavouriteView.vue')
   },
   {
     path: '/register',
