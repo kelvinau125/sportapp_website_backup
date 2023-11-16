@@ -1,5 +1,5 @@
 <template>
-  <FavouritePage>
+  <BackgroundImage>
     <div class="live-container">
         <div class="content">
           <div class="pt-6">
@@ -29,14 +29,22 @@
           </main>
         </div>
       </div>
+      
 
-  </FavouritePage>
+  </BackgroundImage>
+  <div @click="scrollToTop" class="go-up">
+    <img src="../assets/goUp.png" />
+  </div>
 
 </template>
 
 <script setup>
 import PopularMatch from '../components/PopularMatch.vue'
-import FavouritePage from '@/components/BackGround.vue'
+import BackgroundImage from '@/components/BackGround.vue'
+
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+};
 
 const liveData = [
   { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'NAME',  streamerIcon: 'defaultStreamerIcon'},
@@ -64,6 +72,12 @@ const liveData = [
 </script>
 
 <style>
+.go-up {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+}
 
 .content{
   width: 50%;

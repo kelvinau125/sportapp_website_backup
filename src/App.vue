@@ -5,7 +5,10 @@
   <div>
     <router-view/>
   </div>
-  <button @click="scrollToTop">Scroll to top</button>
+  <div @click="scrollToTop" class="go-up">
+    <img src="./assets/goUp.png" />
+  </div>
+
 </template>
 <script setup>
 // import { ref } from 'vue'
@@ -45,8 +48,7 @@ const scrollToTop = () => {
   width: 100%;
   background-color: #F4F9F4;
   font-family: 'Inter', sans-serif;
-  /* overflow-x: hidden;
-  height: 100vh; */
+  height: 100vh;
 
 }
 

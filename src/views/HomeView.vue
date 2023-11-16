@@ -93,7 +93,7 @@ const streamer = [
 .backgroundImg {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   background-image: url('../assets/main/background_2.png');
   background-size:cover ;

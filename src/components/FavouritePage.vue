@@ -1,29 +1,21 @@
 <template>
-    <FavouritePage>
-      <div class="live-container">
-        <div class="live-window ">
-          <div>直播窗口内容</div>
-        </div>
+    <BackgroundImage>
+      <div>
+        Schedule
       </div>
-      <div class="live-container">
-        <div class="epic grid grid-cols-5 gap-3">
-          <img src="../assets/main/moment5.png" alt="" class="rounded-lg col-span-1">
-          <img src="../assets/main/moment5.png" alt="" class="rounded-lg col-span-1">
-          <img src="../assets/main/moment5.png" alt="" class="rounded-lg col-span-1">
-          <img src="../assets/main/moment5.png" alt="" class="rounded-lg col-span-1">
-          <img src="../assets/main/moment5.png" alt="" class="rounded-lg col-span-1">
-        </div>
+      <div>
+        Schedule
       </div>
-    </FavouritePage>
+    </BackgroundImage>  
   
 </template>
 
 <script>
-import FavouritePage from '@/components/BackGround.vue'
+import BackgroundImage from '@/components/BackGround.vue'
 
 export default {
   components: {
-    FavouritePage
+    BackgroundImage
   },
   name: 'HelloWorld',
   props: {
