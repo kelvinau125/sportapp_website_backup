@@ -5,19 +5,17 @@
   <div>
     <router-view/>
   </div>
+  <button @click="scrollToTop">Scroll to top</button>
 </template>
-<script>
+<script setup>
 // import { ref } from 'vue'
 import Navbar from './components/NavBar.vue'
 // import FooterPage from './components/FooterPage.vue'
 
-export default {
-  name: 'App',
-  components: {
-    Navbar,
-    // FooterPage
-  }
-}
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+};
+
 // import HomeView from './views/HomeView.vue'
 
 // const img = ref(require('./assets/topNav/football.png'))
@@ -47,8 +45,8 @@ export default {
   width: 100%;
   background-color: #F4F9F4;
   font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
-  height: 100vh;
+  /* overflow-x: hidden;
+  height: 100vh; */
 
 }
 
