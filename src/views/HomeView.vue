@@ -27,13 +27,14 @@
   </div>
   <!-- Live PopularMatch Components -->
   <div class="flex-col content">
+    <h2 class="text-2xl pr-5 py-5 font-semibold">热门赛程</h2>
     <PopularMatch/>
     <h2 class="text-2xl pr-5 pt-5 font-semibold">热门主播榜</h2>
     <div class="pb-10 pt-5 flex">
       <img class="w-64" src="../assets/content/champion.png" />
-      <div class="md:mx-4 w-52 flex flex-col items-center py-3" v-for="link in streamer" :key ="link.link">
+      <div class="md:mx-4 w-52 flex flex-col items-center py-3" v-for="link in streamer" :key ="link.streamer">
         <div class="">
-          <img :src="require(`../assets/topNav/${link.image}.png`)" alt="Link Image" class="" style="width: 50px; height: 50px;" />
+          <img :src="require(`../assets/topNav/${link.image}.png`)" alt="Link Image" style="width: 50px; height: 50px;" />
         </div>
         <div>
           <p class="text-base hover:text-green-500">{{ link.name }}</p>
@@ -50,10 +51,8 @@
 
   </div>
   
-  
   </div>
 
-  
 </template>
 
 <script setup>

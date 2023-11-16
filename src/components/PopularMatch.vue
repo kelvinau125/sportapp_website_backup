@@ -1,8 +1,7 @@
 <template>
-    <h2 class="text-2xl pr-5 py-5 font-semibold">热门赛程</h2>
         <!-- Overflow Setting -->
         <div class="flex gap-2 teamContainer overflow-auto">
-          <div class="" style="width: 215px;">
+          <div class="border" style="width: 215px;">
             <!-- 热门赛程 Header -->
           <div class="py-2 px-4 rounded-md flex justify-between" style="background-color: #D6F1DD;">
             <div class="headerContainer">
@@ -18,7 +17,7 @@
             </div>
           </div>
           <!-- 热门赛程 Contents -->
-          <div class="flex justify-between">
+          <div class="flex justify-between" style="background-color: white;">
             <div class="flex flex-col items-center">
               <div>2</div>
               <div>
@@ -40,7 +39,7 @@
             </div>
           </div>
           </div>  
-          <div class="" style="width: 215px;">
+          <div class="border" style="width: 215px;">
             <!-- 热门赛程 Header -->
           <div class="py-2 px-4 rounded-md flex justify-between" style="background-color: #D6F1DD;">
             <div class="headerContainer">
@@ -56,7 +55,7 @@
             </div>
           </div>
           <!-- 热门赛程 Contents -->
-          <div class="flex justify-between">
+          <div class="flex justify-between" style="background-color: white;">
             <div class="flex flex-col items-center">
               <div>2</div>
               <div>
@@ -78,7 +77,7 @@
             </div>
           </div>
           </div>  
-          <div class="" style="width: 215px;">
+          <div class="border" style="width: 215px;">
             <!-- 热门赛程 Header -->
           <div class="py-2 px-4 rounded-md flex justify-between" style="background-color: #D6F1DD;">
             <div class="headerContainer">
@@ -94,7 +93,7 @@
             </div>
           </div>
           <!-- 热门赛程 Contents -->
-          <div class="flex justify-between">
+          <div class="flex justify-between" style="background-color: white;">
             <div class="flex flex-col items-center">
               <div>2</div>
               <div>
@@ -116,7 +115,7 @@
             </div>
           </div>
           </div> 
-          <div class="" style="width: 215px;">
+          <div class="border" style="width: 215px;">
             <!-- 热门赛程 Header -->
           <div class="py-2 px-4 rounded-md flex justify-between" style="background-color: #D6F1DD;">
             <div class="headerContainer">
@@ -132,7 +131,7 @@
             </div>
           </div>
           <!-- 热门赛程 Contents -->
-          <div class="flex justify-between">
+          <div class="flex justify-between" style="background-color: white;">
             <div class="flex flex-col items-center">
               <div>2</div>
               <div>
@@ -158,7 +157,7 @@
           <!-- 全部赛程 Button -->
           <div class="w-10">
         <!-- <img src="../assets/content/TeamMenu.png" /> -->
-            <ButtonCom @click="toAllMatchPage" class="h-full flex flex-col justify-center items-center">
+            <ButtonCom @click="toAllMatchPage" class="border h-full flex flex-col justify-center items-center">
               <div class="button">
                 <img class="" src="../assets/content/TeamMenu.png" alt="全部赛程" />
               </div>
@@ -180,14 +179,6 @@
 import ButtonCom from '../components/ButtonPress.vue'
 import { useRouter } from 'vue-router'
 
-// const streamer = [
-//   { name: '主播名称', image: 'defaultProfile', no: '1234' },
-//   { name: '主播名称', image: 'defaultProfile', no: '1234' },
-//   { name: '主播名称', image: 'defaultProfile', no: '1234' },
-//   { name: '主播名称', image: 'defaultProfile', no: '1234' },
-//   { name: '主播名称', image: 'defaultProfile', no: '1234' },
-//   { name: '主播名称', image: 'defaultProfile', no: '520' }
-// ]
 
 const router = useRouter();
 
@@ -198,3 +189,18 @@ const toAllMatchPage = () => {
 }
 
 </script>
+
+<style>
+.teamContainer{
+  width: 100%;
+  height: 180px;
+  margin: auto;
+}
+
+.teamContainer .border{
+  width: 215px;
+  border: 1px solid rgba(156, 163, 175, 0.5);
+  border-radius: 0.375rem;
+}
+
+</style>

@@ -2,20 +2,22 @@
   <div class="w-full bg-gray-900 ">
     <Navbar/>
   </div>
-  <router-view />
-  <!-- <div class="" style="background-color:;"> -->
-    <!-- <HomeView/> -->
-  <!-- </div> -->
-  <!-- Footer -->
-  <!-- <div class="w-full">
-    <FooterPage/>
-  </div> -->
-
+  <div>
+    <router-view/>
+  </div>
 </template>
-<script setup>
+<script>
 // import { ref } from 'vue'
 import Navbar from './components/NavBar.vue'
 // import FooterPage from './components/FooterPage.vue'
+
+export default {
+  name: 'App',
+  components: {
+    Navbar,
+    // FooterPage
+  }
+}
 // import HomeView from './views/HomeView.vue'
 
 // const img = ref(require('./assets/topNav/football.png'))
@@ -39,19 +41,15 @@ import Navbar from './components/NavBar.vue'
 
 </script>
 
-<style scoped lang="scss">
-body, html {
-  margin: 0;
-  padding: 0;
-}
+<style>
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin: 0;
-  padding: 0;
+  width: 100%;
+  background-color: #F4F9F4;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  height: 100vh;
+
 }
 
 .search-container {
@@ -71,8 +69,6 @@ body, html {
 .search-icon {
   position: absolute;
   left: 10px;
-  // top: 50%;
-  // transform: translateY(-50%);
   width: 24px;
   height: 24px;
   padding-right: 3px;
@@ -93,11 +89,9 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // background-color: #092A5D;
   background-color: pink;
 
   .nav-div {
-    // border: 2px solid red;
     padding: 10px;
   }
 

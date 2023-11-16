@@ -1,192 +1,74 @@
 <template>
-    <div class="content">
-        <PopularMatch/>
+  <div class="backgroundImg">
+      <div class="live-container">
+        <div class="content">
+          <div class="pt-6">
+            <PopularMatch/>  
+          </div>
+          <main class="wrapper">
 
-        <main class="wrapper">
-        <h1>Products</h1>
-
-        <div class="card-container">
-            <div class="card">
-            
-            <div class="card-body">
-                <div class="absolute">
-                    <img src="../assets/live/LiveImage.png" class="" />
-                </div>
-                <div class="flex z-10 items-center">
-                    <div class="z-10 pr-1 pl-1">
-                    <img src="../assets/live/defaultStreamerIcon.png" />
+            <div class="card-container flex justify-start">
+                <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4" v-for="livedata in liveData" :key="livedata.liveData">
+                
+                  <div class="card-body relative">
+                    <img :src="require(`../assets/live/${livedata.image}.png`)" alt="Image" />
+                    <!-- <img src="../assets/live/LiveImage.png" class="" /> -->
+                      <div class="flex absolute bottom-0 items-center p-1 pb-2">
+                        <div class="pr-1 pl-1 z-10 w-10">
+                          <img :src="require(`../assets/live/${livedata.streamerIcon}.png`)" alt="Image" />
+                          <!-- <img src="../assets/live/defaultStreamerIcon.png" /> -->
+                        </div>
+                        <div class="flex flex-col pl-1 z-10 items-start">
+                            <div class="text-white text-sm">{{ livedata.liveTitle}}</div>
+                            <div class="text-xs font-bold">{{ livedata.streamerName}}</div>
+                        </div>
                     </div>
-                    <div class="flex-col z-10 pl-1">
-                        <div class="text-white text-base">直播标题</div>
-                        <div class="text-sm font-bold">主播昵称</div>
-                    </div>
+                  </div>
                 </div>
             </div>
-          </div>
-
-          <div class="card">
-            
-            <div class="card-body">
-              <form>
-                <div class="row">
-                  <div class="cell">
-                    <label>Type:</label>
-                  </div>
-                  <div class="cell">
-                    <em>Fruit</em>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="cell">
-                    <label>Price:</label>
-                  </div>
-                  <div class="cell">
-                    $1.62
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="cell">
-                    <label>Quantity:</label>
-                  </div>
-                  <div class="cell">
-                    <input type="number" value="0">
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-body">
-              <form>
-                <div class="row">
-                  <div class="cell">
-                    <label>Type:</label>
-                  </div>
-                  <div class="cell">
-                    <em>Fruit</em>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="cell">
-                    <label>Price:</label>
-                  </div>
-                  <div class="cell">
-                    $1.04
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="cell">
-                    <label>Quantity:</label>
-                  </div>
-                  <div class="cell">
-                    <input type="number" value="0">
-                  </div>
-                </div>
-              </form>
-            </div>
-   
-          </div>
-        
-          <div class="card">
-            
-            <div class="card-body">
-              <form>
-                <div class="row">
-                  <div class="cell">
-                    <label>Type:</label>
-                  </div>
-                  <div class="cell">
-                    <em>Vegetable</em>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="cell">
-                    <label>Price:</label>
-                  </div>
-                  <div class="cell">
-                    $4.82
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="cell">
-                    <label>Quantity:</label>
-                  </div>
-                  <div class="cell">
-                    <input type="number" value="0">
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-
-
-
+          </main>
         </div>
-      </main>
+      </div>
 
-
-        <!-- <div class="h-full">
-            <div class="rounded-sm grid grid-cols-3 px-5 h-44">
-                <div class="col-span-1 flex items-end">
-                    <div class="absolute">
-                        <img src="../assets/live/LiveImage.png" class="" />
-                    </div>
-                    <div class="flex z-10 items-center">
-                        <div class="z-10 pr-1 pl-1">
-                        <img src="../assets/live/defaultStreamerIcon.png" />
-                        </div>
-                        <div class="flex-col z-10 pl-1">
-                            <div class="text-white text-base">直播标题</div>
-                            <div class="text-sm font-bold">主播昵称</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-span-1 flex items-end">
-                    <div class="absolute">
-                        <img src="../assets/live/LiveImage.png" class="" />
-                    </div>
-                    <div class="flex z-10 items-center">
-                        <div class="z-10 pr-1 pl-1">
-                        <img src="../assets/live/defaultStreamerIcon.png" />
-                        </div>
-                        <div class="flex-col z-10 pl-1">
-                            <div class="text-white text-base">直播标题</div>
-                            <div class="text-sm font-bold">主播昵称</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-span-1 flex items-end">
-                    <div class="relative">
-                        <img src="../assets/live/LiveImage.png" class="" />
-                    </div>
-
-                </div>
-                <div class="col-span-1 flex items-end">
-                    <div class="">
-                        <img src="../assets/live/LiveImage.png" class="" />
-                    </div>
-                </div>
-
-                
-            </div>
-        </div> -->
     </div>
+    <div class="content">
+      
 
 
-    
+    </div>
 </template>
 
 <script setup>
 import PopularMatch from '../components/PopularMatch.vue'
 
+const liveData = [
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'NAME',  streamerIcon: 'defaultStreamerIcon'},
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'NAME',  streamerIcon: 'defaultStreamerIcon'},
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'NAME',  streamerIcon: 'defaultStreamerIcon'},
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'NAME',  streamerIcon: 'defaultStreamerIcon'},
+  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
+]
+
 
 </script>
 
 <style>
+.backgroundImg {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-image: url('../assets/main/background_2.png');
+  background-size:cover ;
+  background-position: center;
+  width: 100%;
+  height: 650px;
+}
+
+
 .content{
   width: 50%;
+  max-width: 960px;
   height: 100px;
   margin: auto;
 }
@@ -195,74 +77,36 @@ import PopularMatch from '../components/PopularMatch.vue'
     width: 100%;
     max-width: 960px;
     margin: 0px auto;
-    padding-top: 35px;
+    padding-top: 20px;
 }
 
 .card-container{
     display: flex;
-    justify-content: space-between;
-
-}
-
-.card-container{
-    flex-wrap: wrap
-
+    flex-wrap: wrap;
+    gap: 35px;
 }
 
 .card{
     display: inline-block;
     width: 290px;
+    margin-bottom: -35px; 
     /* background: $cardBackground; */
-    margin-bottom: 20px;
     /* color: $cardTextColor; */
     /* &:hover i
         opacity: 1.0; */
 
 }
-.card-title{
-    /* +truncate; */
-    width: 100%;
-    /* background: $cardHeaderBackground; */
-    padding: 10px;
-    font-size: 22px;
 
-
-}
 .card-body{
-    /* border: 1px solid $cardBorder; */
-    border-top: 0px;
-    border-bottom: 0px;
     text-align: center;
-    i{
-        display: block;
-        color: var(--bodyTextColor);
-        opacity: 0.8;
-
-    }
-    label{
-        display: inline-block;
-        font-weight: bold;
-        /* &:first-of-type
-            margin-top: 0px; */
-
-    }
-    input{
-        width: 100px;
-        /* border: 1px solid $cardBorder; */
-        padding: 4px;
-
-    }
-    .cell{
-        align-items: center;
-        width: 50%;
-        min-height: 2em;
-        padding: 3px 4px;
-        /* &:first-of-type
-            justify-content: end; */
-
-    }
+    height: 161px;
+    width: 100%;
+    
 
 }
 
+.card-body img {
+    width: 100%;
+}
 
 </style>
