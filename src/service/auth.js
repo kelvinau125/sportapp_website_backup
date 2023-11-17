@@ -2,10 +2,14 @@ import CryptoJS from 'crypto-js';
 
 import { postRequest } from '@/service/apiRequestMethod';
 import { setCookie } from '@/service/cookie';
+import { 
+  baseUrl,
+  loginUrl
+ } from '@/utils/apiConfig.js';
 
 
 export async function loginUser(countryCode, phoneNumber, password) {
-  const url = 'http://localhost:8080/api/v1/login/do-login';
+  const url = baseUrl + loginUrl;
 
   // phone number format reformat
   const phoneNo = (countryCode + phoneNumber).replace('+', '');
