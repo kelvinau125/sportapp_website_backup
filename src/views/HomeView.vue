@@ -33,7 +33,7 @@
     <div class="pb-10 pt-5 flex">
       <img class="w-64" src="../assets/content/champion.png" />
       <div class="md:mx-4 w-52 flex flex-col items-center py-3" v-for="link in streamer" :key ="link.streamer">
-        <div class="">
+        <div>
           <img :src="require(`../assets/topNav/${link.image}.png`)" alt="Link Image" style="width: 50px; height: 50px;" />
         </div>
         <div>

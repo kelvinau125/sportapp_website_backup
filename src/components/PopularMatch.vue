@@ -1,12 +1,12 @@
 <template>
         <!-- Overflow Setting -->
         <div class="flex gap-2 teamContainer overflow-auto">
-          <div class="border bg-white-400" style="width: 215px; height: 180px;">
+          <div class="border" style="width: 215px; height: 180px;">
             <!-- 热门赛程 Header -->
           <div class="py-2 px-4 flex justify-between" style="background-color: #D6F1DD;">
             <div class="headerContainer">
-              <div class="text-sm">
-                欧冠
+              <div class="headerBorder text-sm flex justify-center">
+                <span>欧冠</span>
               </div>
             </div>
             <div class="text-base">
@@ -185,7 +185,7 @@ const router = useRouter();
 const toAllMatchPage = () => {
   //Navigating
   // router.push({ name: 'allMatch' })
-  router.push({ name: 'live' })
+  router.push({ name: 'AllMatch' })
 }
 
 </script>
@@ -198,10 +198,16 @@ const toAllMatchPage = () => {
 }
 
 .teamContainer .border{
-  width: 215px;
+  width: 100%;
   border: 1px solid rgba(156, 163, 175, 0.5);
   border-radius: 0.375rem;
-  /* background-color: red; */
+  /* background-color: white; */
+}
+
+.headerBorder{
+  width: 45px;
+  background-color: white;
+  border-radius: 49px;
 }
 
 </style>

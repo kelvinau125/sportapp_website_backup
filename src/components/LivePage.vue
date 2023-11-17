@@ -10,7 +10,7 @@
             <div class="card-container flex justify-start">
                 <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4" v-for="livedata in liveData" :key="livedata.liveData">
                 
-                  <div class="card-body relative">
+                  <div @click="toLiveStream" class="card-body relative">
                     <img :src="require(`../assets/live/${livedata.image}.png`)" alt="Image" />
                     <!-- <img src="../assets/live/LiveImage.png" class="" /> -->
                       <div class="flex absolute bottom-0 items-center p-1 pb-2">
@@ -38,6 +38,7 @@
 <script setup>
 import PopularMatch from '../components/PopularMatch.vue'
 import BackgroundImage from '@/components/BackGround.vue'
+import { useRouter } from 'vue-router'
 
 
 const liveData = [
@@ -62,6 +63,14 @@ const liveData = [
   { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
 ]
 
+
+const router = useRouter();
+
+const toLiveStream = () => {
+  //Navigating
+  //Push to the Live Page
+  router.push({ name: 'LiveStream' })
+}
 
 </script>
 
@@ -105,6 +114,7 @@ const liveData = [
     text-align: center;
     height: 161px;
     width: 100%;
+    cursor: pointer;
     
 }
 

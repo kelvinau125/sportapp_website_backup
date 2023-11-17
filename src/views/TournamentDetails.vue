@@ -1,0 +1,4 @@
+<template>
+
+    TOURNAMENT DETAILS
+</template>
