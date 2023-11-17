@@ -44,13 +44,18 @@
                 </div>
             </div>
             <div class="md:flex items-center pl-1">
+              <login-modal
+                :show-modal="isLoginModalVisible"
+                :close-modal="closeLoginModal"
+              />
               <div @click="toggleDropdownProfile" >
                 <img src="../assets/topNav/defaultProfile.png" alt="Profile Picture" />
                 <div v-show="showDropdown" class="absolute bg-gray-900 mt-1 p-1 py-3">
                   <div class="pr-1 pt-1 pb-2 ">
                 <!-- 注册Button -->
                     <router-link to="/register" class="px-1 hover:text-green-500 text-white">注册</router-link>
-                    <router-link to="/login" class="px-1 text-white">登入</router-link>
+                    <router-link to="/test" class="px-1 text-white">登入</router-link>
+                    <button @click="showLoginModal">登入</button>
                   </div>
                 <!-- Dropdown content, e.g., Logout link -->
                   <router-link v-if="loggedIn" @click="logout" class="block text-black">退出登入</router-link>
@@ -62,53 +67,65 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+  import { ref } from 'vue';
+  import { useRouter } from 'vue-router';
+  import LoginModal from './LoginModal.vue';
 
-// Navigation Bar
-const Links = [
-  { name: '首页', link: '/' },
-  { name: '直播', link: '/about' },
-  { name: '收藏', link: '/favourite' }
-]
+  // Navigation Bar
+  const Links = [
+    { name: '首页', link: '/' },
+    { name: '直播', link: '/about' },
+    { name: '收藏', link: '/favourite' }
+  ];
 
-const img = ref(require('../assets/topNav/football.png'))
-const isDropdownOpen = ref(false)
+  const img = ref(require('../assets/topNav/football.png'));
+  const isDropdownOpen = ref(false);
 
-const toggleDropdown = () => {
-  isDropdownOpen.value = !isDropdownOpen.value
-}
+  const toggleDropdown = () => {
+    isDropdownOpen.value = !isDropdownOpen.value;
+  };
 
-const selectOption = (image) => {
-  console.log(image)
-  img.value = image // Update the default image when an option is selected
-  isDropdownOpen.value = false // Close the dropdown
-}
+  const selectOption = (image) => {
+    console.log(image);
+    img.value = image; // Update the default image when an option is selected
+    isDropdownOpen.value = false; // Close the dropdown
+  };
 
-const searchText = ref('')
+  const searchText = ref('');
 
-// const clearSearch = () => {
-//   searchText.value = ''
-// }
+  // const clearSearch = () => {
+  //   searchText.value = ''
+  // }
 
-// Profile
-const showDropdown = ref(false)
-const loggedIn = ref(false)
+  // Profile
+  const showDropdown = ref(false);
+  const loggedIn = ref(false);
 
-const toggleDropdownProfile = () => {
-  showDropdown.value = !showDropdown.value
-}
+  const toggleDropdownProfile = () => {
+    showDropdown.value = !showDropdown.value;
+  };
 
-const router = useRouter()
-const logout = () => {
-  // Perform logout logic
-  // For example, redirect to the login page
-  router.push('/login')
-  // Update the loggedIn state accordingly
-  loggedIn.value = false
-}
+  const router = useRouter();
+  const logout = () => {
+    // Perform logout logic
+    // For example, redirect to the login page
+    router.push('/login');
+    // Update the loggedIn state accordingly
+    loggedIn.value = false;
+  };
 
+  // Login Modal
+  const isLoginModalVisible = ref(false);
+
+  const showLoginModal = () => {
+    isLoginModalVisible.value = true;
+  };
+
+  const closeLoginModal = () => {
+    isLoginModalVisible.value = false;
+  };
 </script>
+
 
 <style>
   .nav-button{
@@ -162,10 +179,11 @@ const logout = () => {
     font-weight: bold;
     color: #2c3e50;
 
-    &.router-link-exact-active {
-      color: #42b983;
-      /* color: white; */
-    }
+  }
+  
+  a.router-link-exact-active {
+    color: #42b983;
+    /* color: white; */
   }
 
 </style>

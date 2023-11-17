@@ -33,6 +33,11 @@ const routes = [
     path: '/login',
     name: 'LoginForm',
     component: LoginForm
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import('../components/testTest.vue')
   }
 ]
 
