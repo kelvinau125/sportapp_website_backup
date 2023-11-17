@@ -66,25 +66,35 @@
         bindPropsUserInfo: {},
         };
     },
+
     methods: {
         async login() {
-        const countryCode = this.countryCode; // Set your countryCode here
-        const phoneNumber = this.phoneNumber; // Set your phoneNumber here
-        const password = this.password; // Set your password here
+            if ( (
+            this.countryCode !== null && this.countryCode !== undefined && this.countryCode.trim() !== '' &&
+            this.phoneNumber !== null && this.phoneNumber !== undefined && this.phoneNumber.trim() !== '' &&
+            this.password !== null && this.password !== undefined && this.password.trim() !== ''
+            )) {
 
-        const result = await loginUser(countryCode, phoneNumber, password);
+                const countryCode = this.countryCode; // Set your countryCode here
+                const phoneNumber = this.phoneNumber; // Set your phoneNumber here
+                const password = this.password; // Set your password here
 
-        if (result) {
-            console.log('Successfully logged in');
-            this.phoneNumber = '';
-            this.password = '';
+                const result = await loginUser(countryCode, phoneNumber, password);
 
-            // close the modal and refresh the page
-            this.closeModal();
-            window.location.reload();
-        } else {
-            console.log('Login failed');
-        }
+                if (result) {
+                    console.log('Successfully logged in');
+                    this.phoneNumber = '';
+                    this.password = '';
+
+                    // close the modal and refresh the page
+                    this.closeModal();
+                    window.location.reload();
+                } else {
+                    console.log('Login failed');
+                }
+            } else {
+                console.log('Empty contant number or password');
+            }
         },
     },
     };
