@@ -1,10 +1,11 @@
-//vue.config.js (localhost proxy)
+//vue.config.js (localhost proxy) -- no use one need go vue.config.js to change
 // export const proxyurl = 'http://localhost:8080/'; 
 
 //Base Url for all API
 export const baseUrl = 'http://localhost:8080/'; 
-// static const String baseUrl = 'http://192.168.0.41:8080'; //jim ip
-// static const String baseUrl = 'https://192.168.67.109:8080'; //virtual ip
+// export const baseUrl = 'http://192.168.0.41:8080'; //jim ip
+// export const baseUrl = 'https://192.168.67.109:8080'; //virtual ip
+// export const baseUrl = 'http://192.168.0.49:8080/'; //phillip ip
 
 // Login
 export const loginBaseUrl = '/api/v1/login';

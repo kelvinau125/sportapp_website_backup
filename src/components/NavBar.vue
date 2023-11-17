@@ -58,7 +58,7 @@
                     <button @click="showLoginModal">登入</button>
                   </div>
                 <!-- Dropdown content, e.g., Logout link -->
-                  <router-link v-if="loggedIn" @click="logout" class="block text-black">退出登入</router-link>
+                  <button v-if="loggedIn" @click="logout" class="block text white">退出登入</button>
                 </div>
               </div>
             </div>
@@ -67,9 +67,13 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+  import { ref, onMounted } from 'vue';
   import { useRouter } from 'vue-router';
   import LoginModal from './LoginModal.vue';
+  import VueCookies from 'vue-cookies';
+
+  // import the remove cookie function
+  import { removeCookie } from '@/service/cookie';
 
   // Navigation Bar
   const Links = [
@@ -100,6 +104,20 @@
   // Profile
   const showDropdown = ref(false);
   const loggedIn = ref(false);
+  console.log(loggedIn)
+
+  onMounted(() => {
+  // Check if the userToken is present in cookies
+  if (VueCookies.isKey('userToken')) {
+    // User is logged in
+    loggedIn.value = true;
+    console.log(loggedIn)
+  } else {
+    // User is not logged in
+    loggedIn.value = false;
+    // You can perform additional logic here, like redirecting to the login page
+  }
+  });
 
   const toggleDropdownProfile = () => {
     showDropdown.value = !showDropdown.value;
@@ -109,6 +127,7 @@
   const logout = () => {
     // Perform logout logic
     // For example, redirect to the login page
+    removeCookie();
     router.push('/login');
     // Update the loggedIn state accordingly
     loggedIn.value = false;

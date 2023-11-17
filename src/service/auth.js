@@ -8,6 +8,7 @@ import {
  } from '@/utils/apiConfig.js';
 
 
+// User Login
 export async function loginUser(countryCode, phoneNumber, password) {
   const url = baseUrl + loginUrl;
 
@@ -47,6 +48,7 @@ export async function loginUser(countryCode, phoneNumber, password) {
   }
 }
 
+// Login Password Hash Function
 export function hashPassword(password) {
   const salt = '1a2b3c4d';
   const saltedPassword = '' + salt[0] + salt[2] + password + salt[5] + salt[4];
