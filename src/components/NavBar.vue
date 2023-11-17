@@ -2,15 +2,13 @@
     <div class="bg-gray-900 text-white py-2 px-6 shadow md:flex justify-between items-center ">
         <div class="flex items-center cursor-pointer">
             <img class="mr-2" alt="App logo" src="../assets/topNav/appImage.png">
-            <!-- <a href="/">asdasd</a>
-            <a href="/about">ABC</a> -->
             <router-link to="/" class="text-xl hover:text-green-500">
               <span class="text-xl text-green-500"> {{ $t("PandaSport") }}</span>
             </router-link>
 
             <ul class="md:flex md:items-center pl-5">
             <li class="md:mx-4" v-for="link in Links" :key ="link.link">
-                <router-link :to="link.link" class="text-xl hover:text-green-500 text-white">{{ link.name }}</router-link>
+                <router-link :to="link.link" class="text-base hover:text-green-500 text-white">{{ link.name }}</router-link>
             </li>
             </ul>
         </div>
@@ -88,9 +86,6 @@ const selectOption = (image) => {
 
 const searchText = ref('')
 
-// const clearSearch = () => {
-//   searchText.value = ''
-// }
 
 // Profile
 const showDropdown = ref(false)

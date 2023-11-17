@@ -2,7 +2,7 @@
   <BackgroundImage>
     <div class="live-container">
         <div class="content">
-          <div class="pt-6">
+          <div class="pt-6 ">
             <PopularMatch/>  
           </div>
           <main class="wrapper">
@@ -32,9 +32,6 @@
       
 
   </BackgroundImage>
-  <div @click="scrollToTop" class="go-up">
-    <img src="../assets/goUp.png" />
-  </div>
 
 </template>
 
@@ -42,9 +39,6 @@
 import PopularMatch from '../components/PopularMatch.vue'
 import BackgroundImage from '@/components/BackGround.vue'
 
-const scrollToTop = () => {
-  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-};
 
 const liveData = [
   { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'NAME',  streamerIcon: 'defaultStreamerIcon'},
@@ -71,12 +65,12 @@ const liveData = [
 
 </script>
 
-<style>
-.go-up {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  cursor: pointer;
+<style scoped>
+.live-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 5px;
 }
 
 .content{
@@ -97,16 +91,13 @@ const liveData = [
     display: flex;
     flex-wrap: wrap;
     gap: 35px;
+    /* row-gap: 35px; */
 }
 
 .card{
     display: inline-block;
     width: 290px;
     margin-bottom: -35px; 
-    /* background: $cardBackground; */
-    /* color: $cardTextColor; */
-    /* &:hover i
-        opacity: 1.0; */
 
 }
 
@@ -115,7 +106,6 @@ const liveData = [
     height: 161px;
     width: 100%;
     
-
 }
 
 .card-body img {

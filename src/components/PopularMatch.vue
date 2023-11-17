@@ -1,9 +1,9 @@
 <template>
         <!-- Overflow Setting -->
         <div class="flex gap-2 teamContainer overflow-auto">
-          <div class="border" style="width: 215px;">
+          <div class="border bg-white-400" style="width: 215px; height: 180px;">
             <!-- 热门赛程 Header -->
-          <div class="py-2 px-4 rounded-md flex justify-between" style="background-color: #D6F1DD;">
+          <div class="py-2 px-4 flex justify-between" style="background-color: #D6F1DD;">
             <div class="headerContainer">
               <div class="text-sm">
                 欧冠
@@ -30,7 +30,7 @@
               <div class="pt-1">VS</div>
             </div>
             <div class="flex flex-col items-center">
-              <div>1</div>
+              <div>12</div>
               <div>
                 <img src="../assets/content/Badge.png" />
               </div>
@@ -201,6 +201,7 @@ const toAllMatchPage = () => {
   width: 215px;
   border: 1px solid rgba(156, 163, 175, 0.5);
   border-radius: 0.375rem;
+  /* background-color: red; */
 }
 
 </style>

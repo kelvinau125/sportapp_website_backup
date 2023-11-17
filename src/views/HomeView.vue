@@ -1,7 +1,8 @@
 <template>
-  <div class="h-screen">
+  <!-- <div style="height: 150rem" /> -->
     <div class="w-full flex flex-col">
-    <div class="backgroundImg">
+    <BackgroundImage>
+
       <div class="live-container">
         <div class="live-window ">
           <div>直播窗口内容</div>
@@ -17,15 +18,14 @@
         </div>
       </div>
 
-    </div>
+    </BackgroundImage>
     
   </div>
-  <div class="content ">
+  <div class="content ">  
     <div class="live-container">
       <img class="banner mt-5 pb-4" src="../assets/main/advertisment.png" alt="Banner" />
     </div>
   </div>
-  <!-- Live PopularMatch Components -->
   <div class="flex-col content">
     <h2 class="text-2xl pr-5 py-5 font-semibold">热门赛程</h2>
     <PopularMatch/>
@@ -46,11 +46,7 @@
 
         </div>
       </div>
-
     </div>
-
-  </div>
-  
   </div>
 
 </template>
@@ -59,6 +55,7 @@
 // import { ref } from 'vue'
 import PopularMatch from '../components/PopularMatch.vue'
 // import FooterBar from '@/components/FooterPage.vue'
+import BackgroundImage from '@/components/BackGround.vue'
 
 const streamer = [
   { name: '主播名称', image: 'defaultProfile', no: '1234' },
@@ -72,35 +69,7 @@ const streamer = [
 </script>
 
 <style>
-.container {
-  /* background-image: url('../assets/main/footballCourt.png'); */
-  margin-left: 260px;
-  /* background-size: cover;
-  background-position: center; */
-  /* height: 50vh; */
 
-}
-
-.headerContainer{
-  background-color: white;
-  border-radius: 30px;
-  width: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.backgroundImg {
-  display: flex;
-  flex-direction: column;
-  /* justify-content: space-between; */
-  align-items: center;
-  background-image: url('../assets/main/background_2.png');
-  background-size:cover ;
-  background-position: center;
-  width: 100%;
-  height: 650px;
-}
 .live-container {
   display: flex;
   justify-content: center;
@@ -111,14 +80,10 @@ const streamer = [
   background-color: rgba(255, 255, 255, 0.8);
   padding: 20px;
   border-radius: 10px;
-  /* margin-inline-start: 25%; */
-  /* margin-inline-end: 25%; */
-  /* width: 50% ; */
   width: 50vw;
   height: 50vh;
   margin-top: 20px;
   height: 450px;
-  /* 添加其他样式以定义直播窗口的外观 */
 }
 
 .epic {
@@ -202,18 +167,9 @@ const streamer = [
 }
 
 div {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: block;
 }
 
-/* .matchInfoList .all_match_btn[data-v-2fa142d2] {
-    display: block;
-    width: 50px;
-    height: 156px;
-    position: absolute;
-    right: 0px;
-    top: 10px;
-    background: url(https://88zb.hhtlkp.cn/webImgs/changeSkin/kqzb-theme/public/all_match.png) 50% center / 100% 100% no-repeat;
-}  */
 
 </style>
