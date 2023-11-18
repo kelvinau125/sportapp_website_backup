@@ -16,7 +16,15 @@ import Navbar from './components/NavBar.vue'
 // import FooterPage from './components/FooterPage.vue'
 
 const scrollToTop = () => {
-  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  // 添加了overflow导致scrollToTop功能失效，
+  // 因为window.scrollTo只能滚动到可滚动元素的顶部，而不是整个窗口的顶部。
+  // 可以将滚动操作应用于#app元素而不是window
+
+  const appElement = document.getElementById('app');
+  if (appElement) {
+    appElement.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    console.log(appElement);
+  }
 };
 
 // import HomeView from './views/HomeView.vue'
@@ -31,7 +39,7 @@ const scrollToTop = () => {
   width: 100%;
   background-color: #F4F9F4;
   font-family: 'Inter', sans-serif;
-  /* overflow-x: hidden; */
+  overflow-x: auto;
   height: 100vh;
 }
 

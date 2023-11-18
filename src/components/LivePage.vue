@@ -1,7 +1,7 @@
 <template>
   <BackgroundImage>
     <div class="live-container">
-        <div class="">
+        <div class="content">
           <div class="pt-6 ">
             <PopularMatch/>  
           </div>
@@ -32,6 +32,11 @@
       
 
   </BackgroundImage>
+  <div class="w-1/2 flex">
+    <PopularMatch/>  
+
+  </div>
+
 
 </template>
 

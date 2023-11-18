@@ -23,7 +23,7 @@
   <div class="flex flex-col content">  
     <img class="banner mt-5 pb-4" src="../assets/main/advertisment.png" alt="Banner" />
 
-    <div class="" style="border: 10px solid green;">
+    <div class="">
       <h2 class="text-2xl pr-5 py-5 font-semibold">热门赛程</h2>
       <PopularMatch/>
       <div class="pb-10 pt-5">
@@ -81,7 +81,7 @@ const epicMoment = [
 
 </script>
 
-<style scoped>
+<style>
 
 .live-container{
   display: flex;
