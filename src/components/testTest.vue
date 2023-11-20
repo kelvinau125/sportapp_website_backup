@@ -8,7 +8,6 @@
   <button @click="logout">logout</button>
 <div style="height: 150rem" />
 
-
 </template>
 
 <script>

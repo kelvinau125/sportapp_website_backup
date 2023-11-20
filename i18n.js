@@ -13,7 +13,7 @@ function loadLocalMessages(){
 }
 
 export default createI18n({
-    locale : 'EN',
+    locale : 'ZH',
     fallbackLocale: 'EN',
     messages: loadLocalMessages()
 })

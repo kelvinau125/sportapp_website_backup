@@ -9,11 +9,13 @@ import {
 
 
 // User Login
-export async function loginUser(countryCode, phoneNumber, password) {
+export async function loginUser(countryCode, password) {
   const url = baseUrl + loginUrl;
 
   // phone number format reformat
-  const phoneNo = (countryCode + phoneNumber).replace('+', '');
+  const phoneNo = (countryCode).replace('+', '').replace(/\s/g, '');
+
+  console.log(phoneNo);
 
   // Assuming you have a hashPassword function
   const encryptedPassword = hashPassword(password);

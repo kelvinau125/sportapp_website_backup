@@ -1,1 +1,14 @@
-{"english":"英文"}
+{
+    "Home":"首页",
+    "Live":"直播",
+    "Favourite":"收藏",
+    "PandaSport": "熊猫体育",
+    "Welcome Back, Please Login": "欢迎回来, 登录使用！",
+    "Please Enter Password": "请输入密码",
+    "Forgot Password?": "忘记密码？",
+    "Login": "登入",
+    "Already Have An Account? ": "已经有帐户？",
+    "Register Now": "立刻注册",
+    "Please Enter Correct Password": "请输入正确的密码",
+    "Phone Number and Password cannot be empty": "电话号码和密码不能为空"
+}

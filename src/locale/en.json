@@ -1,1 +1,14 @@
-{"english":"english"}
+{
+    "Home":"Home",
+    "Live":"Live",
+    "Favourite":"Favourite",
+    "PandaSport": "Panda Sport",
+    "Welcome Back, Please Login": "Welcome Back, Please Login",
+    "Please Enter Password": "Please Enter Password",
+    "Forgot Password?": "Forgot Password?",
+    "Login": "Login",
+    "Already Have An Account? ": "Already Have An Account? ",
+    "Register Now": "Register Now",
+    "Please Enter Correct Password": "Please Enter Correct Password",
+    "Phone Number and Password cannot be empty": "Phone Number and Password cannot be empty"
+}
