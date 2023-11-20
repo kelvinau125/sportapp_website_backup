@@ -2,5 +2,15 @@
     "Home":"Home",
     "Live":"Live",
     "Favourite":"Favourite",
-    "PandaSport": "Panda Sport"
+    "PandaSport": "Panda Sport",
+    "Monday": "Monday",
+    "Tuesday": "Tuesday",
+    "Wednesday": "Wednesday",
+    "Thursday": "Thursday",
+    "Friday": "Friday",
+    "Saturday": "Saturday",
+    "Sunday": "Sunday",
+    "Today" : "Today"
+  
+    
 }

@@ -6,7 +6,6 @@
             <PopularMatch/>  
           </div>
           <main class="wrapper">
-
             <div class="card-container flex justify-start">
                 <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4" v-for="livedata in liveData" :key="livedata.liveData">
                 
@@ -29,14 +28,7 @@
           </main>
         </div>
       </div>
-      
-
   </BackgroundImage>
-  <div class="w-1/2 flex">
-    <PopularMatch/>  
-
-  </div>
-
 
 </template>
 
@@ -98,7 +90,6 @@ const toLiveStream = () => {
     width: 100%;
     max-width: 960px;
     margin: 0px auto;
-    padding-top: 20px;
 }
 
 .card-container{

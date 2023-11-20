@@ -26,8 +26,8 @@
     <div class="">
       <h2 class="text-2xl pr-5 py-5 font-semibold">热门赛程</h2>
       <PopularMatch/>
-      <div class="pb-10 pt-5">
-        <h2 class="text-2xl pr-5 pt-5 font-semibold">热门主播榜</h2>
+      <div class="pb-10">
+        <h2 class="text-2xl pr-5 py-5 font-semibold">热门主播榜</h2>
         <div class="flex">
           <img class="w-64" src="../assets/content/champion.png" />
           <div class="md:mx-4 w-52 flex flex-col items-center py-3" v-for="link in streamer" :key ="link.streamer">
@@ -190,8 +190,8 @@ const epicMoment = [
 }
 
 div {
-  border: 1px solid black;
-  }
+  /* border: 1px solid black; */
+}
 
 
 </style>

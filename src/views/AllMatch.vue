@@ -20,7 +20,6 @@
             </div>
             <div>
               <img src="../assets/content/Unfavourite.png" />
-
             </div>
           </div>
           <div class="flex justify-between">
