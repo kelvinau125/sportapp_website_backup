@@ -5,7 +5,6 @@ import RegisterView from '../views/RegisterView.vue'
 import LoginForm from '../views/LoginView.vue'
 import AllMatch from '../views/AllMatch.vue'
 import TournamentDetails from '../views/TournamentDetails.vue'
-import LiveStream from '../views/LiveStream.vue'
 
 const routes = [
   {
@@ -50,7 +49,7 @@ const routes = [
   {
     path: '/live_stream',
     name: 'LiveStream',
-    component: LiveStream
+    component: () => import('../views/LiveStreamView.vue')
   }
 ]
 

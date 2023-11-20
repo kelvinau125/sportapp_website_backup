@@ -11,6 +11,9 @@ module.exports = {
       backgroundColor: {
         'hoverGreen': '#D6F1DD',
       },
+      textColor:{
+        'grayText': '#FFFFFF',
+      }
 
     },
   },

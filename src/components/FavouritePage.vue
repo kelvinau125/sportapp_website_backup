@@ -228,8 +228,6 @@ const matchDetails = [
 .date-slider{
   background-color: #F5F5F5;
   border-radius: 8px;
-  /* width: 100%; */
-  /* height: 100%; */
   padding-left: 10px;
   padding-right: 10px;
   overflow: auto;
