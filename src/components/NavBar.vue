@@ -44,18 +44,29 @@
                 </div>
             </div>
             <div class="md:flex items-center pl-1">
+              <!-- login modal -->
               <login-modal
-                :show-modal="isLoginModalVisible"
-                :close-modal="closeLoginModal"
+                :showModal="isLoginModalVisible"
+                :closeModal="closeLoginModal"
               />
+
+              <!-- register modal -->
+              <register-modal
+                :showRegModal="isResgitserModalVisible"
+                :closeRegModal="closeRegisterModal"
+              />
+              
               <div @click="toggleDropdownProfile" >
                 <img src="../assets/topNav/defaultProfile.png" alt="Profile Picture" />
                 <div v-show="showDropdown" class="absolute bg-gray-900 mt-1 p-1 py-3">
                   <div class="pr-1 pt-1 pb-2 ">
                 <!-- 注册Button -->
-                    <router-link to="/register" class="px-1 hover:text-green-500 text-white">注册</router-link>
+                    <!-- <router-link to="/register" class="px-1 hover:text-green-500 text-white">注册</router-link> -->
+                    <button class="px-1" @click="showRegisterModal">注册</button>
+                    <br>
+                    <button class="px-1" @click="showLoginModal">登入</button>
+                    <br>
                     <router-link to="/test" class="px-1 text-white">登入</router-link>
-                    <button @click="showLoginModal">登入</button>
                   </div>
                 <!-- Dropdown content, e.g., Logout link -->
                   <button v-if="loggedIn" @click="logout" class="block text white">退出登入</button>
@@ -70,6 +81,7 @@
   import { ref, onMounted } from 'vue';
   import { useRouter } from 'vue-router';
   import LoginModal from './LoginModal.vue';
+  import RegisterModal from './RegisterModal.vue';
   import VueCookies from 'vue-cookies';
 
   // import the remove cookie function
@@ -142,6 +154,17 @@
 
   const closeLoginModal = () => {
     isLoginModalVisible.value = false;
+  };
+
+  // Register Modal
+  const isResgitserModalVisible = ref(false);
+
+  const showRegisterModal = () => {
+    isResgitserModalVisible.value = true;
+  };
+
+  const closeRegisterModal = () => {
+    isResgitserModalVisible.value = false;
   };
 </script>
 

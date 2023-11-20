@@ -18,15 +18,6 @@
             <!-- <input placeholder="请输入手机号码"  type="text" id="phone"  v-model="phoneNumber" required /> -->
         </div>
 
-
-        <!-- <div class="form-group">
-            <div class="password-container">
-            <input placeholder="请输入密码" type="password" id="password" v-model="password" required />
-            <button class="button mr-1.5">
-                <img class="" src="../assets/hide.png" />
-            </button>
-            </div>
-        </div> -->
         <div class="form-group">
             <div class="password-container">
             <input
@@ -36,11 +27,11 @@
             v-model="password"
             required
             />
-            <button class="button mr-1.5">
+            <div class="button mr-1.5">
                 <!-- <img :src="passwordVisibility ? '@/assets/hide.png' : '@/assets/hide.png'" /> -->
                 <img v-if="passwordVisibility" src="../assets/unhide.png" alt="UnHide Password" @click="togglePasswordVisibility" />
                 <img v-else src="../assets/hide.png" alt="Hide Password" @click="togglePasswordVisibility" />
-            </button>
+            </div>
             </div>
         </div>
 
@@ -68,7 +59,7 @@
     import 'vue-tel-input/vue-tel-input.css';
 
     // import to run the login function
-    import { loginUser } from '@/service/auth.js';
+    import { loginUser } from '@/service/apiProvider.js';
 
     export default {
     components:{
@@ -88,6 +79,7 @@
         countryCode: '',
         bindPropsUserInfo: {
             inputOptions: { showDialCode: true, tabindex: 0 },
+            validCharactersOnly: true
         },
         warningMessage: '',
         passwordVisibility: false,
@@ -102,27 +94,48 @@
 
     methods: {
         async login() {
-            if ( (
-            this.countryCode !== null && this.countryCode !== undefined && this.countryCode.trim() !== '' &&
-            this.password !== null && this.password !== undefined && this.password.trim() !== ''
-            )) {
-                const countryCode = this.countryCode; // Set your countryCode here
-                const password = this.password; // Set your password here
-
-                const result = await loginUser(countryCode, password);
-
-                if (result) {
-                    this.password = '';
-
-                    // close the modal and refresh the page
-                    this.closeModal();
-                    window.location.reload();
-                } else {
-                    this.warningMessage = this.$t("Please Enter Correct Password");
-                }
-            } else {
-                this.warningMessage = this.$t("Phone Number and Password cannot be empty");
+        // validation of phone number
+        if (this.countryCode.startsWith('+60') || this.countryCode.startsWith('+86')){
+            if(this.countryCode.trim().length < 12){
+                this.warningMessage = this.$t("Please enter the correct phone number");
+                return;
             }
+        } else{
+            if(this.countryCode.trim().length < 8){
+                this.warningMessage = this.$t("Please enter the correct phone number");
+                return;
+            }
+        }
+
+        // validate empty value
+        if ( (
+        this.countryCode === null || this.countryCode === undefined || this.countryCode.trim() === ''
+        )) {
+            this.warningMessage = this.$t("Phone Number cannot be empty");
+            return;
+        }
+        
+        if ( (
+        this.password === null || this.password === undefined || this.password.trim() === ''
+        )) {
+            this.warningMessage = this.$t("Password cannot be empty");
+            return;
+        }
+
+
+        const countryCode = this.countryCode; // Set your countryCode here
+        const password = this.password; // Set your password here
+
+        const result = await loginUser(countryCode, password);
+
+        if (result) {
+            // close the modal and refresh the page
+            this.closeModal();
+            window.location.reload();
+        } else {
+            this.warningMessage = this.$t("Please Enter Correct Password");
+        }
+
         },
         togglePasswordVisibility() {
             this.passwordVisibility = !this.passwordVisibility;
