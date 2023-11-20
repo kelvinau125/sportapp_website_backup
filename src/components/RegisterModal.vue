@@ -66,8 +66,7 @@
             <div class="pt-12">
                 <ButtonCom @click="register" class="w-screen">{{ $t("Register") }}</ButtonCom>
                 <div class="flex justify-center" style="padding: 20px">
-                    <!-- <p>{{ $t("Already Have An Account? ") }} <router-link to = "/register" class="text-green-500">{{ $t("Login Now") }} </router-link></p> -->
-                     <p>{{ $t("Already Have An Account? ") }} <router-link to = "/register" class="text-green-500">{{ $t("Login Now") }} </router-link></p>
+                    <p>{{ $t("Already Have An Account? ") }}  <button class="text-green-500" @click="routerPush()">{{ $t("Login Now") }}</button></p>
                 </div>
             </div>
         </form>
@@ -92,6 +91,7 @@
     props: {
         showRegModal: Boolean,
         closeRegModal: Function,
+        showLoginModal: Function,
     },
 
     data() {
@@ -188,16 +188,28 @@
                 // close the modal and refresh the page
                 this.closeRegModal();
                 window.location.reload();
+                // show the login modal
+                this.showLoginModal();
             } else {
                 this.warningMessage = this.$t("Please Enter Correct Password");
             }
         },
+        
         togglePasswordVisibility() {
             this.passwordVisibility = !this.passwordVisibility;
         },
+
         togglePasswordVisibility2nd() {
             this.passwordVisibility2nd = !this.passwordVisibility2nd;
         },
+
+        routerPush() {
+            // close the modal and refresh the page
+            this.closeRegModal();
+
+            // show the login modal
+            this.showLoginModal();
+        }
     },
     };
 </script>

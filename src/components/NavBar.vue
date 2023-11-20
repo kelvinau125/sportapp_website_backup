@@ -48,12 +48,14 @@
               <login-modal
                 :showModal="isLoginModalVisible"
                 :closeModal="closeLoginModal"
+                :showRegisterModal="showRegisterModal"
               />
 
               <!-- register modal -->
               <register-modal
                 :showRegModal="isResgitserModalVisible"
                 :closeRegModal="closeRegisterModal"
+                :showLoginModal="showLoginModal"
               />
               
               <div @click="toggleDropdownProfile" >
@@ -80,12 +82,13 @@
 <script setup>
   import { ref, onMounted } from 'vue';
   import { useRouter } from 'vue-router';
-  import LoginModal from './LoginModal.vue';
-  import RegisterModal from './RegisterModal.vue';
   import VueCookies from 'vue-cookies';
 
   // import the remove cookie function
   import { removeCookie } from '@/service/cookie';
+
+  import LoginModal from './LoginModal.vue';
+  import RegisterModal from './RegisterModal.vue';
 
   // Navigation Bar
   const Links = [

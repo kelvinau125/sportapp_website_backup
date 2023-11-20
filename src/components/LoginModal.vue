@@ -45,7 +45,7 @@
         <div class="pt-12">
             <ButtonCom @click="login" class="w-screen">{{ $t("Login") }}</ButtonCom>
             <div class="flex justify-center" style="padding: 20px">
-                <p>{{ $t("Already Have An Account? ") }} <router-link to = "/register" class="text-green-500">{{ $t("Register Now") }} </router-link></p>
+                <p>{{ $t("Already Have An Account? ") }} <button class="text-green-500" @click="routerPush()">{{ $t("Register Now") }}</button></p>
             </div>
         </div>
     </form>
@@ -70,6 +70,7 @@
     props: {
         showModal: Boolean,
         closeModal: Function,
+        showRegisterModal: Function,
     },
 
     data() {
@@ -114,7 +115,7 @@
             this.warningMessage = this.$t("Phone Number cannot be empty");
             return;
         }
-        
+
         if ( (
         this.password === null || this.password === undefined || this.password.trim() === ''
         )) {
@@ -137,9 +138,19 @@
         }
 
         },
+
         togglePasswordVisibility() {
             this.passwordVisibility = !this.passwordVisibility;
         },
+
+        routerPush() {
+            // show the login modal
+            this.showRegisterModal();
+
+            // close the modal and refresh the page
+            this.closeModal();
+        }
+    
     },
     };
 </script>
