@@ -8,7 +8,7 @@
      </button>
 
     <!-- login -->
-    <form @submit.prevent="login">
+    <form @submit.prevent="">
         <h2 class="text-xl font-bold" style="padding: 20px">{{ $t("Welcome Back, Please Login") }}</h2>
         <div class="form-group flex">
             <!-- https://vuejsexamples.com/international-telephone-input-with-vue/ -->

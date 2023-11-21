@@ -8,7 +8,7 @@
          </button>
     
         <!-- Register -->
-        <form @submit.prevent="register">
+        <form @submit.prevent="">
             <h2 class="text-xl font-bold" style="padding: 20px">{{ $t('Welcome to Register, Get Started!') }}</h2>
 
             <div class="form-group flex">
@@ -80,30 +80,43 @@
     import 'vue-tel-input/vue-tel-input.css';
 
     // import to run the register function
-    import { registerUser } from '@/service/apiProvider.js';
+    // import { registerUser } from '@/service/apiProvider.js';
+    
+    // import to run the get otp function
+    import { getOTP } from '@/service/apiProvider.js';
+
+    // import to run the register function
+    // import userDetails from '@/components/OTPVerification.vue';
+
+    // import to run cookie
+    import { setCookieRegister } from '@/service/cookie';
 
     export default {
     components:{
         VueTelInput,
         ButtonCom,
+
     },
 
     props: {
         showRegModal: Boolean,
         closeRegModal: Function,
         showLoginModal: Function,
+        showOTPModal: Function,
     },
 
     data() {
         return {
-        username: '',
+        nickName: '',
         password: '',
         password2nd: '',
         countryCode: '',
+
         bindPropsUserInfo: {
             inputOptions: { showDialCode: true, tabindex: 0 },
             validCharactersOnly: true
         },
+
         passwordVisibility: false,
         passwordVisibility2nd: false,
 
@@ -178,23 +191,51 @@
                 return;
             }
 
+            // this.closeRegModal();
+            // // show verify otp page
+            // this.showOTPModal();
+
+            // const nickname = this.nickName
+            // const countryCode = this.countryCode;
+            // const password = this.password;
+
+            // const result = await registerUser(nickname, countryCode, password);
+
+            // if (result) {
+            //     // close the modal and refresh the page
+            //     this.closeRegModal();
+            //     // show verify otp page
+            //     this.showOTPModal();
+
+            //     // this.closeRegModal();
+            //     // window.location.reload();
+            //     // // show the login modal
+            //     // this.showLoginModal();
+            // } else {
+            //     this.warningMessage = this.$t("Please Enter Correct Password");
+            // }
+
             const nickname = this.nickName
-            const countryCode = this.countryCode; // Set your countryCode here
-            const password = this.password; // Set your password here
+             // phone number format reformat
+            const countryCode = (this.countryCode).replace('+', '').replace(/\s/g, '');  
+            const password = this.password;
 
-            const result = await registerUser(nickname, countryCode, password);
+            const result = await getOTP(countryCode, "1");
 
-            if (result) {
+            if (result === true) {
+                setCookieRegister(nickname,countryCode,password)
+                console.log(countryCode);
                 // close the modal and refresh the page
                 this.closeRegModal();
-                window.location.reload();
-                // show the login modal
-                this.showLoginModal();
+                // show verify otp page
+                this.showOTPModal();
+            } else if (result === false) {
+                this.warningMessage = "Please check your network";
             } else {
-                this.warningMessage = this.$t("Please Enter Correct Password");
+                this.warningMessage = result;
             }
         },
-        
+
         togglePasswordVisibility() {
             this.passwordVisibility = !this.passwordVisibility;
         },

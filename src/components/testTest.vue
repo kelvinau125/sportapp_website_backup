@@ -1,55 +1,120 @@
 <template>
-  <vue-tel-input v-model="countryCode"  v-bind="bindPropsUserInfo" :inputOptions="{ showDialCode: true, tabindex: 0 }"/>
-  <br>
-  <p v-if="isLoggedIn">Hello, {{ getUsername }}!</p>
-  <br>
-  <button @click="login">Login</button>
-  <br>
-  <button @click="logout">logout</button>
-<div style="height: 150rem" />
-
+  <form @submit.prevent="handleSubmit">
+    <div v-for="(controller, index) in controllers" :key="index" class="digit-input">
+      <input
+        v-model="controller.value"
+        @input="handleInput(index)"
+        @focus="handleFocus(index)"
+        @blur="handleBlur(index)"
+        :class="{ 'green-border': controller.value !== '' }"
+        type="text"
+        maxlength="1"
+        class="digit-field"
+        ref="inputRefs"
+      />
+    </div>
+    <button @click="readValues">Read Values</button>
+  </form>
 </template>
 
 <script>
-import { VueTelInput } from 'vue-tel-input'
-import 'vue-tel-input/vue-tel-input.css';
-import VueCookies from 'vue-cookies'
-import { mapActions } from 'vuex'
-
 export default {
-  components: {
-    VueTelInput,
-  },
-  
   data() {
     return {
-      countryCode: '',
+      controllers: [
+        { value: '' },
+        { value: '' },
+        { value: '' },
+        { value: '' },
+      ],
     };
   },
-
-  computed: {
-    // ...mapGetters(['isLoggedIn', 'username']),
-    isLoggedIn() {
-      return this.$store.getters.isLoggedIn
-    },
-    getUsername() {
-      return this.$store.getters.username
-    },
-  },
-  
   methods: {
-    ...mapActions(['login', 'logout']),
+    handleInput(index) {
+      let inputValue = this.controllers[index].value;
 
-    login() {
-      // Implement your login logic here
-      console.log('Logging in...');
-      console.log('Selected Country Code:', this.countryCode);
+      // Check if the entered value is a digit
+      if (typeof inputValue === 'string') {
+        inputValue = inputValue.replace(/\D/g, ''); // Remove non-digit characters
+      }
+
+      // Check if inputValue is still a string before proceeding
+      if (typeof inputValue === 'string') {
+        this.controllers[index].value = inputValue;
+      }
+
+      if (this.controllers[index].value.length === 1) {
+        this.focusNext(index);
+      } else if (this.controllers[index].value.length === 0) {
+        this.focusPrevious(index);
+      }
     },
-    logout() {
-      VueCookies.remove('userToken');
-      VueCookies.remove('phoneNumber');
-      VueCookies.remove('token');
+    
+    handleFocus(index) {
+      // Handle focus if needed
+      console.log(`Input focused at index ${index}`);
     },
+
+    handleBlur(index) {
+      // Handle blur if needed
+      console.log(`Input blurred at index ${index}`);
+    },
+
+    focusNext(index) {
+      if (index < this.controllers.length - 1) {
+        const nextInput = this.$refs.inputRefs[index + 1];
+        if (nextInput) {
+          nextInput.focus();
+        }
+      } else {
+        // Last input, submit or do something else
+      }
+    },
+
+    focusPrevious(index) {
+      if (index > 0) {
+        const prevInput = this.$refs.inputRefs[index - 1];
+        if (prevInput) {
+          prevInput.focus();
+        }
+      } else {
+        // First input, do something if needed
+      }
+    },
+
+    handleSubmit() {
+      // Handle form submission
+    },
+
+    readValues() {
+      const values = this.controllers.map(controller => controller.value);
+      console.log('Input values:', values);
+    },
+
   },
-}
+};
 </script>
+
+<style scoped>
+.digit-input {
+  display: inline-block;
+  margin-right: 10px; /* Adjust as needed */
+}
+
+.digit-field {
+  height: 60px; /* Adjust as needed */
+  width: 70px; /* Adjust as needed */
+  text-align: center;
+  font-size: 22px; /* Adjust as needed */
+  border: 1px solid #ccc; /* Adjust as needed */
+  border-radius: 6px; /* Adjust as needed */
+  margin-bottom: 10px; /* Adjust as needed */
+}
+
+.green-border {
+  border: 3px solid  rgb(34 197 94); /* Change to your desired color */
+}
+
+
+/* Add other styles as needed */
+</style>

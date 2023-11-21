@@ -6,6 +6,6 @@ module.exports = defineConfig({
 module.exports = {
   devServer: {
     // proxy: 'https://www.mindark.cloud:8080/'
-    proxy: 'http://192.168.0.41:8080/'
+    proxy: 'http://202.75.51.63:8080/'
   }
 };

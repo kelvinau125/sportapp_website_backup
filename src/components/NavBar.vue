@@ -45,16 +45,23 @@
             </div>
             <div class="md:flex items-center pl-1">
               <!-- login modal -->
-              <login-modal
+              <LoginModal
                 :showModal="isLoginModalVisible"
                 :closeModal="closeLoginModal"
                 :showRegisterModal="showRegisterModal"
               />
 
               <!-- register modal -->
-              <register-modal
+              <RegisterModal
                 :showRegModal="isResgitserModalVisible"
                 :closeRegModal="closeRegisterModal"
+                :showLoginModal="showLoginModal"
+                :showOTPModal = "showOTPModal"
+              />
+
+              <OTPModal
+                :showOTPModal="isOTPModalVisible"
+                :closeOTPModal="closeOTPModal"
                 :showLoginModal="showLoginModal"
               />
               
@@ -89,6 +96,7 @@
 
   import LoginModal from './LoginModal.vue';
   import RegisterModal from './RegisterModal.vue';
+  import OTPModal from './OTPVerification.vue';
 
   // Navigation Bar
   const Links = [
@@ -168,6 +176,17 @@
 
   const closeRegisterModal = () => {
     isResgitserModalVisible.value = false;
+  };
+
+  // OTP Modal
+  const isOTPModalVisible = ref(false);
+
+  const showOTPModal = () => {
+    isOTPModalVisible.value = true;
+  };
+
+  const closeOTPModal = () => {
+    isOTPModalVisible.value = false;
   };
 </script>
 
