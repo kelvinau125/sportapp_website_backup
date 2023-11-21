@@ -12,7 +12,7 @@ module.exports = {
         'hoverGreen': '#D6F1DD',
       },
       textColor:{
-        'grayText': '#FFFFFF',
+        'grayText': '#999999',
       },
       fontWeight: {
         'headerWeight' : '600',

@@ -115,12 +115,29 @@ const formatDayOfWeek = (date) => (isToday(date) ? 'Today' : format(date, 'EEEE'
 
 
 const prevWeek = () => {
+  const slider = document.querySelector('.date-slider');
+  if (slider) {
+    slider.scrollBy({
+      left: -100, // 调整此值以更改滚动速度
+      behavior: 'smooth',
+    });
+  }
   currentDate.value = addDays(currentDate.value, -7);
 };
 
 const nextWeek = () => {
+  const button = document.querySelector('.next-week-button'); // 将类名替换为你实际的类名
+  const slider = document.querySelector('.date-slider');
+  if (slider && button) {
+    slider.scrollBy({
+      left: button.offsetWidth, // 使用按钮的宽度作为滚动距离
+      behavior: 'smooth',
+    });
+  }
   currentDate.value = addDays(currentDate.value, 7);
 };
+
+
 
 const selectDate = (date) => {
   selectedDate.value = date;
@@ -232,5 +249,18 @@ const matchDetails = [
   padding-right: 10px;
   overflow: auto;
 }
+
+.date-slider {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  scroll-snap-type: x mandatory;
+}
+
+.date-item {
+  flex-shrink: 0;
+  scroll-snap-align: center;
+}
+
 
 </style>

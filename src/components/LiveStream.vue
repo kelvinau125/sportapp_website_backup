@@ -19,7 +19,7 @@
         </div>
 
         <span class="text-lg font-semibold pl-20 pt-5" >其他直播推荐</span>
-        <main class="wrapper">
+        <main class="live_wrapper">
             <div class="card-container flex justify-start pl-12 pb-12">
                 <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4" v-for="(livedata, index) in liveData.slice(0, 10)"
                     :key="index">
@@ -79,7 +79,7 @@ const liveData = [
 
 }
 
-.wrapper {
+.live_wrapper {
     width: 100%;
     /* max-width: 1600px; */
     margin: 0px auto;
