@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-900 text-white py-2 px-6 shadow md:flex justify-between items-center ">
+    <div class="bg-gray-900 text-white py-2 px-6 shadow md:flex justify-between items-center">
         <div class="flex items-center cursor-pointer">
             <img class="mr-2" alt="App logo" src="../assets/topNav/appImage.png">
             <router-link to="/" class="text-xl hover:text-green-500">
@@ -45,7 +45,7 @@
               <div @click="toggleDropdownProfile" >
                 <img src="../assets/topNav/defaultProfile.png" alt="Profile Picture" />
                 <div v-show="showDropdown" class="absolute bg-gray-900 mt-1 p-1 py-3">
-                  <div class="pr-1 pt-1 pb-2 flex flex-col">
+                  <div class="pr-1 pt-1 pb-2 flex flex-c">
                 <!-- 注册Button -->
                     <router-link to="/register" class="px-1 hover:text-green-500 text-white">注册</router-link>
                     <router-link to="/login" class="px-1 text-white">登入</router-link>
@@ -68,7 +68,8 @@ import { RouterLink } from 'vue-router'
 const Links = [
   { name: '首页', link: '/' },
   { name: '直播', link: '/live' },
-  { name: '收藏', link: '/favourite' }
+  { name: '收藏', link: '/favourite' },
+  { name: 'TEST', link: '/test' }
 ]
 
 const img = ref(require('../assets/topNav/football.png'))

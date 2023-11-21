@@ -50,6 +50,11 @@ const routes = [
     path: '/live_stream',
     name: 'LiveStream',
     component: () => import('../views/LiveStreamView.vue')
+  },
+  {
+    path: '/test',
+    name: 'testTest',
+    component: () => import('../components/HelloWorld.vue')
   }
 ]
 

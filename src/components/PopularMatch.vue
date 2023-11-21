@@ -1,10 +1,10 @@
 <template>
   <!-- Overflow Setting -->
   <div class="flex gap-2 teamContainer overflow-auto ">
-    <div class="w-full" v-for="match in matchDetails" :key="match.matchDetails"  >
+    <div class="w-full" v-for="match in matchDetails" :key="match.matchDetails" >
       <div class="border" style="width: 215px; height: 136px; border-radius: 8px;">
         <!-- 热门赛程 Header -->
-        <div class="py-2 px-4 flex justify-between" style="background-color: #D6F1DD; ">
+        <div class="py-2 px-4 flex justify-between rounded-t-lg" style="background-color: #D6F1DD;">
           <div class="headerContainer">
             <div class="headerBorder text-sm flex justify-center">
               <span>{{ match.matchType}}</span>
@@ -18,7 +18,7 @@
           </div>
         </div>
         <!-- 热门赛程 Contents -->
-        <div class="flex justify-between" style="background-color: white; ">
+        <div class="flex justify-between rounded-b-lg" style="background-color: white;">
           <div class="flex flex-col items-center">
             <div> {{ match.homeTeamScore }}</div>
             <div>

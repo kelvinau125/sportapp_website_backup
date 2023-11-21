@@ -13,6 +13,12 @@ module.exports = {
       },
       textColor:{
         'grayText': '#FFFFFF',
+      },
+      fontWeight: {
+        'headerWeight' : '600',
+      },
+      fontSize:{
+        'headerFont' : '18px',
       }
 
     },
