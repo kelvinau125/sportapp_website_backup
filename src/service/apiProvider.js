@@ -109,8 +109,7 @@ export async function registerUser(userNickname, phoneNumber, password) {
 // Get OTP
 export async function getOTP(phoneNumber, codes) {
   // phone number format reformat
-  // const phoneNo = (phoneNumber).replace('+', '').replace(/\s/g, '');
-  const phoneNo = phoneNumber;
+  const phoneNo = (phoneNumber).replace('+', '').replace(/\s/g, '');
 
   const url = baseUrl + sendMsgUrl + codes + "/" + phoneNo;
 
@@ -131,15 +130,6 @@ export async function getOTP(phoneNumber, codes) {
       return 'Unsuccessfully get otp';
     }
 
-    // if (code === 0) {
-    //   console.log(`OTP sent successfully: ${code}`);
-    //   return code;
-    // }
-    // else {
-    //   console.log(`Unsuccessfully get otp: ${code}`);
-    //   return code;
-    // }
-
   } catch (e) {
     console.log(`Unsuccessful in provider: ${e}`);
     return false;
@@ -148,17 +138,10 @@ export async function getOTP(phoneNumber, codes) {
 
 // Verify OTP
 export async function verifyOTP(phoneNumber, OTP, code) {
-  const url = baseUrl + verifyMsgUrl + "/" + 1;
+  const url = baseUrl + verifyMsgUrl + "/" + code;
 
   // phone number format reformat
-  // const phoneNo = (phoneNumber).replace('+', '').replace(/\s/g, '');
-  // const phoneNo = (phoneNumber).replace('+', '');
-  const phoneNo = phoneNumber;
-
-  console.log(url)
-  console.log(phoneNumber)
-  console.log(OTP)
-  console.log(code)
+  const phoneNo = (phoneNumber).replace('+', '').replace(/\s/g, '');
 
   const apiDetails = {
     mobile: phoneNo,
@@ -172,10 +155,6 @@ export async function verifyOTP(phoneNumber, OTP, code) {
     const data = response.data;
 
     if (code === 0) {
-      const token = data.token;
-      const mobile = data.mobile;
-
-      setCookie(token, mobile);
 
       if (data !== '') {
         return true;

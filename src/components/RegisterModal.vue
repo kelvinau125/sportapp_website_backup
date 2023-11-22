@@ -78,9 +78,6 @@
     import ButtonCom from './ButtonPress.vue';
     import { VueTelInput } from 'vue-tel-input'
     import 'vue-tel-input/vue-tel-input.css';
-
-    // import to run the register function
-    // import { registerUser } from '@/service/apiProvider.js';
     
     // import to run the get otp function
     import { getOTP } from '@/service/apiProvider.js';
@@ -191,39 +188,15 @@
                 return;
             }
 
-            // this.closeRegModal();
-            // // show verify otp page
-            // this.showOTPModal();
-
-            // const nickname = this.nickName
-            // const countryCode = this.countryCode;
-            // const password = this.password;
-
-            // const result = await registerUser(nickname, countryCode, password);
-
-            // if (result) {
-            //     // close the modal and refresh the page
-            //     this.closeRegModal();
-            //     // show verify otp page
-            //     this.showOTPModal();
-
-            //     // this.closeRegModal();
-            //     // window.location.reload();
-            //     // // show the login modal
-            //     // this.showLoginModal();
-            // } else {
-            //     this.warningMessage = this.$t("Please Enter Correct Password");
-            // }
-
             const nickname = this.nickName
-             // phone number format reformat
-            const countryCode = (this.countryCode).replace('+', '').replace(/\s/g, '');  
-            const password = this.password;
+            const countryCode = this.countryCode 
+            const password = this.password
 
             const result = await getOTP(countryCode, "1");
 
             if (result === true) {
                 setCookieRegister(nickname,countryCode,password)
+
                 console.log(countryCode);
                 // close the modal and refresh the page
                 this.closeRegModal();

@@ -53,8 +53,7 @@
     import { removeCookieRegister } from '@/service/cookie';
 
     // import to run the register function
-    import { verifyOTP } from '@/service/apiProvider.js';
-    // import { verifyOTP, registerUser } from '@/service/apiProvider.js';
+    import { verifyOTP, registerUser } from '@/service/apiProvider.js';
 
     export default {
     components:{
@@ -88,21 +87,21 @@
             const result = await verifyOTP(VueCookies.get('mobile'), OTPvalue, "1");
 
             if (result) {
-                // const result = await registerUser(VueCookies.get('nickname'),VueCookies.get('mobile'),VueCookies.get('password'));
-                const result = true;
+                const result = await registerUser(VueCookies.get('nickname'),VueCookies.get('mobile'),VueCookies.get('password'));
+                // const result = true;
 
                 if (result) {
                 // remove cookie
                 removeCookieRegister();
+
                 // close the modal and refresh the page
                 this.closeOTPModal();
+
+                window.location.reload();
+
                 // show the login modal
                 this.showLoginModal();
 
-                // this.closeRegModal();
-                // window.location.reload();
-                // // show the login modal
-                // this.showLoginModal();
                 } else {
                     this.warningMessage = "Please check internet connection";
                 }
