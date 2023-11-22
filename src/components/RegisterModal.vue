@@ -82,11 +82,8 @@
     // import to run the get otp function
     import { getOTP } from '@/service/apiProvider.js';
 
-    // import to run the register function
-    // import userDetails from '@/components/OTPVerification.vue';
-
-    // import to run cookie
-    import { setCookieRegister } from '@/service/cookie';
+    // pass value to OTPVerficaition.vue
+    import { mapActions } from 'vuex'
 
     export default {
     components:{
@@ -131,6 +128,8 @@
     },
 
     methods: {
+        ...mapActions(['register']),
+
         async register() {
             // validate phone number
             if (this.countryCode.startsWith('+60') || this.countryCode.startsWith('+86')){
@@ -192,16 +191,18 @@
             const countryCode = this.countryCode 
             const password = this.password
 
+            // send OTP to user phone
             const result = await getOTP(countryCode, "1");
 
             if (result === true) {
-                setCookieRegister(nickname,countryCode,password)
+                // pass value to OTPVerficaition.vue
+                this.$store.dispatch('register', { nickName: nickname, phoneNumber: countryCode, password: password, userId: 1 })
 
-                console.log(countryCode);
-                // close the modal and refresh the page
+                // close the modal
                 this.closeRegModal();
                 // show verify otp page
                 this.showOTPModal();
+                
             } else if (result === false) {
                 this.warningMessage = "Please check your network";
             } else {

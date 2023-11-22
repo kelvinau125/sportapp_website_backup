@@ -24,8 +24,6 @@
                 ref="inputRefs"
                 />
             </div>
-
-            <!-- <button @click="readValues">Read Values</button> -->
     
             <!-- Warning message -->
             <div v-if="warningMessage" class="warning-message">
@@ -35,7 +33,7 @@
             <div class="pt-12">
                 <ButtonCom @click="verify" class="w-screen">验证</ButtonCom>
                 <div class="flex justify-center" style="padding: 20px">
-                    <p>没有收到验证码？<button class="text-green-500" @click="routerPush()">再次发送</button></p>
+                    <p>没有收到验证码？<button class="text-green-500" @click="sendAgain()">再次发送</button></p>
                 </div>
             </div>
         </form>
@@ -49,15 +47,31 @@
     // get user cookie
     import VueCookies from 'vue-cookies';
 
-    // import the remove cookie function
-    import { removeCookieRegister } from '@/service/cookie';
-
     // import to run the register function
     import { verifyOTP, registerUser } from '@/service/apiProvider.js';
+
+    // import to run the get otp function
+    import { getOTP } from '@/service/apiProvider.js';
+
+    // fetch data from RegisterModal.vue
+    import { mapActions } from 'vuex'
 
     export default {
     components:{
         ButtonCom,
+    },
+
+    // get the data passed from RegisterModal.vue (data at the store/index.js)
+    computed: {
+        getUserNickname() {
+        return this.$store.getters.nickName
+        },
+        getUserPhoneNumber() {
+        return this.$store.getters.phoneNumber
+        },
+        getUserDataPassword() {
+        return this.$store.getters.password
+        },
     },
 
     props: {
@@ -80,6 +94,8 @@
     },
 
     methods: {
+        ...mapActions(['registerDone']),
+
         async verify() {
             const OTPvalue = (this.controllers.map(controller => controller.value).join('')).toString();
             console.log('Input values:', OTPvalue);
@@ -87,20 +103,21 @@
             const result = await verifyOTP(VueCookies.get('mobile'), OTPvalue, "1");
 
             if (result) {
-                const result = await registerUser(VueCookies.get('nickname'),VueCookies.get('mobile'),VueCookies.get('password'));
-                // const result = true;
+                // run save the user data to server
+                const result = await registerUser(this.getUserNickname,this.getUserPhoneNumber,this.getUserDataPassword);
 
                 if (result) {
-                // remove cookie
-                removeCookieRegister();
+                // the stored data in vuex
+                this.$store.dispatch('registerDone', {})
 
-                // close the modal and refresh the page
+                // close the modal
                 this.closeOTPModal();
 
+                // open the modal with delay (1000 = 1 second)
                 window.location.reload();
-
-                // show the login modal
+                setTimeout(() => {
                 this.showLoginModal();
+                }, 1000);
 
                 } else {
                     this.warningMessage = "Please check internet connection";
@@ -111,12 +128,8 @@
             }
         },
 
-        routerPush() {
-            // // close the modal and refresh the page
-            // this.closeRegModal();
-
-            // // show the login modal
-            // this.showLoginModal();
+        async sendAgain() {
+           const result = await getOTP(countryCode, "1");
         },
 
         handleInput(index) {

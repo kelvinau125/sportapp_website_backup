@@ -37,21 +37,3 @@ import axios from 'axios';
       throw new Error(`Exception: ${error}`);
     }
   }
-
-
-
-
-  // Future<Map<String, dynamic>> getRequest(String url) async {
-  //   try {
-  //     final response = await http.get(Uri.parse(url));
-
-  //     if (response.statusCode == 200) {
-  //       Map<String, dynamic> jsonData = json.decode(response.body);
-  //       return jsonData;
-  //     } else {
-  //       throw Exception("Error: ${response.statusCode}");
-  //     }
-  //   } catch (e) {
-  //     throw Exception('Exception: $e');
-  //   }
-  // }

@@ -4,31 +4,40 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    username: '',
+    nickName: '',
+    phoneNumber: '',
+    password: '',
     userId: null
   },
   mutations: {
-    setUserData(state, { username, userId }) {
-      state.username = username
+    setUserData(state, { nickName, phoneNumber, password, userId }) {
+      state.nickName = nickName
+      state.phoneNumber = phoneNumber
+      state.password = password
       state.userId = userId
     },
     clearUserData(state) {
-      state.username = ''
+      state.nickName = ''
+      state.phoneNumber = ''
+      state.password = ''
       state.userId = null
     }
   },
   actions: {
-    login({ commit }, { username, userId }) {
-      commit('setUserData', { username, userId })
-      console.log(username);
+    register({ commit }, { nickName, phoneNumber, password, userId }) {
+      commit('setUserData', { nickName, phoneNumber, password, userId })
+      console.log(phoneNumber);
       console.log(userId);
     },
-    logout({ commit }) {
+    registerDone({ commit }) {
       commit('clearUserData')
+      console.log("done delete");
     }
   },
   getters: {
     isLoggedIn: state => !!state.userId,
-    username: state => state.username
+    nickName: state => state.nickName,
+    phoneNumber: state => state.phoneNumber,
+    password: state => state.password,
   }
 })
