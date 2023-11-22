@@ -1,6 +1,6 @@
 <template>
   <!-- Overflow Setting -->
-  <div class="flex gap-2 teamContainer overflow-auto ">
+  <div class="flex gap-2 teamContainer overflow-auto "  >
     <div class="w-full" v-for="match in matchDetails" :key="match.matchDetails" >
       <div class="border" style="width: 215px; height: 136px; border-radius: 8px;">
         <!-- 热门赛程 Header -->

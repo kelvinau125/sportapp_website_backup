@@ -118,7 +118,7 @@ export default {
             <div class="absolute bottom-1" style="left: 285px; ">
               <div class="flex pb-2">
                 <span class="pl-2.5 pr-1 pt-1.5 text-xs font-normal text-white">3-5-2</span>
-                <img class="" style="width: 24px; height: 24px;" src="../assets/tournament/moneyBadge.png" />
+                <img class="" style="width: 24px; height: 24px;" src="@/assets/tournament/moneyBadge.png" />
               </div>
             </div>
           </div>
@@ -169,7 +169,7 @@ export default {
 
             <div class="absolute bottom-1" style="left: 370px; ">
               <div class="flex pb-1.5">
-                <img class="" style="width: 24px; height: 24px;" src="../assets/tournament/badge_.png" />
+                <img class="" style="width: 24px; height: 24px;" src="@/assets/tournament/badge_.png" />
                 <span class="pl-1.5 pr-1 pt-1 text-xs font-normal text-white">4-2-3-1</span>
               </div>
             </div>
@@ -231,7 +231,7 @@ export default {
   width: 728px;
   height: 343px;
   background-size: contain;
-  background: url('../assets/tournament/football_court.png') center/cover;
+  background: url('@/assets/tournament/football_court.png') center/cover;
 }
 
 .player {

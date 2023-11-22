@@ -110,18 +110,19 @@
     </div>
 
   </div>
-  <div class="flex flex-col match_status">
-    <h2 class="text-headerFont font-headerWeight">阵容</h2>
-    <div style="width: 728px;">
-      <img src="../assets//tournament/football_court.png" />
-    </div>
+  <div class="flex flex-col match_status pb-10 ">
+    <h2 class="text-headerFont font-headerWeight ">阵容</h2>
+    <div class="pt-8">
+      <LineUp />
 
+    </div>
 
   </div>
 </template>
 
 <script setup>
-import LiveList from '../components/HelloWorld.vue'
+import LiveList from '../components/ListOfLive.vue'
+import LineUp from '@/views/Tournament/tournamentLineUp.vue'
 // import { useRouter } from 'vue-router'
 
 
