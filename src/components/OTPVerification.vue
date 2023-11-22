@@ -33,7 +33,10 @@
             <div class="pt-12">
                 <ButtonCom @click="verify" class="w-screen">验证</ButtonCom>
                 <div class="flex justify-center" style="padding: 20px">
-                    <p>没有收到验证码？<button class="text-green-500" @click="sendAgain()">再次发送</button></p>
+                    <p>没有收到验证码？
+                    <button class="text-green-500" v-show="!isbuttonDisabled" @click="sendAgain()">再次发送</button> 
+                    <button class="text-green-500" v-show="isbuttonDisabled" disabled>{{countdownMsg}}</button>
+                    </p>
                 </div>
             </div>
         </form>
@@ -43,9 +46,6 @@
           
 <script>
     import ButtonCom from './ButtonPress.vue';
-
-    // get user cookie
-    import VueCookies from 'vue-cookies';
 
     // import to run the register function
     import { verifyOTP, registerUser } from '@/service/apiProvider.js';
@@ -90,7 +90,19 @@
             { value: '' },
             { value: '' },
         ],
+
+        countdownMsg: "",
+        isbuttonDisabled: false,
+
         };
+    },
+
+    created() {
+        // Check for the query parameter and show the login modal if needed
+        const url = new URL(window.location.href);
+        if (url.searchParams.get('showLoginModal') === 'true') {
+            this.showLoginModal();
+        }
     },
 
     methods: {
@@ -98,9 +110,8 @@
 
         async verify() {
             const OTPvalue = (this.controllers.map(controller => controller.value).join('')).toString();
-            console.log('Input values:', OTPvalue);
 
-            const result = await verifyOTP(VueCookies.get('mobile'), OTPvalue, "1");
+            const result = await verifyOTP(this.getUserPhoneNumber, OTPvalue, "1");
 
             if (result) {
                 // run save the user data to server
@@ -113,11 +124,12 @@
                 // close the modal
                 this.closeOTPModal();
 
-                // open the modal with delay (1000 = 1 second)
-                window.location.reload();
-                setTimeout(() => {
-                this.showLoginModal();
-                }, 1000);
+                // Set a query parameter to indicate that login modal should be shown
+                const url = new URL(window.location.href);
+                url.searchParams.set('showLoginModal', 'true');
+
+                // reload the page with the modified URL after a short delay
+                window.location.href = url.toString();
 
                 } else {
                     this.warningMessage = "Please check internet connection";
@@ -129,7 +141,8 @@
         },
 
         async sendAgain() {
-           const result = await getOTP(countryCode, "1");
+            await getOTP(this.getUserPhoneNumber, "1");
+            this.startCountdown();
         },
 
         handleInput(index) {
@@ -178,6 +191,26 @@
         } else {
             // First input, do something if needed
         }
+        },
+
+        startCountdown() {
+            let seconds = 10; // Set your initial seconds here
+            this.countdown = setInterval(() => {
+                this.countdownMsg = `${seconds}秒后再发送验证码`
+                this.isbuttonDisabled = true;
+
+                if (seconds <= 0) {
+                clearInterval(this.countdown);
+                this.countdownMsg = "";
+                this.isbuttonDisabled = false;
+                }
+
+                seconds--;
+            }, 1000);
+        },
+
+        beforeDestroy() {
+            clearInterval(this.countdown);
         },
     },
     };
