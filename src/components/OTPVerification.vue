@@ -3,15 +3,16 @@
         <div class="modal-content">
     
          <!-- close button -->
-         <button class="close-button" @click="closeOTPModal"> 
+         <button class="close-button" @click="closeOTPModalBtn"> 
             <img src="../assets/close.png" alt="Close" />
          </button>
     
         <!-- Register -->
         <form @submit.prevent="">
-            <h2 class="text-xl font-bold" style="padding: 20px">验证码验证</h2>
+            <h2 v-show="!isRegisterSuccess" class="text-xl font-bold" style="padding: 20px">验证码验证</h2>
+            <h2 v-show="isRegisterSuccess" class="text-xl font-bold" style="padding: 20px">注册成功</h2>
     
-            <div v-for="(controller, index) in controllers" :key="index" class="digit-input">
+            <div v-show="!isRegisterSuccess" v-for="(controller, index) in controllers" :key="index" class="digit-input">
                 <input
                 v-model="controller.value"
                 @input="handleInput(index)"
@@ -24,19 +25,24 @@
                 ref="inputRefs"
                 />
             </div>
+
+            <div v-show="isRegisterSuccess" class="flex justify-center my-10"><img src="@/assets/otp/Successmark.png" alt="sucessmark" style="width: 100px; height: 100px;"/></div>
     
             <!-- Warning message -->
-            <div v-if="warningMessage" class="warning-message">
+            <div v-show="warningMessage && !isRegisterSuccess" class="warning-message">
                 {{ warningMessage }}
             </div>
     
             <div class="pt-12">
-                <ButtonCom @click="verify" class="w-screen">验证</ButtonCom>
-                <div class="flex justify-center" style="padding: 20px">
+                <ButtonCom v-show="isRegisterSuccess" @click="gobacklogin" class="w-screen">返回登录</ButtonCom>
+                <ButtonCom v-show="!isRegisterSuccess" @click="verify" class="w-screen">验证</ButtonCom>
+                <div v-show="!isRegisterSuccess" class="flex justify-center" style="padding: 20px">
                     <p>没有收到验证码？
                     <button class="text-green-500" v-show="!isbuttonDisabled" @click="sendAgain()">再次发送</button> 
                     <button class="text-green-500" v-show="isbuttonDisabled" disabled>{{countdownMsg}}</button>
                     </p>
+                </div>
+                <div v-show="isRegisterSuccess" class="flex justify-center" style="padding: 20px">
                 </div>
             </div>
         </form>
@@ -93,16 +99,17 @@
 
         countdownMsg: "",
         isbuttonDisabled: false,
+        isRegisterSuccess: false,
 
         };
     },
 
     created() {
         // Check for the query parameter and show the login modal if needed
-        const url = new URL(window.location.href);
-        if (url.searchParams.get('showLoginModal') === 'true') {
-            this.showLoginModal();
-        }
+        // const url = new URL(window.location.href);
+        // if (url.searchParams.get('showLoginModal') === 'true') {
+        //     this.showLoginModal();
+        // }
     },
 
     methods: {
@@ -121,15 +128,8 @@
                 // the stored data in vuex
                 this.$store.dispatch('registerDone', {})
 
-                // close the modal
-                this.closeOTPModal();
+                this.isRegisterSuccess = true;
 
-                // Set a query parameter to indicate that login modal should be shown
-                const url = new URL(window.location.href);
-                url.searchParams.set('showLoginModal', 'true');
-
-                // reload the page with the modified URL after a short delay
-                window.location.href = url.toString();
 
                 } else {
                     this.warningMessage = "Please check internet connection";
@@ -212,6 +212,22 @@
         beforeDestroy() {
             clearInterval(this.countdown);
         },
+
+        gobacklogin() {
+            // Set a query parameter to indicate that login modal should be shown
+            // const url = new URL(window.location.href);
+            // url.searchParams.set('showLoginModal', 'true');
+
+            // // reload the page with the modified URL after a short delay
+            // window.location.href = url.toString();
+            
+            this.closeOTPModal();
+            this.showLoginModal();
+        },
+
+        closeOTPModalBtn() {
+            this.closeOTPModal();
+        }
     },
     };
 </script>
