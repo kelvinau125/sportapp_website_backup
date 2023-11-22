@@ -2,10 +2,8 @@
     <div class="register-modal" v-show="showRegModal">
         <div class="modal-content">
     
-         <!-- close button -->
-         <button class="close-button" @click="closeRegModal"> 
-            <img src="../assets/close.png" alt="Close" />
-         </button>
+        <!-- close button -->
+        <CloseButton @click="closeRegModal"> </CloseButton>
     
         <!-- Register -->
         <form @submit.prevent="">
@@ -33,8 +31,8 @@
                 />
                 <div class="button mr-1.5">
                     <!-- <img :src="passwordVisibility ? '@/assets/hide.png' : '@/assets/hide.png'" /> -->
-                    <img v-if="passwordVisibility" src="../assets/unhide.png" alt="UnHide Password" @click="togglePasswordVisibility" />
-                    <img v-else src="../assets/hide.png" alt="Hide Password" @click="togglePasswordVisibility" />
+                    <img v-if="passwordVisibility" src="@/assets/unhide.png" alt="UnHide Password" @click="togglePasswordVisibility" />
+                    <img v-else src="@/assets/hide.png" alt="Hide Password" @click="togglePasswordVisibility" />
                 </div>
                 </div>
             </div>
@@ -50,8 +48,8 @@
                 />
                 <div class="button mr-1.5">
                     <!-- <img :src="passwordVisibility ? '@/assets/hide.png' : '@/assets/hide.png'" /> -->
-                    <img v-if="passwordVisibility2nd" src="../assets/unhide.png" alt="UnHide Password" @click="togglePasswordVisibility2nd" />
-                    <img v-else src="../assets/hide.png" alt="Hide Password" @click="togglePasswordVisibility2nd" />
+                    <img v-if="passwordVisibility2nd" src="@/assets/unhide.png" alt="UnHide Password" @click="togglePasswordVisibility2nd" />
+                    <img v-else src="@/assets/hide.png" alt="Hide Password" @click="togglePasswordVisibility2nd" />
                 </div>
                 </div>
             </div>
@@ -61,12 +59,10 @@
                 {{ warningMessage }}
             </div>
     
-            <router-link to="#" class="flex justify-end"><p class="text-black font-bold">{{ $t("Forgot Password?") }}</p></router-link>
-    
             <div class="pt-12">
                 <ButtonCom @click="register" class="w-screen">{{ $t("Register") }}</ButtonCom>
                 <div class="flex justify-center" style="padding: 20px">
-                    <p>{{ $t("Already Have An Account? ") }}  <button class="text-green-500" @click="routerPush()">{{ $t("Login Now") }}</button></p>
+                    <p>{{ $t("Already Have An Account? ") }}  <button class="text-green-500" @click="showLoginModal">{{ $t("Login Now") }}</button></p>
                 </div>
             </div>
         </form>
@@ -75,7 +71,8 @@
 </template>
           
 <script>
-    import ButtonCom from './ButtonPress.vue';
+    import ButtonCom from '@/components/ButtonPress.vue';
+    import CloseButton from '@/components/CloseButton.vue';
     import { VueTelInput } from 'vue-tel-input'
     import 'vue-tel-input/vue-tel-input.css';
     
@@ -89,6 +86,7 @@
     components:{
         VueTelInput,
         ButtonCom,
+        CloseButton,
 
     },
 
@@ -217,14 +215,6 @@
         togglePasswordVisibility2nd() {
             this.passwordVisibility2nd = !this.passwordVisibility2nd;
         },
-
-        routerPush() {
-            // close the modal and refresh the page
-            this.closeRegModal();
-
-            // show the login modal
-            this.showLoginModal();
-        }
     },
     };
 </script>
@@ -289,20 +279,6 @@
     select{
     border: 1px solid #ccc;
     border-radius: 5px;
-    }
-
-    .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    }
-
-    .close-button img {
-    width: 20px;
     }
 
     .warning-message {

@@ -49,6 +49,7 @@
                 :showModal="isLoginModalVisible"
                 :closeModal="closeLoginModal"
                 :showRegisterModal="showRegisterModal"
+                :showForgotPasswordModal="showForgotPasswordModal"
               />
 
               <!-- register modal -->
@@ -63,6 +64,18 @@
                 :showOTPModal="isOTPModalVisible"
                 :closeOTPModal="closeOTPModal"
                 :showLoginModal="showLoginModal"
+              />
+
+              <ForgotPasswordModal
+                :showForgotPasswordModal="isForgotPasswordModalVisible"
+                :closeForgotPasswordModal="closeForgotPasswordModal"
+                :showLoginModal="showLoginModal"
+                :showEditPasswordModal="showEditPasswordModal"
+              />
+
+              <EditPassword
+                :showEditPasswordModal="isEditPasswordModalVisible"
+                :closeEditPasswordModal="closeEditPasswordModal"
               />
               
               <div @click="toggleDropdownProfile" >
@@ -94,9 +107,11 @@
   // import the remove cookie function
   import { removeCookie } from '@/service/cookie';
 
-  import LoginModal from './LoginModal.vue';
-  import RegisterModal from './RegisterModal.vue';
-  import OTPModal from './OTPVerification.vue';
+  import LoginModal from '@/views/Authentication/LoginModal.vue';
+  import RegisterModal from '@/views/Authentication/RegisterModal.vue';
+  import OTPModal from '@/views/Authentication/OTPVerification.vue';
+  import ForgotPasswordModal from '@/views/Authentication/ForgotPassword.vue';
+  import EditPassword from '@/views/MyProfile/EditPassword.vue';
 
   // Navigation Bar
   const Links = [
@@ -160,6 +175,8 @@
   const isLoginModalVisible = ref(false);
 
   const showLoginModal = () => {
+    isForgotPasswordModalVisible.value = false;
+    isResgitserModalVisible.value = false;
     isLoginModalVisible.value = true;
   };
 
@@ -171,6 +188,7 @@
   const isResgitserModalVisible = ref(false);
 
   const showRegisterModal = () => {
+    isLoginModalVisible.value = false;
     isResgitserModalVisible.value = true;
   };
 
@@ -188,7 +206,31 @@
   const closeOTPModal = () => {
     isOTPModalVisible.value = false;
   };
-</script>
+
+  // Forgot Passowrd Modal
+  const isForgotPasswordModalVisible = ref(false);
+
+  const showForgotPasswordModal = () => {
+    isLoginModalVisible.value = false;
+    isForgotPasswordModalVisible.value = true;
+  };
+
+  const closeForgotPasswordModal = () => {
+    isForgotPasswordModalVisible.value = false;
+  };
+
+  // Edit Passowrd Modal
+  const isEditPasswordModalVisible = ref(false);
+
+  const showEditPasswordModal = () => {
+    isForgotPasswordModalVisible.value = false;
+    isEditPasswordModalVisible.value = true;
+  };
+
+  const closeEditPasswordModal = () => {
+    isEditPasswordModalVisible.value = false;
+  };
+  </script>
 
 
 <style>

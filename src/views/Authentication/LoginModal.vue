@@ -2,10 +2,8 @@
 <div class="login-modal" v-show="showModal">
     <div class="modal-content">
 
-     <!-- close button -->
-     <button class="close-button" @click="closeModal"> 
-        <img src="../assets/close.png" alt="Close" />
-     </button>
+    <!-- close button -->
+    <CloseButton @click="closeModal"> </CloseButton>
 
     <!-- login -->
     <form @submit.prevent="">
@@ -29,8 +27,8 @@
             />
             <div class="button mr-1.5">
                 <!-- <img :src="passwordVisibility ? '@/assets/hide.png' : '@/assets/hide.png'" /> -->
-                <img v-if="passwordVisibility" src="../assets/unhide.png" alt="UnHide Password" @click="togglePasswordVisibility" />
-                <img v-else src="../assets/hide.png" alt="Hide Password" @click="togglePasswordVisibility" />
+                <img v-if="passwordVisibility" src="@/assets/unhide.png" alt="UnHide Password" @click="togglePasswordVisibility" />
+                <img v-else src="@/assets/hide.png" alt="Hide Password" @click="togglePasswordVisibility" />
             </div>
             </div>
         </div>
@@ -40,12 +38,12 @@
             {{ warningMessage }}
         </div>
 
-        <router-link to="#" class="flex justify-end"><p class="text-black font-bold">{{ $t("Forgot Password?") }}</p></router-link>
+        <div class="flex justify-end"><button class="text-black font-bold" @click="showForgotPasswordModal">{{ $t("Forgot Password?") }}</button></div>
 
         <div class="pt-12">
             <ButtonCom @click="login" class="w-screen">{{ $t("Login") }}</ButtonCom>
             <div class="flex justify-center" style="padding: 20px">
-                <p>{{ $t("Already Have An Account? ") }} <button class="text-green-500" @click="routerPush()">{{ $t("Register Now") }}</button></p>
+                <p>{{ $t("Already Have An Account? ") }} <button class="text-green-500" @click="showRegisterModal">{{ $t("Register Now") }}</button></p>
             </div>
         </div>
     </form>
@@ -54,7 +52,10 @@
 </template>
       
 <script>
-    import ButtonCom from './ButtonPress.vue';
+    // component
+    import ButtonCom from '@/components/ButtonPress.vue';
+    import CloseButton from '@/components/CloseButton.vue';
+
     import { VueTelInput } from 'vue-tel-input'
     import 'vue-tel-input/vue-tel-input.css';
 
@@ -65,12 +66,14 @@
     components:{
         VueTelInput,
         ButtonCom,
+        CloseButton,
     },
 
     props: {
         showModal: Boolean,
         closeModal: Function,
         showRegisterModal: Function,
+        showForgotPasswordModal: Function,
     },
 
     data() {
@@ -142,14 +145,6 @@
         togglePasswordVisibility() {
             this.passwordVisibility = !this.passwordVisibility;
         },
-
-        routerPush() {
-            // show the login modal
-            this.showRegisterModal();
-
-            // close the modal and refresh the page
-            this.closeModal();
-        }
     
     },
     };
@@ -215,20 +210,6 @@
     select{
     border: 1px solid #ccc;
     border-radius: 5px;
-    }
-
-    .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    }
-
-    .close-button img {
-    width: 20px;
     }
 
     .warning-message {

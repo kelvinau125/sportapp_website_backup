@@ -1,11 +1,8 @@
 <template>
     <div class="otp-verification-modal" v-show="showOTPModal">
         <div class="modal-content">
-    
-         <!-- close button -->
-         <button class="close-button" @click="closeOTPModalBtn"> 
-            <img src="../assets/close.png" alt="Close" />
-         </button>
+
+         <CloseButton @click="closeOTPModalBtn"> </CloseButton>
     
         <!-- Register -->
         <form @submit.prevent="">
@@ -51,7 +48,8 @@
 </template>
           
 <script>
-    import ButtonCom from './ButtonPress.vue';
+    import ButtonCom from '@/components/ButtonPress.vue';
+    import CloseButton from '@/components/CloseButton.vue';
 
     // import to run the register function
     import { verifyOTP, registerUser } from '@/service/apiProvider.js';
@@ -65,6 +63,7 @@
     export default {
     components:{
         ButtonCom,
+        CloseButton,
     },
 
     // get the data passed from RegisterModal.vue (data at the store/index.js)
@@ -84,6 +83,7 @@
         showOTPModal: Boolean,
         closeOTPModal: Function,
         showLoginModal: Function,
+        showEditPassword: Function,
     },
 
     data() {
@@ -284,20 +284,6 @@
     select{
     border: 1px solid #ccc;
     border-radius: 5px;
-    }
-
-    .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    }
-
-    .close-button img {
-    width: 20px;
     }
 
     .warning-message {
