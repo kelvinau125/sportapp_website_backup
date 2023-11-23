@@ -1,148 +1,161 @@
 <template>
   <!-- Main Component -->
   <div class="flex flex-col py-2">
-    <div class="flex justify-around py-2">
-      <div class="flex">
-        <div class="flex">
-          <img style="width: 24px; height: 24px;" src="@/assets/tournament/jiaoQiu.png" />
-          <span>{{ homeCornerKickNum }}</span>
-        </div>
-        <div class="flex">
-          <img style="width: 24px; height: 24px;" src="@/assets/tournament/hongPai.png" />
-          <span>{{ homeRedCardNum }}</span>
-        </div>
-        <div class="flex">
-          <img style="width: 24px; height: 24px;" src="@/assets/tournament/huangPai.png" />
-          <span>{{ homeYellowCardNum }}</span>
-        </div>
-      </div>
-      <div class="flex items-center">
+    <div class="overflow-hidden">
+      <div class="flex justify-center">
         <div class="flex items-center">
-          <p class="pt-2">{{ homePossessionRate + '%' }}</p>
-          <div class="team">
-            <div class="stat-bar-left totalGrayBar border_leftTB "
-              :style="{ width: (teamAPossessionRate + teamBPossessionRate) + '%' }"></div>
-            <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAPossessionRate + '%' }"></div>
+          <div class="flex px-2 pb-1.5">
+            <img style="width: 24px; height: 24px;" src="@/assets/tournament/jiaoQiu.png" />
+            <span class="font-medium text-sm pt-1.5 px-2">{{ homeCornerKickNum }}</span>
+          </div>
+          <div class="flex px-2 pb-1.5">
+            <img style="width: 24px; height: 24px;" src="@/assets/tournament/hongPai.png" />
+            <span class="font-medium text-sm pt-1.5 px-2">{{ homeRedCardNum }}</span>
+          </div>
+          <div class="flex px-2 pb-1.5">
+            <img style="width: 24px; height: 24px;" src="@/assets/tournament/huangPai.png" />
+            <span class="font-medium text-sm pt-1.5 px-2">{{ homeYellowCardNum }}</span>
           </div>
         </div>
-        <div>控球率</div>
         <div class="flex items-center">
-          <div class="team">
-            <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
-            <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBPossessionRate + '%' }">
+          <div class="flex items-center">
+            <p class=" font-medium text-sm pr-3">{{ homePossessionRate + '%' }}</p>
+            <div class="team">
+              <div class="stat-bar-left totalGrayBar border_leftTB "
+                :style="{ width: (teamAPossessionRate + teamBPossessionRate) + '%' }"></div>
+              <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAPossessionRate + '%' }"></div>
             </div>
           </div>
-          <p class="pt-2">{{ awayPossessionRate + '%' }}</p>
+          <div>
+            <span class="text-sm font-medium px-2.5">控球率</span>
+          </div>
+          <div class="flex items-center">
+            <div class="team">
+              <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
+              <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBPossessionRate + '%' }">
+              </div>
+            </div>
+            <p class="font-medium text-sm pl-3 pr-1.5">{{ awayPossessionRate + '%' }}</p>
 
-        </div>
-      </div>
-      <div class="flex">
-
-        <div class="flex">
-          <img style="width: 24px; height: 24px;" src="@/assets/tournament/huangPai.png" />
-          <span>{{ awayYellowCardNum }}</span>
-        </div>
-        <div class="flex">
-          <img style="width: 24px; height: 24px;" src="@/assets/tournament/hongPai.png" />
-          <span>{{ awayRedCardNum }}</span>
-        </div>
-        <div class="flex">
-          <img style="width: 24px; height: 24px;" src="@/assets/tournament/jiaoQiu.png" />
-          <span>{{ awayCornerKickNu }}</span>
-        </div>
-
-      </div>
-    </div>
-    <div class="flex justify-between py-2">
-      <div class="flex items-center">
-        <div class="flex items-center">
-          <span class="pt-2">{{ homeAttackNum }}</span>
-          <div class="team">
-            <div class="stat-bar-left totalGrayBar border_leftTB" style="width: 100%;"></div>
-
-            <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAAttackNumber + '%' }"></div>
           </div>
         </div>
-        <div>进攻</div>
         <div class="flex items-center">
-          <div class="team">
-            <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
+          <div class="flex px-2 pb-1.5">
+            <img style="width: 24px; height: 24px;" src="@/assets/tournament/huangPai.png" />
+            <span class="font-medium text-sm pt-1.5 px-2">{{ awayYellowCardNum }}</span>
+          </div>
+          <div class="flex px-2 pb-1.5">
+            <img style="width: 24px; height: 24px;" src="@/assets/tournament/hongPai.png" />
+            <span class="font-medium text-sm pt-1.5 px-2">{{ awayRedCardNum }}</span>
+          </div>
+          <div class="flex px-2 pb-1.5">
+            <img style="width: 24px; height: 24px;" src="@/assets/tournament/jiaoQiu.png" />
+            <span class="font-medium text-sm pt-1.5 px-2">{{ awayCornerKickNu }}</span>
+          </div>
 
-            <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBShotPercentage + '%' }">
+        </div>
+      </div>
+      <div class="flex justify-between py-2">
+        <div class="flex items-center">
+          <div class="flex items-center">
+            <span class="pr-2 font-medium text-sm">{{ homeAttackNum }}</span>
+            <div class="team">
+              <div class="stat-bar-left totalGrayBar border_leftTB" style="width: 100%;"></div>
+
+              <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAAttackNumber + '%' }"></div>
             </div>
           </div>
-          <span class="pt-2">{{ awayAttackNum }}</span>
+          <div class="flex justify-center">
+            <span class="px-10">进攻</span>
+          </div>
+          <div class="flex items-center">
+            <div class="team">
+              <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
 
+              <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBShotPercentage + '%' }">
+              </div>
+            </div>
+            <span class="pl-2.5 font-medium text-sm">{{ awayAttackNum }}</span>
+
+          </div>
+        </div>
+        <div class="flex items-center">
+          <div class="">
+            <span class="font-medium text-sm">{{ teamAtotalShotNum }}</span>
+            <span class="font-medium text-sm pr-2">{{ '(' + homeShootGoalNum + ')' }}</span>
+          </div>
+          <div class="team">
+            <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
+            <div class="stat-bar-left total-shots border_leftTB" :style="{ width: teamAtotalShotPercent + '%' }"></div>
+            <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: something + '%' }"></div>
+          </div>
+          <div class="w-24 flex justify-center">
+            <span class="font-medium text-sm">射门(射正)</span>
+          </div>
+          <div class="flex items-center">
+            <div class="team">
+              <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
+              <div class="stat-bar-right total-shotsB border_rightTB" :style="{ width: teamBtotalShotPercent + '%' }">
+              </div>
+              <div class="stat-bar-right shots-on-target border_rightTB" :style="{ width: test + '%' }"></div>
+              <!-- <div class="stat-bar-left shots-on-targetA" :style="{ width: shotsOnTargetA + '%' }"></div> -->
+            </div>
+            <div class="">
+              <span class="font-medium text-sm pl-2.5">{{ teamBtotalShotNum }}</span>
+              <span class="font-medium text-sm">{{ "(" + awayShootGoalNum + ")" }}</span>
+            </div>
+
+          </div>
         </div>
       </div>
-      <div class="flex items-center">
-        <div class="pt-2">
-          <span>{{ teamAtotalShotNum }}</span>
-          <span>{{ '(' + homeShootGoalNum + ')' }}</span>
-        </div>
-        <div class="team">
-          <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
-          <div class="stat-bar-left total-shots border_leftTB" :style="{ width: teamAtotalShotPercent + '%' }"></div>
-          <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: something + '%' }"></div>
-        </div>
-        <div>射门(射正)</div>
+      <div class="flex justify-between py-2">
         <div class="flex items-center">
-          <div class="team">
-            <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
-            <div class="stat-bar-right total-shotsB border_rightTB" :style="{ width: teamBtotalShotPercent + '%' }"></div>
-            <div class="stat-bar-right shots-on-target border_rightTB" :style="{ width: test + '%' }"></div>
-            <!-- <div class="stat-bar-left shots-on-targetA" :style="{ width: shotsOnTargetA + '%' }"></div> -->
+          <div class="flex items-center">
+            <span class="font-medium text-sm pr-2">{{ homeAttackDangerNum }}</span>
+            <div class="team">
+              <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
+              <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamADangerNum + '%' }"></div>
+            </div>
           </div>
-          <div class="pt-2">
-            <span>{{ teamBtotalShotNum }}</span>
-            <span>{{ "(" + awayShootGoalNum + ")" }}</span>
+          <div class="w flex justify-center">
+            <span class="font-medium text-sm px-9">危险进攻</span>
           </div>
+          <div class="flex items-center">
+            <div class="team">
+              <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
 
+              <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBDangerNum + '%' }"></div>
+              <!-- <div class="stat-bar-left shots-on-targetA" :style="{ width: shotsOnTargetA + '%' }"></div> -->
+            </div>
+            <span class="font-medium text-sm pl-2.5">{{ awayAttackDangerNum }}</span>
+          </div>
+        </div>
+        <div class="flex items-center">
+          <div class="flex items-center">
+            <span class="font-medium text-sm pr-2">{{ homePenaltyNum }}</span>
+            <div class="team">
+              <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
+              <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAPenaltyNum + '%' }"></div>
+            </div>
+          </div>
+          <div class=" flex justify-center">
+            <span class="pl-10 pr-10 font-medium text-sm ">点球</span>
+          </div>
+          <div class="flex items-center">
+            <div class="team ">
+              <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
+
+              <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBPenaltyNum + '%' }"></div>
+              <!-- <div class="stat-bar-left shots-on-targetA" :style="{ width: shotsOnTargetA + '%' }"></div> -->
+            </div>
+            <span class="font-medium text-sm pl-2.5">{{ awayPenaltyNum }}</span>
+
+
+          </div>
         </div>
       </div>
     </div>
-    <div class="flex justify-between py-2">
-      <div class="flex items-center">
-        <div class="flex items-center">
-          <span class="pt-2">{{ homeAttackDangerNum }}</span>
-          <div class="team">
-            <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
-            <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamADangerNum + '%' }"></div>
-          </div>
-        </div>
-        <div>危险进攻</div>
-        <div class="flex items-center">
-          <div class="team">
-            <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
 
-            <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBDangerNum + '%' }"></div>
-            <!-- <div class="stat-bar-left shots-on-targetA" :style="{ width: shotsOnTargetA + '%' }"></div> -->
-          </div>
-          <span class="pt-2">{{ awayAttackDangerNum }}</span>
-        </div>
-      </div>
-      <div class="flex items-center">
-        <div class="flex items-center">
-          <span class="pt-2">{{ homePenaltyNum }}</span>
-          <div class="team">
-            <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
-            <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAPenaltyNum + '%' }"></div>
-          </div>
-        </div>
-        <div>点球</div>
-        <div class="flex items-center">
-          <div class="team">
-            <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
-
-            <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBPenaltyNum + '%' }"></div>
-            <!-- <div class="stat-bar-left shots-on-targetA" :style="{ width: shotsOnTargetA + '%' }"></div> -->
-          </div>
-          <span class="pt-2">{{ awayPenaltyNum }}</span>
-
-
-        </div>
-      </div>
-    </div>
 
   </div>
 </template>
@@ -179,7 +192,7 @@ export default {
 
       //homeShootGoalNum (射正), homeBiasNum (射偏) 
       homeShootGoalNum: 5,
-      homeBiasNum: 0,
+      homeBiasNum: 1,
 
       //awayShootGoalNum(射正)， awayBiasNum(射偏)
       awayShootGoalNum: 2,
@@ -254,8 +267,8 @@ export default {
 
 <style scoped>
 .border_leftTB {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
 }
 
 .border_rightTB {
@@ -270,19 +283,31 @@ export default {
 }
 
 .stat-bar-right {
-  height: 20px;
+  height: 9px;
+  width: 137px;
   position: absolute;
-  left: 0;
-  bottom: 0;
+  left: 4px;
+  bottom: 8px;
   margin-bottom: 5px;
 }
 
 /* 左边的Bar */
 .stat-bar-left {
-  height: 20px;
+  height: 9px;
+  width: 137px;
   position: absolute;
   right: 0;
-  bottom: 0;
+  bottom: 8px;
+  margin-bottom: 5px;
+
+}
+
+.short {
+  height: 9px;
+  width: 110px;
+  position: absolute;
+  right: 0;
+  bottom: 8px;
   margin-bottom: 5px;
 
 }
@@ -294,22 +319,6 @@ export default {
 .right-bar-color {
   background-color: #33BA53;
 }
-
-/* ============= */
-
-.team-stats {
-  display: flex;
-  justify-content: space-around;
-  margin: 20px;
-}
-
-
-
-.combined-total {
-  text-align: center;
-}
-
-
 
 .total-shots {
   opacity: 0.4;
@@ -328,22 +337,8 @@ export default {
   /* Darker color for shots on target */
 }
 
-.shots-on-targetA {
-  background-color: #33BA53;
-  /* Darker color for shots on target */
-}
-
-.combined {
-  background-color: #D7DDD7;
-  /* Color for combined total shots */
-}
-
 .totalGrayBar {
   background-color: #D7DDD7;
   /* Color for combined total shots */
-}
-
-div {
-  /* border: 1px solid red; */
 }
 </style>

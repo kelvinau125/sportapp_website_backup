@@ -39,9 +39,11 @@
       </div>
     </div>
   </div>
-  <div class="flex flex-col match_status pt-4">
+  <div class="flex flex-col match_status pt-8">
     <h2 class="text-headerFont font-headerWeight">赛况</h2>
-    <TournamentStatus/>
+    <div class="pt-1">
+      <TournamentStatus/>
+    </div>
 
   </div>
   <div class="flex flex-col match_status pt-8">
