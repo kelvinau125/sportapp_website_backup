@@ -4,14 +4,19 @@ import {
   postRequest,
   getRequest
  } from '@/service/apiRequestMethod';
-import { setCookie } from '@/service/cookie';
+
 import { 
   baseUrl,
   loginUrl,
   createUserUrl,
   sendMsgUrl,
-  verifyMsgUrl
+  verifyMsgUrl,
+  updatePasswordUrl
  } from '@/utils/apiConfig.js';
+
+// get user cookie / set cookie
+import VueCookies from 'vue-cookies';
+import { setCookie } from '@/service/cookie';
 
 
 // User Login
@@ -23,7 +28,7 @@ export async function loginUser(phoneNumber, password) {
   // phone number format reformat
   const phoneNo = (phoneNumber).replace('+', '').replace(/\s/g, '');
 
-  // Assuming you have a hashPassword function
+  // hashPassword function
   const encryptedPassword = hashPassword(password);
 
   const apiDetails = {
@@ -152,13 +157,9 @@ export async function verifyOTP(phoneNumber, OTP, code) {
     const response = await postRequest(url, apiDetails);
 
     const code = response.code;
-    const data = response.data;
 
     if (code === 0) {
-
-      if (data !== '') {
-        return true;
-      }
+      return true;
     } else {
       console.log(`Unsuccessfully verify OTP: ${code}`);
       return false;
@@ -169,6 +170,37 @@ export async function verifyOTP(phoneNumber, OTP, code) {
   }
 }
 
+
+// Update User Password
+export async function UpdateUserPassword(password) {
+  // get user token
+  const userToken = VueCookies.get('userToken')
+
+  const url = baseUrl + updatePasswordUrl + userToken;
+
+  // hashPassword function
+  const encryptedPassword = hashPassword(password);
+
+  const apiDetails = {
+    password: encryptedPassword,
+  };
+
+  try {
+    const response = await postRequest(url, apiDetails);
+
+    const code = response.code;
+
+    if (code === 0) {
+      return true;
+    } else {
+      console.log(`Password Unsuccessfully upload to database: ${code}`);
+      return false;
+    }
+  } catch (e) {
+    console.log(`Unsuccessful in provider: ${e}`);
+    return false;
+  }
+}
 
 
 

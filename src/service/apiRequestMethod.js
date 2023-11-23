@@ -37,3 +37,21 @@ import axios from 'axios';
       throw new Error(`Exception: ${error}`);
     }
   }
+
+  export async function patchRequest(url, body) {
+    try {
+      const response = await axios.patch(url, body, {
+        headers: header,
+      });
+  
+      console.log(response);
+  
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        throw new Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      throw new Error(`Exception: ${error}`);
+    }
+  }

@@ -158,28 +158,28 @@
 
             // validate empty value
             if ( (
-            this.nickName === null || this.nickName === undefined || this.nickName.trim() === ''
+                this.nickName === null || this.nickName === undefined || this.nickName.trim() === ''
             )) {
                 this.warningMessage = this.$t("NickName cannot be empty");
                 return;
             }
             
             if ( (
-            this.countryCode === null || this.countryCode === undefined || this.countryCode.trim() === ''
+                this.countryCode === null || this.countryCode === undefined || this.countryCode.trim() === ''
             )) {
                 this.warningMessage = this.$t("Phone Number cannot be empty");
                 return;
             }
 
             if ( (
-            this.password === null || this.password === undefined || this.password.trim() === ''
+                this.password === null || this.password === undefined || this.password.trim() === ''
             )) {
                 this.warningMessage = this.$t("Passwords cannot be empty");
                 return;
             }
 
             if ( (
-            this.password2nd === null || this.password2nd === undefined || this.password2nd.trim() === ''
+                this.password2nd === null || this.password2nd === undefined || this.password2nd.trim() === ''
             )) {
                 this.warningMessage = this.$t("Passwords cannot be empty");
                 return;

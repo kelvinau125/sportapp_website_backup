@@ -77,6 +77,17 @@
                 :showEditPasswordModal="isEditPasswordModalVisible"
                 :closeEditPasswordModal="closeEditPasswordModal"
               />
+
+              <MyPage
+                :showMyPageModal="isMyPageModalVisible"
+                :closeMyPageModal="closeMyPageModal"
+                :showEditProfileModal="showEditProfileModal"
+              />
+ 
+              <EditProfile
+                :showEditProfileModal="isEditProfileModalVisible"
+                :closeEditProfileModal="closeEditProfileModal"
+              />
               
               <div @click="toggleDropdownProfile" >
                 <img src="../assets/topNav/defaultProfile.png" alt="Profile Picture" />
@@ -87,6 +98,8 @@
                     <button class="px-1" @click="showRegisterModal">注册</button>
                     <br>
                     <button class="px-1" @click="showLoginModal">登入</button>
+                    <br>
+                    <button class="px-1" @click="showMyPageModal">我的主页</button>
                     <br>
                     <router-link to="/test" class="px-1 text-white">登入</router-link>
                   </div>
@@ -112,6 +125,8 @@
   import OTPModal from '@/views/Authentication/OTPVerification.vue';
   import ForgotPasswordModal from '@/views/Authentication/ForgotPassword.vue';
   import EditPassword from '@/views/MyProfile/EditPassword.vue';
+  import MyPage from '@/views/MyProfile/MyPage.vue';
+  import EditProfile from '@/views/MyProfile/EditProfile.vue';
 
   // Navigation Bar
   const Links = [
@@ -230,6 +245,30 @@
   const closeEditPasswordModal = () => {
     isEditPasswordModalVisible.value = false;
   };
+
+  // My Page Modal
+  const isMyPageModalVisible = ref(false);
+
+  const showMyPageModal = () => {
+    isMyPageModalVisible.value = true;
+  };
+
+  const closeMyPageModal = () => {
+    isMyPageModalVisible.value = false;
+  };
+
+  // Edit Profile Modal
+  const isEditProfileModalVisible = ref(false);
+
+  const showEditProfileModal = () => {
+    isMyPageModalVisible.value = false;
+    isEditProfileModalVisible.value = true;
+  };
+
+  const closeEditProfileModal = () => {
+    isEditProfileModalVisible.value = false;
+  };
+
   </script>
 
 

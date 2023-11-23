@@ -3,7 +3,7 @@
         <div class="modal-content">
     
         <!-- close button -->
-        <CloseButton @click="closeForgotPasswordModal"> </CloseButton>
+        <CloseButton @click="closeEditPasswordModal"> </CloseButton>
     
         <!-- login -->
         <form @submit.prevent="">
@@ -51,10 +51,8 @@
 
     
             <div class="pt-12">
-                <ButtonCom @click="login" class="w-screen">发送验证码</ButtonCom>
-                <div class="flex justify-center" style="padding: 20px">
-                    <p>还记得密码吗？ <button class="text-green-500" @click="showLoginModal">{{ $t("Login Now") }}</button></p>
-                </div>
+                <ButtonCom @click="editPassword" class="w-screen">重置密码</ButtonCom>
+                <div class="flex justify-center" style="padding: 20px"/>
             </div>
         </form>
         </div>
@@ -66,8 +64,8 @@
     import ButtonCom from '@/components/ButtonPress.vue';
     import CloseButton from '@/components/CloseButton.vue';
 
-    // import to run the get otp function
-    import { getOTP } from '@/service/apiProvider.js';
+    // import to run the change password function
+    // import { UserChangePassword } from '@/service/apiProvider.js';
 
     export default {
     components:{
@@ -88,43 +86,62 @@
             validCharactersOnly: true
         },
         warningMessage: '',
+
+        
+        passwordVisibility: false,
+        passwordVisibility2nd: false,
         };
     },
 
-    methods: {
-        async login() {
-        // validation of phone number
-        if (this.countryCode.startsWith('+60') || this.countryCode.startsWith('+86')){
-            if(this.countryCode.trim().length < 12){
-                this.warningMessage = this.$t("Please enter the correct phone number");
-                return;
-            }
-        } else{
-            if(this.countryCode.trim().length < 8){
-                this.warningMessage = this.$t("Please enter the correct phone number");
-                return;
-            }
-        }
+    computed: {
+        passwordFieldType() {
+        return this.passwordVisibility ? 'text' : 'password';
+        },
+        passwordFieldType2nd() {
+        return this.passwordVisibility2nd ? 'text' : 'password';
+        },
+    },
 
-        // validate empty value
-        if ( (
-        this.countryCode === null || this.countryCode === undefined || this.countryCode.trim() === ''
-        )) {
-            this.warningMessage = this.$t("Phone Number cannot be empty");
+    methods: {
+        async editPassword() {
+        // Validate password 
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+        if (!this.password || !passwordRegex.test(this.password)) {
+            this.warningMessage = this.$t("Password must be at least 8 characters and include at least 1 capital letter, number, and special character")
             return;
         }
 
-        const countryCode = this.countryCode 
+        // Validate confirm password
+        if (this.password !== this.password2nd) {
+            this.warningMessage =  this.$t("Please Make Sure Password are Same");
+            return;
+        }
 
-        // send OTP to user phone
-        const result = await getOTP(countryCode, "3");
+        if ( (
+            this.password === null || this.password === undefined || this.password.trim() === ''
+        )) {
+            this.warningMessage = this.$t("Passwords cannot be empty");
+            return;
+        }
+
+        if ( (
+            this.password2nd === null || this.password2nd === undefined || this.password2nd.trim() === ''
+        )) {
+            this.warningMessage = this.$t("Passwords cannot be empty");
+            return;
+        }
+
+        // change password
+        // const result = await UserChangePassword(this.password);
+        const result = true;
 
         if (result === true) {
             // pass value to OTPVerficaition.vue
             // this.$store.dispatch('register', { nickName: nickname, phoneNumber: countryCode, password: password, userId: 1 })
 
             // // close the modal
-            // this.closeRegModal();
+            this.closeEditPasswordModal();
             // // show verify otp page
             // this.showOTPModal();
             
