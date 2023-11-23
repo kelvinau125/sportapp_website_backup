@@ -25,8 +25,8 @@
             </div>
 
             <div class="flex flex-col items-center pt-5">
-                <p class="text-lg font-semibold mt-2">NIAMAMAX</p>
-                <p class="text-sm font-medium mt-2">01113393481</p>
+                <p class="text-lg font-semibold mt-2">{{ nickname }}</p>
+                <p class="text-sm font-medium mt-2">{{ phonenumber }}</p>
             </div>
             </div>
     
@@ -77,6 +77,8 @@
 
     data() {
         return{
+            nickname: VueCookies.get('username'),
+            phonenumber: VueCookies.get('phoneNumber'),
             avatar: VueCookies.get('avatar'),
         }
     },

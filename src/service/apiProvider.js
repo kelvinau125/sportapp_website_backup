@@ -46,8 +46,9 @@ export async function loginUser(phoneNumber, password) {
       const token = data.token;
       const mobile = data.mobile;
       const avatar = data.head;
+      const username = data.username;
 
-      setCookie(token, mobile, avatar);
+      setCookie(token, mobile, avatar, username);
 
       if (data !== '') {
         return true;
