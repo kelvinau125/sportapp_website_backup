@@ -41,17 +41,7 @@
   </div>
   <div class="flex flex-col match_status pt-4">
     <h2 class="text-headerFont font-headerWeight">赛况</h2>
-    <div class="flex justify-center">
-      HALo
-    </div>
-    <div class="flex justify-between">
-      <div class="">LEFT</div>
-      <div class="">RIGHT</div>
-    </div>
-    <div class="flex justify-between">
-      <div class="">LEFT</div>
-      <div class="">RIGHT</div>
-    </div>
+    <TournamentStatus/>
 
   </div>
   <div class="flex flex-col match_status pt-8">
@@ -123,6 +113,7 @@
 <script setup>
 import LiveList from '../components/ListOfLive.vue'
 import LineUp from '@/views/Tournament/tournamentLineUp.vue'
+import TournamentStatus from '@/components/HelloWorld.vue'
 // import { useRouter } from 'vue-router'
 
 
