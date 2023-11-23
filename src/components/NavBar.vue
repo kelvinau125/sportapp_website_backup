@@ -64,6 +64,7 @@
                 :showOTPModal="isOTPModalVisible"
                 :closeOTPModal="closeOTPModal"
                 :showLoginModal="showLoginModal"
+                :showEditPasswordModal="showEditPasswordModal"
               />
 
               <ForgotPasswordModal
@@ -86,7 +87,8 @@
  
               <EditProfile
                 :showEditProfileModal="isEditProfileModalVisible"
-                :closeEditProfileModal="closeEditProfileModal"
+                :gobackmypage="gobackmypage"
+                :showOTPModal ="showOTPModal"
               />
               
               <div @click="toggleDropdownProfile" >
@@ -215,6 +217,7 @@
   const isOTPModalVisible = ref(false);
 
   const showOTPModal = () => {
+    isEditProfileModalVisible.value = false;
     isOTPModalVisible.value = true;
   };
 
@@ -238,6 +241,7 @@
   const isEditPasswordModalVisible = ref(false);
 
   const showEditPasswordModal = () => {
+    isOTPModalVisible.value = false;
     isForgotPasswordModalVisible.value = false;
     isEditPasswordModalVisible.value = true;
   };
@@ -265,7 +269,8 @@
     isEditProfileModalVisible.value = true;
   };
 
-  const closeEditProfileModal = () => {
+  const gobackmypage = () => {
+    isMyPageModalVisible.value = true;
     isEditProfileModalVisible.value = false;
   };
 

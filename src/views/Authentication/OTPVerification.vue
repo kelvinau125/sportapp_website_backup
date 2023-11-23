@@ -6,10 +6,20 @@
     
         <!-- Register -->
         <form @submit.prevent="">
-            <h2 v-show="!isRegisterSuccess" class="text-xl font-bold" style="padding: 20px">验证码验证</h2>
+            <!-- starting when open the otp verfication need enter the otp number -->
+            <!-- false / false  -->
+            <h2 v-show="!isRegisterSuccess && !isResetPasswordSuccess" class="text-xl font-bold" style="padding: 20px">验证码验证</h2>
+
+            <!-- done register -->
             <h2 v-show="isRegisterSuccess" class="text-xl font-bold" style="padding: 20px">注册成功</h2>
+
+            <!-- done reset password -->
+            <h2 v-show="isResetPasswordSuccess" class="text-xl font-bold" style="padding: 20px">验证码验证成功</h2>
     
-            <div v-show="!isRegisterSuccess" v-for="(controller, index) in controllers" :key="index" class="digit-input">
+
+            <!-- starting when open the otp verfication need enter the otp number -->
+            <!-- false / false  -->
+            <div v-show="!isRegisterSuccess && !isResetPasswordSuccess" v-for="(controller, index) in controllers" :key="index" class="digit-input">
                 <input
                 v-model="controller.value"
                 @input="handleInput(index)"
@@ -23,23 +33,34 @@
                 />
             </div>
 
-            <div v-show="isRegisterSuccess" class="flex justify-center my-10"><img src="@/assets/otp/Successmark.png" alt="sucessmark" style="width: 100px; height: 100px;"/></div>
+            <!-- done register or done reset password -->
+             <!-- true / true  -->
+            <div v-show="isRegisterSuccess || isResetPasswordSuccess" class="flex justify-center my-10"><img src="@/assets/otp/Successmark.png" alt="sucessmark" style="width: 100px; height: 100px;"/></div>
     
             <!-- Warning message -->
-            <div v-show="warningMessage && !isRegisterSuccess" class="warning-message">
+            <!-- true / false / false  -->
+            <div v-show="warningMessage && !isRegisterSuccess && !isResetPasswordSuccess" class="warning-message">
                 {{ warningMessage }}
             </div>
     
             <div class="pt-12">
+                <!-- starting when open the otp verfication need enter the otp number -->
+                 <!-- false / false  -->
+                <ButtonCom v-show="!isRegisterSuccess && !isResetPasswordSuccess" @click="verify" class="w-screen">验证</ButtonCom>
+
+                <!-- done register -->
                 <ButtonCom v-show="isRegisterSuccess" @click="gobacklogin" class="w-screen">返回登录</ButtonCom>
-                <ButtonCom v-show="!isRegisterSuccess" @click="verify" class="w-screen">验证</ButtonCom>
-                <div v-show="!isRegisterSuccess" class="flex justify-center" style="padding: 20px">
+
+                <!-- starting when open the otp verfication need enter the otp number -->
+                <!-- false / false  -->
+                <div v-show="!isRegisterSuccess && !isResetPasswordSuccess" class="flex justify-center" style="padding: 20px">
                     <p>没有收到验证码？
                     <button class="text-green-500" v-show="!isbuttonDisabled" @click="sendAgain()">再次发送</button> 
                     <button class="text-green-500" v-show="isbuttonDisabled" disabled>{{countdownMsg}}</button>
                     </p>
                 </div>
-                <div v-show="isRegisterSuccess" class="flex justify-center" style="padding: 20px">
+                
+                <div v-show="isRegisterSuccess || isResetPasswordSuccess" class="flex justify-center" style="padding: 20px">
                 </div>
             </div>
         </form>
@@ -59,6 +80,9 @@
 
     // fetch data from RegisterModal.vue
     import { mapActions } from 'vuex'
+
+    // get the user login status
+    import VueCookies from 'vue-cookies';
 
     export default {
     components:{
@@ -83,7 +107,7 @@
         showOTPModal: Boolean,
         closeOTPModal: Function,
         showLoginModal: Function,
-        showEditPassword: Function,
+        showEditPasswordModal: Function,
     },
 
     data() {
@@ -99,7 +123,10 @@
 
         countdownMsg: "",
         isbuttonDisabled: false,
+        isLogin: VueCookies.isKey('userToken'),
+
         isRegisterSuccess: false,
+        isResetPasswordSuccess: false,
 
         };
     },
@@ -118,31 +145,60 @@
         async verify() {
             const OTPvalue = (this.controllers.map(controller => controller.value).join('')).toString();
 
-            const result = await verifyOTP(this.getUserPhoneNumber, OTPvalue, "1");
-
-            if (result) {
-                // run save the user data to server
-                const result = await registerUser(this.getUserNickname,this.getUserPhoneNumber,this.getUserDataPassword);
+            // reset password otp
+            if(this.isLogin){
+                // const result = await verifyOTP(this.getUserPhoneNumber, OTPvalue, "2");
+                const result = true;
 
                 if (result) {
-                // the stored data in vuex
-                this.$store.dispatch('registerDone', {})
-
-                this.isRegisterSuccess = true;
-
+                    this.isResetPasswordSuccess = true;
+                    setTimeout(() => {
+                        this.showEditPasswordModal();
+                    }, 1500); // 1500 milliseconds = 1.5 seconds
+                    this.isResetPasswordSuccess = false;
 
                 } else {
                     this.warningMessage = "Please check internet connection";
                 }
 
-            } else {
-                this.warningMessage = "Please check internet connection";
+            } 
+            // register password otp
+            else{
+                const result = await verifyOTP(this.getUserPhoneNumber, OTPvalue, "1");
+
+                if (result) {
+                    // run save the user data to server
+                    const result = await registerUser(this.getUserNickname,this.getUserPhoneNumber,this.getUserDataPassword);
+
+                    if (result) {
+                    // the stored data in vuex
+                    this.$store.dispatch('registerDone', {})
+
+                    this.isRegisterSuccess = true;
+
+
+                    } else {
+                        this.warningMessage = "Please check internet connection";
+                    }
+
+                } else {
+                    this.warningMessage = "Please check internet connection";
+                }
             }
         },
 
         async sendAgain() {
-            await getOTP(this.getUserPhoneNumber, "1");
-            this.startCountdown();
+            // reset password otp
+            if(this.isLogin){
+                await getOTP(this.getUserPhoneNumber, "2");
+                this.startCountdown();
+            }
+            
+            // register password otp
+            else {
+                await getOTP(this.getUserPhoneNumber, "1");
+                this.startCountdown();
+            }
         },
 
         handleInput(index) {
@@ -220,7 +276,7 @@
 
             // // reload the page with the modified URL after a short delay
             // window.location.href = url.toString();
-            
+            this.isRegisterSuccess = false;
             this.closeOTPModal();
             this.showLoginModal();
         },

@@ -65,7 +65,7 @@
     import CloseButton from '@/components/CloseButton.vue';
 
     // import to run the change password function
-    // import { UserChangePassword } from '@/service/apiProvider.js';
+    import { UpdateUserPassword } from '@/service/apiProvider.js';
 
     export default {
     components:{
@@ -105,12 +105,12 @@
     methods: {
         async editPassword() {
         // Validate password 
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-        if (!this.password || !passwordRegex.test(this.password)) {
-            this.warningMessage = this.$t("Password must be at least 8 characters and include at least 1 capital letter, number, and special character")
-            return;
-        }
+        // if (!this.password || !passwordRegex.test(this.password)) {
+        //     this.warningMessage = this.$t("Password must be at least 8 characters and include at least 1 capital letter, number, and special character")
+        //     return;
+        // }
 
         // Validate confirm password
         if (this.password !== this.password2nd) {
@@ -133,8 +133,7 @@
         }
 
         // change password
-        // const result = await UserChangePassword(this.password);
-        const result = true;
+        const result = await UpdateUserPassword(this.password);
 
         if (result === true) {
             // pass value to OTPVerficaition.vue

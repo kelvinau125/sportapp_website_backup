@@ -10,7 +10,7 @@
             <div class="">
                 <div class="flex flex-col items-center">
                     <div class="relative">
-                        <img src="@/assets/ProfilePicture.png" style="width: 114px; height: 114px;" />
+                        <img :src="avatar" class="rounded-full border-2 border-white" style="width: 114px; height: 114px; object-fit: cover;"/>
                         <!-- Add upload button here -->
                         <!-- <label for="upload" class="absolute bottom-0 right-0 cursor-pointer">
                         <img src="@/assets/upload-icon.png" style="width: 24px; height: 24px;" />
@@ -64,7 +64,9 @@
 <script>
   import ButtonPress from '@/components/ButtonPress.vue';
   import CloseButton from '@/components/CloseButton.vue';
-
+  
+  // get the avatar
+  import VueCookies from 'vue-cookies';
 
   export default {
     components:{
@@ -73,11 +75,18 @@
 
     },
 
+    data() {
+        return{
+            avatar: VueCookies.get('avatar'),
+        }
+    },
+
     props: {
         showMyPageModal: Boolean,
         closeMyPageModal: Function,
         showEditProfileModal: Function,
     },
+
 }
 </script>
   
