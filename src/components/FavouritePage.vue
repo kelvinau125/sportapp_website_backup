@@ -1,7 +1,7 @@
 <template>
   <BackgroundImage>
     <div class="schedule_list">
-      <div class="flex justify-between my-5 date-slider" style="height: 46px;">
+      <div class="flex justify-between my-5 py-1.5 date-slider" style="height: 46px;">
         <div class=" flex justify-center" style="height: 32px; width: 17px; background-color: #808F7E; border-radius: 8px;">
           <button @click="prevWeek">
             <img src="../assets/toLeft.png" alt="Previous Week" class="" />
@@ -37,9 +37,9 @@
                       <span class="text-xs" style="color: #666666;">欧冠</span>
                     </div>
                   </div>
-                  <div>
-                    <img src="../assets/content/Favourite.png" />
-
+                  <div @click.stop="toUnfavourite(match)">
+                    <img v-if="match.favourite" src="../assets/content/Favourite.png" />
+                    <img v-else src="../assets/content/Unfavourite.png" alt="Favourite" />
                   </div>
                 </div>
                 <div class="flex justify-between">
@@ -94,60 +94,66 @@
   </BackgroundImage>
 </template>
 
-<script setup>
+<script>
 import BackgroundImage from '@/components/BackGround.vue'
-import { useRouter } from 'vue-router'
 import { addDays, startOfWeek, format, isToday } from 'date-fns';
-import { ref, computed } from 'vue'
-// import { zhCN } from 'date-fns/locale';
+import { ref } from 'vue'
 
-const currentDate = ref(new Date());
-const daysToShow = ref(7);
-const selectedDate = ref(null);
-
-const week = computed(() => {
-  const startDate = startOfWeek(currentDate.value, { weekStartsOn: 1 });
-  return Array.from({ length: daysToShow.value }, (_, index) => addDays(startDate, index));
-});
-
-const formatDay = (date) => format(date, 'MM/dd');
-const formatDayOfWeek = (date) => (isToday(date) ? 'Today' : format(date, 'EEEE'));
-
-
-const prevWeek = () => {
-  currentDate.value = addDays(currentDate.value, -7);
-};
-
-const nextWeek = () => {
-  currentDate.value = addDays(currentDate.value, 7);
-};
-
-const selectDate = (date) => {
-  selectedDate.value = date;
-  console.log(selectedDate.value);
+export default {
+  components: {
+    BackgroundImage
+  },
+  data() {
+    return {
+      currentDate: ref(new Date()),
+      daysToShow: ref(7),
+      selectedDate: ref(null),
+      matchDetails: [
+        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite:true },
+        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite:true },
+        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite:true },
+        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite:false },
+        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite:true },
+        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite:false },
+        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite:true },
+        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite:true },
+      ],
+      toFavourite: true,
+    };
+  },
+  computed: {
+    week() {
+      const startDate = startOfWeek(this.currentDate, { weekStartsOn: 1 });
+      return Array.from({ length: this.daysToShow }, (_, index) => addDays(startDate, index));
+    }
+  },
+  methods: {
+    formatDay(date) {
+      return format(date, 'MM/dd');
+    },
+    formatDayOfWeek(date) {
+      return isToday(date) ? 'Today' : format(date, 'EEEE');
+    },
+    prevWeek() {
+      this.currentDate = addDays(this.currentDate, -7);
+    },
+    nextWeek() {
+      this.currentDate = addDays(this.currentDate, 7);
+    },
+    selectDate(date) {
+      this.selectedDate = date;
+      console.log(this.selectedDate);
+    },
+    toAllMatchPage() {
+      this.$router.push({ name: 'TournamentDetails' });
+    },
+    toUnfavourite(match){
+      match.favourite= !match.favourite;
+    }
+  }
 }
-
-
-const router = useRouter();
-
-const toAllMatchPage = () => {
-  //Navigating
-  //Push to the Live Page
-  router.push({ name: 'TournamentDetails' })
-}
-
-const matchDetails = [
-  { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null' },
-  { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null' },
-  { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null' },
-  { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null' },
-  { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null' },
-  { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null' },
-  { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null' },
-  { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null' },
-
-]
 </script>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 

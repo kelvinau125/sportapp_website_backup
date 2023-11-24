@@ -1,7 +1,7 @@
 <template>
     <!-- Main Component -->
     <div class="flex flex-col py-2">
-      <div class="">
+      <div class="overflow-hidden">
         <div class="flex justify-center">
           <div class="flex items-center">
             <div class="flex px-2 pb-1.5">
@@ -56,7 +56,7 @@
           </div>
         </div>
         <div class="flex justify-between">
-          <div class="flex justify-between w-1/2">
+          <div class="flex justify-between w-full" >
             <div class="">
               <div class="flex items-center">
                 <span class="font-medium text-sm pr-2">{{ homeAttackNum }}</span>
@@ -74,9 +74,9 @@
                 </div>
               </div>
             </div>
-            <div class="flex flex-col items-center justify-evenly">
+            <div class="flex flex-col items-center justify-around">
               <span class="font-medium text-sm">进攻</span>
-              <span class="font-medium text-sm ">危险进攻</span>
+              <span class="font-medium text-sm">危险进攻</span>
             </div>
             <div class="">
               <div class="flex items-center">
@@ -98,8 +98,9 @@
               </div>
             </div>
           </div>
+          <div class="w-1/4" ></div>
           <!-- HALo -->
-          <div class="flex justify-between w-1/2">
+          <div class="flex justify-between w-full" >
             <div class="">
               <div class="flex items-center">
                 <span class="font-medium text-sm">{{ teamAtotalShotNum }}</span>
@@ -119,8 +120,8 @@
                 </div>
               </div>
             </div>
-            <div class="flex flex-col items-center justify-evenly">
-              <span class="font-medium text-sm">射门(射正)</span>
+            <div class="flex flex-col items-center justify-around">
+              <span class="font-medium text-sm pl-1.5">射门(射正)</span>
               <span class="font-medium text-sm ">点球</span>
             </div>
             <div class="">

@@ -85,28 +85,23 @@
         <img src="../assets//tournament/streamIcon.png" />
         <span class="pl-2 font-normal text-sm">比赛直播</span>
       </div>
-      <div class="pb-10">
-        <div class="flex px-2">
+      <div class="pb-2">
+        <div class="flex justify-start px-2 ">
           <router-link :to="address.addressLink" v-for="address in liveAddress" :key="address.liveAddress">
-            <div class="md:mx-4 flex items-center py-3" >
+            <div class="flex items-center py-3" >
             <div class="live_border">
               <p class="px-4 py-2 font-medium text-sm">{{ address.liveAddress }}</p>
             </div>
           </div>
           </router-link>
-
-          
         </div>
       </div>
-
     </div>
-
   </div>
   <div class="flex flex-col match_status pb-10 ">
     <h2 class="text-headerFont font-headerWeight ">阵容</h2>
-    <div class="pt-8">
+    <div class="pt-3">
       <LineUp />
-
     </div>
 
   </div>
