@@ -115,7 +115,7 @@
 <script setup>
 import LiveList from '../components/ListOfLive.vue'
 import LineUp from '@/views/Tournament/tournamentLineUp.vue'
-import TournamentStatus from '@/components/HelloWorld.vue'
+import TournamentStatus from '@/views/Tournament/tournamentStatus.vue'
 // import { useRouter } from 'vue-router'
 
 

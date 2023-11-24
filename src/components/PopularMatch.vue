@@ -42,7 +42,7 @@
       </div>
     </div>
 
-    <div @click="toAllMatchPage" class="flex flex-col justify-center items-center bg-green-500 border" style="width: 190px; height: 136px;">
+    <div @click="toAllMatchPage" class="flex flex-col justify-center items-center bg-green-500 border cursor-pointer" style="width: 190px; height: 136px;">
           <div style="width: 24px; height: 24px;">
             <img class="" src="../assets/hello.png" alt="全部赛程" /> 
           </div>
@@ -50,26 +50,6 @@
             <span class="text-sm font-medium">全部赛程</span>
           </div>
     </div>
-    
-
-      <!-- <a href="/allMatch" class="bg-green-500 border h-full flex flex-col justify-center items-center" >
-      <div class="" style="width: 24px; height: 24px;" >
-        <img class="" src="../assets/hello.png" alt="全部赛程" />
-      </div>
-      <div class="">
-            <p class="text-sm font-medium">全部赛程</p>
-      </div>
-    </a> -->
-
-
-      <!-- <ButtonCom @click="toAllMatchPage" class="border h-full flex flex-col justify-center items-center">
-        <div class="button">
-          <img class="" src="../assets/hello.png" alt="全部赛程" />
-        </div>
-        <div>
-          <p>全部赛程</p>
-        </div>
-      </ButtonCom> -->
   </div>
 
     

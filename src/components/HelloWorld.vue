@@ -1,7 +1,7 @@
 <template>
   <!-- Main Component -->
   <div class="flex flex-col py-2">
-    <div class="overflow-hidden">
+    <div class="">
       <div class="flex justify-center">
         <div class="flex items-center">
           <div class="flex px-2 pb-1.5">
@@ -55,108 +55,98 @@
 
         </div>
       </div>
-      <div class="flex justify-between py-2">
-        <div class="flex items-center">
-          <div class="flex items-center">
-            <span class="pr-2 font-medium text-sm">{{ homeAttackNum }}</span>
-            <div class="team">
-              <div class="stat-bar-left totalGrayBar border_leftTB" style="width: 100%;"></div>
+      <div class="flex justify-between">
+        <div class="flex justify-between w-1/2">
+          <div class="">
+            <div class="flex items-center">
+              <span class="font-medium text-sm pr-2">{{ homeAttackNum }}</span>
+              <div class="team">
+                <div class="stat-bar-left totalGrayBar border_leftTB" style="width: 100%;"></div>
 
-              <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAAttackNumber + '%' }"></div>
-            </div>
-          </div>
-          <div class="flex justify-center">
-            <span class="px-10">进攻</span>
-          </div>
-          <div class="flex items-center">
-            <div class="team">
-              <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
-
-              <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBShotPercentage + '%' }">
+                <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAAttackNumber + '%' }"></div>
               </div>
             </div>
-            <span class="pl-2.5 font-medium text-sm">{{ awayAttackNum }}</span>
+            <div class="flex items-center">
+              <span class="font-medium text-sm pr-2">{{ homeAttackDangerNum }}</span>
+              <div class="team">
+                <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
+                <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamADangerNum + '%' }"></div>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col items-center justify-evenly">
+            <span class="font-medium text-sm">进攻</span>
+            <span class="font-medium text-sm ">危险进攻</span>
+          </div>
+          <div class="">
+            <div class="flex items-center">
+              <div class="team">
+                <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
 
+                <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBShotPercentage + '%' }">
+                </div>
+              </div>
+              <span class="pl-2.5 font-medium text-sm">{{ awayAttackNum }}</span>
+            </div>
+            <div class="flex items-center">
+              <div class="team">
+                <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
+
+                <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBDangerNum + '%' }"></div>
+              </div>
+              <span class="font-medium text-sm pl-2.5">{{ awayAttackDangerNum }}</span>
+            </div>
           </div>
         </div>
-        <div class="flex items-center">
+        <!-- HALo -->
+        <div class="flex justify-between w-1/2">
           <div class="">
-            <span class="font-medium text-sm">{{ teamAtotalShotNum }}</span>
-            <span class="font-medium text-sm pr-2">{{ '(' + homeShootGoalNum + ')' }}</span>
-          </div>
-          <div class="team">
-            <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
-            <div class="stat-bar-left total-shots border_leftTB" :style="{ width: teamAtotalShotPercent + '%' }"></div>
-            <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: something + '%' }"></div>
-          </div>
-          <div class="w-24 flex justify-center">
-            <span class="font-medium text-sm">射门(射正)</span>
-          </div>
-          <div class="flex items-center">
-            <div class="team">
-              <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
-              <div class="stat-bar-right total-shotsB border_rightTB" :style="{ width: teamBtotalShotPercent + '%' }">
+            <div class="flex items-center">
+              <span class="font-medium text-sm">{{ teamAtotalShotNum }}</span>
+              <span class="font-medium text-sm pr-2">{{ '(' + homeShootGoalNum + ')' }}</span>
+              <div class="team">
+                <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
+                <div class="stat-bar-left total-shots border_leftTB" :style="{ width: teamAtotalShotPercent + '%' }">
+                </div>
+                <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: something + '%' }"></div>
               </div>
-              <div class="stat-bar-right shots-on-target border_rightTB" :style="{ width: test + '%' }"></div>
-              <!-- <div class="stat-bar-left shots-on-targetA" :style="{ width: shotsOnTargetA + '%' }"></div> -->
             </div>
-            <div class="">
+            <div class="flex items-center">
+              <span class="font-medium text-sm px-3">{{ homePenaltyNum }}</span>
+              <div class="team">
+                <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
+                <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAPenaltyNum + '%' }"></div>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col items-center justify-evenly">
+            <span class="font-medium text-sm">射门(射正)</span>
+            <span class="font-medium text-sm ">点球</span>
+          </div>
+          <div class="">
+            <div class="flex items-center">
+              <div class="team">
+                <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
+                <div class="stat-bar-right total-shotsB border_rightTB" :style="{ width: teamBtotalShotPercent + '%' }">
+                </div>
+                <div class="stat-bar-right shots-on-target border_rightTB" :style="{ width: test + '%' }"></div>
+              </div>
               <span class="font-medium text-sm pl-2.5">{{ teamBtotalShotNum }}</span>
               <span class="font-medium text-sm">{{ "(" + awayShootGoalNum + ")" }}</span>
             </div>
+            <div class="flex items-center">
+              <div class="team ">
+                <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
 
-          </div>
-        </div>
-      </div>
-      <div class="flex justify-between py-2">
-        <div class="flex items-center">
-          <div class="flex items-center">
-            <span class="font-medium text-sm pr-2">{{ homeAttackDangerNum }}</span>
-            <div class="team">
-              <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
-              <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamADangerNum + '%' }"></div>
+                <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBPenaltyNum + '%' }">
+                </div>
+              </div>
+              <span class="font-medium text-sm pl-2.5">{{ awayPenaltyNum }}</span>
             </div>
-          </div>
-          <div class="w flex justify-center">
-            <span class="font-medium text-sm px-9">危险进攻</span>
-          </div>
-          <div class="flex items-center">
-            <div class="team">
-              <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
-
-              <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBDangerNum + '%' }"></div>
-              <!-- <div class="stat-bar-left shots-on-targetA" :style="{ width: shotsOnTargetA + '%' }"></div> -->
-            </div>
-            <span class="font-medium text-sm pl-2.5">{{ awayAttackDangerNum }}</span>
-          </div>
-        </div>
-        <div class="flex items-center">
-          <div class="flex items-center">
-            <span class="font-medium text-sm pr-2">{{ homePenaltyNum }}</span>
-            <div class="team">
-              <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
-              <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAPenaltyNum + '%' }"></div>
-            </div>
-          </div>
-          <div class=" flex justify-center">
-            <span class="pl-10 pr-10 font-medium text-sm ">点球</span>
-          </div>
-          <div class="flex items-center">
-            <div class="team ">
-              <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
-
-              <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBPenaltyNum + '%' }"></div>
-              <!-- <div class="stat-bar-left shots-on-targetA" :style="{ width: shotsOnTargetA + '%' }"></div> -->
-            </div>
-            <span class="font-medium text-sm pl-2.5">{{ awayPenaltyNum }}</span>
-
-
           </div>
         </div>
       </div>
     </div>
-
-
   </div>
 </template>
 
@@ -286,7 +276,7 @@ export default {
   height: 9px;
   width: 137px;
   position: absolute;
-  left: 4px;
+  left: 0;
   bottom: 8px;
   margin-bottom: 5px;
 }
@@ -302,7 +292,7 @@ export default {
 
 }
 
-.short {
+.short-bar-right {
   height: 9px;
   width: 110px;
   position: absolute;
