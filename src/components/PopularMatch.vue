@@ -1,8 +1,8 @@
 <template>
   <!-- Overflow Setting -->
-  <div class="flex gap-2 teamContainer overflow-auto "  >
-    <div class="w-full" v-for="match in matchDetails" :key="match.matchDetails" >
-      <div class="border" style="width: 215px; height: 136px; border-radius: 8px;">
+  <div class="flex gap-1   "  >
+    <div class="w-full flex-wrap" v-for="match in matchDetails" :key="match.matchDetails" >
+      <div class="border" style="width: 204px; height: 136px; border-radius: 8px;">
         <!-- 热门赛程 Header -->
         <div class="py-2 px-4 flex justify-between rounded-t-lg" style="background-color: #D6F1DD;">
           <div class="headerContainer">
@@ -42,7 +42,7 @@
       </div>
     </div>
 
-    <div @click="toAllMatchPage" class="flex flex-col justify-center items-center bg-green-500 border cursor-pointer" style="width: 190px; height: 136px;">
+    <div @click="toAllMatchPage" class="flex flex-col justify-center items-center bg-green-500 border cursor-pointer" style="width: 42px; height: 136px;">
           <div style="width: 24px; height: 24px;">
             <img class="" src="../assets/hello.png" alt="全部赛程" /> 
           </div>

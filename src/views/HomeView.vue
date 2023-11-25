@@ -8,6 +8,7 @@
             <div>直播窗口内容</div>
           </div>
         </div>
+
         <div class="flex justify-center">
           <div class="epic-container" style="width: 892px; height: 92px;">
             <div class="epic grid grid-cols-5">
@@ -22,7 +23,43 @@
     </BackgroundImage>
 
   </div>
-  <div class="flex flex-col content">
+  <div class="flex justify-center">
+    <div class="flex flex-col smtg">
+      <div class="pb-1">
+        <img class="banner mt-5" src="../assets/main/advertisment.png" alt="Banner" />
+      </div>
+      <div>
+        <h2 class="text-2xl pr-5 py-5 font-normal">热门赛程</h2>
+        <PopularMatch />
+      </div>
+      <div class="pb-20">
+        <h2 class="text-2xl pr-5 py-5 font-normal">热门主播榜</h2>
+        <div class="flex">
+          <img class="w-64" src="../assets/content/champion.png" />
+          <div class="md:mx-4 w-52 flex flex-col items-center py-3" v-for="link in streamer" :key="link.streamer">
+            <div>
+              <img :src="require(`../assets/topNav/${link.image}.png`)" alt="Link Image"
+                style="width: 50px; height: 50px;" />
+            </div>
+            <div>
+              <p class="text-base hover:text-green-500">{{ link.name }}</p>
+
+            </div>
+            <div class="flex items-center">
+              <p class="text-base hover:text-green-500">{{ link.no }}</p>
+              <img class="w-5 h-5" src="../assets/content/Frame.png" alt="Frame Icon">
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- <div class="flex flex-col content">
+
     <img class="banner mt-5 pb-4" src="../assets/main/advertisment.png" alt="Banner" />
 
     <div class="">
@@ -50,7 +87,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div>
     <FooterBar />
@@ -83,6 +120,10 @@ const epicMoment = [
 </script>
 
 <style>
+.smtg {
+  width: 892px;
+}
+
 .live-container {
   display: flex;
   justify-content: center;
@@ -134,10 +175,9 @@ const epicMoment = [
   margin: auto;
 }
 
-.content .banner {
-  width: 100%;
+.banner {
+  width: 892px;
   height: 76px;
-
 }
 
 .button {

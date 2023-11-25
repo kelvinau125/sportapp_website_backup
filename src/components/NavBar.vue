@@ -1,26 +1,24 @@
 <template>
-  <div class="bg-blue-950 text-white py-2 px-6 shadow md:flex justify-between items-center"
-    style="background-color: #092A5D;">
+  <div class="bg-navColor  text-white py-2 px-6 shadow md:flex justify-between items-center">
     <div class="flex items-center cursor-pointer">
       <img class="mr-2" alt="App logo" src="../assets/topNav/appImage.png">
       <router-link to="/" class="text-xl hover:text-green-500">
-        <span class="text-lg font-semibold text-green-500"> {{ $t("PandaSport") }}</span>
+        <span class="md:text-lg text-base font-semibold text-green-500"> {{ $t("PandaSport") }}</span>
       </router-link>
 
       <span @click="MenuOpen()" class="absolute md:hidden md:pl-0 pl-2 md:right-0 right-20" style="width: 60px;">
         <img v-if="openNav" src="@/assets/topNav/x.png">
         <img v-else src="@/assets/topNav/hamburger.png">
       </span>
-
       <div class="">
-        <ul :class="[openNav ? 'left-52' : 'left-[-100%]']"
-          class="md:items-center md:pl-5 pl-32 md:static absolute duration-700 ease-in md:top-0 top-10">
-          <li class="nav-button md:inline-flex flex-col md:ml-4 md:my-2.5" v-for="link in Links" :key="link.link">
-            <router-link :to="link.link" class="text-base font-normal hover:text-green-500 text-white">{{ link.name
+        <ul :class="openNav ? 'left-0' : 'left-[-100%]'"
+          class="md:items-center md:pr-0 pr-4 md:pl-5 pl-72 md:static absolute bg-navColor md:w-auto w-auto md:right-0 md:top-14 top-14 duration-700 ease-in">
+          <li class=" md:inline-flex flex-col ml-4 my-2.5" v-for="link in Links" :key="link.link">
+            <router-link :to="link.link" class="md:text-base text-sm font-normal hover:text-green-500 text-white">{{
+              link.name
             }}</router-link>
           </li>
         </ul>
-
       </div>
     </div>
 
@@ -86,7 +84,7 @@ const Links = [
   { name: 'TEST', link: '/test' },
 ]
 
-const openNav = ref(false)
+const openNav = ref(true)
 
 const MenuOpen = () => {
   openNav.value = !openNav.value;
@@ -127,6 +125,11 @@ const logout = () => {
 </script>
 
 <style>
+.nav-container {
+  width: 892px;
+  height: 56px;
+}
+
 .live-container {
   display: flex;
   justify-content: center;
@@ -191,4 +194,5 @@ a {
     color: #42b983;
     /* color: white; */
   }
-}</style>
+}
+</style>

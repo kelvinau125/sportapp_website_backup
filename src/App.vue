@@ -1,5 +1,7 @@
 <template>
-    <Navbar/>
+  <div class="bg-navColor">
+    <Navbar />
+  </div>
     <router-view/>
      <!-- HOMEVIEW FOR LIVE (BANNER) 
      热门赛程
@@ -45,9 +47,9 @@ const scrollToTop = () => {
 }
 
 .go-up {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
+  position: absolute;
+  bottom: 190px;
+  right: 290px;
   cursor: pointer;
 }
 

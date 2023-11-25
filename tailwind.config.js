@@ -10,6 +10,7 @@ module.exports = {
     extend: {
       backgroundColor: {
         'hoverGreen': '#D6F1DD',
+        'navColor' : '#092A5D',
       },
       textColor:{
         'grayText': '#999999',
