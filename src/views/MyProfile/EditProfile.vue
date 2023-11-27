@@ -49,6 +49,9 @@
     // import to run the get otp function
     import { getOTP } from '@/service/apiProvider.js';
 
+    // import to run the change password function
+    import { updateProfilePic } from '@/service/apiProvider.js';
+
     export default {
     components:{
         ButtonPress,
@@ -70,8 +73,21 @@
     },
 
     methods: {
-        handleImageUpload() {
-            // image update function
+        async handleImageUpload(event) {
+            // Access the selected file
+            const selectedFile = event.target.files[0];
+
+            // send OTP to user phone
+            const result = await updateProfilePic(selectedFile);
+            
+            if (result === true) {
+                // show modal
+                this.gobackmypage()
+            } else if (result === false) {
+                this.warningMessage = "Please check your network";
+            } else {
+                this.warningMessage = result;
+            }   
         },
 
         async changePassword() {

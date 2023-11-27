@@ -3,7 +3,8 @@ import CryptoJS from 'crypto-js';
 import { 
   postRequest,
   getRequest,
-  patchRequest
+  patchRequest,
+  postFileRequest
  } from '@/service/apiRequestMethod';
 
 import { 
@@ -13,12 +14,14 @@ import {
   sendMsgUrl,
   verifyMsgUrl,
   updatePasswordUrl,
-  updateNickNameUrl
+  updateNickNameUrl,
+  uploadFileUrl,
+  updateHeadUrl
  } from '@/utils/apiConfig.js';
 
 // get user cookie / set cookie
 import VueCookies from 'vue-cookies';
-import { setCookie, setNicknameCookie } from '@/service/cookie';
+import { setCookie, setNicknameCookie, setImageCookie } from '@/service/cookie';
 
 
 // User Login
@@ -234,6 +237,72 @@ export async function UpdateUserNickname(nickname) {
     return false;
   }
 }
+
+
+// Update Image
+export async function updateProfilePic(file) {
+  // get user token
+  const userToken = VueCookies.get('userToken')
+
+  const url = baseUrl + uploadFileUrl;
+  
+  console.log(file);
+
+  try {
+    const response = await postFileRequest(file, url);
+    const code = response.code;
+    const data = response.data;
+
+    // pushImageToServer(userToken, data);
+    const isFinished = await pushImageToServer(userToken, data);
+
+    if (isFinished) {
+    
+      if (code === 0) {
+        return true;
+      } else {
+        console.log(`picture Unsuccessfully upload to database: ${code}`);
+        return false;
+      }
+    } else {
+      console.log(`picture Unsuccessfully upload to database: ${code}`);
+      return false;
+    }
+  } catch (e) {
+    console.log(`Unsuccessful in provider: ${e}`);
+    return false;
+  }
+}
+
+export async function pushImageToServer(usertToken, imageToken) {
+  const url = baseUrl + updateHeadUrl + usertToken;
+  
+  const imageTokenUrl =
+  "https://live-stream-1321239144.cos.ap-singapore.myqcloud.com/head/" +
+      imageToken;
+
+  const apiDetails = {  
+    head: imageTokenUrl,
+  };
+
+  try {
+    const response = await patchRequest(url, apiDetails);
+
+    const code = response.code;
+
+    if (code === 0) {
+      setImageCookie(imageTokenUrl);
+      return true;
+    } else {
+      console.log(`picture Unsuccessfully upload to database: ${code}`);
+      return false;
+    }
+  } catch (e) {
+    console.log(`Unsuccessful in provider: ${e}`);
+    return false;
+  }
+}
+
 
 
 

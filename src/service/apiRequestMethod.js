@@ -55,3 +55,27 @@ import axios from 'axios';
       throw new Error(`Exception: ${error}`);
     }
   }
+
+  export async function postFileRequest(file, url) {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await axios.post(url, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+  
+      console.log(response);
+  
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        throw new Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      throw new Error(`Exception: ${error}`);
+    }
+  }
+

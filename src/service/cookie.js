@@ -11,6 +11,11 @@ export function setNicknameCookie(username) {
   VueCookies.set('username', username, '7d');
 }
 
+export function setImageCookie(avatar) {
+  VueCookies.set('avatar', avatar, '7d');
+}
+
+
 export function removeCookie() {
     VueCookies.remove('userToken');
     VueCookies.remove('phoneNumber');
