@@ -4,13 +4,14 @@
     <div class="w-full flex-wrap" v-for="match in matchDetails" :key="match.matchDetails">
       <div @click="navigateTo(match.linkAddress)" class="border" style="width: 204px; height: 136px; border-radius: 8px;">
         <!-- 热门赛程 Header -->
-        <div class="py-1.5 flex justify-between rounded-t-lg" style="background-color: #D6F1DD; height: 30px;">
+        <div class="py-1.5 flex justify-between items-center rounded-t-lg"
+          style="background-color: #D6F1DD; height: 30px;">
           <div class="headerContainer pl-2.5">
             <div class="headerBorder text-xs font-medium flex justify-center">
               <span>{{ match.matchType }}</span>
             </div>
           </div>
-          <div class="text-xs font-normal pt-0.5">
+          <div class="text-xs font-normal">
             {{ match.time }}
           </div>
           <div class="pr-2" @click.stop="toUnfavourite(match)">
@@ -31,7 +32,7 @@
             </div>
           </div>
           <div class=" w-16 flex flex-col justify-start items-center py-2 ">
-            <div class="font-medium text-sm pt-1 flex items-center justify-center"
+            <div class="font-medium text-sm pt-1 flex items-center justify-center pb-0.5"
               :class="{ 'statusStartBorder': match.status === '开', 'statusEndBorder': match.status === '终' }">{{
                 match.status }}</div>
             <span class="pt-2 text-base font-semibold">VS</span>
@@ -49,13 +50,13 @@
 
     </div>
 
-    <div @click="toAllMatchPage" class="flex flex-col justify-center items-center bg-green-500 border cursor-pointer"
-      style="width: 42px; height: 136px;">
-      <div style="width: 24px; height: 24px;">
+    <div @click="toAllMatchPage" class="flex flex-col justify-start items-center border cursor-pointer px-5 pt-8"
+      style="width: 42px; height: 136px; background-color: #808F7E;">
+      <div class="" style="width: 24px; height: 24px;">
         <img class="" src="@/assets/hello.png" alt="全部赛程" />
       </div>
-      <div class="px-4">
-        <span class="text-sm font-medium">全部赛程</span>
+      <div class=" flex text-center pt-5" style="width: 31px; height: 36px; ">
+        <span class="text-xs font-medium text-white">全部赛程</span>
       </div>
     </div>
   </div>
@@ -142,14 +143,14 @@ export default {
 }
 
 .statusStartBorder {
-  background-color: #F5F5F5;
+  background-color: #EEFBEE;
   width: 28px;
   height: 28px;
   border-radius: 30px;
 }
 
 .statusEndBorder {
-  background-color: #EEFBEE;
+  background-color: #F5F5F5;
   width: 28px;
   height: 28px;
   border-radius: 30px;

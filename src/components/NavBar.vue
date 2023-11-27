@@ -25,7 +25,7 @@
     <div class="md:flex items-center">
       <div class="md:flex relative">
         <div class="md:block hidden">
-          <img src="@/assets/topNav/search.png" alt="Search Icon" class="absolute left-2.5 w-6 h-6 pr-1 m-1.5" />
+          <img src="@/assets/topNav/search.png" alt="Search Icon" class="absolute left-0.5 w-6 h-6 m-2" />
         </div>
         <div class="md:block hidden">
           <input v-model="searchText" type="text" placeholder="搜索赛事/ 球队"

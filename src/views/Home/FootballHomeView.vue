@@ -35,19 +35,19 @@
       <div class="pb-20">
         <h2 class="text-2xl pr-5 py-5 font-normal">热门主播榜</h2>
         <div class="flex">
-          <img class="w-64" src="@/assets/content/champion.png" />
+          <img style="width: 142px ; height: 116px;" src="@/assets/content/champion.png" />
           <div class="md:mx-4 w-52 flex flex-col items-center py-3" v-for="link in streamer" :key="link.streamer">
             <div>
               <img :src="require(`@/assets/topNav/${link.image}.png`)" alt="Link Image"
                 style="width: 50px; height: 50px;" />
             </div>
-            <div>
-              <p class="text-base hover:text-green-500">{{ link.name }}</p>
+            <div class="pt-1">
+              <p class="text-sm font-normal hover:text-green-500">{{ link.name }}</p>
 
             </div>
             <div class="flex items-center">
-              <p class="text-base hover:text-green-500">{{ link.no }}</p>
-              <img class="w-5 h-5" src="@/assets/content/Frame.png" alt="Frame Icon">
+              <p class="text-xs font-normal text-grayText hover:text-green-500">{{ link.no }}</p>
+              <img class="pl-1" src="@/assets/content/Frame.png" alt="Frame Icon">
 
             </div>
           </div>
