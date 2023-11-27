@@ -6,7 +6,7 @@
     <CloseButton @click="closeModal"> </CloseButton>
 
     <!-- login -->
-    <form @submit.prevent="">
+    <form @submit.prevent="" @keydown.enter.prevent="">
         <h2 class="text-xl font-bold" style="padding: 20px">{{ $t("Welcome Back, Please Login") }}</h2>
         <div class="form-group flex">
             <!-- https://vuejsexamples.com/international-telephone-input-with-vue/ -->
@@ -38,7 +38,9 @@
             {{ warningMessage }}
         </div>
 
-        <div class="flex justify-end"><button class="text-black font-bold" @click="showForgotPasswordModal">{{ $t("Forgot Password?") }}</button></div>
+        <div class="flex justify-end">
+            <button class="text-black font-bold" @click="showForgotPasswordModal">{{ $t("Forgot Password?") }}</button>
+        </div>
 
         <div class="pt-12">
             <ButtonCom @click="login" class="w-screen">{{ $t("Login") }}</ButtonCom>

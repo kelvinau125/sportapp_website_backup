@@ -22,7 +22,6 @@
                 <input
                 :placeholder="$t('Please Enter Password')"
                 :type="passwordFieldType"
-                id="password"
                 v-model="password"
                 required
                 />
@@ -39,7 +38,6 @@
                 <input
                 :placeholder="$t('Please Enter Password Again')"
                 :type="passwordFieldType2nd"
-                id="password2nd"
                 v-model="password2nd"
                 required
                 />
@@ -105,6 +103,10 @@
         passwordVisibility2nd: false,
 
         isChangePasswordSuccess: false,
+
+        password:'',
+        password2nd:'',
+
         };
     },
 

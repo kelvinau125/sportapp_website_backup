@@ -365,10 +365,10 @@ export default {
 a {
   font-weight: normal;
   color: white;
+}
 
-  &.router-link-exact-active {
-    color: #42b983;
-    /* color: white; */
-  }
+a.router-link-exact-active {
+  color: #42b983;
+  /* color: white; */
 }
 </style>
