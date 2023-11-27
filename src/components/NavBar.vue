@@ -90,6 +90,13 @@
                 :showEditProfileModal="isEditProfileModalVisible"
                 :gobackmypage="gobackmypage"
                 :showOTPModal ="showOTPModal"
+                :showEditNicknameModal ="showEditNicknameModal"
+              />
+
+              <EditNicknameModal
+                :showEditNicknameModal="isEditNicknameModalVisible"
+                :closeEditNicknameModal="closeEditNicknameModal"
+                :showEditProfileModal ="showEditProfileModal"
               />
               
               <div @click="toggleDropdownProfile" >
@@ -102,7 +109,7 @@
                     <br>
                     <button class="px-1" @click="showLoginModal">登入</button>
                     <br>
-                    <button class="px-1" @click="showMyPageModal">我的主页</button>
+                    <button v-if="loggedIn" class="px-1" @click="showMyPageModal">我的主页</button>
                     <br>
                     <router-link to="/test" class="px-1 text-white">登入</router-link>
                   </div>
@@ -130,6 +137,7 @@
   import EditPassword from '@/views/MyProfile/EditPassword.vue';
   import MyPage from '@/views/MyProfile/MyPage.vue';
   import EditProfile from '@/views/MyProfile/EditProfile.vue';
+  import EditNicknameModal from '@/views/MyProfile/EditUserNickname.vue';
 
   // Navigation Bar
   const Links = [
@@ -267,6 +275,7 @@
   const isEditProfileModalVisible = ref(false);
 
   const showEditProfileModal = () => {
+    isEditNicknameModalVisible.value = false;
     isMyPageModalVisible.value = false;
     isEditProfileModalVisible.value = true;
   };
@@ -275,6 +284,19 @@
     isMyPageModalVisible.value = true;
     isEditProfileModalVisible.value = false;
   };
+
+  // Edit Nickname Modal
+  const isEditNicknameModalVisible = ref(false);
+
+  const showEditNicknameModal = () => {
+    isEditProfileModalVisible.value = false;
+    isEditNicknameModalVisible.value = true;
+  };
+
+  const closeEditNicknameModal = () => {
+    isEditNicknameModalVisible.value = false;
+  };
+
 
   </script>
 

@@ -12,12 +12,13 @@ import {
   createUserUrl,
   sendMsgUrl,
   verifyMsgUrl,
-  updatePasswordUrl
+  updatePasswordUrl,
+  updateNickNameUrl
  } from '@/utils/apiConfig.js';
 
 // get user cookie / set cookie
 import VueCookies from 'vue-cookies';
-import { setCookie } from '@/service/cookie';
+import { setCookie, setNicknameCookie } from '@/service/cookie';
 
 
 // User Login
@@ -204,6 +205,36 @@ export async function UpdateUserPassword(password) {
     return false;
   }
 }
+
+
+// Update User Nickname
+export async function UpdateUserNickname(nickname) {
+  // get user token
+  const userToken = VueCookies.get('userToken')
+
+  const url = baseUrl + updateNickNameUrl + userToken + "/" + nickname;
+  
+  setNicknameCookie(nickname);
+
+  const apiDetails = {};
+
+  try {
+    const response = await patchRequest(url, apiDetails);
+
+    const code = response.code;
+
+    if (code === 0) {
+      return true;
+    } else {
+      console.log(`nickname Unsuccessfully upload to database: ${code}`);
+      return false;
+    }
+  } catch (e) {
+    console.log(`Unsuccessful in provider: ${e}`);
+    return false;
+  }
+}
+
 
 
 

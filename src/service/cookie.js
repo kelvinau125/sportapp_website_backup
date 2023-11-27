@@ -7,6 +7,10 @@ export function setCookie(token, mobile, avatar, username) {
     VueCookies.set('username', username, '7d');
   }
 
+export function setNicknameCookie(username) {
+  VueCookies.set('username', username, '7d');
+}
+
 export function removeCookie() {
     VueCookies.remove('userToken');
     VueCookies.remove('phoneNumber');

@@ -22,7 +22,7 @@
             </div>
 
             <div class="pt-12 ">
-                <ButtonPress @click="editPassword" class="w-screen bg-white flex justify-between items-center" style="height: 60px;">
+                <ButtonPress @click="showEditNicknameModal()" class="w-screen bg-white flex justify-between items-center" style="height: 60px;">
                     <p class="text-base font-normal" style="color: #333333;">修改昵称</p>
                     <img src="@/assets/arrow.png"  style="width: 6px; height: 12px;" />
                 </ButtonPress>
@@ -66,6 +66,7 @@
         showEditProfileModal: Boolean,
         gobackmypage: Function,
         showOTPModal: Function,
+        showEditNicknameModal: Function,
     },
 
     methods: {

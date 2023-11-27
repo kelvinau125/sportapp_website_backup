@@ -52,7 +52,7 @@
             </div>
 
         <div class="pt-12">
-            <ButtonPress @click="editPassword" class="w-screen" style="height: 56px;">退出登录</ButtonPress>
+            <ButtonPress @click="logout" class="w-screen" style="height: 56px;">退出登录</ButtonPress>
             <div class="flex justify-center" style="padding: 20px"/>
         </div>
     
@@ -62,11 +62,14 @@
 </template>
   
 <script>
-  import ButtonPress from '@/components/ButtonPress.vue';
-  import CloseButton from '@/components/CloseButton.vue';
-  
-  // get the avatar
-  import VueCookies from 'vue-cookies';
+    import ButtonPress from '@/components/ButtonPress.vue';
+    import CloseButton from '@/components/CloseButton.vue';
+    
+    // get the avatar
+    import VueCookies from 'vue-cookies';
+
+    // import the remove cookie function
+    import { removeCookie } from '@/service/cookie';
 
   export default {
     components:{
@@ -88,6 +91,13 @@
         closeMyPageModal: Function,
         showEditProfileModal: Function,
     },
+
+    methods: {
+        logout() {
+            removeCookie();
+            window.location.reload();
+        }
+    }
 
 }
 </script>
