@@ -56,74 +56,47 @@
           <div v-show="showDropdown"
             class="md:absolute absolute md:right-8 right-6 md:top-14 top-14 bg-gray-900 mt-1 p-1 py-3">
             <div class="pr-1 pt-1 pb-2 flex flex-col">
-              <router-link to="/register" class="px-1 hover:text-green-500 text-white">注册</router-link>
-              <router-link to="/login" class="px-1 hover:text-green-500 text-white">登入</router-link>
+              <!-- <button to="/register" class="px-1 hover:text-green-500 text-white">注册</button>
+              <button to="/login" class="px-1 hover:text-green-500 text-white">登入</button> -->
+              <button class="px-1" @click="showRegisterModal">注册</button>
+              <button class="px-1" @click="showLoginModal">登入</button>
+              <button v-if="loggedIn" class="px-1" @click="showMyPageModal">我的主页</button>
+              <button v-if="loggedIn" @click="logout" class="block text-white">退出登入</button>
             </div>
-            <router-link v-if="loggedIn" @click="logout" class="block text-black">退出登入</router-link>
           </div>
         </div>
       </div>
     </div>
   </div>
-          <div class="dropdown-content" :class="{ 'show-dropdown': isDropdownOpen }">
+  <div class="md:flex items-center pl-1">
+    <!-- login modal -->
+    <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal" :showRegisterModal="showRegisterModal"
+      :showForgotPasswordModal="showForgotPasswordModal" />
 
-            <button class="dropdown-button" @click="selectOption(require('../assets/topNav/basketball.png'))">
-              <img src="../assets/topNav/basketball.png" alt="Basketball" />
-            </button>
-            <button class="dropdown-button" @click="selectOption(require('../assets/topNav/football.png'))">
-              <img src="../assets/topNav/football.png" alt="Football" />
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="md:flex items-center pl-1">
-        <!-- login modal -->
-        <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal" :showRegisterModal="showRegisterModal"
-          :showForgotPasswordModal="showForgotPasswordModal" />
+    <!-- register modal -->
+    <RegisterModal :showRegModal="isResgitserModalVisible" :closeRegModal="closeRegisterModal"
+      :showLoginModal="showLoginModal" :showOTPModal="showOTPModal" />
 
-        <!-- register modal -->
-        <RegisterModal :showRegModal="isResgitserModalVisible" :closeRegModal="closeRegisterModal"
-          :showLoginModal="showLoginModal" :showOTPModal="showOTPModal" />
+    <OTPModal :showOTPModal="isOTPModalVisible" :closeOTPModal="closeOTPModal" :showLoginModal="showLoginModal"
+      :showEditPasswordModal="showEditPasswordModal" />
 
-        <OTPModal :showOTPModal="isOTPModalVisible" :closeOTPModal="closeOTPModal" :showLoginModal="showLoginModal"
-          :showEditPasswordModal="showEditPasswordModal" />
+    <ForgotPasswordModal :showForgotPasswordModal="isForgotPasswordModalVisible"
+      :closeForgotPasswordModal="closeForgotPasswordModal" :showLoginModal="showLoginModal"
+      :showEditPasswordModal="showEditPasswordModal" />
 
-        <ForgotPasswordModal :showForgotPasswordModal="isForgotPasswordModalVisible"
-          :closeForgotPasswordModal="closeForgotPasswordModal" :showLoginModal="showLoginModal"
-          :showEditPasswordModal="showEditPasswordModal" />
+    <EditPassword :showEditPasswordModal="isEditPasswordModalVisible" :closeEditPasswordModal="closeEditPasswordModal"
+      :showLoginModal="showLoginModal" />
 
-        <EditPassword :showEditPasswordModal="isEditPasswordModalVisible" :closeEditPasswordModal="closeEditPasswordModal"
-          :showLoginModal="showLoginModal" />
+    <MyPage :showMyPageModal="isMyPageModalVisible" :closeMyPageModal="closeMyPageModal"
+      :showEditProfileModal="showEditProfileModal" />
 
-        <MyPage :showMyPageModal="isMyPageModalVisible" :closeMyPageModal="closeMyPageModal"
-          :showEditProfileModal="showEditProfileModal" />
+    <EditProfile :showEditProfileModal="isEditProfileModalVisible" :gobackmypage="gobackmypage"
+      :showOTPModal="showOTPModal" :showEditNicknameModal="showEditNicknameModal" />
 
-        <EditProfile :showEditProfileModal="isEditProfileModalVisible" :gobackmypage="gobackmypage"
-          :showOTPModal="showOTPModal" :showEditNicknameModal="showEditNicknameModal" />
+    <EditNicknameModal :showEditNicknameModal="isEditNicknameModalVisible"
+      :closeEditNicknameModal="closeEditNicknameModal" :showEditProfileModal="showEditProfileModal" />
 
-        <EditNicknameModal :showEditNicknameModal="isEditNicknameModalVisible"
-          :closeEditNicknameModal="closeEditNicknameModal" :showEditProfileModal="showEditProfileModal" />
 
-        <div @click="toggleDropdownProfile">
-          <img src="../assets/topNav/defaultProfile.png" alt="Profile Picture" />
-          <div v-show="showDropdown" class="absolute bg-gray-900 mt-1 p-1 py-3">
-            <div class="pr-1 pt-1 pb-2 ">
-              <!-- 注册Button -->
-              <!-- <router-link to="/register" class="px-1 hover:text-green-500 text-white">注册</router-link> -->
-              <button class="px-1" @click="showRegisterModal">注册</button>
-              <br>
-              <button class="px-1" @click="showLoginModal">登入</button>
-              <br>
-              <button v-if="loggedIn" class="px-1" @click="showMyPageModal">我的主页</button>
-              <br>
-              <router-link to="/test" class="px-1 text-white">登入</router-link>
-            </div>
-            <!-- Dropdown content, e.g., Logout link -->
-            <button v-if="loggedIn" @click="logout" class="block text white">退出登入</button>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -144,7 +117,7 @@ import EditProfile from '@/views/MyProfile/EditProfile.vue';
 import EditNicknameModal from '@/views/MyProfile/EditUserNickname.vue';
 
 export default {
-  components:{
+  components: {
     LoginModal,
     RegisterModal,
     OTPModal,
@@ -189,7 +162,7 @@ export default {
     },
     logout() {
       removeCookie();
-      this.$router.push('/login');
+      this.$router.push('/');
       this.loggedIn = false;
     },
     showLoginModal() {
@@ -315,6 +288,7 @@ export default {
   cursor: pointer;
   width: 55px;
 }
+
 /* Style the dropdown trigger button */
 .dropdown-button {
   background: none;
@@ -344,6 +318,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 /* Style the dropdown options */
 .dropdown-content .dropdown-button {
   display: block;
