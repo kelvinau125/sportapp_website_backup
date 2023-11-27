@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-navColor  text-white py-2 px-6 shadow md:flex justify-between items-center">
+  <div class="bg-navColor  text-white py-2 px-6 shadow md:flex justify-between items-center content">
     <div class="flex items-center cursor-pointer">
       <img class="mr-2" alt="App logo" src="@/assets/topNav/appImage.png">
       <router-link to="/" class="text-xl hover:text-green-500">
@@ -28,7 +28,7 @@
           <img src="@/assets/topNav/search.png" alt="Search Icon" class="absolute left-0.5 w-6 h-6 m-2" />
         </div>
         <div class="md:block hidden">
-          <input v-model="searchText" type="text" placeholder="搜索赛事/s球队"
+          <input v-model="searchText" type="text" placeholder="搜索赛事/球队"
             class="pl-10 md:w-72 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-10 text-white bg-slate-50" />
         </div>
         <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between">

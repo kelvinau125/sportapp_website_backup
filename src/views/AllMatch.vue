@@ -1,17 +1,22 @@
 <template>
   <BackgroundImage>
     <div class="schedule_list">
-      <div class="flex justify-between my-6 py-1.5 date-slider" style="height: 46px;">
-        <div class=" flex justify-center" style="height: 32px; width: 17px; background-color: #808F7E; border-radius: 8px;">
+      <div class="flex justify-between my-6 py-1.5 date-slider" style="width: 892px; height: 46px;">
+        <div class=" flex justify-center"
+          style="height: 32px; width: 17px; background-color: #808F7E; border-radius: 8px;">
           <button @click="prevWeek">
             <img src="@/assets/toLeft.png" alt="Previous Week" class="" />
           </button>
         </div>
-        <div @click="selectDate(day)" v-for="day in week" :key="day" class="date-item hover:bg-hoverGreen px-0.5">
-          <div class="font-medium text-sm">{{ formatDay(day) }}</div>
-          <div class="day-of-week font-medium text-xs">{{ $t(formatDayOfWeek(day)) }}</div>
+        <div @click="selectDate(day)" v-for="day in week" :key="day"
+          class="date-item hover:bg-hoverGreen px-0.5 rounded-lg" style="width: 119px; height: 35px;">
+          <div class="flex flex-col items-center rounded-lg">
+            <div class="font-medium text-sm">{{ formatDay(day) }}</div>
+            <div class="day-of-week font-medium text-xs text-grayText">{{ $t(formatDayOfWeek(day)) }}</div>
+
+          </div>
         </div>
-        <div class="bg-green-500 flex justify-center" style="height: 32px; width: 17px; background-color: #808F7E;border-radius: 8px;">
+        <div class="flex justify-center" style="height: 32px; width: 17px; background-color: #808F7E;border-radius: 8px;">
           <button @click="nextWeek">
             <img class="" src="@/assets/toRight.png" alt="Next Week" />
           </button>
@@ -21,7 +26,7 @@
         <h2>Content for {{ formatDay(selectedDate) }}</h2>
         <p>Day of the week: {{ formatDayOfWeek(selectedDate) }}</p>
       </div>
-      <div class="schedule_detail">
+      <div class="schedule_detail" style="width: 892px; height: 108px;">
         <div class="schedule_detail_box">
           <ul v-for="match in matchDetails" :key="match.matchDetails">
             <li @click="toAllMatchPage" class="max-w-full h-52 bg-white">
@@ -32,11 +37,11 @@
                       <img src="@/assets/favourite/icon.png" />
                     </div>
                     <div class="border flex justify-center">
-                      <span class="text-xs" style="color: #666666;">欧冠</span>
+                      <span class="text-xs font-medium" style="color: #666666;">欧冠</span>
                     </div>
                   </div>
                   <div>
-                    <button @click.stop="toggleFavorite(match)" :class="{fav: match.favorite}" >
+                    <button @click.stop="toggleFavorite(match)" :class="{ fav: match.favorite }">
                       <img v-if="match.favorite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
                       <img v-else src="@/assets/content/Favourite.png" alt="Favourite" />
                     </button>
@@ -46,10 +51,10 @@
                 </div>
                 <div class="flex justify-between">
                   <div class="flex items-end">
-                    <div class="pr-5 font-normal text-xs " style="color: #999999;">
+                    <div class="pr-2 font-medium text-xs text-grayText">
                       <span>{{ match.date }}</span>
                     </div>
-                    <div class="font-semibold text-xs">
+                    <div class="font-semibold text-xs " style="color: #333333;">
                       <span>{{ match.time }}</span>
                     </div>
                   </div>
@@ -69,7 +74,7 @@
                         <span>{{ match.awayTeamScore }}</span>
                       </div>
                       <div class="font-medium text-xs" style="color: #999999;">
-                        <span>{{ match.overTime }}</span>
+                        <span>{{ "(" + match.overTime + ")" }}</span>
                       </div>
                     </div>
                     <div class="flex items-center">
@@ -102,7 +107,7 @@ import { addDays, startOfWeek, format, isToday } from 'date-fns';
 import { ref } from 'vue'
 
 export default {
-  components:{
+  components: {
     BackgroundImage
   },
   data() {
@@ -112,18 +117,18 @@ export default {
       selectedDate: ref(null),
 
       matchDetails: [
-        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
-        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: false },
-        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
-        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: false },
-        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
-        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
-        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
-        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
+        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: '如有加时标注字体', favourite: true },
+        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: '如有加时标注字体', favourite: true },
+        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: '如有加时标注字体', favourite: true },
+        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: '如有加时标注字体', favourite: false },
+        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: '如有加时标注字体', favourite: true },
+        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: '如有加时标注字体', favourite: false },
+        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: '如有加时标注字体', favourite: true },
+        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: '如有加时标注字体', favourite: true },
       ],
     };
   },
-  computed:{
+  computed: {
     week() {
       const startDate = startOfWeek(this.currentDate, { weekStartsOn: 1 });
       return Array.from({ length: this.daysToShow }, (_, index) => addDays(startDate, index));
@@ -132,7 +137,7 @@ export default {
   },
   methods: {
     toggleFavorite(match) {
-      match.favorite= !match.favorite;
+      match.favorite = !match.favorite;
     },
     toAllMatchPage() {
       // Navigating
@@ -161,9 +166,7 @@ export default {
 </script>
 
 <style scoped>
-button.favorite {
-  color: red; /* Change color to represent the favorite state */
-}
+
 
 .tournamentList {
   width: 50%;
@@ -174,7 +177,6 @@ button.favorite {
 
 .schedule_list {
   width: 50%;
-  height: calc(100% - 40px);
   margin: 20px 0 0 0;
   padding-right: .65%;
   padding-left: .65%;
@@ -236,7 +238,7 @@ button.favorite {
 }
 
 
-.date-slider{
+.date-slider {
   background-color: #F5F5F5;
   border-radius: 8px;
   padding-left: 10px;

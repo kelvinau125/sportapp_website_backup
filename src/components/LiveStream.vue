@@ -8,8 +8,8 @@
                         <img src="@/assets/live/defaultStreamerIcon.png" />
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-sm font-medium text-green-500">直播标题</span>
-                        <span class="font-mediu text-grayText" style="font-size: 10px;">主播昵称</span>
+                        <span class="text-sm font-medium text-grayText">直播标题</span>
+                        <span class="font-medium text-10px text-grayText opacity-60" style="font-size: 10px;">主播昵称</span>
                     </div>
                 </div>
             </div>
@@ -18,23 +18,23 @@
             </div>
         </div>
 
-        <span class="text-lg font-semibold pl-20 pt-5" >其他直播推荐</span>
+        <span class="text-lg font-semibold pl-12 pt-5" >其他直播推荐</span>
         <main class="live_wrapper">
-            <div class="card-container flex justify-start pl-12 pb-12">
+            <div class="card-container flex justify-start pl-5 pb-12">
                 <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4" v-for="(livedata, index) in liveData.slice(0, 10)"
                     :key="index">
 
                     <div @click="toLiveStream" class="card-body relative">
-                        <img :src="require(`@/assets/live/${livedata.image}.png`)" alt="Image" />
+                        <img class="rounded-lg" :src="require(`@/assets/live/${livedata.image}.png`)" alt="Image" />
                         <!-- <img src="@/assets/live/LiveImage.png" class="" /> -->
-                        <div class="flex absolute bottom-0 items-center p-1 pb-2">
+                        <div class="gradient_bottom w-full flex absolute bottom-0 items-center p-1 pb-2">
                             <div class="pr-1 pl-1 z-10 w-10">
                                 <img :src="require(`@/assets/live/${livedata.streamerIcon}.png`)" alt="Image" />
                                 <!-- <img src="@/assets/live/defaultStreamerIcon.png" /> -->
                             </div>
                             <div class="flex flex-col pl-1 z-10 items-start">
-                                <div class="text-white text-sm">{{ livedata.liveTitle }}</div>
-                                <div class="text-xs font-bold">{{ livedata.streamerName }}</div>
+                                <div class="text-white font-medium text-sm">{{ livedata.liveTitle }}</div>
+                                <div class="text-10px font-medium text-white opacity-60">{{ livedata.streamerName }}</div>
                             </div>
                         </div>
                     </div>
@@ -62,6 +62,9 @@ const liveData = [
     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
+
+    { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+    { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
@@ -73,7 +76,7 @@ const liveData = [
 <style scoped>
 .contain-er {
     margin-left: 150px;
-    width: 1600px;
+    width: 1519px;
     margin-right: 150px;
     max-width: 1600px;
 
@@ -89,12 +92,13 @@ const liveData = [
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    row-gap: 35px;
+    row-gap: 50px;
 }
 
 .card {
     display: inline-block;
     width: 287px;
+    height: 162px;
     margin-bottom: -35px;
 
 }
@@ -104,6 +108,7 @@ const liveData = [
     height: 161px;
     width: 100%;
     cursor: pointer;
+        border: 100px;
 
 }
 
@@ -125,5 +130,17 @@ const liveData = [
     /* height: 50vh; */
     margin-top: 10px;
     /* margin-right: 150px; */
+}
+
+.gradient_bottom::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  z-index: 1;
+  background: linear-gradient(to bottom, rgba(197, 197, 197, 0), #000000);
+  background-size: cover;
+  border-radius: 8px;
 }
 </style>
