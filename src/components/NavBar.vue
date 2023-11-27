@@ -58,8 +58,8 @@
             <div class="pr-1 pt-1 pb-2 flex flex-col">
               <!-- <button to="/register" class="px-1 hover:text-green-500 text-white">注册</button>
               <button to="/login" class="px-1 hover:text-green-500 text-white">登入</button> -->
-              <button class="px-1" @click="showRegisterModal">注册</button>
-              <button class="px-1" @click="showLoginModal">登入</button>
+              <button v-if="!loggedIn" class="px-1" @click="showRegisterModal">注册</button>
+              <button v-if="!loggedIn" class="px-1" @click="showLoginModal">登入</button>
               <button v-if="loggedIn" class="px-1" @click="showMyPageModal">我的主页</button>
               <button v-if="loggedIn" @click="logout" class="block text-white">退出登入</button>
             </div>
@@ -131,7 +131,7 @@ export default {
     return {
       Links: [
         { name: '首页', link: '/' },
-        { name: '直播', link: '/about' },
+        { name: '直播', link: '/live' },
         { name: '收藏', link: '/favourite' }
       ],
       img: ref(require('../assets/topNav/football.png')),
@@ -147,9 +147,13 @@ export default {
       isMyPageModalVisible: ref(false),
       isEditProfileModalVisible: ref(false),
       isEditNicknameModalVisible: ref(false),
+      openNav: ref(false),
     };
   },
   methods: {
+    MenuOpen(){
+      this.openNav = !this.openNav;
+    },
     toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen;
     },

@@ -23,5 +23,14 @@
     "Please Make Sure Password are Same": "请确保密码的一致性",
     "NickName cannot be empty": "昵称不能为空",
     "Phone Number cannot be empty": "手机号不能为空",
-    "Passwords cannot be empty": "密码不能为空"
+    "Passwords cannot be empty": "密码不能为空",
+
+    "Monday": "周一",
+    "Tuesday": "周二",
+    "Wednesday": "周三",
+    "Thursday": "周四",
+    "Friday": "周五",
+    "Saturday": "周六",
+    "Sunday": "周日",
+    "Today" : "今天"
 }

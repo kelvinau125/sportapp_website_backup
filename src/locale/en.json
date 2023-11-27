@@ -23,6 +23,14 @@
     "Please Make Sure Password are Same": "Please Make Sure Password are Same",
     "NickName cannot be empty": "NickName cannot be empty",
     "Phone Number cannot be empty": "Phone Number cannot be empty",
-    "Passwords cannot be empty": "Passwords cannot be empty"
+    "Passwords cannot be empty": "Passwords cannot be empty",
     
+    "Monday": "Monday",
+    "Tuesday": "Tuesday",
+    "Wednesday": "Wednesday",
+    "Thursday": "Thursday",
+    "Friday": "Friday",
+    "Saturday": "Saturday",
+    "Sunday": "Sunday",
+    "Today" : "Today"
 }
