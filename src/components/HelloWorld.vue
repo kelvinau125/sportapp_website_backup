@@ -1,19 +1,22 @@
 <template>
+  <div id='show_bg'>something here</div>
+  <div id='show_bg_2'>something here</div>
+
   <div class="flex flex-row justify-center" style="height: 1.625rem">
 
 
-  <div style="width: 17rem"></div>
+    <div style="width: 17rem"></div>
 
-  <div class="flex flex-row items-center">
-    <span @mouseover="showCompanyMenu" @mouseleave="hideCompanyMenu"
-      class="navLinkList textStyle font-roboto px-3 py-2 text-black">Company</span>
-    <router-link :to="{ name: 'testTest' }"
-      class="navLinkList textStyle font-roboto px-3 py-2 text-black">Reviews</router-link>
-    <router-link :to="{ name: 'testTest' }" class="navLinkList textStyle font-roboto px-3 py-2 text-black">Career
-    </router-link>
-    <router-link :to="{ name: 'testTest' }" class="navLinkList textStyle font-roboto px-3 py-2 text-black">Contact Us
-    </router-link>
-  </div>
+    <div class="flex flex-row items-center">
+      <span @mouseover="showCompanyMenu" @mouseleave="hideCompanyMenu"
+        class="navLinkList textStyle font-roboto px-3 py-2 text-black">Company</span>
+      <router-link :to="{ name: 'testTest' }"
+        class="navLinkList textStyle font-roboto px-3 py-2 text-black">Reviews</router-link>
+      <router-link :to="{ name: 'testTest' }" class="navLinkList textStyle font-roboto px-3 py-2 text-black">Career
+      </router-link>
+      <router-link :to="{ name: 'testTest' }" class="navLinkList textStyle font-roboto px-3 py-2 text-black">Contact Us
+      </router-link>
+    </div>
   </div>
 
   <div v-show="isCompanyVisible" class="z-200 flex flex-row items-center justify-center text-center relative"
@@ -79,4 +82,22 @@ export default {
 img {
   height: 0.625rem;
   width: 0.625rem;
-}</style>
+}
+#show_bg {
+    background-image: url('@/assets/live/LiveImage.png');
+    width: 80%;
+    height: 200px;
+    background-size: cover;
+    color: white;
+}
+#show_bg_2 {
+    background-image:
+    linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)),
+    url('@/assets/live/LiveImage.png');
+    width: 80%;
+    height: 400px;
+    background-size: cover;
+    color: white;
+    padding: 20px;
+}
+</style>
