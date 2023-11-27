@@ -1,7 +1,7 @@
 <template>
   <div class="bg-navColor  text-white py-2 px-6 shadow md:flex justify-between items-center">
     <div class="flex items-center cursor-pointer">
-      <img class="mr-2" alt="App logo" src="../assets/topNav/appImage.png">
+      <img class="mr-2" alt="App logo" src="@/assets/topNav/appImage.png">
       <router-link to="/" class="text-xl hover:text-green-500">
         <span class="md:text-lg text-base font-semibold text-green-500"> {{ $t("PandaSport") }}</span>
       </router-link>
@@ -25,7 +25,7 @@
     <div class="md:flex items-center">
       <div class="md:flex relative">
         <div class="md:block hidden">
-          <img src="../assets/topNav/search.png" alt="Search Icon" class="absolute left-2.5 w-6 h-6 pr-1 m-1.5" />
+          <img src="@/assets/topNav/search.png" alt="Search Icon" class="absolute left-2.5 w-6 h-6 pr-1 m-1.5" />
         </div>
         <div class="md:block hidden">
           <input v-model="searchText" type="text" placeholder="搜索赛事/ 球队"
@@ -35,32 +35,30 @@
           <button class="md:flex cursor-pointer text-xl mr-2.5 items-center md:pl-3" @click="toggleDropdown">
             <img class="md:static absolute md:right-0 right-10 md:top-0 bottom-9 hover:bg-blue-950" :src="img"
               alt="defaultFootBall Image" />
-            <img class="md:block hidden pl-1.5 py-1" src="../assets/topNav/arrowDown.png" alt="Arrow Down">
+            <img class="md:block hidden pl-1.5 py-1" src="@/assets/topNav/arrowDown.png" alt="Arrow Down">
           </button>
 
           <div class="dropdown-content md:hidden absolute md:right-9 right-7 md:top-10 top-0"
             :class="{ 'show-dropdown': isDropdownOpen }">
-            <button class="dropdown-button" @click="selectOption(require('../assets/topNav/basketball.png'))">
-              <img src="../assets/topNav/basketball.png" alt="Basketball" />
+            <button class="dropdown-button" @click="selectOption(require('@/assets/topNav/basketball.png'))">
+              <img src="@/assets/topNav/basketball.png" alt="Basketball" />
             </button>
-            <button class="dropdown-button" @click="selectOption(require('../assets/topNav/football.png'))">
-              <img src="../assets/topNav/football.png" alt="Football" />
+            <button class="dropdown-button" @click="selectOption(require('@/assets/topNav/football.png'))">
+              <img src="@/assets/topNav/football.png" alt="Football" />
             </button>
           </div>
         </div>
       </div>
       <div class="md:flex items-center pl-1">
         <div @click="toggleDropdownProfile">
-          <img class="md:static absolute md:right-0 right-7 md:top-0 top-2" src="../assets/topNav/defaultProfile.png"
+          <img class="md:static absolute md:right-0 right-7 md:top-0 top-2" src="@/assets/topNav/defaultProfile.png"
             alt="Profile Picture" />
           <div v-show="showDropdown"
             class="md:absolute absolute md:right-8 right-6 md:top-14 top-14 bg-gray-900 mt-1 p-1 py-3">
             <div class="pr-1 pt-1 pb-2 flex flex-col">
-              <!-- 注册Button -->
               <router-link to="/register" class="px-1 hover:text-green-500 text-white">注册</router-link>
               <router-link to="/login" class="px-1 hover:text-green-500 text-white">登入</router-link>
             </div>
-            <!-- Dropdown content, e.g., Logout link -->
             <router-link v-if="loggedIn" @click="logout" class="block text-black">退出登入</router-link>
           </div>
         </div>
@@ -87,7 +85,7 @@ const MenuOpen = () => {
   openNav.value = !openNav.value;
 }
 
-const img = ref(require('../assets/topNav/football.png'))
+const img = ref(require('@/assets/topNav/football.png'))
 const isDropdownOpen = ref(false)
 
 const toggleDropdown = () => {

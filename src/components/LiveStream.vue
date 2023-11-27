@@ -5,7 +5,7 @@
             <div class="live-stream bg-slate-200" style="width: 1037px; height: 587px;">
                 <div class="flex items-center pt-2.5">
                     <div class="pl-4 pr-2">
-                        <img src="../assets/live/defaultStreamerIcon.png" />
+                        <img src="@/assets/live/defaultStreamerIcon.png" />
                     </div>
                     <div class="flex flex-col">
                         <span class="text-sm font-medium text-green-500">直播标题</span>
@@ -25,12 +25,12 @@
                     :key="index">
 
                     <div @click="toLiveStream" class="card-body relative">
-                        <img :src="require(`../assets/live/${livedata.image}.png`)" alt="Image" />
-                        <!-- <img src="../assets/live/LiveImage.png" class="" /> -->
+                        <img :src="require(`@/assets/live/${livedata.image}.png`)" alt="Image" />
+                        <!-- <img src="@/assets/live/LiveImage.png" class="" /> -->
                         <div class="flex absolute bottom-0 items-center p-1 pb-2">
                             <div class="pr-1 pl-1 z-10 w-10">
-                                <img :src="require(`../assets/live/${livedata.streamerIcon}.png`)" alt="Image" />
-                                <!-- <img src="../assets/live/defaultStreamerIcon.png" /> -->
+                                <img :src="require(`@/assets/live/${livedata.streamerIcon}.png`)" alt="Image" />
+                                <!-- <img src="@/assets/live/defaultStreamerIcon.png" /> -->
                             </div>
                             <div class="flex flex-col pl-1 z-10 items-start">
                                 <div class="text-white text-sm">{{ livedata.liveTitle }}</div>

@@ -20,7 +20,7 @@
         <div class="password-container">
           <input placeholder="请输入密码" type="password" id="password" v-model="userData.password" />
           <button class="button mr-1.5">
-            <img class="" src="../assets/hide.png" />
+            <img class="" src="@/assets/hide.png" />
           </button>
         </div>
       </div>
@@ -29,7 +29,7 @@
         <div class="password-container">
           <input placeholder="请再次输入密码" type="password" id="confirm-password" v-model="confirmPassword" />
           <button class="button mr-1.5">
-            <img class="" src="../assets/hide.png" />
+            <img class="" src="@/assets/hide.png" />
           </button>
         </div>
       </div>
@@ -68,7 +68,7 @@ export default {
       } else {
         // 在这里执行注册逻辑，可以将用户数据发送到服务器或进行其他处理
         // 例如，你可以使用 Axios 或 Fetch API 来发送 POST 请求
-        // 示例：axios.post("/api/register", this.userData).then(response => { ... });
+        // 示例：axios.post("/api/register", this.userData).then(response => { @. });
       }
     }
   }

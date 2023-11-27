@@ -4,7 +4,7 @@
       <div class="flex justify-between my-6 py-1.5 date-slider" style="height: 46px;">
         <div class=" flex justify-center" style="height: 32px; width: 17px; background-color: #808F7E; border-radius: 8px;">
           <button @click="prevWeek">
-            <img src="../assets/toLeft.png" alt="Previous Week" class="" />
+            <img src="@/assets/toLeft.png" alt="Previous Week" class="" />
           </button>
         </div>
         <div @click="selectDate(day)" v-for="day in week" :key="day" class="date-item hover:bg-hoverGreen px-0.5">
@@ -13,7 +13,7 @@
         </div>
         <div class="bg-green-500 flex justify-center" style="height: 32px; width: 17px; background-color: #808F7E;border-radius: 8px;">
           <button @click="nextWeek">
-            <img class="" src="../assets/toRight.png" alt="Next Week" />
+            <img class="" src="@/assets/toRight.png" alt="Next Week" />
           </button>
         </div>
       </div>
@@ -29,7 +29,7 @@
                 <div class="flex justify-between">
                   <div class="flex items-center">
                     <div class="pr-2">
-                      <img src="../assets/favourite/icon.png" />
+                      <img src="@/assets/favourite/icon.png" />
                     </div>
                     <div class="border flex justify-center">
                       <span class="text-xs" style="color: #666666;">欧冠</span>
@@ -37,11 +37,11 @@
                   </div>
                   <div>
                     <button @click.stop="toggleFavorite(match)" :class="{fav: match.favorite}" >
-                      <img v-if="match.favorite" src="../assets/content/Unfavourite.png" alt="Unfavourite" />
-                      <img v-else src="../assets/content/Favourite.png" alt="Favourite" />
+                      <img v-if="match.favorite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
+                      <img v-else src="@/assets/content/Favourite.png" alt="Favourite" />
                     </button>
 
-                    <!-- <img src="../assets/content/Unfavourite.png" /> -->
+                    <!-- <img src="@/assets/content/Unfavourite.png" /> -->
                   </div>
                 </div>
                 <div class="flex justify-between">
@@ -59,7 +59,7 @@
                         <span class="text-lg font-semibold">{{ match.homeTeamName }}</span>
                       </div>
                       <div>
-                        <img src="../assets/favourite/favTeamIcon.png" />
+                        <img src="@/assets/favourite/favTeamIcon.png" />
                       </div>
                     </div>
                     <div class="flex flex-col px-5 items-center">
@@ -74,7 +74,7 @@
                     </div>
                     <div class="flex items-center">
                       <div>
-                        <img src="../assets/favourite/favTeamIcon.png" />
+                        <img src="@/assets/favourite/favTeamIcon.png" />
                       </div>
                       <div class="pl-3">
                         <span class="text-lg font-semibold">{{ match.awayTeamName }}</span>
@@ -82,7 +82,7 @@
                     </div>
                   </div>
                   <div class="pt-2">
-                    <img src="../assets/favourite/ended.png" />
+                    <img src="@/assets/favourite/ended.png" />
                   </div>
                 </div>
               </div>

@@ -128,7 +128,7 @@ export default {
             <div v-for="player in filteredHomePlayers('S')" :key="player.id" class="">
               <div class="flex flex-col items-center">
                 <div class="homeCircle flex justify-center items-center">
-                  <!-- <img class="" src="../assets/tournament/playerIcon.png" /> -->
+                  <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
                     <p class="text-white text-sm font-normal"> {{ player.shirtNo }}</p>
                   </div>
@@ -145,7 +145,7 @@ export default {
             <div v-for="player in filteredAwayPlayers('S')" :key="player.id" class="">
               <div class="flex flex-col items-center">
                 <div class="awayCircle flex justify-center items-center">
-                  <!-- <img class="" src="../assets/tournament/playerIcon.png" /> -->
+                  <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
                     <p class="text-white text-sm font-normal"> {{ player.shirtNo }}</p>
                   </div>
@@ -158,7 +158,7 @@ export default {
             <div v-for="player in filteredAwayPlayers('F')" :key="player.id" class="">
               <div class="flex flex-col items-center">
                 <div class="awayCircle flex justify-center items-center">
-                  <!-- <img class="" src="../assets/tournament/playerIcon.png" /> -->
+                  <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
                     <p class="text-white text-sm font-normal"> {{ player.shirtNo }}</p>
                   </div>
@@ -179,7 +179,7 @@ export default {
             <div v-for="player in filteredAwayPlayers('M')" :key="player.id" class="">
               <div class="flex flex-col items-center">
                 <div class="awayCircle flex justify-center items-center">
-                  <!-- <img class="" src="../assets/tournament/playerIcon.png" /> -->
+                  <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
                     <p class="text-white text-sm font-normal"> {{ player.shirtNo }}</p>
                   </div>
@@ -192,7 +192,7 @@ export default {
             <div v-for="player in filteredAwayPlayers('D')" :key="player.id" class="">
               <div class="flex flex-col items-center">
                 <div class="awayCircle flex justify-center items-center">
-                  <!-- <img class="" src="../assets/tournament/playerIcon.png" /> -->
+                  <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
                     <p class="text-white text-sm font-normal"> {{ player.shirtNo }}</p>
                   </div>
@@ -205,7 +205,7 @@ export default {
             <div v-for="player in filteredAwayPlayers('G')" :key="player.id" class="">
               <div class="flex flex-col items-center">
                 <div class="awayKeeperCircle flex justify-center items-center">
-                  <!-- <img class="" src="../assets/tournament/playerIcon.png" /> -->
+                  <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
                     <p class="text-white text-sm font-normal"> {{ player.shirtNo }}</p>
                   </div>

@@ -17,7 +17,7 @@
           <div class="flex tournament_icon">
             <div class="" style="margin-right: 80px;">
               <div class="flex flex-col items-center">
-                <img class="pb-3" src="../assets/tournament/moneyBadge.png" />
+                <img class="pb-3" src="@/assets/tournament/moneyBadge.png" />
                 <p class="text-white">球队名字</p>
               </div>
             </div>
@@ -28,7 +28,7 @@
             </div>
             <div class="" style="margin-left: 80px;">
               <div class="flex flex-col items-center">
-                <img class="pb-3" src="../assets/tournament/badge_.png" />
+                <img class="pb-3" src="@/assets/tournament/badge_.png" />
                 <p class="text-white">球队名字</p>
               </div>
             </div>
@@ -50,7 +50,7 @@
     <h2 class="text-headerFont font-headerWeight">直播</h2>
     <div>
       <div class="flex pt-3 items-center">
-        <img src="../assets//tournament/streamIcon.png" />
+        <img src="@/assets//tournament/streamIcon.png" />
         <span class="pl-2 font-normal text-sm">本场主播</span>
       </div>
       <div class="py-3">
@@ -60,11 +60,11 @@
             <div class="card-container flex justify-center" style="border: 1px solid red;">
                 <div class="card  py-2 px-1 md:w-1/2 lg: w-1/3 xl:w-1/4" v-for="livedata in liveData" :key="livedata.liveData" style="border: 1px solid gold;">
                   <div @click="test" class="" >
-                    <img :src="require(`../assets/tournament/${livedata.image}.png`)" alt="Image" />       
+                    <img :src="require(`@/assets/tournament/${livedata.image}.png`)" alt="Image" />       
                   </div>
                   <div class="bg-white flex items-center" style="border: 1px solid green;">
                     <div class="pr-1 pl-1 w-10">
-                      <img :src="require(`../assets/live/${livedata.streamerIcon}.png`)" alt="Image" />
+                      <img :src="require(`@/assets/live/${livedata.streamerIcon}.png`)" alt="Image" />
                     </div>
                     <div class="flex flex-col pl-1 items-start">
                       <div class="text-black text-sm font-medium">{{ livedata.liveTitle}}</div>
@@ -82,7 +82,7 @@
     </div>
     <div>
       <div class="flex items-center">
-        <img src="../assets//tournament/streamIcon.png" />
+        <img src="@/assets//tournament/streamIcon.png" />
         <span class="pl-2 font-normal text-sm">比赛直播</span>
       </div>
       <div class="pb-2">
@@ -108,26 +108,10 @@
 </template>
 
 <script setup>
-import LiveList from '../components/ListOfLive.vue'
+import LiveList from '@/components/ListOfLive.vue'
 import LineUp from '@/views/Tournament/tournamentLineUp.vue'
 import TournamentStatus from '@/views/Tournament/tournamentStatus.vue'
-// import { useRouter } from 'vue-router'
 
-
-// const router = useRouter();
-
-// const toLiveStream = () => {
-//   //Navigating
-//   //Push to the Live Page
-//   router.push({ name: '/' })
-// }
-// const liveData = [
-//   { image: 'liveImage_', liveTitle: 'TITLE', streamerName: 'NAME',  streamerIcon: 'defaultStreamerIcon'},
-//   { image: 'liveImage_', liveTitle: 'TITLE', streamerName: 'NAME',  streamerIcon: 'defaultStreamerIcon'},
-//   { image: 'liveImage_', liveTitle: 'TITLE', streamerName: 'NAME',  streamerIcon: 'defaultStreamerIcon'},
-//   { image: 'liveImage_', liveTitle: 'TITLE', streamerName: 'NAME',  streamerIcon: 'defaultStreamerIcon'},
-//   { image: 'liveImage_', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
-// ]
 
 const liveAddress = [
   { liveAddress: '直播地址', addressLink: "/" },
@@ -164,7 +148,7 @@ const liveAddress = [
   height: 200px;
   margin-top: 10px;
   border: 1px solid green;
-  background-image: url('../assets/tournament/footballBackground.png');
+  background-image: url('@/assets/tournament/footballBackground.png');
   background-size: cover;
   background-position: center;
   position: relative;

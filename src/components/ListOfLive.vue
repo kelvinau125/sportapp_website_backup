@@ -3,7 +3,7 @@
   
       <div class="w-20" style="">
         <button @click="prev" class="h-full" style="height: 142px;">
-          <img src="../assets/tournament/toLeft_.png" />
+          <img src="@/assets/tournament/toLeft_.png" />
         </button>
       </div>
   
@@ -16,11 +16,11 @@
                 <router-link :to="livedata.addressLink">
                   <div class="card_" style="height: 142px; border: 1px solid red;">
                     <div @click="test" class="">
-                      <img :src="require(`../assets/tournament/${livedata.image}.png`)" alt="Image" style="height: 92px;" />
+                      <img :src="require(`@/assets/tournament/${livedata.image}.png`)" alt="Image" style="height: 92px;" />
                     </div>
                     <div class="bg-white flex items-center" style="height: 50px;">
                       <div class="pr-1 pl-1 w-10">
-                        <img :src="require(`../assets/live/${livedata.streamerIcon}.png`)" alt="Image" />
+                        <img :src="require(`@/assets/live/${livedata.streamerIcon}.png`)" alt="Image" />
                       </div>
                       <div class="flex flex-col pl-1 items-start">
                         <div class="text-black text-sm font-medium">{{ livedata.liveTitle }}</div>
@@ -39,7 +39,7 @@
   
       <div class="w-20">
         <button @click="next" class="h-full" style="height: 142px;">
-          <img src="../assets/tournament/toRight_.png" />
+          <img src="@/assets/tournament/toRight_.png" />
         </button>
       </div>
   

@@ -13,34 +13,35 @@
           <div class="text-xs font-normal pt-0.5">
             {{ match.time }}
           </div>
-          <span class="pr-2" @click.stop="toUnfavourite(match)">
+          <div class="pr-2" @click.stop="toUnfavourite(match)">
             <img v-if="match.favourite" src="@/assets/content/Favourite.png" />
             <img v-else src="@/assets/content/Unfavourite.png" alt="Favourite" />
-          </span>
+          </div>
 
         </div>
         <!-- 热门赛程 Contents -->
-        <div class="flex justify-between rounded-b-lg"
-          style="background-color: white; height: 106px; border: 1px solid red;">
-          <div class="flex flex-col justify-center items-center" style="border: 1px solid red;">
-            <div class="text-base font-semibold" style="border: 1px solid red;"> {{ match.homeTeamScore }}</div>
-            <div style="border: 1px solid red;">
-              <img src="../assets/content/moneyBadge.png" />
+        <div class="flex justify-between rounded-b-lg" style="background-color: white; height: 106px; ">
+          <div class="flex flex-col justify-center items-center pb-3 w-full">
+            <div class="text-base font-semibold "> {{ match.homeTeamScore }}</div>
+            <div class="pt-2">
+              <img src="@/assets/content/moneyBadge.png" />
             </div>
-            <div class="">
-              <span class="flex text-center">{{ match.homeTeamName }}</span>
+            <div class="pt-2">
+              <span class="flex text-center text-xs font-normal text-grayText">{{ match.homeTeamName }}</span>
             </div>
           </div>
-          <div class=" w-16 flex flex-col items-center py-2">
-            <div class="font-medium text-sm">开</div>
-            <div class="pt-1 text-base font-semibold">VS</div>
+          <div class=" w-16 flex flex-col justify-start items-center py-2 ">
+            <div class="font-medium text-sm pt-1 flex items-center justify-center"
+              :class="{ 'statusStartBorder': match.status === '开', 'statusEndBorder': match.status === '终' }">{{
+                match.status }}</div>
+            <span class="pt-2 text-base font-semibold">VS</span>
           </div>
-          <div class="flex flex-col items-center">
+          <div class="flex flex-col justify-center items-center w-full pb-3">
             <div class="text-base font-semibold">{{ match.awayTeamScore }}</div>
-            <div>
-              <img src="../assets/content/Badge.png" />
+            <div class="pt-2">
+              <img src="@/assets/content/Badge.png" />
             </div>
-            <div class="w-20 overflow-hidden text-xs font-normal text-grayText"> {{ match.awayTeamName }}</div>
+            <div class="w-20 pt-2 overflow-hidden text-xs font-normal text-grayText"> {{ match.awayTeamName }}</div>
 
           </div>
         </div>
@@ -51,7 +52,7 @@
     <div @click="toAllMatchPage" class="flex flex-col justify-center items-center bg-green-500 border cursor-pointer"
       style="width: 42px; height: 136px;">
       <div style="width: 24px; height: 24px;">
-        <img class="" src="../assets/hello.png" alt="全部赛程" />
+        <img class="" src="@/assets/hello.png" alt="全部赛程" />
       </div>
       <div class="px-4">
         <span class="text-sm font-medium">全部赛程</span>
@@ -78,10 +79,10 @@ export default {
     };
 
     const matchDetails = ref([
-      { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/' },
-      { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/live' },
-      { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/' },
-      { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/' },
+      { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/', status: '开' },
+      { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/live', status: '开' },
+      { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/', status: '开' },
+      { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/', status: '终' },
     ]);
 
     return {
@@ -137,6 +138,21 @@ export default {
   background-position: 50%;
   background-size: 100% 100%;
   background-repeat: no-repeat;
+
+}
+
+.statusStartBorder {
+  background-color: #F5F5F5;
+  width: 28px;
+  height: 28px;
+  border-radius: 30px;
+}
+
+.statusEndBorder {
+  background-color: #EEFBEE;
+  width: 28px;
+  height: 28px;
+  border-radius: 30px;
 
 }
 </style>
