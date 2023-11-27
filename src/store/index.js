@@ -7,7 +7,8 @@ export default createStore({
     nickName: '',
     phoneNumber: '',
     password: '',
-    userId: null
+    userId: null,
+    status: false,
   },
   mutations: {
     setUserData(state, { nickName, phoneNumber, password, userId }) {
@@ -21,7 +22,17 @@ export default createStore({
       state.phoneNumber = ''
       state.password = ''
       state.userId = null
-    }
+    },
+    setForgotPassword(state, { phoneNumber, status, userId }) {
+      state.phoneNumber = phoneNumber
+      state.status = status
+      state.userId = userId
+    },
+    clearForgotPassword(state) {
+      state.phoneNumber = ''
+      state.status = false
+      state.userId = null
+    },
   },
   actions: {
     register({ commit }, { nickName, phoneNumber, password, userId }) {
@@ -32,6 +43,15 @@ export default createStore({
     registerDone({ commit }) {
       commit('clearUserData')
       console.log("done delete");
+    },
+    forgotPassword({ commit }, { phoneNumber, status, userId }) {
+      commit('setForgotPassword', { phoneNumber, status, userId })
+      console.log(status);
+      console.log(userId);
+    },
+    forgotPasswordDone({ commit }) {
+      commit('clearForgotPassword')
+      console.log("done delete");
     }
   },
   getters: {
@@ -39,5 +59,6 @@ export default createStore({
     nickName: state => state.nickName,
     phoneNumber: state => state.phoneNumber,
     password: state => state.password,
+    status: state => state.status,
   }
 })

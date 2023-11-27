@@ -21,7 +21,6 @@
             <input
             :placeholder="$t('Please Enter Password')"
             :type="passwordFieldType"
-            id="password"
             v-model="password"
             required
             />

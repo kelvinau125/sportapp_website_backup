@@ -93,7 +93,7 @@
     :showForgotPasswordModal="isForgotPasswordModalVisible"
     :closeForgotPasswordModal="closeForgotPasswordModal" 
     :showLoginModal="showLoginModal"
-    :showEditPasswordModal="showEditPasswordModal" />
+    :showOTPModal="showOTPModal" />
 
     <EditPassword 
     :showEditPasswordModal="isEditPasswordModalVisible" 
@@ -209,6 +209,7 @@ export default {
 
     // OTP Modal
     showOTPModal() {
+      this.isForgotPasswordModalVisible = false;
       this.isEditProfileModalVisible = false;
       this.isOTPModalVisible = true;
     },
