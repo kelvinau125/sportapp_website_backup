@@ -6,14 +6,14 @@
         <span class="md:text-lg text-base font-semibold text-green-500"> {{ $t("PandaSport") }}</span>
       </router-link>
 
-      <span @click="MenuOpen()" class="absolute md:hidden md:pl-0 pl-2 md:right-0 right-20" style="width: 60px;">
+      <span @click="MenuOpen()" class="relative md:hidden md:pl-0 pl-10 md:right-0 left-44" style="width: 60px;">
         <img v-if="openNav" src="@/assets/topNav/x.png">
         <img v-else src="@/assets/topNav/hamburger.png">
       </span>
       <div class="">
         <ul :class="openNav ? 'left-0' : 'left-[-100%]'"
           class="md:items-center md:pr-0 pr-4 md:pl-5 pl-72 md:static absolute bg-navColor md:w-auto w-auto md:right-0 md:top-14 top-14 duration-700 ease-in">
-          <li class=" md:inline-flex flex-col ml-4 my-2.5" v-for="link in Links" :key="link.link">
+          <li class="nav-button md:inline-flex flex-col ml-4 my-2.5" v-for="link in Links" :key="link.link">
             <router-link :to="link.link" class="md:text-base text-sm font-normal hover:text-green-500 text-white">{{
               link.name
             }}</router-link>
@@ -31,9 +31,6 @@
           <input v-model="searchText" type="text" placeholder="搜索赛事/ 球队"
             class="pl-10 md:w-72 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-10 text-white bg-slate-50" />
         </div>
-        <!-- <button v-if="searchText" @click="clearSearch" class="clear-button">
-                <i class="material-icons">clear</i>
-            </button> -->
         <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between">
           <button class="md:flex cursor-pointer text-xl mr-2.5 items-center md:pl-3" @click="toggleDropdown">
             <img class="md:static absolute md:right-0 right-10 md:top-0 bottom-9 hover:bg-blue-950" :src="img"
@@ -61,7 +58,7 @@
             <div class="pr-1 pt-1 pb-2 flex flex-col">
               <!-- 注册Button -->
               <router-link to="/register" class="px-1 hover:text-green-500 text-white">注册</router-link>
-              <router-link to="/login" class="px-1 text-white">登入</router-link>
+              <router-link to="/login" class="px-1 hover:text-green-500 text-white">登入</router-link>
             </div>
             <!-- Dropdown content, e.g., Logout link -->
             <router-link v-if="loggedIn" @click="logout" class="block text-black">退出登入</router-link>
@@ -124,7 +121,7 @@ const logout = () => {
 
 </script>
 
-<style>
+<style scoped>
 .nav-container {
   width: 892px;
   height: 56px;
@@ -186,9 +183,10 @@ const logout = () => {
   display: block !important;
 }
 
+
 a {
-  font-weight: bold;
-  color: #2c3e50;
+  font-weight: normal;
+  color: white;
 
   &.router-link-exact-active {
     color: #42b983;

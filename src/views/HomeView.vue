@@ -56,39 +56,6 @@
 
     </div>
   </div>
-
-
-  <!-- <div class="flex flex-col content">
-
-    <img class="banner mt-5 pb-4" src="../assets/main/advertisment.png" alt="Banner" />
-
-    <div class="">
-      <h2 class="text-2xl pr-5 py-5 font-semibold">热门赛程</h2>
-      <PopularMatch />
-      <div class="pb-10">
-        <h2 class="text-2xl pr-5 py-5 font-semibold">热门主播榜</h2>
-        <div class="flex">
-          <img class="w-64" src="../assets/content/champion.png" />
-          <div class="md:mx-4 w-52 flex flex-col items-center py-3" v-for="link in streamer" :key="link.streamer">
-            <div>
-              <img :src="require(`../assets/topNav/${link.image}.png`)" alt="Link Image"
-                style="width: 50px; height: 50px;" />
-            </div>
-            <div>
-              <p class="text-base hover:text-green-500">{{ link.name }}</p>
-
-            </div>
-            <div class="flex items-center">
-              <p class="text-base hover:text-green-500">{{ link.no }}</p>
-              <img class="w-5 h-5" src="../assets/content/Frame.png" alt="Frame Icon">
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
   <div>
     <FooterBar />
   </div>
@@ -119,7 +86,7 @@ const epicMoment = [
 
 </script>
 
-<style>
+<style >
 .smtg {
   width: 892px;
 }
