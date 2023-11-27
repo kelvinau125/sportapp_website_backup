@@ -2,7 +2,8 @@ import CryptoJS from 'crypto-js';
 
 import { 
   postRequest,
-  getRequest
+  getRequest,
+  patchRequest
  } from '@/service/apiRequestMethod';
 
 import { 
@@ -188,7 +189,7 @@ export async function UpdateUserPassword(password) {
   };
 
   try {
-    const response = await postRequest(url, apiDetails);
+    const response = await patchRequest(url, apiDetails);
 
     const code = response.code;
 

@@ -84,6 +84,9 @@
     // get the user login status
     import VueCookies from 'vue-cookies';
 
+    // import the remove cookie function
+    import { removeCookie } from '@/service/cookie';
+
     export default {
     components:{
         ButtonCom,
@@ -147,15 +150,14 @@
 
             // reset password otp
             if(this.isLogin){
-                // const result = await verifyOTP(this.getUserPhoneNumber, OTPvalue, "2");
-                const result = true;
+                const result = await verifyOTP(VueCookies.get('phoneNumber'), OTPvalue, "2");
 
                 if (result) {
                     this.isResetPasswordSuccess = true;
                     setTimeout(() => {
                         this.showEditPasswordModal();
+                        this.isResetPasswordSuccess = false;
                     }, 1500); // 1500 milliseconds = 1.5 seconds
-                    this.isResetPasswordSuccess = false;
 
                 } else {
                     this.warningMessage = "Please check internet connection";
@@ -190,7 +192,7 @@
         async sendAgain() {
             // reset password otp
             if(this.isLogin){
-                await getOTP(this.getUserPhoneNumber, "2");
+                await getOTP(VueCookies.get('phoneNumber'), "2");
                 this.startCountdown();
             }
             
@@ -277,6 +279,7 @@
             // // reload the page with the modified URL after a short delay
             // window.location.href = url.toString();
             this.isRegisterSuccess = false;
+            removeCookie();
             this.closeOTPModal();
             this.showLoginModal();
         },

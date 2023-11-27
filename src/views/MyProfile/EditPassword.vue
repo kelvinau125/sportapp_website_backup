@@ -4,9 +4,18 @@
     
         <!-- close button -->
         <CloseButton @click="closeEditPasswordModal"> </CloseButton>
+
+        <!-- done reset password -->
+        <h2 v-show="isChangePasswordSuccess" class="text-xl font-bold" style="padding: 20px">成功修改密码</h2>
+        <div v-show="isChangePasswordSuccess" class="flex justify-center my-10"><img src="@/assets/otp/Successmark.png" alt="sucessmark" style="width: 100px; height: 100px;"/></div>
+        <div v-show="isChangePasswordSuccess" class="pt-12">
+            <ButtonCom @click="gobacklogin" class="w-screen">返回登录</ButtonCom>
+            <div class="flex justify-center" style="padding: 20px"/>
+        </div>
     
-        <!-- login -->
-        <form @submit.prevent="">
+        <!-- edit password -->
+        <form v-show="!isChangePasswordSuccess" @submit.prevent="">
+
             <h2 class="text-xl font-bold" style="padding: 20px">创建新密码</h2>
             <div class="form-group">
                 <div class="password-container">
@@ -67,6 +76,9 @@
     // import to run the change password function
     import { UpdateUserPassword } from '@/service/apiProvider.js';
 
+    // import the remove cookie function
+    import { removeCookie } from '@/service/cookie';
+
     export default {
     components:{
         ButtonCom,
@@ -76,6 +88,7 @@
     props: {
         showEditPasswordModal: Boolean,
         closeEditPasswordModal: Function,
+        showLoginModal: Function,
     },
 
     data() {
@@ -90,6 +103,8 @@
         
         passwordVisibility: false,
         passwordVisibility2nd: false,
+
+        isChangePasswordSuccess: false,
         };
     },
 
@@ -105,12 +120,12 @@
     methods: {
         async editPassword() {
         // Validate password 
-        // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-        // if (!this.password || !passwordRegex.test(this.password)) {
-        //     this.warningMessage = this.$t("Password must be at least 8 characters and include at least 1 capital letter, number, and special character")
-        //     return;
-        // }
+        if (!this.password || !passwordRegex.test(this.password)) {
+            this.warningMessage = this.$t("Password must be at least 8 characters and include at least 1 capital letter, number, and special character")
+            return;
+        }
 
         // Validate confirm password
         if (this.password !== this.password2nd) {
@@ -136,13 +151,7 @@
         const result = await UpdateUserPassword(this.password);
 
         if (result === true) {
-            // pass value to OTPVerficaition.vue
-            // this.$store.dispatch('register', { nickName: nickname, phoneNumber: countryCode, password: password, userId: 1 })
-
-            // // close the modal
-            this.closeEditPasswordModal();
-            // // show verify otp page
-            // this.showOTPModal();
+            this.isChangePasswordSuccess = true;
             
         } else if (result === false) {
             this.warningMessage = "Please check your network";
@@ -158,6 +167,20 @@
 
         togglePasswordVisibility2nd() {
             this.passwordVisibility2nd = !this.passwordVisibility2nd;
+        },
+
+        
+        gobacklogin() {
+            // Set a query parameter to indicate that login modal should be shown
+            // const url = new URL(window.location.href);
+            // url.searchParams.set('showLoginModal', 'true');
+
+            // // reload the page with the modified URL after a short delay
+            // window.location.href = url.toString();
+            this.isChangePasswordSuccess = false;
+            removeCookie();
+            this.closeEditPasswordModal();
+            this.showLoginModal();
         },
     
     },

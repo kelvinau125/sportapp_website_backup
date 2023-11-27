@@ -77,6 +77,7 @@
               <EditPassword
                 :showEditPasswordModal="isEditPasswordModalVisible"
                 :closeEditPasswordModal="closeEditPasswordModal"
+                :showLoginModal="showLoginModal"
               />
 
               <MyPage
@@ -192,6 +193,7 @@
   const isLoginModalVisible = ref(false);
 
   const showLoginModal = () => {
+    isEditPasswordModalVisible.value = false;
     isForgotPasswordModalVisible.value = false;
     isResgitserModalVisible.value = false;
     isLoginModalVisible.value = true;

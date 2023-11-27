@@ -47,7 +47,7 @@
     import VueCookies from 'vue-cookies';
  
     // import to run the get otp function
-    // import { getOTP } from '@/service/apiProvider.js';
+    import { getOTP } from '@/service/apiProvider.js';
 
     export default {
     components:{
@@ -75,8 +75,8 @@
 
         async changePassword() {
             // send OTP to user phone
-            // const result = await getOTP(countryCode, "2");
-            const result = true;
+            const result = await getOTP(VueCookies.get('phoneNumber'), "2");
+            // const result = true;
             
             if (result === true) {
                 // show modal
