@@ -169,7 +169,78 @@ export default {
     closeLoginModal() {
       this.isLoginModalVisible = false;
     },
-    // ... (similar methods for other modals)
+
+    // register
+    showRegisterModal() {
+      this.isLoginModalVisible = false;
+      this.isResgitserModalVisible = true;
+    },
+
+    closeRegisterModal() {
+      this.isResgitserModalVisible = false;
+    },
+
+    // OTP Modal
+    showOTPModal() {
+      this.isEditProfileModalVisible = false;
+      this.isOTPModalVisible = true;
+    },
+
+    closeOTPModal() {
+      this.isOTPModalVisible = false;
+    },
+
+    // Forgot Passowrd Modal
+    showForgotPasswordModal() {
+      this.isLoginModalVisible = false;
+      this.isForgotPasswordModalVisible = true;
+    },
+
+    closeForgotPasswordModal() {
+      this.isForgotPasswordModalVisible = false;
+    },
+
+    // Edit Passowrd Modal
+    showEditPasswordModal() {
+      this.isOTPModalVisible = false;
+      this.isForgotPasswordModalVisible = false;
+      this.isEditPasswordModalVisible = true;
+    },
+
+    closeEditPasswordModal() {
+      this.isEditPasswordModalVisible = false;
+    },
+
+    // My Page Modal
+    showMyPageModal() {
+      this.isMyPageModalVisible = true;
+    },
+
+    closeMyPageModal() {
+      this.isMyPageModalVisible = false;
+    },
+
+    // Edit Profile Modal
+    showEditProfileModal() {
+      this.isEditNicknameModalVisible = false;
+      this.isMyPageModalVisible = false;
+      this.isEditProfileModalVisible = true;
+    },
+
+    gobackmypage() {
+      this.isMyPageModalVisible = true;
+      this.isEditProfileModalVisible = false;
+    },
+
+    // Edit Nickname Modal
+    showEditNicknameModal() {
+      this.isEditProfileModalVisible = false;
+      this.isEditNicknameModalVisible = true;
+    },
+
+    closeEditNicknameModal() {
+      this.isEditNicknameModalVisible = false;
+    },
   },
   mounted() {
     if (VueCookies.isKey('userToken')) {
