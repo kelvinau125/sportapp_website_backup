@@ -58,7 +58,7 @@
             <div class="pr-1 pt-1 pb-2 flex flex-col">
               <!-- <button to="/register" class="px-1 hover:text-green-500 text-white">注册</button>
               <button to="/login" class="px-1 hover:text-green-500 text-white">登入</button> -->
-              <button v-if="!loggedIn" class="px-1" @click="showRegisterModal">注册</button>
+              <button v-if="!loggedIn" class="px-1"  @click="showRegisterModal">注册</button>
               <button v-if="!loggedIn" class="px-1" @click="showLoginModal">登入</button>
               <button v-if="loggedIn" class="px-1" @click="showMyPageModal">我的主页</button>
               <button v-if="loggedIn" @click="logout" class="block text-white">退出登入</button>
@@ -70,33 +70,51 @@
   </div>
   <div class="md:flex items-center pl-1">
     <!-- login modal -->
-    <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal" :showRegisterModal="showRegisterModal"
-      :showForgotPasswordModal="showForgotPasswordModal" />
+    <LoginModal 
+    :showModal="isLoginModalVisible" 
+    :closeModal="closeLoginModal" 
+    :showRegisterModal="showRegisterModal"
+    :showForgotPasswordModal="showForgotPasswordModal" />
 
     <!-- register modal -->
-    <RegisterModal :showRegModal="isResgitserModalVisible" :closeRegModal="closeRegisterModal"
-      :showLoginModal="showLoginModal" :showOTPModal="showOTPModal" />
+    <RegisterModal 
+    :showRegModal="isResgitserModalVisible" 
+    :closeRegModal="closeRegisterModal"
+    :showLoginModal="showLoginModal" 
+    :showOTPModal="showOTPModal" />
 
-    <OTPModal :showOTPModal="isOTPModalVisible" :closeOTPModal="closeOTPModal" :showLoginModal="showLoginModal"
-      :showEditPasswordModal="showEditPasswordModal" />
+    <OTPModal 
+    :showOTPModal="isOTPModalVisible" 
+    :closeOTPModal="closeOTPModal" 
+    :showLoginModal="showLoginModal"
+    :showEditPasswordModal="showEditPasswordModal" />
 
-    <ForgotPasswordModal :showForgotPasswordModal="isForgotPasswordModalVisible"
-      :closeForgotPasswordModal="closeForgotPasswordModal" :showLoginModal="showLoginModal"
-      :showEditPasswordModal="showEditPasswordModal" />
+    <ForgotPasswordModal 
+    :showForgotPasswordModal="isForgotPasswordModalVisible"
+    :closeForgotPasswordModal="closeForgotPasswordModal" 
+    :showLoginModal="showLoginModal"
+    :showEditPasswordModal="showEditPasswordModal" />
 
-    <EditPassword :showEditPasswordModal="isEditPasswordModalVisible" :closeEditPasswordModal="closeEditPasswordModal"
-      :showLoginModal="showLoginModal" />
+    <EditPassword 
+    :showEditPasswordModal="isEditPasswordModalVisible" 
+    :closeEditPasswordModal="closeEditPasswordModal"
+    :showLoginModal="showLoginModal" />
 
-    <MyPage :showMyPageModal="isMyPageModalVisible" :closeMyPageModal="closeMyPageModal"
-      :showEditProfileModal="showEditProfileModal" />
+    <MyPage 
+    :showMyPageModal="isMyPageModalVisible" 
+    :closeMyPageModal="closeMyPageModal"
+    :showEditProfileModal="showEditProfileModal" />
 
-    <EditProfile :showEditProfileModal="isEditProfileModalVisible" :gobackmypage="gobackmypage"
-      :showOTPModal="showOTPModal" :showEditNicknameModal="showEditNicknameModal" />
+    <EditProfile 
+    :showEditProfileModal="isEditProfileModalVisible" 
+    :gobackmypage="gobackmypage"
+    :showOTPModal="showOTPModal" 
+    :showEditNicknameModal="showEditNicknameModal" />
 
-    <EditNicknameModal :showEditNicknameModal="isEditNicknameModalVisible"
-      :closeEditNicknameModal="closeEditNicknameModal" :showEditProfileModal="showEditProfileModal" />
-
-
+    <EditNicknameModal 
+    :showEditNicknameModal="isEditNicknameModalVisible"
+    :closeEditNicknameModal="closeEditNicknameModal" 
+    :showEditProfileModal="showEditProfileModal" />
   </div>
 </template>
 
@@ -132,9 +150,9 @@ export default {
       Links: [
         { name: '首页', link: '/' },
         { name: '直播', link: '/live' },
-        { name: '收藏', link: '/favourite' }
+        { name: '收藏', link: '/favourite' },
       ],
-      img: ref(require('../assets/topNav/football.png')),
+      img: ref(require('@/assets/topNav/football.png')),
       isDropdownOpen: ref(false),
       searchText: ref(''),
       showDropdown: ref(false),
@@ -151,7 +169,7 @@ export default {
     };
   },
   methods: {
-    MenuOpen(){
+    MenuOpen() {
       this.openNav = !this.openNav;
     },
     toggleDropdown() {

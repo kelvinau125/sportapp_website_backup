@@ -11,11 +11,9 @@
                 
                   <div @click="toLiveStream" class="card-body relative">
                     <img :src="require(`@/assets/live/${livedata.image}.png`)" alt="Image" />
-                    <!-- <img src="@/assets/live/LiveImage.png" class="" /> -->
                       <div class="flex absolute bottom-0 items-center p-1 pb-2">
                         <div class="pr-1 pl-1 z-10 w-10">
                           <img :src="require(`@/assets/live/${livedata.streamerIcon}.png`)" alt="Image" />
-                          <!-- <img src="@/assets/live/defaultStreamerIcon.png" /> -->
                         </div>
                         <div class="flex flex-col pl-1 z-10 items-start">
                             <div class="text-white text-sm">{{ livedata.liveTitle}}</div>
@@ -37,27 +35,11 @@ import PopularMatch from '@/components/PopularMatch.vue'
 import BackgroundImage from '@/components/BackGround.vue'
 import { useRouter } from 'vue-router'
 
-
 const liveData = [
   { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'NAME',  streamerIcon: 'defaultStreamerIcon'},
   { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'NAME',  streamerIcon: 'defaultStreamerIcon'},
   { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'NAME',  streamerIcon: 'defaultStreamerIcon'},
   { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'NAME',  streamerIcon: 'defaultStreamerIcon'},
-  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
-  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
-  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
-  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
-  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
-  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
-  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
-  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
-  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
-  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
-  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
-  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
-  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
-  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
-  { image: 'LiveImage', liveTitle: 'TITLE', streamerName: 'CX',  streamerIcon: 'defaultStreamerIcon'},
 ]
 
 
