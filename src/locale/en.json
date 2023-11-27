@@ -3,14 +3,26 @@
     "Live":"Live",
     "Favourite":"Favourite",
     "PandaSport": "Panda Sport",
-    "Monday": "Monday",
-    "Tuesday": "Tuesday",
-    "Wednesday": "Wednesday",
-    "Thursday": "Thursday",
-    "Friday": "Friday",
-    "Saturday": "Saturday",
-    "Sunday": "Sunday",
-    "Today" : "Today"
-  
+    
+    "Welcome Back, Please Login": "Welcome Back, Please Login",
+    "Please Enter Password": "Please Enter Password",
+    "Forgot Password?": "Forgot Password?",
+    "Login": "Login",
+    "Already Have An Account? ": "Already Have An Account? ",
+    "Register Now": "Register Now",
+    "Please Enter Correct Password": "Please Enter Correct Password",
+    "Please enter the correct phone number": "Please enter the correct phone number",
+    "Phone Number and Password cannot be empty": "Phone Number and Password cannot be empty",
+    "Please Enter Password Again": "Please Enter Password Again",
+
+    "Register": "Register",
+    "Login Now": "Login Now",
+    "Welcome to Register, Get Started!": "Welcome to Register, Get Started!",
+    "Please Enter Username": "Please Enter Username",
+    "Password must be at least 8 characters and include at least 1 capital letter, number, and special character": "Password must be at least 8 characters and include at least 1 capital letter, number, and special character",
+    "Please Make Sure Password are Same": "Please Make Sure Password are Same",
+    "NickName cannot be empty": "NickName cannot be empty",
+    "Phone Number cannot be empty": "Phone Number cannot be empty",
+    "Passwords cannot be empty": "Passwords cannot be empty"
     
 }

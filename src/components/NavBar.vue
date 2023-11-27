@@ -65,59 +65,226 @@
       </div>
     </div>
   </div>
+          <div class="dropdown-content" :class="{ 'show-dropdown': isDropdownOpen }">
+
+            <button class="dropdown-button" @click="selectOption(require('../assets/topNav/basketball.png'))">
+              <img src="../assets/topNav/basketball.png" alt="Basketball" />
+            </button>
+            <button class="dropdown-button" @click="selectOption(require('../assets/topNav/football.png'))">
+              <img src="../assets/topNav/football.png" alt="Football" />
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="md:flex items-center pl-1">
+        <!-- login modal -->
+        <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal" :showRegisterModal="showRegisterModal"
+          :showForgotPasswordModal="showForgotPasswordModal" />
+
+        <!-- register modal -->
+        <RegisterModal :showRegModal="isResgitserModalVisible" :closeRegModal="closeRegisterModal"
+          :showLoginModal="showLoginModal" :showOTPModal="showOTPModal" />
+
+        <OTPModal :showOTPModal="isOTPModalVisible" :closeOTPModal="closeOTPModal" :showLoginModal="showLoginModal"
+          :showEditPasswordModal="showEditPasswordModal" />
+
+        <ForgotPasswordModal :showForgotPasswordModal="isForgotPasswordModalVisible"
+          :closeForgotPasswordModal="closeForgotPasswordModal" :showLoginModal="showLoginModal"
+          :showEditPasswordModal="showEditPasswordModal" />
+
+        <EditPassword :showEditPasswordModal="isEditPasswordModalVisible" :closeEditPasswordModal="closeEditPasswordModal"
+          :showLoginModal="showLoginModal" />
+
+        <MyPage :showMyPageModal="isMyPageModalVisible" :closeMyPageModal="closeMyPageModal"
+          :showEditProfileModal="showEditProfileModal" />
+
+        <EditProfile :showEditProfileModal="isEditProfileModalVisible" :gobackmypage="gobackmypage"
+          :showOTPModal="showOTPModal" :showEditNicknameModal="showEditNicknameModal" />
+
+        <EditNicknameModal :showEditNicknameModal="isEditNicknameModalVisible"
+          :closeEditNicknameModal="closeEditNicknameModal" :showEditProfileModal="showEditProfileModal" />
+
+        <div @click="toggleDropdownProfile">
+          <img src="../assets/topNav/defaultProfile.png" alt="Profile Picture" />
+          <div v-show="showDropdown" class="absolute bg-gray-900 mt-1 p-1 py-3">
+            <div class="pr-1 pt-1 pb-2 ">
+              <!-- 注册Button -->
+              <!-- <router-link to="/register" class="px-1 hover:text-green-500 text-white">注册</router-link> -->
+              <button class="px-1" @click="showRegisterModal">注册</button>
+              <br>
+              <button class="px-1" @click="showLoginModal">登入</button>
+              <br>
+              <button v-if="loggedIn" class="px-1" @click="showMyPageModal">我的主页</button>
+              <br>
+              <router-link to="/test" class="px-1 text-white">登入</router-link>
+            </div>
+            <!-- Dropdown content, e.g., Logout link -->
+            <button v-if="loggedIn" @click="logout" class="block text white">退出登入</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-import { useRouter, RouterLink } from 'vue-router'
+<script >
+import { ref } from 'vue';
+import VueCookies from 'vue-cookies';
 
-// Navigation Bar
-const Links = [
-  { name: '首页', link: '/' },
-  { name: '直播', link: '/live' },
-  { name: '收藏', link: '/favourite' },
-  { name: 'TEST', link: '/test' },
-]
+// import the remove cookie function
+import { removeCookie } from '@/service/cookie';
 
-const openNav = ref(true)
+import LoginModal from '@/views/Authentication/LoginModal.vue';
+import RegisterModal from '@/views/Authentication/RegisterModal.vue';
+import OTPModal from '@/views/Authentication/OTPVerification.vue';
+import ForgotPasswordModal from '@/views/Authentication/ForgotPassword.vue';
+import EditPassword from '@/views/MyProfile/EditPassword.vue';
+import MyPage from '@/views/MyProfile/MyPage.vue';
+import EditProfile from '@/views/MyProfile/EditProfile.vue';
+import EditNicknameModal from '@/views/MyProfile/EditUserNickname.vue';
 
-const MenuOpen = () => {
-  openNav.value = !openNav.value;
-}
+export default {
+  components:{
+    LoginModal,
+    RegisterModal,
+    OTPModal,
+    ForgotPasswordModal,
+    EditPassword,
+    MyPage,
+    EditProfile,
+    EditNicknameModal,
+  },
+  data() {
+    return {
+      Links: [
+        { name: '首页', link: '/' },
+        { name: '直播', link: '/about' },
+        { name: '收藏', link: '/favourite' }
+      ],
+      img: ref(require('../assets/topNav/football.png')),
+      isDropdownOpen: ref(false),
+      searchText: ref(''),
+      showDropdown: ref(false),
+      loggedIn: ref(false),
+      isLoginModalVisible: ref(false),
+      isResgitserModalVisible: ref(false),
+      isOTPModalVisible: ref(false),
+      isForgotPasswordModalVisible: ref(false),
+      isEditPasswordModalVisible: ref(false),
+      isMyPageModalVisible: ref(false),
+      isEditProfileModalVisible: ref(false),
+      isEditNicknameModalVisible: ref(false),
+    };
+  },
+  methods: {
+    toggleDropdown() {
+      this.isDropdownOpen = !this.isDropdownOpen;
+    },
+    selectOption(image) {
+      this.img = image;
+      this.isDropdownOpen = false;
+    },
+    toggleDropdownProfile() {
+      this.showDropdown = !this.showDropdown;
+    },
+    logout() {
+      removeCookie();
+      this.$router.push('/login');
+      this.loggedIn = false;
+    },
+    showLoginModal() {
+      this.isEditPasswordModalVisible = false;
+      this.isForgotPasswordModalVisible = false;
+      this.isResgitserModalVisible = false;
+      this.isLoginModalVisible = true;
+    },
+    closeLoginModal() {
+      this.isLoginModalVisible = false;
+    },
 
-const img = ref(require('@/assets/topNav/football.png'))
-const isDropdownOpen = ref(false)
+    // register
+    showRegisterModal() {
+      this.isLoginModalVisible = false;
+      this.isResgitserModalVisible = true;
+    },
 
-const toggleDropdown = () => {
-  isDropdownOpen.value = !isDropdownOpen.value
-}
+    closeRegisterModal() {
+      this.isResgitserModalVisible = false;
+    },
 
-const selectOption = (image) => {
-  console.log(image)
-  img.value = image // Update the default image when an option is selected
-  isDropdownOpen.value = false // Close the dropdown
-}
+    // OTP Modal
+    showOTPModal() {
+      this.isEditProfileModalVisible = false;
+      this.isOTPModalVisible = true;
+    },
 
-const searchText = ref('')
+    closeOTPModal() {
+      this.isOTPModalVisible = false;
+    },
 
-// Profile
-const showDropdown = ref(false)
-const loggedIn = ref(false)
+    // Forgot Passowrd Modal
+    showForgotPasswordModal() {
+      this.isLoginModalVisible = false;
+      this.isForgotPasswordModalVisible = true;
+    },
 
-const toggleDropdownProfile = () => {
-  showDropdown.value = !showDropdown.value
-}
+    closeForgotPasswordModal() {
+      this.isForgotPasswordModalVisible = false;
+    },
 
-const router = useRouter()
-const logout = () => {
-  // Perform logout logic
-  // For example, redirect to the login page
-  router.push('/login')
-  // Update the loggedIn state accordingly
-  loggedIn.value = false
-}
+    // Edit Passowrd Modal
+    showEditPasswordModal() {
+      this.isOTPModalVisible = false;
+      this.isForgotPasswordModalVisible = false;
+      this.isEditPasswordModalVisible = true;
+    },
+
+    closeEditPasswordModal() {
+      this.isEditPasswordModalVisible = false;
+    },
+
+    // My Page Modal
+    showMyPageModal() {
+      this.isMyPageModalVisible = true;
+    },
+
+    closeMyPageModal() {
+      this.isMyPageModalVisible = false;
+    },
+
+    // Edit Profile Modal
+    showEditProfileModal() {
+      this.isEditNicknameModalVisible = false;
+      this.isMyPageModalVisible = false;
+      this.isEditProfileModalVisible = true;
+    },
+
+    gobackmypage() {
+      this.isMyPageModalVisible = true;
+      this.isEditProfileModalVisible = false;
+    },
+
+    // Edit Nickname Modal
+    showEditNicknameModal() {
+      this.isEditProfileModalVisible = false;
+      this.isEditNicknameModalVisible = true;
+    },
+
+    closeEditNicknameModal() {
+      this.isEditNicknameModalVisible = false;
+    },
+  },
+  mounted() {
+    if (VueCookies.isKey('userToken')) {
+      this.loggedIn = true;
+    } else {
+      this.loggedIn = false;
+    }
+  },
+};
 
 </script>
+
 
 <style scoped>
 .nav-container {
@@ -148,6 +315,13 @@ const logout = () => {
   cursor: pointer;
   width: 55px;
 }
+/* Style the dropdown trigger button */
+.dropdown-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 55px;
+}
 
 /* Style the dropdown content (hidden by default) */
 .dropdown-content {
@@ -161,6 +335,15 @@ const logout = () => {
   z-index: 1px;
 }
 
+/* Style the dropdown options */
+.dropdown-content .dropdown-button {
+  display: block;
+  padding: 8px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 /* Style the dropdown options */
 .dropdown-content .dropdown-button {
   display: block;

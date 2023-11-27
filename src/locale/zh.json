@@ -3,13 +3,25 @@
     "Live":"直播",
     "Favourite":"收藏",
     "PandaSport": "熊猫体育",
-    "Monday": "周一",
-    "Tuesday": "周二",
-    "Wednesday": "周三",
-    "Thursday": "周四",
-    "Friday": "周五",
-    "Saturday": "周六",
-    "Sunday": "周日",
-    "Today" : "今天"
 
+    "Welcome Back, Please Login": "欢迎回来, 登录使用！",
+    "Please Enter Password": "请输入密码",
+    "Forgot Password?": "忘记密码？",
+    "Login": "登入",
+    "Already Have An Account? ": "已经有帐户？",
+    "Register Now": "立刻注册",
+    "Please Enter Correct Password": "请输入正确的密码",
+    "Please enter the correct phone number": "请输入正确的手机号码",
+    "Phone Number and Password cannot be empty": "电话号码和密码不能为空",
+    "Please Enter Password Again": "请再次输入密码",
+
+    "Register": "注册",
+    "Login Now": "现在登入",
+    "Welcome to Register, Get Started!": "欢迎注册， 开始使用!",
+    "Please Enter Username": "请输入用户名",
+    "Password must be at least 8 characters and include at least 1 capital letter, number, and special character": "密码必须至少为 8 个字符，并且至少包含 1 个大写字母、数字和特殊字符",
+    "Please Make Sure Password are Same": "请确保密码的一致性",
+    "NickName cannot be empty": "昵称不能为空",
+    "Phone Number cannot be empty": "手机号不能为空",
+    "Passwords cannot be empty": "密码不能为空"
 }
