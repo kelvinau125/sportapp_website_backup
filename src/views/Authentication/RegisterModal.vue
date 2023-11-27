@@ -10,7 +10,7 @@
             <h2 class="text-xl font-bold" style="padding: 20px">{{ $t('Welcome to Register, Get Started!') }}</h2>
 
             <div class="form-group flex">
-                <input :placeholder="$t('Please Enter Username')"  type="text" id="nickname"  v-model="nickName" required />
+                <input :placeholder="$t('Please Enter Username')"  type="text" v-model="nickName" required />
             </div>
 
             <div class="form-group flex">
@@ -25,7 +25,6 @@
                 <input
                 :placeholder="$t('Please Enter Password')"
                 :type="passwordFieldType"
-                id="password"
                 v-model="password"
                 required
                 />
@@ -42,7 +41,6 @@
                 <input
                 :placeholder="$t('Please Enter Password Again')"
                 :type="passwordFieldType2nd"
-                id="password2nd"
                 v-model="password2nd"
                 required
                 />

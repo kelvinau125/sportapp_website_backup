@@ -3,7 +3,7 @@
       <h2 class="text-xl font-bold">注册使用</h2>
 
       <div class="form-group">
-        <input placeholder="请输入用户名" type="text" id="username" v-model="userData.username" />
+        <input placeholder="请输入用户名" type="text" v-model="userData.username" />
       </div>
 
       <div class="form-group flex">
@@ -13,12 +13,12 @@
           <option value="+60">+60</option>
           <!-- Add more country codes as needed -->
         </select>
-        <input placeholder="请输入手机号码" type="text" id="phone" v-model="userData.phone" />
+        <input placeholder="请输入手机号码" type="text" v-model="userData.phone" />
       </div>
 
       <div class="form-group">
         <div class="password-container">
-          <input placeholder="请输入密码" type="password" id="password" v-model="userData.password" />
+          <input placeholder="请输入密码" type="password" v-model="userData.password" />
           <button class="button mr-1.5">
             <img class="" src="@/assets/hide.png" />
           </button>
