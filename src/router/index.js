@@ -5,6 +5,8 @@ import RegisterView from '@/views/RegisterView.vue'
 import LoginForm from '@/views/LoginView.vue'
 import AllMatch from '@/views/AllMatch.vue'
 import TournamentDetails from '@/views/Tournament/TournamentDetails.vue'
+import NotFound from '@/components/NotFound.vue'
+import ResultPage from '@/components/SearchResult.vue'
 
 const routes = [
   {
@@ -55,7 +57,20 @@ const routes = [
     path: '/test',
     name: 'testTest',
     component: () => import('@/components/HelloWorld.vue')
-  }
+  },
+  {
+    //Non-exists page
+    path: '/:catchAll(.*)',
+    name: 'NotFound',
+    component: NotFound
+  },
+  {
+    path: '/results',
+    name: "ResultPage",
+    component: ResultPage,
+    props: true,
+  },
+
 ]
 
 const router = createRouter({

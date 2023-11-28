@@ -118,7 +118,8 @@ const toLiveStream = () => {
   height: 100%;
   left: 0;
   z-index: 1;
-  background: linear-gradient(to bottom, rgba(197, 197, 197, 0), #000000);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+
   background-size: cover;
   border-radius: 8px;
 }

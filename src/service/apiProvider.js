@@ -1,13 +1,13 @@
 import CryptoJS from 'crypto-js';
 
-import { 
+import {
   postRequest,
   getRequest,
   patchRequest,
   postFileRequest
- } from '@/service/apiRequestMethod';
+} from '@/service/apiRequestMethod';
 
-import { 
+import {
   baseUrl,
   loginUrl,
   createUserUrl,
@@ -17,7 +17,7 @@ import {
   updateNickNameUrl,
   uploadFileUrl,
   updateHeadUrl
- } from '@/utils/apiConfig.js';
+} from '@/utils/apiConfig.js';
 
 // get user cookie / set cookie
 import VueCookies from 'vue-cookies';
@@ -216,7 +216,7 @@ export async function UpdateUserNickname(nickname) {
   const userToken = VueCookies.get('userToken')
 
   const url = baseUrl + updateNickNameUrl + userToken + "/" + nickname;
-  
+
   setNicknameCookie(nickname);
 
   const apiDetails = {};
@@ -245,7 +245,7 @@ export async function updateProfilePic(file) {
   const userToken = VueCookies.get('userToken')
 
   const url = baseUrl + uploadFileUrl;
-  
+
   console.log(file);
 
   try {
@@ -257,7 +257,7 @@ export async function updateProfilePic(file) {
     const isFinished = await pushImageToServer(userToken, data);
 
     if (isFinished) {
-    
+
       if (code === 0) {
         return true;
       } else {
@@ -276,12 +276,12 @@ export async function updateProfilePic(file) {
 
 export async function pushImageToServer(usertToken, imageToken) {
   const url = baseUrl + updateHeadUrl + usertToken;
-  
-  const imageTokenUrl =
-  "https://live-stream-1321239144.cos.ap-singapore.myqcloud.com/head/" +
-      imageToken;
 
-  const apiDetails = {  
+  const imageTokenUrl =
+    "https://live-stream-1321239144.cos.ap-singapore.myqcloud.com/head/" +
+    imageToken;
+
+  const apiDetails = {
     head: imageTokenUrl,
   };
 
@@ -302,9 +302,3 @@ export async function pushImageToServer(usertToken, imageToken) {
     return false;
   }
 }
-
-
-
-
-
-
