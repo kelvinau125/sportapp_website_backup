@@ -22,7 +22,7 @@
               <p class=" font-medium text-sm pr-3">{{ homePossessionRate + '%' }}</p>
               <div class="team">
                 <div class="stat-bar-left totalGrayBar border_leftTB "
-                  :style="{ width: (teamAPossessionRate + teamBPossessionRate) + '%' }"></div>
+                  :style="{ width: 100 + '%' }"></div>
                 <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAPossessionRate + '%' }"></div>
               </div>
             </div>
@@ -109,7 +109,7 @@
                   <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
                   <div class="stat-bar-left total-shots border_leftTB" :style="{ width: teamAtotalShotPercent + '%' }">
                   </div>
-                  <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: something + '%' }"></div>
+                  <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAGoalPercentage + '%' }"></div>
                 </div>
               </div>
               <div class="flex items-center">
@@ -130,7 +130,7 @@
                   <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
                   <div class="stat-bar-right total-shotsB border_rightTB" :style="{ width: teamBtotalShotPercent + '%' }">
                   </div>
-                  <div class="stat-bar-right shots-on-target border_rightTB" :style="{ width: test + '%' }"></div>
+                  <div class="stat-bar-right shots-on-target border_rightTB" :style="{ width: teamBGoalPercentage + '%' }"></div>
                 </div>
                 <span class="font-medium text-sm pl-2.5">{{ teamBtotalShotNum }}</span>
                 <span class="font-medium text-sm">{{ "(" + awayShootGoalNum + ")" }}</span>
@@ -149,48 +149,99 @@
         </div>
       </div>
     </div>
-  </template>
+</template>
   
-  <script>
+<script>
+  // import to run the login function
+  import { getFootballMatchbyId } from '@/service/apiFootBallMatchProvder.js';
   
   export default {
+
+    async mounted() {
+      this.getTournamentDetails = await getFootballMatchbyId(1187648, false);
+      // this.getTournamentDetails = await getFootballMatchbyId(1187648, ((this.$i18n.locale === 'ZH')?true :false));
+      console.log(this.getTournamentDetails)
+
+      //homePossessionRate (控球率), awayPossessionRate (控球率)
+      this.homePossessionRate = parseInt(this.getTournamentDetails['homePossessionRate']);
+      this.awayPossessionRate = parseInt(this.getTournamentDetails['awayPossessionRate']);
+
+      //homeCornerKickNum (角球)，awayCornerKickNum(角球)
+      this.homeCornerKickNum = this.getTournamentDetails['homeCornerKickNum'];
+      this.awayCornerKickNum = this.getTournamentDetails['awayCornerKickNum'];
+      
+      //homeRedCardNum (红卡), awayRedCardNum(红卡)
+      this.homeRedCardNum = this.getTournamentDetails['homeRedCardNum'];
+      this.awayRedCardNum = this.getTournamentDetails['awayRedCardNum'];
+      
+      //homeYellowCardNum（黄卡), awayYellowCardNum(黄卡)
+      this.homeYellowCardNum = this.getTournamentDetails['homeYellowCardNum'];
+      this.awayYellowCardNum = this.getTournamentDetails['awayYellowCardNum'];
+
+      //Home Attack Number (进攻)， Away Attack Number (进攻)
+      this.homeAttackNum = this.getTournamentDetails['homeAttackNum'];
+      this.awayAttackNum = this.getTournamentDetails['awayAttackNum'];
+
+      //homeAttackDangerNum (危险进攻), awayAttackDangerNum (危险进攻)
+      this.homeAttackDangerNum = this.getTournamentDetails['homeAttackDangerNum'];
+      this.awayAttackDangerNum = this.getTournamentDetails['awayAttackDangerNum'];
+
+      //homePenaltyNum (点球)，awayPenaltyNum(点球)
+      this.homePenaltyNum = this.getTournamentDetails['homePenaltyNum'];
+      this.awayPenaltyNum = this.getTournamentDetails['awayPenaltyNum'];
+
+      //homeShootGoalNum (射正), homeBiasNum (射偏) 
+      this.homeShootGoalNum = this.getTournamentDetails['homeShootGoalNum'];
+      this.homeBiasNum = this.getTournamentDetails['homeBiasNum'];
+
+       //awayShootGoalNum(射正)， awayBiasNum(射偏)
+      this.awayShootGoalNum = this.getTournamentDetails['awayShootGoalNum'];
+      this.awayBiasNum = this.getTournamentDetails['awayBiasNum'];
+    },
+
     data() {
       return {
+        getTournamentDetails: {},
+
         //homePossessionRate (控球率), awayPossessionRate (控球率)
-        homePossessionRate: 60,
-        awayPossessionRate: 40,
+        homePossessionRate: 0,
+        awayPossessionRate: 0,
   
         //homeCornerKickNum (角球)，awayCornerKickNum(角球)
-        homeCornerKickNum: 5,
-        awayCornerKickNu: 1,
+        homeCornerKickNum: 0,
+        awayCornerKickNu: 0,
+
         //homeRedCardNum (红卡), awayRedCardNum(红卡)
-        homeRedCardNum: 2,
-        awayRedCardNum: 3,
+        homeRedCardNum: 0,
+        awayRedCardNum: 0,
+
         //homeYellowCardNum（黄卡), awayYellowCardNum(黄卡)
         homeYellowCardNum: 0,
-        awayYellowCardNum: 1,
+        awayYellowCardNum: 0,
+
         //Home Attack Number (进攻)， Away Attack Number (进攻)
-        homeAttackNum: 5,
-        awayAttackNum: 10,
+        homeAttackNum: 0,
+        awayAttackNum: 0,
   
         //homeAttackDangerNum (危险进攻), awayAttackDangerNum (危险进攻)
-        homeAttackDangerNum: 6,
-        awayAttackDangerNum: 9,
+        homeAttackDangerNum: 0,
+        awayAttackDangerNum: 0,
   
         //homePenaltyNum (点球)，awayPenaltyNum(点球)
-        homePenaltyNum: 6,
-        awayPenaltyNum: 6,
+        homePenaltyNum: 0,
+        awayPenaltyNum: 0,
   
         //homeShootGoalNum (射正), homeBiasNum (射偏) 
-        homeShootGoalNum: 5,
-        homeBiasNum: 1,
+        homeShootGoalNum: 0,
+        homeBiasNum: 0,
   
         //awayShootGoalNum(射正)， awayBiasNum(射偏)
-        awayShootGoalNum: 2,
-        awayBiasNum: 2,
+        awayShootGoalNum: 0,
+        awayBiasNum: 0,
+
         //Total 射门 homeShootGoalNum + homeBiasNum
         // homeShootGoalNum+homeBiasNum
-        //awayShootGoalNum+awayBiasNum
+        // awayShootGoalNum+awayBiasNum
       };
     },
   
@@ -199,34 +250,87 @@
         return (100 - (this.homeAttackNum + this.awayAttackNum)) * 100;
       },
       teamAPossessionRate() {
-        return Math.round(this.homePossessionRate / (this.homePossessionRate + this.awayPossessionRate) * 100)
+        const totalPossession = this.homePossessionRate + this.awayPossessionRate;
+        if (totalPossession !== 0) {
+          return Math.round((this.homePossessionRate / totalPossession) * 100);
+        } else {
+          return 0;
+        }
       },
       teamBPossessionRate() {
-        return Math.round(this.awayPossessionRate / (this.homePossessionRate + this.awayPossessionRate) * 100)
+        const totalPossession = this.homePossessionRate + this.awayPossessionRate;
+
+        // Check if the totalPossession is not zero before performing the division
+        if (totalPossession !== 0) {
+          return Math.round((this.awayPossessionRate / totalPossession) * 100);
+        } else {
+          return 0;
+        }
       },
       teamAAttackNumber() {
-        return Math.round(this.homeAttackNum / (this.homeAttackNum + this.awayAttackNum) * 100)
+        const totalAttack = this.homeAttackNum + this.awayAttackNum;
+        if(totalAttack !== 0){
+          return Math.round(this.homeAttackNum / (totalAttack) * 100)
+        }else{
+          return 0;
+        }
       },
       teamBShotPercentage() {
-        return Math.round(this.awayAttackNum / (this.homeAttackNum + this.awayAttackNum) * 100)
+        const totalAttack = this.homeAttackNum + this.awayAttackNum;
+        if(totalAttack !==0){
+          return Math.round(this.awayAttackNum / (totalAttack) * 100)
+        }else{
+          return 0;
+        }
       },
       teamADangerNum() {
-        return Math.round(this.homeAttackDangerNum / (this.homeAttackDangerNum + this.awayAttackDangerNum) * 100)
+        const totalDanger = this.homeAttackDangerNum + this.awayAttackDangerNum;
+        if(totalDanger !==0){
+          return Math.round(this.homeAttackDangerNum / (totalDanger) * 100)
+        }else{
+          return 0;
+        }
       },
       teamBDangerNum() {
-        return Math.round(this.awayAttackDangerNum / (this.homeAttackDangerNum + this.awayAttackDangerNum) * 100)
+        const totalDanger = this.homeAttackDangerNum + this.awayAttackDangerNum;
+        if(totalDanger !==0){
+          return Math.round(this.awayAttackDangerNum / (totalDanger) * 100)
+        }else{
+          return 0;
+        }
       },
       teamAPenaltyNum() {
-        return Math.round(this.homePenaltyNum / (this.homePenaltyNum + this.awayPenaltyNum) * 100)
+        const totalPenalty = this.homePenaltyNum + this.awayPenaltyNum;
+        if(totalPenalty !==0){
+          return Math.round(this.homePenaltyNum / (totalPenalty) * 100)
+
+        }else{
+          return 0;
+        }
       },
       teamBPenaltyNum() {
-        return Math.round(this.awayPenaltyNum / (this.homePenaltyNum + this.awayPenaltyNum) * 100)
+        const totalPenalty = this.homePenaltyNum + this.awayPenaltyNum;
+        if(totalPenalty !==0){
+          return Math.round(this.awayPenaltyNum / (totalPenalty) * 100)
+        }else{
+          return 0;
+        }
       },
       teamAGoalNum() {
-        return Math.round(this.homeShootGoalNum / (this.homeShootGoalNum + this.awayShootGoalNum) * 100)
+        const totalGoalNum = this.homeShootGoalNum + this.awayShootGoalNum;
+        if(totalGoalNum !==0) {
+          return Math.round(this.homeShootGoalNum / (totalGoalNum) * 100)
+        }else{
+          return 0;
+        }
       },
       teamBGoalNum() {
-        return Math.round(this.awayShootGoalNum / (this.homeShootGoalNum + this.awayShootGoalNum) * 100)
+        const totalGoalNum = this.homeShootGoalNum + this.awayShootGoalNum
+        if( totalGoalNum !== 0){
+          return Math.round(this.awayShootGoalNum / (totalGoalNum) * 100)
+        }else{
+          return 0;
+        }
       },
       teamAtotalShotNum() {
         return this.homeShootGoalNum + this.homeBiasNum
@@ -236,27 +340,49 @@
         return this.awayShootGoalNum + this.awayBiasNum
       },
       teamBtotalShotPercent() {
-        return Math.round(this.teamBtotalShotNum / (this.teamAtotalShotNum + this.teamBtotalShotNum) * 100)
+        const totalShotPercent = this.teamAtotalShotNum + this.teamBtotalShotNum;
+        if(totalShotPercent!==0){
+          return Math.round(this.teamBtotalShotNum / (totalShotPercent) * 100)
+        }else{
+          return 0;
+        }
       },
   
       teamAtotalShotPercent() {
-        return Math.round(this.teamAtotalShotNum / (this.teamAtotalShotNum + this.teamBtotalShotNum) * 100)
+        const totalShotPercent = this.teamAtotalShotNum + this.teamBtotalShotNum;
+        if(totalShotPercent !==0){
+          return Math.round(this.teamAtotalShotNum / (totalShotPercent) * 100)
+        }else{
+          return 0;
+        }
       },
   
-      something() {
-        return (this.homeShootGoalNum / this.teamAtotalShotNum) * this.teamAtotalShotPercent
+      teamAGoalPercentage() {
+        if(this.homeShootGoalNum !==0){
+          return (this.homeShootGoalNum / this.teamAtotalShotNum) * this.teamAtotalShotPercent
+
+        }else{
+          return 0;
+        }
+       
       },
-      //2/6*25
-  
-      test() {
-        return (this.awayShootGoalNum / this.teamBtotalShotNum) * this.teamBtotalShotPercent
+      
+      teamBGoalPercentage() {
+        if(this.awayShootGoalNum !== 0){
+          return (this.awayShootGoalNum / this.teamBtotalShotNum) * this.teamBtotalShotPercent
+        }else{
+          return 0;
+        }
       },
-      // 50/100*67
+    },
+
+    methods: {
+    
     },
   };
-  </script>
+</script>
   
-  <style scoped>
+<style scoped>
   .border_leftTB {
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
@@ -332,5 +458,5 @@
     background-color: #D7DDD7;
     /* Color for combined total shots */
   }
-  </style>
+</style>
   
