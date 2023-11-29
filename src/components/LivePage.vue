@@ -1,13 +1,4 @@
 <template>
-  <div class="searchInputBox">
-    <div class="searchLeftBox">
-      <input v-model="searchQuery" @keyup.enter="search" type="text" placeholder="搜索主播/比赛/房间名" maxlength="20" />
-    </div>
-    <div class="searchIconBox bg-green-500" @click="search">
-      <img src="@/assets/topNav/search.png" />
-      <span class="word">搜索</span>
-    </div>
-  </div>
   <BackgroundImage>
     <div >
       <PopularMatch />

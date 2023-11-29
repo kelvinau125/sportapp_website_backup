@@ -278,6 +278,7 @@ export default {
     },
   },
   mounted() {
+    this.searchQuery = "";
     if (VueCookies.isKey('avatar')) {
       this.avatar = VueCookies.get('avatar');
     } else {
