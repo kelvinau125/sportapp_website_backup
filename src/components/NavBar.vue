@@ -21,14 +21,23 @@
         </ul>
       </div>
     </div>
+    <!-- <div class="searchInputBox">
+      <div class="searchLeftBox">
+        <input v-model="searchQuery" @keyup.enter="search" type="text" placeholder="搜索主播/比赛/房间名" maxlength="20" />
+      </div>
+      <div class="searchIconBox bg-green-500" @click="search">
+        <img src="@/assets/topNav/search.png" />
+        <span class="word">搜索</span>
+      </div>
+    </div> -->
 
     <div class="md:flex items-center">
       <div class="md:flex relative">
-        <div class="md:block hidden">
+        <div @click="search" class="md:block hidden">
           <img src="@/assets/topNav/search.png" alt="Search Icon" class="absolute left-0.5 w-6 h-6 m-2" />
         </div>
         <div class="md:block hidden">
-          <input v-model="searchText" type="text" placeholder="搜索赛事/球队"
+          <input v-model="searchQuery" @keyup.enter="search" type="text" placeholder="搜索赛事/球队" maxlength="20"
             class="pl-10 md:w-72 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-10 text-white bg-slate-50" />
         </div>
         <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between">
@@ -53,13 +62,15 @@
         <div @click="toggleDropdownProfile">
           <!-- <img class="md:static absolute md:right-0 right-7 md:top-0 top-2" :src="avatar"
             alt="Profile Picture" /> -->
-          <img :src="avatar" class="md:static absolute md:right-0 right-7 md:top-0 top-2 rounded-full border-2 border-white" style="width: 40px; height: 40px; object-fit: cover;"/>
+          <img :src="avatar"
+            class="md:static absolute md:right-0 right-7 md:top-0 top-2 rounded-full border-2 border-white"
+            style="width: 40px; height: 40px; object-fit: cover;" />
           <div v-show="showDropdown"
             class="md:absolute absolute md:right-8 right-6 md:top-14 top-14 bg-gray-900 mt-1 p-1 py-3">
             <div class="pr-1 pt-1 pb-2 flex flex-col">
               <!-- <button to="/register" class="px-1 hover:text-green-500 text-white">注册</button>
               <button to="/login" class="px-1 hover:text-green-500 text-white">登入</button> -->
-              <button v-if="!loggedIn" class="px-1"  @click="showRegisterModal">注册</button>
+              <button v-if="!loggedIn" class="px-1" @click="showRegisterModal">注册</button>
               <button v-if="!loggedIn" class="px-1" @click="showLoginModal">登入</button>
               <button v-if="loggedIn" class="px-1" @click="showMyPageModal">我的主页</button>
               <button v-if="loggedIn" @click="logout" class="block text-white">退出登入</button>
@@ -71,51 +82,31 @@
   </div>
   <div class="md:flex items-center pl-1">
     <!-- login modal -->
-    <LoginModal 
-    :showModal="isLoginModalVisible" 
-    :closeModal="closeLoginModal" 
-    :showRegisterModal="showRegisterModal"
-    :showForgotPasswordModal="showForgotPasswordModal" />
+    <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal" :showRegisterModal="showRegisterModal"
+      :showForgotPasswordModal="showForgotPasswordModal" />
 
     <!-- register modal -->
-    <RegisterModal 
-    :showRegModal="isResgitserModalVisible" 
-    :closeRegModal="closeRegisterModal"
-    :showLoginModal="showLoginModal" 
-    :showOTPModal="showOTPModal" />
+    <RegisterModal :showRegModal="isResgitserModalVisible" :closeRegModal="closeRegisterModal"
+      :showLoginModal="showLoginModal" :showOTPModal="showOTPModal" />
 
-    <OTPModal 
-    :showOTPModal="isOTPModalVisible" 
-    :closeOTPModal="closeOTPModal" 
-    :showLoginModal="showLoginModal"
-    :showEditPasswordModal="showEditPasswordModal" />
+    <OTPModal :showOTPModal="isOTPModalVisible" :closeOTPModal="closeOTPModal" :showLoginModal="showLoginModal"
+      :showEditPasswordModal="showEditPasswordModal" />
 
-    <ForgotPasswordModal 
-    :showForgotPasswordModal="isForgotPasswordModalVisible"
-    :closeForgotPasswordModal="closeForgotPasswordModal" 
-    :showLoginModal="showLoginModal"
-    :showOTPModal="showOTPModal" />
+    <ForgotPasswordModal :showForgotPasswordModal="isForgotPasswordModalVisible"
+      :closeForgotPasswordModal="closeForgotPasswordModal" :showLoginModal="showLoginModal"
+      :showOTPModal="showOTPModal" />
 
-    <EditPassword 
-    :showEditPasswordModal="isEditPasswordModalVisible" 
-    :closeEditPasswordModal="closeEditPasswordModal"
-    :showLoginModal="showLoginModal" />
+    <EditPassword :showEditPasswordModal="isEditPasswordModalVisible" :closeEditPasswordModal="closeEditPasswordModal"
+      :showLoginModal="showLoginModal" />
 
-    <MyPage 
-    :showMyPageModal="isMyPageModalVisible" 
-    :closeMyPageModal="closeMyPageModal"
-    :showEditProfileModal="showEditProfileModal" />
+    <MyPage :showMyPageModal="isMyPageModalVisible" :closeMyPageModal="closeMyPageModal"
+      :showEditProfileModal="showEditProfileModal" />
 
-    <EditProfile 
-    :showEditProfileModal="isEditProfileModalVisible" 
-    :gobackmypage="gobackmypage"
-    :showOTPModal="showOTPModal" 
-    :showEditNicknameModal="showEditNicknameModal" />
+    <EditProfile :showEditProfileModal="isEditProfileModalVisible" :gobackmypage="gobackmypage"
+      :showOTPModal="showOTPModal" :showEditNicknameModal="showEditNicknameModal" />
 
-    <EditNicknameModal 
-    :showEditNicknameModal="isEditNicknameModalVisible"
-    :closeEditNicknameModal="closeEditNicknameModal" 
-    :showEditProfileModal="showEditProfileModal" />
+    <EditNicknameModal :showEditNicknameModal="isEditNicknameModalVisible"
+      :closeEditNicknameModal="closeEditNicknameModal" :showEditProfileModal="showEditProfileModal" />
   </div>
 </template>
 
@@ -148,6 +139,8 @@ export default {
   },
   data() {
     return {
+      searchQuery: '',
+
       Links: [
         { name: '首页', link: '/' },
         { name: '直播', link: '/live' },
@@ -156,7 +149,6 @@ export default {
       avatar: ref(''),
       img: ref(require('@/assets/topNav/football.png')),
       isDropdownOpen: ref(false),
-      searchText: ref(''),
       showDropdown: ref(false),
       loggedIn: ref(false),
       isLoginModalVisible: ref(false),
@@ -168,9 +160,22 @@ export default {
       isEditProfileModalVisible: ref(false),
       isEditNicknameModalVisible: ref(false),
       openNav: ref(false),
+
     };
   },
   methods: {
+    //Search Functions
+    search() {
+      const searchPages = "1";
+
+      if (this.searchQuery === '') {
+        console.log('Search is empty');
+      } else {
+        // this.$router.push({ name: 'ResultPage', query: { searchQuery: this.searchQuery, searchPages: searchPages } });
+        this.routeData = this.$router.resolve({ name: 'ResultPage', query: { searchQuery: this.searchQuery, searchPages: searchPages } });
+        window.open(this.routeData.href, '_blank');
+      }
+    },
     MenuOpen() {
       this.openNav = !this.openNav;
     },

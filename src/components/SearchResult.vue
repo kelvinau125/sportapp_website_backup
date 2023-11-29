@@ -1,22 +1,29 @@
 <template>
-  <div>
+  <!-- <div>
     <h2>Search searchLiveTeamResult</h2>
     <p>Search Query: {{ searchQuery }}</p>
     <p>Search Query: {{ searchPages }}</p>
-    <!-- 其他展示搜索结果的内容 -->
   </div>
 
   <div class="searchInputBox">
     <div class="searchLeftBox">
       <input v-model="searchQuery" @keyup.enter="search" type="text" placeholder="搜索主播/比赛/房间名" maxlength="20" />
     </div>
-    <div class="searchIconBox bg-green-500" @click="search">
-      <img src="@/assets/topNav/search.png" />
-      <span class="word">搜索</span>
-    </div>
-  </div>
+  </div> -->
   <BackgroundImage>
-    <div class="schedule_list">
+    <div class="flex justify-center pt-8">
+      <div class="searchContainer flex">
+        <input class="searchInput pl-4 w-full h-full text-xs font-normal text-grayText" v-model="searchQuery"
+          @keyup.enter="search" type="text" placeholder="搜索赛事/球队" maxlength="20" />
+
+        <div class="searchButton w-full h-full flex justify-center items-center pl-1">
+          <img src="@/assets/topNav/search.png" alt="Search Icon" class="" />
+          <span class="text-white font-normal text-xs pb-0.5 pr-2">搜索</span>
+        </div>
+
+      </div>
+    </div>
+    <div class="schedule_list pt-4">
       <div class="schedule_detail " style="height: 108px;">
         <div class="schedule_detail_box">
           <ul v-for="match in filterSearchResult" :key="match.searchLiveTeamResult">
@@ -85,28 +92,6 @@
 
     </div>
   </BackgroundImage>
-  <!-- {{ searchLiveTeamResult }} -->
-  <!-- <div>
-    <h2>Search Results</h2>
-    homeTeamName, awayTeamName, homeTeamScore, awayTeamScore, matchTime/matchTimeStr, competitionName
-    homeTeamLogo, awayTeamLogo
-    <ul>
-      <li v-for="match in searchLiveTeamResult" :key="match.id">
-        <div>
-          <h3>Match ID: {{ match.id }}</h3>
-          <p>Competition: {{ match.competitionName }}</p>
-          <p>Home Team: {{ match.homeTeamName }}</p>
-          <p>Away Team: {{ match.awayTeamName }}</p>
-          <p>homeTeamScore: {{ match.homeTeamScore }}</p>
-          <p>awayTeamScore: {{ match.awayTeamScore }}</p>
-          <p>matchTimeStr: {{ match.matchTimeStr }}</p>
-          <p>competitionName: {{ match.competitionName }}</p>
-          <img :src="match.homeTeamLogo">
-          <img :src="match.awayTeamLogo">
-        </div>
-      </li>
-    </ul>
-  </div> -->
 </template>
 
 <script>
@@ -130,6 +115,7 @@ export default {
   },
   created() {
     this.getResult()
+    this.searchQuery = "";
   },
   methods: {
     async getResult() {
@@ -160,7 +146,6 @@ export default {
 
         console.log(' ' + this.searchQuery);
         console.log("THE LIVE TEAM RESULT" + this.searchLiveTeamResult);
-
         console.log("THE COMP TEAM RESULT" + this.searchLiveCompetitionResult);
 
         this.filterSearchResult = [
@@ -179,11 +164,26 @@ export default {
 
 
 <style scoped>
-.tournamentList {
-  width: 50%;
-  max-width: 960px;
+.searchContainer {
+  border: 1px solid #33BA53;
+  border-radius: 6px;
+  width: 346px;
+  height: 37px;
+}
 
+.searchButton {
+  background-color: #33BA53;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: 1px solid #33BA53;
+  width: 90px;
+  height: 35px;
+}
 
+.searchInput {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  background-color: #213F6D;
 }
 
 .schedule_list {
@@ -239,6 +239,10 @@ export default {
   padding: 2.2% 1.7% 1.4% 1.4%;
   border-bottom: 1px solid #f5f5f6;
   height: 120px;
+
+
 }
+
+div {}
 </style>
 
