@@ -1,7 +1,23 @@
-// ResultPage.vue
 <template>
+  <!-- <div v-for="smtg in filterSearchResult" :key="smtg.filterSearchResult">
+    {{ smtg.id }}
+  </div> -->
+
+  <!-- <div>
+    <h2>Search Competition Result</h2>
+    <ul>
+      <li v-for="match in searchLiveCompetitionResult" :key="match.id">
+        <div>
+          <h3>Match ID: {{ match.id }}</h3>
+          <p>Competition: {{ match.competitionName }}</p>
+          <p>Home Team: {{ match.homeTeamName }}</p>
+          <p>Away Team: {{ match.awayTeamName }}</p>
+        </div>
+      </li>
+    </ul>
+  </div> -->
   <div>
-    <h2>Search Results</h2>
+    <h2>Search searchLiveTeamResult</h2>
     <p>Search Query: {{ searchQuery }}</p>
     <p>Search Query: {{ searchPages }}</p>
     <!-- 其他展示搜索结果的内容 -->
@@ -18,18 +34,18 @@
   </div>
   <BackgroundImage>
     <div class="schedule_list">
-      <div class="schedule_detail" style="width:  ; height: 108px;">
+      <div class="schedule_detail " style="height: 108px;">
         <div class="schedule_detail_box">
-          <ul v-for="match in results" :key="match.results">
+          <ul v-for="match in filterSearchResult" :key="match.searchLiveTeamResult">
             <li @click="toAllMatchPage" class="max-w-full h-52 bg-white">
               <div class="conten_box ">
                 <div class="flex justify-between ">
-                  <div class="flex items-center">
-                    <div class="pr-2">
-                      <img src="@/assets/favourite/smtg.png" />
+                  <div class="flex items-center justify-start " style="width: 350px;">
+                    <div class="w-6 h-6">
+                      <img style="" src="@/assets/favourite/footIcon.png" />
                     </div>
-                    <div class="border flex justify-center">
-                      <span class="text-xs font-medium" style="color: #666666;">{{ match.competitionName}}</span>
+                    <div class="px-3 flex justify-center ml-2 MatchTypeBorder ">
+                      <span class="text-xs font-medium" style="color: #666666;">{{ match.competitionName }}</span>
                     </div>
                   </div>
                   <div>
@@ -39,8 +55,8 @@
                     </button>
                   </div>
                 </div>
-                <div class="flex justify-between ">
-                  <div class="flex items-end">
+                <div class="flex justify-start ">
+                  <div class="flex items-end pr-5">
                     <div class="pr-2 font-medium text-xs text-grayText">
                       <span>{{ match.matchDate }}</span>
                     </div>
@@ -48,23 +64,23 @@
                       <span>{{ match.matchTimeStr }}</span>
                     </div>
                   </div>
-                  <div class="flex bg-green-50" style="width: 650px;" >
-                    <div class="flex justify-between items-center w-full">
+                  <div class="flex" style="width: 570px; ">
+                    <div class="flex justify-end items-center w-full ">
                       <div class="">
-                        <span class="text-lg font-semibold">{{ match.homeTeamName }}</span>
+                        <span class="text-lg font-semibold pr-2">{{ match.homeTeamName }}</span>
                       </div>
                       <div class="">
                         <img src="@/assets/favourite/favTeamIcon.png" />
                       </div>
                     </div>
-                    <div class="flex flex-col px-5 items-center bg-red-100 w-1/2"  >
-                      <div class="font-semibold text-2xl px-2">
+                    <div class="flex flex-col  items-center  w-1/3">
+                      <div class="font-semibold text-2xl ">
                         <span>{{ match.homeTeamScore }}</span>
                         <span class="px-2">-</span>
                         <span>{{ match.awayTeamScore }}</span>
                       </div>
                     </div>
-                    <div class="flex items-center justify-start bg-green-50 w-full">
+                    <div class="flex items-center justify-start w-full ">
                       <div>
                         <img src="@/assets/favourite/favTeamIcon.png" />
                       </div>
@@ -73,7 +89,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="pt-2 ">
+                  <div class="pt-2 pl-24">
                     <img src="@/assets/favourite/ended.png" />
                   </div>
                 </div>
@@ -86,15 +102,13 @@
 
     </div>
   </BackgroundImage>
-  {{ results }}
-
+  <!-- {{ searchLiveTeamResult }} -->
   <!-- <div>
-    {{ results }}
     <h2>Search Results</h2>
     homeTeamName, awayTeamName, homeTeamScore, awayTeamScore, matchTime/matchTimeStr, competitionName
     homeTeamLogo, awayTeamLogo
     <ul>
-      <li v-for="match in results" :key="match.id">
+      <li v-for="match in searchLiveTeamResult" :key="match.id">
         <div>
           <h3>Match ID: {{ match.id }}</h3>
           <p>Competition: {{ match.competitionName }}</p>
@@ -113,7 +127,7 @@
 </template>
 
 <script>
-import { searchLiveCompetitionStream } from '@/service/searchLiveStreamProvider.js'
+import { searchLiveTeamStream, searchLiveCompetitionStream } from '@/service/searchLiveStreamProvider.js'
 import BackgroundImage from '@/components/BackGround.vue'
 
 export default {
@@ -121,10 +135,14 @@ export default {
     BackgroundImage
   },
   data() {
+
     return {
       searchQuery: this.$route.query.searchQuery,
       searchPages: this.$route.query.searchPages,
-      results: {},
+      searchLiveTeamResult: [],
+      searchLiveCompetitionResult: [],
+      filterSearchResult: [],
+
     };
   },
   created() {
@@ -132,32 +150,53 @@ export default {
   },
   methods: {
     async getResult() {
-      this.results = await searchLiveCompetitionStream(this.searchQuery, this.searchPages)
-      console.log("NEW THIS RESULT" + this.results);
+      //Compare 2 array then filter 
+
+      this.searchLiveTeamResult = await searchLiveTeamStream(this.searchQuery, this.searchPages)
+      console.log("NEW TEAM RESULT" + this.searchLiveTeamResult);
+      this.searchLiveCompetitionResult = await searchLiveCompetitionStream(this.searchQuery, this.searchPages)
+      console.log("NEW COMP RESULT" + this.searchLiveCompetitionResult);
+
+      this.filterSearchResult = [
+        ...this.searchLiveTeamResult.filter(team => !this.searchLiveCompetitionResult.find(comp => comp.id === team.id)),
+        ...this.searchLiveCompetitionResult
+      ];
+
+      // this.filterSearchResult = [...this.searchLiveTeamResult, ...this.searchLiveCompetitionResult];
+      // console.log("NEW HALLO" + this.filterSearchResult);
 
     },
     async search() {
-      // console.log('Search query:', this.searchQuery);
-      // const matchName = "Shamakhi";
       const searchPages = "1";
 
       if (this.searchQuery === '') {
         console.log('Search is empty');
-        this.results = {};
+        this.searchLiveTeamResult = [];
       } else {
-        this.results = await searchLiveCompetitionStream(this.searchQuery, searchPages)
+        this.searchLiveTeamResult = await searchLiveTeamStream(this.searchQuery, searchPages)
+        this.searchLiveCompetitionResult = await searchLiveCompetitionStream(this.searchQuery, searchPages)
 
         console.log(' ' + this.searchQuery);
-        console.log("THIS RESULT" + this.results);
+        console.log("THE LIVE TEAM RESULT" + this.searchLiveTeamResult);
 
-        this.$router.push({ name: 'ResultPage', query: { searchQuery: this.searchQuery, searchPages: searchPages } });
+        console.log("THE COMP TEAM RESULT" + this.searchLiveCompetitionResult);
+
+        this.filterSearchResult = [
+          ...this.searchLiveTeamResult.filter(team => !this.searchLiveCompetitionResult.find(comp => comp.id === team.id)),
+          ...this.searchLiveCompetitionResult
+        ];
 
       }
     },
-    toggleFavorite(results) {
-      results.favorite = !results.favorite;
+    toggleFavorite(searchLiveTeamResult) {
+      searchLiveTeamResult.favorite = !searchLiveTeamResult.favorite;
     },
-  }
+
+
+  },
+
+
+
 };
 </script>
 
@@ -198,9 +237,8 @@ export default {
   position: relative;
 }
 
-.border {
+.MatchTypeBorder {
   background-color: #F5F5F5;
-  width: 100%;
   border: 1px solid rgba(156, 163, 175, 0.5);
   border-radius: 49px;
 }
@@ -225,7 +263,5 @@ export default {
   border-bottom: 1px solid #f5f5f6;
   height: 120px;
 }
-
-
 </style>
 

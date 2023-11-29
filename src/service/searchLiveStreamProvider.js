@@ -10,15 +10,9 @@ import {
 
 } from '@/utils/apiConfig.js';
 
-export async function searchLiveCompetitionStream(matchName, searchPages) {
+export async function searchLiveTeamStream(teamName, searchPages) {
 
-    // const url = baseUrl + searchFootballMatchTodayENurl + 'teamName=' + matchName + '&page=' + searchPages
-    const url = baseUrl + searchFootballMatchTodayENurl + 'teamName=' + matchName + '&page=' + searchPages
-    // const searchMatchData = {
-    //     'competitionName': matchName,
-    //     'page': searchPages,
-    // };
-
+    const url = baseUrl + searchFootballMatchTodayENurl + 'teamName=' + teamName + '&page=' + searchPages
     try {
         const response = await getRequestSearchStream(url)
 
@@ -28,11 +22,33 @@ export async function searchLiveCompetitionStream(matchName, searchPages) {
         // console.log("CODE " + code);
 
         if (code === 0) {
-            console.log("Success Get Data" + data);
+            console.log("Success Get Live Team Data" + data);
             return data;
 
         } else {
-            console.log(`Unsuccessfully Get Data: ${code}`);
+            console.log(`Unsuccessfully Get Live Team Data: ${code}`);
+            return [];
+        }
+    } catch (e) {
+        console.log(`Unsuccessful in provider: ${e}`);
+        return [];
+    }
+}
+
+export async function searchLiveCompetitionStream(competitionName, searchPages) {
+    const url = baseUrl + searchFootballMatchTodayENurl + 'competitionName=' + competitionName + '&page=' + searchPages
+    try {
+        const response = await getRequestSearchStream(url)
+
+        const data = response.data
+        const code = response.code;
+
+        if (code === 0) {
+            console.log("Success Get Live Competition Data" + data);
+            return data;
+
+        } else {
+            console.log(`Unsuccessfully Get Competition Data: ${code}`);
             return [];
         }
     } catch (e) {
