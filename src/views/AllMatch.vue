@@ -167,7 +167,6 @@ export default {
 
 <style scoped>
 
-
 .tournamentList {
   width: 50%;
   max-width: 960px;

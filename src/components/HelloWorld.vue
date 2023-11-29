@@ -1,5 +1,5 @@
 <template>
-  <div class="searchInputBox">
+  <!-- <div class="searchInputBox">
     <div class="searchLeftBox">
       <input v-model="searchQuery" @keyup.enter="search" type="text" placeholder="搜索主播/比赛/房间名" maxlength="20" />
     </div>
@@ -7,41 +7,46 @@
       <img src="@/assets/topNav/search.png" />
       <span class="word">搜索</span>
     </div>
+  </div> -->
+  <TournamentSubstitue />
+
+  <div v-for="smtg in homeTeamSubstitute" :key="smtg.homeTeamSubstitute">
+    {{ smtg.playerName }}
   </div>
 </template>
 
 <script>
-// import { searchLiveTeamStream, searchLiveCompetitionStream } from '@/service/searchLiveStreamProvider.js'
-// import { searchLiveCompetitionStream }from '@/service/searchLiveStreamProvider.js'
+import TournamentSubstitue from '@/views/Tournament/TournamentSubstitue.vue';
+import { getFootballLineup } from '@/service/apiFootBallMatchProvder.js';
 
 export default {
+  components: {
+    TournamentSubstitue,
+  },
   data() {
     return {
-      searchQuery: '',
+      homeTeamSubstitute: [],
+      awayTeamSubstitute: [],
     }
   },
+  created(){
+    this.getResult()
+
+  },
   methods: {
-    search() {
-      // console.log('Search query:', this.searchQuery);
-      // const teamName = "Shamakhi";
-      const searchPages = "1";
+    async getResult() {
+      this.getTournamentLineup = await getFootballLineup(1187648, false);
+      console.log("HALLO" + this.getTournamentLineup)
 
-      if (this.searchQuery === '') {
-        console.log('Search is empty');
-      } else {
-        // this.searchTeamResult = await searchLiveTeamStream(this.searchQuery, searchPages)
-        // this.searchLiveCompetitionResult = await searchLiveCompetitionStream(this.searchQuery, searchPages)
-        // this.searchLiveCompetitionResult = await searchLiveCompetitionStream(this.searchQuery, searchPages)
+      this.homeTeamSubstitute = this.getTournamentLineup['homeMatchLineUpList'];
+      this.awayTeamSubstitute = this.getTournamentLineup['awayMatchLineList'];
 
-        // console.log(' ' + this.searchQuery);
-        // console.log("THE LIVE TEAM RESULT" + this.searchTeamResult);
+      console.log("HOME" + this.homeTeamSubstitute)
+      console.log("AWAY" + this.awayTeamSubstitute)
 
-        // console.log("THE COMP TEAM RESULT"  + this.searchLiveCompetitionResult);
+    },
+  },
 
-        this.$router.push({ name: 'ResultPage', query: { searchQuery: this.searchQuery, searchPages: searchPages } });
-      }
-    }
-  }
 }
 
 

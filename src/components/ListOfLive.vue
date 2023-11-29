@@ -14,7 +14,7 @@
             <main class="live_wrapper">
               <div class="card_container pl-3">
                 <router-link :to="livedata.addressLink">
-                  <div class="card_" style="height: 142px; border: 1px solid red;">
+                  <div class="card_" style="height: 142px; ">
                     <div @click="test" class="">
                       <img :src="require(`@/assets/tournament/${livedata.image}.png`)" alt="Image" style="height: 92px;" />
                     </div>
@@ -105,26 +105,6 @@
     },
   })
   </script>
-  
-  <!-- <style scoped>
-  .carousel-container {
-    position: relative;
-  }
-  
-  .carousel-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  
-  .carousel-button:first-child {
-    left: 0;
-  }
-  
-  .carousel-button:last-child {
-    right: 0;
-  }
-  </style> -->
   
   <style>
   .live_wrapper {
