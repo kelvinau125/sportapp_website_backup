@@ -72,10 +72,13 @@
     import CloseButton from '@/components/CloseButton.vue';
 
     // import to run the change password function
-    import { UpdateUserPassword } from '@/service/apiProvider.js';
+    import { UpdateUserPassword, ForgotPassword } from '@/service/apiProvider.js';
 
     // import the remove cookie function
     import { removeCookie } from '@/service/cookie';
+
+    // fetch data from RegisterModal.vue
+    import { mapActions } from 'vuex'
 
     export default {
     components:{
@@ -87,6 +90,23 @@
         showEditPasswordModal: Boolean,
         closeEditPasswordModal: Function,
         showLoginModal: Function,
+    },
+
+    // get the data passed from RegisterModal.vue (data at the store/index.js)
+    computed: {
+        getUserPhoneNumber() {
+        return this.$store.getters.phoneNumber
+        },
+        getUserForgotPasswordStatus() {
+        return this.$store.getters.status
+        },
+
+        passwordFieldType() {
+        return this.passwordVisibility ? 'text' : 'password';
+        },
+        passwordFieldType2nd() {
+        return this.passwordVisibility2nd ? 'text' : 'password';
+        },
     },
 
     data() {
@@ -110,16 +130,9 @@
         };
     },
 
-    computed: {
-        passwordFieldType() {
-        return this.passwordVisibility ? 'text' : 'password';
-        },
-        passwordFieldType2nd() {
-        return this.passwordVisibility2nd ? 'text' : 'password';
-        },
-    },
-
     methods: {
+        ...mapActions(['forgotPasswordDone']),
+
         async editPassword() {
         // Validate password 
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -149,16 +162,35 @@
             return;
         }
 
-        // change password
-        const result = await UpdateUserPassword(this.password);
+        if(this.$store.getters.status){
+            console.log('forgot password')
+            // change password
+            const result = await ForgotPassword(this.getUserPhoneNumber,this.password);
 
-        if (result === true) {
-            this.isChangePasswordSuccess = true;
-            
-        } else if (result === false) {
-            this.warningMessage = "Please check your network";
-        } else {
-            this.warningMessage = result;
+            if (result === true) {
+                this.isChangePasswordSuccess = true;
+                // the stored data in vuex
+                this.$store.dispatch('forgotPasswordDone', {})
+                
+            } else if (result === false) {
+                this.warningMessage = "Please check your network";
+            } else {
+                this.warningMessage = result;
+            }
+        }
+        else {
+            console.log('reset password')
+            // change password
+            const result = await UpdateUserPassword(this.password);
+
+            if (result === true) {
+                this.isChangePasswordSuccess = true;
+                
+            } else if (result === false) {
+                this.warningMessage = "Please check your network";
+            } else {
+                this.warningMessage = result;
+            }
         }
 
         },

@@ -16,8 +16,9 @@ import {
   updatePasswordUrl,
   updateNickNameUrl,
   uploadFileUrl,
-  updateHeadUrl
-} from '@/utils/apiConfig.js';
+  updateHeadUrl,
+  updateforgotPasswordurl
+ } from '@/utils/apiConfig.js';
 
 // get user cookie / set cookie
 import VueCookies from 'vue-cookies';
@@ -209,6 +210,37 @@ export async function UpdateUserPassword(password) {
   }
 }
 
+// Update User Password
+export async function ForgotPassword(phoneNumber, password) {
+
+  // phone number format reformat
+  const phoneNo = (phoneNumber).replace('+', '').replace(/\s/g, '');
+
+  const url = baseUrl + updateforgotPasswordurl + phoneNo;
+
+  // hashPassword function
+  const encryptedPassword = hashPassword(password);
+
+  const apiDetails = {
+    password: encryptedPassword,
+  };
+
+  try {
+    const response = await patchRequest(url, apiDetails);
+
+    const code = response.code;
+
+    if (code === 0) {
+      return true;
+    } else {
+      console.log(`Password Unsuccessfully upload to database: ${code}`);
+      return false;
+    }
+  } catch (e) {
+    console.log(`Unsuccessful in provider: ${e}`);
+    return false;
+  }
+}
 
 // Update User Nickname
 export async function UpdateUserNickname(nickname) {

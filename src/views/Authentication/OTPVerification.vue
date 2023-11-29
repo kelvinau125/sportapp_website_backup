@@ -104,6 +104,9 @@
         getUserDataPassword() {
         return this.$store.getters.password
         },
+        getUserForgotPasswordStatus() {
+        return this.$store.getters.status
+        },
     },
 
     props: {
@@ -126,6 +129,8 @@
 
         countdownMsg: "",
         isbuttonDisabled: false,
+
+        // isChangePassword: this.$store.getters.status,
         isLogin: VueCookies.isKey('userToken'),
 
         isRegisterSuccess: false,
@@ -150,6 +155,8 @@
 
             // reset password otp
             if(this.isLogin){
+                console.log('reset password')
+
                 const result = await verifyOTP(VueCookies.get('phoneNumber'), OTPvalue, "2");
 
                 if (result) {
@@ -164,8 +171,27 @@
                 }
 
             } 
+            // forgot password
+            else if (this.getUserForgotPasswordStatus){
+                console.log('forgot password')
+
+                const result = await verifyOTP(this.getUserPhoneNumber, OTPvalue, "3");
+
+                if (result) {
+                    this.isResetPasswordSuccess = true;
+                    setTimeout(() => {
+                        this.showEditPasswordModal();
+                        this.isResetPasswordSuccess = false;
+                    }, 1500); // 1500 milliseconds = 1.5 seconds
+
+                } else {
+                    this.warningMessage = "Please check internet connection";
+                }
+            }
             // register password otp
-            else{
+            else if (!this.isChangePassword && !this.isLogin){
+                console.log('register')
+
                 const result = await verifyOTP(this.getUserPhoneNumber, OTPvalue, "1");
 
                 if (result) {
@@ -192,12 +218,19 @@
         async sendAgain() {
             // reset password otp
             if(this.isLogin){
+                console.log('reset password')
                 await getOTP(VueCookies.get('phoneNumber'), "2");
                 this.startCountdown();
             }
-            
+            // forgot password
+            else if (this.getUserForgotPasswordStatus){
+                console.log('forgot password')
+                await getOTP(this.getUserPhoneNumber, "3");
+                this.startCountdown();
+            }  
             // register password otp
             else {
+                console.log('register')
                 await getOTP(this.getUserPhoneNumber, "1");
                 this.startCountdown();
             }

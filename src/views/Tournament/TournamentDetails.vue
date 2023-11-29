@@ -107,19 +107,28 @@
   </div>
 </template>
 
-<script setup>
+<script>
 import LiveList from '@/components/ListOfLive.vue'
 import LineUp from '@/views/Tournament/tournamentLineUp.vue'
 import TournamentStatus from '@/views/Tournament/tournamentStatus.vue'
 
-
-const liveAddress = [
-  { liveAddress: '直播地址', addressLink: "/" },
-  { liveAddress: '直播地址', addressLink: "/live" },
-  { liveAddress: '直播地址', addressLink: "/" },
-  { liveAddress: '直播地址', addressLink: "/" },
-]
-
+export default {
+  components: {
+    LiveList,
+    LineUp,
+    TournamentStatus,
+  },
+  data() {
+    return {
+      liveAddress: [
+        { liveAddress: '直播地址', addressLink: '/' },
+        { liveAddress: '直播地址', addressLink: '/live' },
+        { liveAddress: '直播地址', addressLink: '/' },
+        { liveAddress: '直播地址', addressLink: '/' },
+      ],
+    };
+  },
+};
 </script>
 
 <style>

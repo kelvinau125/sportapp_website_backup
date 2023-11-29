@@ -27,6 +27,8 @@ export const updateNickName = '/updateNickName/';
 
 export const updateHead = '/updateHead/';
 
+export const updateforgotPassword = '/updatePassByForgot/';
+
 export const updatePasswordUrl =
     liveStreamUserBaseUrl + updatePassword; //update password
 
@@ -41,6 +43,9 @@ export const updateNickNameUrl =
 
 export const updateHeadUrl =
     liveStreamUserBaseUrl + updateHead; //update profile pic
+
+export const updateforgotPasswordurl =
+    liveStreamUserBaseUrl + updateforgotPassword; //update forgot password
 
 //Basketball CN--------------------------------------------------------------------------------------------//
 export const basketballBaseUrl = '/api/v1/basketballs';

@@ -51,8 +51,9 @@
       </div>
       <div class="md:flex items-center pl-1">
         <div @click="toggleDropdownProfile">
-          <img class="md:static absolute md:right-0 right-7 md:top-0 top-2" src="@/assets/topNav/defaultProfile.png"
-            alt="Profile Picture" />
+          <!-- <img class="md:static absolute md:right-0 right-7 md:top-0 top-2" :src="avatar"
+            alt="Profile Picture" /> -->
+          <img :src="avatar" class="md:static absolute md:right-0 right-7 md:top-0 top-2 rounded-full border-2 border-white" style="width: 40px; height: 40px; object-fit: cover;"/>
           <div v-show="showDropdown"
             class="md:absolute absolute md:right-8 right-6 md:top-14 top-14 bg-gray-900 mt-1 p-1 py-3">
             <div class="pr-1 pt-1 pb-2 flex flex-col">
@@ -93,7 +94,7 @@
     :showForgotPasswordModal="isForgotPasswordModalVisible"
     :closeForgotPasswordModal="closeForgotPasswordModal" 
     :showLoginModal="showLoginModal"
-    :showEditPasswordModal="showEditPasswordModal" />
+    :showOTPModal="showOTPModal" />
 
     <EditPassword 
     :showEditPasswordModal="isEditPasswordModalVisible" 
@@ -152,6 +153,7 @@ export default {
         { name: '直播', link: '/live' },
         { name: '收藏', link: '/favourite' },
       ],
+      avatar: ref(''),
       img: ref(require('@/assets/topNav/football.png')),
       isDropdownOpen: ref(false),
       searchText: ref(''),
@@ -209,6 +211,7 @@ export default {
 
     // OTP Modal
     showOTPModal() {
+      this.isForgotPasswordModalVisible = false;
       this.isEditProfileModalVisible = false;
       this.isOTPModalVisible = true;
     },
@@ -270,6 +273,11 @@ export default {
     },
   },
   mounted() {
+    if (VueCookies.isKey('avatar')) {
+      this.avatar = VueCookies.get('avatar');
+    } else {
+      this.avatar = 'https://live-stream-1321239144.cos.ap-singapore.myqcloud.com/head/bfe7302c38a8416fbe6167d18aaed47e.png';
+    }
     if (VueCookies.isKey('userToken')) {
       this.loggedIn = true;
     } else {

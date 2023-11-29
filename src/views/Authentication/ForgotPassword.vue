@@ -25,7 +25,7 @@
 
     
             <div class="pt-12">
-                <ButtonCom @click="showEditPasswordModal" class="w-screen">发送验证码</ButtonCom>
+                <ButtonCom @click="forgotPassword()" class="w-screen">发送验证码</ButtonCom>
                 <div class="flex justify-center" style="padding: 20px">
                     <p>还记得密码吗？ <button class="text-green-500" @click="showLoginModal">{{ $t("Login Now") }}</button></p>
                 </div>
@@ -46,6 +46,9 @@
     // import to run the get otp function
     import { getOTP } from '@/service/apiProvider.js';
 
+    // pass value to OTPVerficaition.vue
+    import { mapActions } from 'vuex'
+
     export default {
     components:{
         VueTelInput,
@@ -57,7 +60,7 @@
         showForgotPasswordModal: Boolean,
         closeForgotPasswordModal: Function,
         showLoginModal: Function,
-        showEditPasswordModal: Function,
+        showOTPModal: Function,
     },
 
     data() {
@@ -72,7 +75,9 @@
     },
 
     methods: {
-        async login() {
+        ...mapActions(['forgotPassword']),
+
+        async forgotPassword() {
         // validation of phone number
         if (this.countryCode.startsWith('+60') || this.countryCode.startsWith('+86')){
             if(this.countryCode.trim().length < 12){
@@ -101,10 +106,10 @@
 
         if (result === true) {
             // pass value to OTPVerficaition.vue
-            // this.$store.dispatch('register', { nickName: nickname, phoneNumber: countryCode, password: password, userId: 1 })
+            this.$store.dispatch('forgotPassword', { phoneNumber: countryCode, status: true, userId: 1 })
 
             // close the modal
-            this.closeRegModal();
+            this.closeForgotPasswordModal();
             // show verify otp page
             this.showOTPModal();
             
