@@ -1,21 +1,4 @@
 <template>
-  <!-- <div v-for="smtg in filterSearchResult" :key="smtg.filterSearchResult">
-    {{ smtg.id }}
-  </div> -->
-
-  <!-- <div>
-    <h2>Search Competition Result</h2>
-    <ul>
-      <li v-for="match in searchLiveCompetitionResult" :key="match.id">
-        <div>
-          <h3>Match ID: {{ match.id }}</h3>
-          <p>Competition: {{ match.competitionName }}</p>
-          <p>Home Team: {{ match.homeTeamName }}</p>
-          <p>Away Team: {{ match.awayTeamName }}</p>
-        </div>
-      </li>
-    </ul>
-  </div> -->
   <div>
     <h2>Search searchLiveTeamResult</h2>
     <p>Search Query: {{ searchQuery }}</p>
@@ -150,7 +133,6 @@ export default {
   },
   methods: {
     async getResult() {
-      //Compare 2 array then filter 
 
       this.searchLiveTeamResult = await searchLiveTeamStream(this.searchQuery, this.searchPages)
       console.log("NEW TEAM RESULT" + this.searchLiveTeamResult);
@@ -191,12 +173,7 @@ export default {
     toggleFavorite(searchLiveTeamResult) {
       searchLiveTeamResult.favorite = !searchLiveTeamResult.favorite;
     },
-
-
   },
-
-
-
 };
 </script>
 
