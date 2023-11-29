@@ -174,7 +174,14 @@
 import { getFootballLineup } from '@/service/apiFootBallMatchProvder.js';
 
 export default {
+  props: {
+    tournamentID: String,
+  },
+
   async mounted() {
+    // --------------------------- call the tournment api --------------------------------------
+    console.log(this.tournamentID);
+
     this.getTournamentLineup = await getFootballLineup(1187648, false);
     console.log(this.getTournamentLineup)
 

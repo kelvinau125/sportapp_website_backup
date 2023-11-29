@@ -156,8 +156,14 @@
   import { getFootballMatchbyId } from '@/service/apiFootBallMatchProvder.js';
   
   export default {
+    props: {
+      tournamentID: String,
+    },
 
     async mounted() {
+      // --------------------------- call the tournment api --------------------------------------
+      console.log(this.tournamentID);
+
       this.getTournamentDetails = await getFootballMatchbyId(1187648, false);
       // this.getTournamentDetails = await getFootballMatchbyId(1187648, ((this.$i18n.locale === 'ZH')?true :false));
       console.log(this.getTournamentDetails)

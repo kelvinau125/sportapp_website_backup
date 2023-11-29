@@ -64,26 +64,39 @@
 <script>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { format } from 'date-fns';
+
+import { getMatchTodaybyCompName } from '@/service/apiFootBallMatchProvder.js';
+import { getMatchByDate } from '@/service/apiFootBallMatchProvder.js';
 
 export default {
+  data() {
+    return{
+      currentDate: ref(new Date()),
+    }
+  },
+  
   setup() {
     const router = useRouter();
 
     const navigateTo = (linkAddress) => {
       // Navigating to the specified page
-      router.push({ path: linkAddress });
+      // router.push({ path: linkAddress });
+      const routeData = router.resolve({name: 'TournamentDetails', query: {TournamentID: linkAddress}});
+      window.open(routeData.href, '_blank');
     };
     const toAllMatchPage = () => {
       // Navigating
       router.push({ name: 'AllMatch' });
     };
 
-    const matchDetails = ref([
-      { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/', status: '开' },
-      { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/live', status: '开' },
-      { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/', status: '开' },
-      { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/', status: '终' },
-    ]);
+    const matchDetails = ref([]);
+    // const matchDetails = ref([
+    //   { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/', status: '开' },
+    //   { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/live', status: '开' },
+    //   { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/', status: '开' },
+    //   { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/', status: '终' },
+    // ]);
 
     return {
       toAllMatchPage,
@@ -91,10 +104,116 @@ export default {
       navigateTo,
     };
   },
+
+  mounted() {
+  // this.generateMatchDetailsListByCompName("Premier League");
+
+  const leaguesToFetch = [
+    "Premier League",
+    "UEFA Champions League",
+    "Serie A",
+    "Bundesliga",
+    "Ligue 1",
+    "La Liga",
+  ];
+
+  // const leaguesToFetch = [
+  //   "英超",
+  //   "欧冠",
+  //   "意甲",
+  //   "德甲",
+  //   "法甲",
+  //   "西甲",
+  // ];
+
+  this.fetchMatchDetailsForLeagues(leaguesToFetch);
+
+  },
+
   methods: {
     toUnfavourite(matchDetails) {
       matchDetails.favourite = !matchDetails.favourite;
+    },
+
+    // async generateMatchDetailsListByCompName(name) {
+    //   this.matchDetails = [];
+
+    //   this.getfootballMatchList = await getMatchTodaybyCompName(name, false);
+
+    //   for (let i = 0; i < this.getfootballMatchList.length; i++) {
+    //     this.matchDetails.push({
+    //       matchType: this.getfootballMatchList[i]["competitionName"],
+    //       date: this.getfootballMatchList[i]["matchDate"],
+    //       time: this.getfootballMatchList[i]["matchTimeStr"],
+    //       homeTeamName: this.getfootballMatchList[i]["homeTeamName"],
+    //       homeTeamIcon: this.getfootballMatchList[i]["homeTeamLogo"],
+    //       homeTeamScore: this.getfootballMatchList[i]["homeTeamScore"],
+    //       awayTeamName: this.getfootballMatchList[i]["awayTeamName"],
+    //       awayTeamIcon: this.getfootballMatchList[i]["awayTeamLogo"],
+    //       awayTeamScore: this.getfootballMatchList[i]["awayTeamScore"],
+    //       overTime: "null",
+    //       favorite: false,
+    //       statusStr: this.getfootballMatchList[i]["statusStr"],
+    //     });
+    //   }
+    // },
+    async fetchMatchDetailsForLeagues(leagues) {
+    this.matchDetails = [];
+
+    for (let i = 0; i < leagues.length; i++) {
+      const leagueName = leagues[i];
+      const matches = await getMatchTodaybyCompName(leagueName, false);
+
+      if (matches.length > 0) {
+        for (let j = 0; j < Math.min(1, matches.length); j++) {
+          const match = matches[j];
+          this.matchDetails.push({
+            matchType: match["competitionName"],
+            date: match["matchDate"],
+            time: match["matchTimeStr"],
+            homeTeamName: match["homeTeamName"],
+            homeTeamIcon: match["homeTeamLogo"],
+            homeTeamScore: match["homeTeamScore"],
+            awayTeamName: match["awayTeamName"],
+            awayTeamIcon: match["awayTeamLogo"],
+            awayTeamScore: match["awayTeamScore"],
+            overTime: "null",
+            favourite: false,
+            linkAddress:  match["id"],
+            // statusStr: match["statusStr"],
+            status: "开",
+          });
+        }
+      }
     }
+
+    if (this.matchDetails.length <= 4) {
+      this.getfootballMatchList = await getMatchByDate(format(this.currentDate, 'yyyyMMdd'), false);
+
+      console.log(this.getfootballMatchList)
+
+      if (this.getfootballMatchList.length !== 0) {
+        for (let i = this.matchDetails.length; i < 4; i++) {
+          this.matchDetails.push({
+            matchType: this.getfootballMatchList[i]["competitionName"],
+            date: this.getfootballMatchList[i]["matchDate"],
+            time: this.getfootballMatchList[i]["matchTimeStr"],
+            homeTeamName: this.getfootballMatchList[i]["homeTeamName"],
+            homeTeamIcon: this.getfootballMatchList[i]["homeTeamLogo"],
+            homeTeamScore: this.getfootballMatchList[i]["homeTeamScore"],
+            awayTeamName: this.getfootballMatchList[i]["awayTeamName"],
+            awayTeamIcon: this.getfootballMatchList[i]["awayTeamLogo"],
+            awayTeamScore: this.getfootballMatchList[i]["awayTeamScore"],
+            overTime: "null",
+            favourite: false,
+            linkAddress: this.getfootballMatchList[i]["id"],
+            statusStr: this.getfootballMatchList[i]["statusStr"],
+            // status: "开",
+          });
+        }
+      }
+    }
+  },
   }
 };
 </script>
@@ -141,14 +260,14 @@ export default {
 
 }
 
-.statusStartBorder {
+.statusEndBorder {
   background-color: #F5F5F5;
   width: 28px;
   height: 28px;
   border-radius: 30px;
 }
 
-.statusEndBorder {
+.statusStartBorder {
   background-color: #EEFBEE;
   width: 28px;
   height: 28px;

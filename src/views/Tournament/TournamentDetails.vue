@@ -42,7 +42,8 @@
   <div class="flex flex-col match_status pt-8">
     <h2 class="text-headerFont font-headerWeight">赛况</h2>
     <div class="pt-1">
-      <TournamentStatus/>
+      <TournamentStatus
+      :tournamentID="this.TournamentID"/>
     </div>
 
   </div>
@@ -54,7 +55,7 @@
         <span class="pl-2 font-normal text-sm">本场主播</span>
       </div>
       <div class="py-3">
-        <LiveList />
+        <LiveList/>
         <!-- <div>
           <main class="wrapper">
             <div class="card-container flex justify-center" style="border: 1px solid red;">
@@ -101,7 +102,8 @@
   <div class="flex flex-col match_status pb-10 ">
     <h2 class="text-headerFont font-headerWeight ">阵容</h2>
     <div class="pt-3">
-      <LineUp />
+      <LineUp
+      :tournamentID="this.TournamentID" />
     </div>
 
   </div>
@@ -126,6 +128,8 @@ export default {
         { liveAddress: '直播地址', addressLink: '/' },
         { liveAddress: '直播地址', addressLink: '/' },
       ],
+
+      TournamentID: this.$route.query.TournamentID,
     };
   },
 };

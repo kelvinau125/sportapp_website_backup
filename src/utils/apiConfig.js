@@ -48,12 +48,73 @@ export const updateforgotPasswordurl =
     liveStreamUserBaseUrl + updateforgotPassword; //update forgot password
 
 //Basketball CN--------------------------------------------------------------------------------------------//
-export const basketballBaseUrl = '/api/v1/basketballs';
+export const basketballBaseUrl = '/api/v1/basketballs/match';
 
-export const getBasketballList = '/list';
+export const searchBasketballToday = '/now-list';
 
-export const getBasketballListUrl =
-    basketballBaseUrl + getBasketballList; //get basketball list
+export const getStartBasketballMatch = '/list-start?';
+
+export const getFutureBasketballMatch = '/list-future?';
+
+export const getPastBasketballMatch = '/list-past?';
+
+export const getBasketballMatchByDate = '/list/';
+
+export const getBasketballMatchLineUp = '/line-up/';
+
+export const getBasketballMatchLiveData = '/livedata/';
+
+export const getBasketballLiveAddress = '/address/';
+
+export const getBasketballMatchLineUpUrl = basketballBaseUrl +
+    getBasketballMatchLineUp; //get matches line up in matches status
+
+export const getBasketballMatchLiveDataUrl =
+    basketballBaseUrl + getBasketballMatchLiveData; //get matches live data
+
+export const getBasketballLiveAddressUrl =
+    basketballBaseUrl + getBasketballLiveAddress; //get live address
+
+export const getBasketballMatchByDateUrl =
+    basketballBaseUrl + getBasketballMatchByDate; //get all matches by date
+
+export const getPastBasketballMatchUrl =
+    basketballBaseUrl + getPastBasketballMatch; //get past matches
+
+export const getFutureBasketballMatchUrl =
+    basketballBaseUrl + getFutureBasketballMatch; // get future matches
+
+export const getStartBasketballMatchUrl =
+    basketballBaseUrl + getStartBasketballMatch; // get Today started matches
+
+export const searchBasketballTodayUrl = basketballBaseUrl +
+    searchBasketballToday; // get today's matchs via matches or team name
+
+//---Basketball EN-----------------------------------------------------------------------------------------//
+
+export const EN = '/en';
+
+export const searchBasketballTodayENurl =
+    basketballBaseUrl + EN + searchBasketballToday;
+
+export const getBasketballMatchByDateENurl =
+    basketballBaseUrl + EN + getBasketballMatchByDate;
+
+export const getStartBasketballMatchENurl =
+    basketballBaseUrl + EN + getStartBasketballMatch;
+
+export const getFutureBasketballMatchENurl =
+    basketballBaseUrl + EN + getFutureBasketballMatch;
+
+export const getPastBasketballMatchENurl =
+    basketballBaseUrl + EN + getPastBasketballMatch;
+
+export const getBasketballLineUpENurl =
+    basketballBaseUrl + EN + getBasketballMatchLineUp;
+
+export const getBasketballMatchLiveDataENurl =
+    basketballBaseUrl + EN + getBasketballMatchLiveData;
+
 
 //Football CN----------------------------------------------------------------------------------------------//
 export const footballBaseUrl = '/api/v1/footballs';
@@ -62,7 +123,7 @@ export const getFootballMatchList = '/match/list?';
 
 export const getFootballMatchLineUp = '/match/line-up/';
 
-export const searchFootballMatchToday = '/match/now-list';
+export const searchFootballMatchToday = '/match/now-list?';
 
 export const getFootballMatchById = '/match/livedata/';
 

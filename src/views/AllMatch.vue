@@ -18,8 +18,6 @@
         </div>
       </div>
       <div v-if="selectedDate">
-        <h2>Content for {{ formatDay(selectedDate) }}</h2>
-        <p>Day of the week: {{ formatDayOfWeek(selectedDate) }}</p>
       </div>
       <div class="schedule_detail">
         <div class="schedule_detail_box">
@@ -29,10 +27,10 @@
                 <div class="flex justify-between">
                   <div class="flex items-center">
                     <div class="pr-2">
-                      <img src="@/assets/favourite/icon.png" />
+                      <img src="@/assets/favourite/Frame_.png" />
                     </div>
                     <div class="border flex justify-center">
-                      <span class="text-xs" style="color: #666666;">欧冠</span>
+                      <span class="text-xs" style="color: #666666;"> {{ match.matchType }} </span>
                     </div>
                   </div>
                   <div>
@@ -59,7 +57,7 @@
                         <span class="text-lg font-semibold">{{ match.homeTeamName }}</span>
                       </div>
                       <div>
-                        <img src="@/assets/favourite/favTeamIcon.png" />
+                        <img :src= match.homeTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
                       </div>
                     </div>
                     <div class="flex flex-col px-5 items-center">
@@ -74,15 +72,16 @@
                     </div>
                     <div class="flex items-center">
                       <div>
-                        <img src="@/assets/favourite/favTeamIcon.png" />
+                        <img :src= match.awayTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
                       </div>
                       <div class="pl-3">
                         <span class="text-lg font-semibold">{{ match.awayTeamName }}</span>
                       </div>
                     </div>
                   </div>
-                  <div class="pt-2">
-                    <img src="@/assets/favourite/ended.png" />
+                  <div class="pt-2 statusBorder">
+                    <!-- <img src="@/assets/favourite/ended.png" /> -->
+                    <p>{{ match.statusStr }}</p>
                   </div>
                 </div>
               </div>
@@ -101,26 +100,36 @@ import BackgroundImage from '@/components/BackGround.vue'
 import { addDays, startOfWeek, format, isToday } from 'date-fns';
 import { ref } from 'vue'
 
+import { getMatchByDate } from '@/service/apiFootBallMatchProvder.js';
+
 export default {
   components:{
     BackgroundImage
   },
+
+  async mounted() {
+    this.generateMatchDetailsList(format(this.currentDate, 'yyyyMMdd'));
+  },
+
   data() {
     return {
       currentDate: ref(new Date()),
       daysToShow: ref(7),
       selectedDate: ref(null),
 
-      matchDetails: [
-        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
-        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: false },
-        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
-        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: false },
-        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
-        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
-        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
-        { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
-      ],
+      matchdate: "",
+      getfootballMatchList: [],
+      matchDetails: [],
+      // matchDetails: [
+      //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
+      //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: false },
+      //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
+      //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: false },
+      //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
+      //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
+      //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
+      //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
+      // ],
     };
   },
   computed:{
@@ -154,8 +163,30 @@ export default {
     selectDate(date) {
       this.selectedDate = date;
       console.log(this.selectedDate);
+      this.generateMatchDetailsList(format(this.selectedDate, 'yyyyMMdd'));
     },
+    
+    async generateMatchDetailsList(matchdate) {
+      this.matchDetails = [];
 
+      this.getfootballMatchList = await getMatchByDate(matchdate, false);
+      for (let i = 0; i < this.getfootballMatchList.length; i++) {
+        this.matchDetails.push({
+          matchType: this.getfootballMatchList[i]["competitionName"],
+          date: this.getfootballMatchList[i]["matchDate"],
+          time: this.getfootballMatchList[i]["matchTimeStr"],
+          homeTeamName: this.getfootballMatchList[i]["homeTeamName"],
+          homeTeamIcon: this.getfootballMatchList[i]["homeTeamLogo"],
+          homeTeamScore: this.getfootballMatchList[i]["homeTeamScore"],
+          awayTeamName: this.getfootballMatchList[i]["awayTeamName"],
+          awayTeamIcon: this.getfootballMatchList[i]["awayTeamLogo"],
+          awayTeamScore: this.getfootballMatchList[i]["awayTeamScore"],
+          overTime: "null",
+          favorite: false,
+          statusStr: this.getfootballMatchList[i]["statusStr"],
+        });
+      }
+    },
   },
 };
 </script>
@@ -206,6 +237,12 @@ button.favorite {
   width: 100%;
   border: 1px solid rgba(156, 163, 175, 0.5);
   border-radius: 49px;
+}
+
+.statusBorder{
+  background-color: #EEEDF4;
+  border-radius: 8px;
+  
 }
 
 .schedule_list .schedule_detail .schedule_detail_box>ul {
