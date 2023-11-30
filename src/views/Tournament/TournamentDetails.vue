@@ -42,7 +42,7 @@
   <div class="flex flex-col match_status pt-8">
     <h2 class="text-headerFont font-headerWeight">赛况</h2>
     <div class="pt-1">
-      <TournamentStatus/>
+      <TournamentStatus />
     </div>
 
   </div>
@@ -66,11 +66,11 @@
       <div class="pb-2">
         <div class="flex justify-start px-2 ">
           <router-link :to="address.addressLink" v-for="address in liveAddress" :key="address.liveAddress">
-            <div class="flex items-center py-3" >
-            <div class="live_border">
-              <p class="px-4 py-2 font-medium text-sm">{{ address.liveAddress }}</p>
+            <div class="flex items-center py-3">
+              <div class="live_border">
+                <p class="px-4 py-2 font-medium text-sm">{{ address.liveAddress }}</p>
+              </div>
             </div>
-          </div>
           </router-link>
         </div>
       </div>
@@ -83,8 +83,12 @@
     </div>
 
   </div>
-  <div>
-    <TournamentSubstitue/>
+  <div class="flex flex-col match_status pb-10">
+    <h2 class="text-headerFont font-headerWeight ">替补</h2>
+    <div class="pt-3">
+      <TournamentSubstitue />
+
+    </div>
   </div>
 </template>
 

@@ -175,8 +175,9 @@ import { getFootballLineup } from '@/service/apiFootBallMatchProvder.js';
 
 export default {
   async mounted() {
-    this.getTournamentLineup = await getFootballLineup(1187648, false);
-    console.log(this.getTournamentLineup)
+    // this.getTournamentLineup = await getFootballLineup(1187648, true);
+    this.getTournamentLineup = await getFootballLineup(5, true);
+    console.log("SMTG" + this.getTournamentLineup)
 
     this.homeMatchLineUpList = this.getTournamentLineup['homeMatchLineUpList'];
     this.awayMatchLineList = this.getTournamentLineup['awayMatchLineList'];
@@ -245,8 +246,6 @@ export default {
     ApopulateHomePlayer('S', this.AS_list, this.AS_shirtNumber, this.AS_playerName, this.AS_captain);
 
   },  
-
-
 
   data() {
     return {
