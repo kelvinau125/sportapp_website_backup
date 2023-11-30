@@ -63,13 +63,13 @@ export default {
     methods: {
         async getResult() {
             this.getTournamentLineup = await getFootballLineup(5, true);
-            console.log("HALLO" + this.getTournamentLineup)
+            // console.log("HALLO" + this.getTournamentLineup)
 
             this.homeTeamSubstitute = this.getTournamentLineup['homeMatchLineUpList'];
             this.awayTeamSubstitute = this.getTournamentLineup['awayMatchLineList'];
 
-            console.log(this.homeTeamSubstitute)
-            console.log("AWAY" + this.awayTeamSubstitute)
+            // console.log(this.homeTeamSubstitute)
+            // console.log("AWAY" + this.awayTeamSubstitute)
 
 
 

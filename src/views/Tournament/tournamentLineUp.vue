@@ -90,7 +90,6 @@
             <div v-for="player in filteredAwayPlayers('S')" :key="player.id" class="">
               <div class="flex flex-col items-center">
                 <div class="awayCircle flex justify-center items-center">
-                  <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
                     <p class="text-white text-sm font-normal"> {{ player.shirtNo }}</p>
                   </div>
@@ -159,13 +158,9 @@
               </div>
             </div>
           </div>
-
         </div>
-
       </div>
-
     </div>
-
   </div>
 </template>
 
@@ -175,14 +170,14 @@ import { getFootballLineup } from '@/service/apiFootBallMatchProvder.js';
 
 export default {
   async mounted() {
-    // this.getTournamentLineup = await getFootballLineup(1187648, true);
+    // this.getTournamentLineup = await getFootballLineup(1187648, false);
     this.getTournamentLineup = await getFootballLineup(5, true);
-    console.log("SMTG" + this.getTournamentLineup)
+    // console.log("SMTG" + this.getTournamentLineup)
 
     this.homeMatchLineUpList = this.getTournamentLineup['homeMatchLineUpList'];
     this.awayMatchLineList = this.getTournamentLineup['awayMatchLineList'];
 
-    this.generateLists();
+    // this.generateLists();
 
     if (this.homeMatchLineUpList !== null) {
       let lineupList = [...this.homeMatchLineUpList];
@@ -251,16 +246,16 @@ export default {
     return {
       getTournamentLineup: {},
 
-      // english version
+      // Esnglish version
       // home
       F_list: [],
       M_list: [],
       G_list: [],
       D_list: [],
       S_list: [],
-      homeTeamFormation: "4-2-3-1", 
+      // homeTeamFormation: "4-2-3-1", 
 
-      homeMatchLineUpList: {},
+      homeMatchLineUpList: [],
 
       F_shirtNumber: [],
       F_playerName: [],
@@ -282,7 +277,7 @@ export default {
       S_playerName: [],
       S_captain: [],
 
-      homePlayer: [],
+      // homePlayer: [],
 
       // english version
       // away
@@ -291,9 +286,9 @@ export default {
       AG_list: [],
       AD_list: [],
       AS_list: [],
-      awayTeamFormation: "4-3-3", 
+      // awayTeamFormation: "4-3-3", 
 
-      awayMatchLineList: {},
+      awayMatchLineList: [],
 
       AF_shirtNumber: [],
       AF_playerName: [],
@@ -315,7 +310,7 @@ export default {
       AS_playerName: [],
       AS_captain: [],
 
-      awayPlayer: [],
+      // awayPlayer: [],
 
       // homePlayer: [
       //   //FIRST, CAPTAIN, SHIRT NUMBER, POSITION, PLAYERNAME
@@ -356,69 +351,69 @@ export default {
       }
       return numbersList;
     },
-    generateLists() {
-      const parts = this.homeTeamFormation.split("-");
-      let F = 0,
-        M = 0,
-        D = 0,
-        S = 0;
+    // generateLists() {
+    //   const parts = this.homeTeamFormation.split("-");
+    //   let F = 0,
+    //     M = 0,
+    //     D = 0,
+    //     S = 0;
     
-      if (parts.length >= 1) {
-        F = parseInt(parts[0]) || 0;
-      }
-      if (parts.length >= 2) {
-        M = parseInt(parts[1]) || 0;
-      }
-      if (parts.length >= 3) {
-        D = parseInt(parts[2]) || 0;
-      }
-      if (parts.length >= 4) {
-        S = parseInt(parts[3]) || 0;
-      }
+    //   if (parts.length >= 1) {
+    //     F = parseInt(parts[0]) || 0;
+    //   }
+    //   if (parts.length >= 2) {
+    //     M = parseInt(parts[1]) || 0;
+    //   }
+    //   if (parts.length >= 3) {
+    //     D = parseInt(parts[2]) || 0;
+    //   }
+    //   if (parts.length >= 4) {
+    //     S = parseInt(parts[3]) || 0;
+    //   }
 
-      this.F_list = this.generateNumberList(F + M + 2, F + M + D + 1);
-      this.M_list = this.generateNumberList(F + 2, F + M + 1);
-      this.D_list = this.generateNumberList(2, F + 1);
-      this.S_list = this.generateNumberList(F + M + D + 2, F + M + D + S + 1);
+    //   this.F_list = this.generateNumberList(F + M + 2, F + M + D + 1);
+    //   this.M_list = this.generateNumberList(F + 2, F + M + 1);
+    //   this.D_list = this.generateNumberList(2, F + 1);
+    //   this.S_list = this.generateNumberList(F + M + D + 2, F + M + D + S + 1);
 
-      // console.log("first:", this.F_list);
-      // console.log("second:", this.M_list);
-      // console.log("third:", this.D_list);
-      // console.log("fourth:", this.S_list);
+    //   // console.log("first:", this.F_list);
+    //   // console.log("second:", this.M_list);
+    //   // console.log("third:", this.D_list);
+    //   // console.log("fourth:", this.S_list);
 
-      this.G_list = [1];
+    //   this.G_list = [1];
 
-      const Aparts = this.awayTeamFormation.split("-");
-      let AF = 0,
-        AM = 0,
-        AD = 0,
-        AS = 0;
+    //   const Aparts = this.awayTeamFormation.split("-");
+    //   let AF = 0,
+    //     AM = 0,
+    //     AD = 0,
+    //     AS = 0;
     
-      if (Aparts.length >= 1) {
-        AF = parseInt(Aparts[0]) || 0;
-      }
-      if (Aparts.length >= 2) {
-        AM = parseInt(Aparts[1]) || 0;
-      }
-      if (Aparts.length >= 3) {
-        AD = parseInt(Aparts[2]) || 0;
-      }
-      if (Aparts.length >= 4) {
-        AS = parseInt(Aparts[3]) || 0;
-      }
+    //   if (Aparts.length >= 1) {
+    //     AF = parseInt(Aparts[0]) || 0;
+    //   }
+    //   if (Aparts.length >= 2) {
+    //     AM = parseInt(Aparts[1]) || 0;
+    //   }
+    //   if (Aparts.length >= 3) {
+    //     AD = parseInt(Aparts[2]) || 0;
+    //   }
+    //   if (Aparts.length >= 4) {
+    //     AS = parseInt(Aparts[3]) || 0;
+    //   }
 
-      this.AF_list = this.generateNumberList(AF + AM + 2, AF + AM + AD + 1);
-      this.AM_list = this.generateNumberList(AF + 2, AF + AM + 1);
-      this.AD_list = this.generateNumberList(2, AF + 1);
-      this.AS_list = this.generateNumberList(AF + AM + AD + 2, AF + AM + AD + AS + 1);
+    //   this.AF_list = this.generateNumberList(AF + AM + 2, AF + AM + AD + 1);
+    //   this.AM_list = this.generateNumberList(AF + 2, AF + AM + 1);
+    //   this.AD_list = this.generateNumberList(2, AF + 1);
+    //   this.AS_list = this.generateNumberList(AF + AM + AD + 2, AF + AM + AD + AS + 1);
 
-      // console.log("first:", this.AF_list);
-      // console.log("second:", this.AM_list);
-      // console.log("third:", this.AD_list);
-      // console.log("fourth:", this.AS_list);
+    //   // console.log("first:", this.AF_list);
+    //   // console.log("second:", this.AM_list);
+    //   // console.log("third:", this.AD_list);
+    //   // console.log("fourth:", this.AS_list);
 
-      this.AG_list = [1];
-    },
+    //   this.AG_list = [1];
+    // },
     processPlayerPosition(playerList, positionList, captainList, shirtNumberList, playerNameList) {
       for (let player of playerList) {
         let position = player['position'];
@@ -445,16 +440,16 @@ export default {
 
   computed: {
     filteredHomePlayers() {
-      return (position) => this.homePlayer.filter(player => player.position === position);
+      return (position) => this.homeMatchLineUpList.filter(player => player.position === position);
     },
     filteredAwayPlayers(){
-      return (position) => this.awayPlayer.filter(player => player.position === position);
+      return (position) => this.awayMatchLineList.filter(player => player.position === position);
     },
     hasHomeSPlayers() {
-      return this.homePlayer.some(player => player.position === 'S');
+      return this.homeMatchLineUpList.some(player => player.position === 'S');
     },
     hasAwaySPlayers() {
-      return this.awayPlayer.some(player => player.position === 'S');
+      return this.awayMatchLineList.some(player => player.position === 'S');
     },
   }
 };
