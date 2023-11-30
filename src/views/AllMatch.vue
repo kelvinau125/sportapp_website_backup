@@ -110,8 +110,8 @@ export default {
 
   async mounted() {
      // ------------------------------------------------------------------- Translation Part ------------------------------------------ Remember Change It ----------------------------
-    // const isCN = ((this.$i18n.locale === 'ZH')?true :false)
-    this.isCN = false;
+     this.isCN = ((this.$i18n.locale === 'ZH')?true :false)
+    // this.isCN = false;
 
     this.getFavoriteFromBookmark();
   },

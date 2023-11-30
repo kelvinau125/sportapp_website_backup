@@ -79,8 +79,9 @@
                       </div>
                     </div>
                   </div>
-                  <div class="pt-2">
-                    <img src="@/assets/favourite/ended.png" />
+                  <div class="pt-2 statusBorder">
+                    <!-- <img src="@/assets/favourite/ended.png" /> -->
+                    <p>{{ match.statusStr }}</p>
                   </div>
                 </div>
               </div>
@@ -107,8 +108,8 @@ export default {
   },
   async mounted() {
      // ------------------------------------------------------------------- Translation Part ------------------------------------------ Remember Change It ----------------------------
-    // const isCN = ((this.$i18n.locale === 'ZH')?true :false)
-    this.isCN = false;
+     this.isCN = ((this.$i18n.locale === 'ZH')?true :false)
+    // this.isCN = false;
 
     // this.generateMatchDetailsList(format(this.currentDate, 'yyyyMMdd')); 
     // handle when come inside favorite is empty
@@ -246,6 +247,12 @@ export default {
   width: 100%;
   border: 1px solid rgba(156, 163, 175, 0.5);
   border-radius: 49px;
+}
+
+.statusBorder{
+  background-color: #EEEDF4;
+  border-radius: 8px;
+  
 }
 
 .schedule_list .schedule_detail .schedule_detail_box>ul {
