@@ -32,12 +32,13 @@
     </div> -->
 
     <div class="md:flex items-center">
+
       <div class="md:flex relative">
         <div @click="search" class="md:block hidden">
           <img src="@/assets/topNav/search.png" alt="Search Icon" class="absolute left-0.5 w-6 h-6 m-2" />
         </div>
         <div class="md:block hidden">
-          <input v-model="searchText" type="text" :placeholder="$t('Search event/team')"
+          <input v-model="searchQuery" @keyup.enter="search" type="text" :placeholder="$t('Search event/team')" maxlength="20"
             class="pl-10 md:w-72 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-10 text-white bg-slate-50" />
         </div>
         <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between">
