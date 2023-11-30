@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-navColor  text-white py-2 px-6 shadow md:flex justify-between items-center">
+  <div class="bg-navColor  text-white py-1 px-10 shadow md:flex justify-between items-center">
     <div class="flex items-center cursor-pointer">
       <img class="mr-2" alt="App logo" src="@/assets/topNav/appImage.png">
       <router-link to="/" class="text-xl hover:text-green-500">

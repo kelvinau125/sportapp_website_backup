@@ -14,7 +14,7 @@
         <span>|</span>
       </div>
       <div  class="text-xs font-normal text-grayText">
-        本站所有直播均来自互联网，本站不从事任何经营业务，仅为休育爱好者提供免费赛事直播，如果侵犯了您的权益，请联系我们
+        本站所有直播均来自互联网，本站不从事任何经营业务，仅为体育爱好者提供免费赛事直播，如果侵犯了您的权益，请联系我们
       </div>
       <div  class="text-xs font-normal text-grayText mt-3">
         Copyright © 2021 All Rights Reserved

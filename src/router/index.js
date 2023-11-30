@@ -9,6 +9,7 @@ import NotFound from '@/components/NotFound.vue'
 import ResultPage from '@/components/SearchResult.vue'
 
 const routes = [
+
   {
     path: '/',
     name: 'home',
