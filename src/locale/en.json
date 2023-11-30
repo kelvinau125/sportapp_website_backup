@@ -37,14 +37,6 @@
     "Sunday": "Sunday",
     "Today" : "Today",
 
-<<<<<<< HEAD
-    "Tournament Status": "Tournament Status",
-    "Anchor of this event": "Anchor of this event",
-    "Live match":"Live match",
-    "Line Up": "Line Up",
-    "Substitute":"Substitute",
-    "Broadcast address":"Broadcast Address"
-=======
     "main": "Main",
     "live": "Live",
     "myfavouritelive": "Favourite",
@@ -70,9 +62,18 @@
     "OTP Verify Successful!": "OTP Verify Successful!",
     "Verify": "Verify",
     "No verification code received?": "No verification code received?",
-    "Resend": "Resend"
+    "Resend": "Resend",
 
->>>>>>> limin-merge
-
-
+    "Tournament Status": "Tournament Status",
+    "Anchor of this event": "Anchor of this event",
+    "Live match":"Live match",
+    "Line Up": "Line Up",
+    "Substitute":"Substitute",
+    "Broadcast address":"Broadcast Address",
+    "Possession":"Possession",
+    "Danger":"Danger",
+    "Attack":"Attack",
+    "Shoot":"Shoot",
+    "Score":"Score",
+    "Penalty":"Penalty"    
 }
