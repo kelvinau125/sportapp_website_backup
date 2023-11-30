@@ -173,9 +173,11 @@ export default {
   },
 
   async mounted() {
-    this.isCN = true;
-    // this.getTournamentLineup = await getFootballLineup(1187648, false);
-    this.getTournamentLineup = await getFootballLineup(5, true);
+    this.isCN = false;
+    this.getTournamentLineup = await getFootballLineup(1253806, false);
+    // this.getTournamentLineup = await getFootballLineup(5, true);
+
+    console.log(this.getTournamentLineup)
 
     this.homeMatchLineUpList = this.getTournamentLineup['homeMatchLineUpList'];
     this.awayMatchLineList = this.getTournamentLineup['awayMatchLineList'];

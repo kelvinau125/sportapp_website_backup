@@ -75,5 +75,7 @@
     "Attack":"Attack",
     "Shoot":"Shoot",
     "Score":"Score",
-    "Penalty":"Penalty"    
+    "Penalty":"Penalty",
+    
+    "Search": "Search"
 }
