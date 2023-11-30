@@ -27,7 +27,7 @@
               </div>
             </div>
             <div>
-              <span class="text-sm font-medium px-2.5">控球率</span>
+              <span class="text-sm font-medium px-2.5">{{ $t("Possession") }}</span>
             </div>
             <div class="flex items-center">
               <div class="team">
@@ -75,8 +75,8 @@
               </div>
             </div>
             <div class="flex flex-col items-center justify-around">
-              <span class="font-medium text-sm">进攻</span>
-              <span class="font-medium text-sm">危险进攻</span>
+              <span class="font-medium text-sm">{{ $t("Attack") }}</span>
+              <span class="font-medium text-sm">{{ $t("Danger") }}</span>
             </div>
             <div class="">
               <div class="flex items-center">
@@ -121,8 +121,8 @@
               </div>
             </div>
             <div class="flex flex-col items-center justify-around">
-              <span class="font-medium text-sm pl-1.5">射门(射正)</span>
-              <span class="font-medium text-sm ">点球</span>
+              <span class="font-medium text-sm pl-1.5">{{ $t("Shoot") +"(" + $t("Score") + ")" }}  </span>
+              <span class="font-medium text-sm ">{{$t("Penalty")}}</span>
             </div>
             <div class="">
               <div class="flex items-center">
@@ -153,7 +153,7 @@
   
 <script>
   // import to run the login function
-  import { getFootballMatchbyId } from '@/service/apiFootBallMatchProvder.js';
+  import { getFootballMatchbyId } from '@/service/apiFootBallMatchProvider.js';
   
   export default {
 

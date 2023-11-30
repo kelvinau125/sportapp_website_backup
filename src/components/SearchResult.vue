@@ -22,6 +22,7 @@
         </div>
 
       </div>
+
     </div>
     <div class="schedule_list pt-4">
       <div class="schedule_detail " style="height: 108px;">
@@ -173,17 +174,18 @@ export default {
 
 .searchButton {
   background-color: #33BA53;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
   border: 1px solid #33BA53;
   width: 90px;
-  height: 35px;
+  height: auto;
 }
 
 .searchInput {
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
   background-color: #213F6D;
+  outline: none;
 }
 
 .schedule_list {

@@ -40,18 +40,18 @@
     </div>
   </div>
   <div class="flex flex-col match_status pt-8">
-    <h2 class="text-headerFont font-headerWeight">赛况</h2>
+    <h2 class="text-headerFont font-headerWeight">{{ $t("Tournament Status") }}</h2>
     <div class="pt-1">
       <TournamentStatus />
     </div>
 
   </div>
   <div class="flex flex-col match_status pt-8">
-    <h2 class="text-headerFont font-headerWeight">直播</h2>
+    <h2 class="text-headerFont font-headerWeight">{{ $t("Live")}}</h2>
     <div>
       <div class="flex pt-3 items-center">
         <img src="@/assets//tournament/streamIcon.png" />
-        <span class="pl-2 font-normal text-sm">本场主播</span>
+        <span class="pl-2 font-normal text-sm">{{$t("Anchor of this event")}}</span>
       </div>
       <div class="py-3">
         <LiveList />
@@ -61,7 +61,7 @@
     <div>
       <div class="flex items-center">
         <img src="@/assets//tournament/streamIcon.png" />
-        <span class="pl-2 font-normal text-sm">比赛直播</span>
+        <span class="pl-2 font-normal text-sm">{{$t("Live match")}}</span>
       </div>
       <div class="pb-2">
         <div class="flex justify-start px-2 ">
@@ -77,14 +77,14 @@
     </div>
   </div>
   <div class="flex flex-col match_status pb-10 ">
-    <h2 class="text-headerFont font-headerWeight ">阵容</h2>
+    <h2 class="text-headerFont font-headerWeight ">{{ $t("Line Up") }}</h2>
     <div class="pt-3">
       <LineUp />
     </div>
 
   </div>
   <div class="flex flex-col match_status pb-10">
-    <h2 class="text-headerFont font-headerWeight ">替补</h2>
+    <h2 class="text-headerFont font-headerWeight ">{{$t("Substitute")}}</h2>
     <div class="pt-3">
       <TournamentSubstitue />
 
@@ -108,10 +108,10 @@ export default {
   data() {
     return {
       liveAddress: [
-        { liveAddress: '直播地址', addressLink: '/' },
-        { liveAddress: '直播地址', addressLink: '/live' },
-        { liveAddress: '直播地址', addressLink: '/' },
-        { liveAddress: '直播地址', addressLink: '/' },
+        { liveAddress: this.$t("Broadcast address"), addressLink: '/' },
+        { liveAddress: this.$t("Broadcast address"), addressLink: '/live' },
+        { liveAddress: this.$t("Broadcast address"), addressLink: '/' },
+        { liveAddress: this.$t("Broadcast address"), addressLink: '/' },
       ],
     };
   },

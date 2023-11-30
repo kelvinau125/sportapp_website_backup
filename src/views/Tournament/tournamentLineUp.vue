@@ -1,4 +1,6 @@
 <template>
+  <!-- {{ filteredHomePlayers('G').length }} -->
+
   <div class="flex justify-start">
     <div class="overflow-hidden">
       <div class="soccer-field flex">
@@ -11,7 +13,7 @@
               <div class="flex flex-col items-center">
                 <div class="homeKeeperCircle flex justify-center items-center">
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -24,58 +26,54 @@
               <div class="flex flex-col items-center">
                 <div class="homeCircle flex justify-center items-center">
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
               </div>
             </div>
           </div>
-
-
           <!-- IF M PASS HERE -->
           <div class="w-full flex flex-col justify-around">
             <div v-for="player in filteredHomePlayers('M')" :key="player.id" class="">
               <div class="flex flex-col items-center">
                 <div class="homeCircle flex justify-center items-center">
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
               </div>
             </div>
           </div>
-
           <!-- IF F PASS HERE -->
           <div class="w-full flex flex-col justify-around">
             <div v-for="player in filteredHomePlayers('F')" :key="player.id" class="">
               <div class="flex flex-col items-center">
                 <div class="homeCircle flex justify-center items-center">
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
               </div>
             </div>
-
             <div class="absolute bottom-1" style="left: 285px; ">
               <div class="flex pb-2">
-                <span class="pl-2.5 pr-1 pt-1.5 text-xs font-normal text-white">{{ homeTeamFormation }}</span>
+                <span class="pl-2.5 pr-1 pt-1.5 text-xs font-normal text-white">{{ filteredHomePlayers('D').length + "-" +
+                  filteredHomePlayers('M').length + "-" + filteredHomePlayers('F').length }}</span>
                 <img class="" style="width: 24px; height: 24px;" src="@/assets/tournament/moneyBadge.png" />
               </div>
             </div>
           </div>
-
-          <!-- 英文版有S 的球员 -->
+          <!-- IF有S 的球员 -->
           <div class="w-full flex flex-col justify-around" v-if="hasHomeSPlayers">
             <div v-for="player in filteredHomePlayers('S')" :key="player.id" class="">
               <div class="flex flex-col items-center">
                 <div class="homeCircle flex justify-center items-center">
                   <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -85,13 +83,13 @@
         </div>
         <!-- AWAY TEAM -->
         <div class="w-1/2 h-full flex justify-between">
-          <!-- 英文版有S 的球员 -->
+          <!-- IF有S 的球员 -->
           <div class="w-full flex flex-col justify-around" v-if="hasAwaySPlayers">
             <div v-for="player in filteredAwayPlayers('S')" :key="player.id" class="">
               <div class="flex flex-col items-center">
                 <div class="awayCircle flex justify-center items-center">
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -104,7 +102,7 @@
                 <div class="awayCircle flex justify-center items-center">
                   <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -114,44 +112,45 @@
             <div class="absolute bottom-1" style="left: 370px; ">
               <div class="flex pb-1.5">
                 <img class="" style="width: 24px; height: 24px;" src="@/assets/tournament/badge_.png" />
-                <span class="pl-1.5 pr-1 pt-1 text-xs font-normal text-white">{{ awayTeamFormation }}</span>
+                <span class="pl-1.5 pr-2 pt-1 text-xs font-normal text-white">{{ filteredAwayPlayers('D').length + "-" +
+                  filteredAwayPlayers('M').length + "-" + filteredAwayPlayers('F').length }}</span>
               </div>
             </div>
 
           </div>
-          <div class="w-full flex flex-col justify-around" >
+          <div class="w-full flex flex-col justify-around">
             <div v-for="player in filteredAwayPlayers('M')" :key="player.id" class="">
               <div class="flex flex-col items-center">
                 <div class="awayCircle flex justify-center items-center">
                   <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
               </div>
             </div>
           </div>
-          <div class="w-full flex flex-col justify-around" >
+          <div class="w-full flex flex-col justify-around">
             <div v-for="player in filteredAwayPlayers('D')" :key="player.id" class="">
               <div class="flex flex-col items-center">
                 <div class="awayCircle flex justify-center items-center">
                   <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
               </div>
             </div>
           </div>
-          <div class="w-full flex flex-col justify-around" >
+          <div class="w-full flex flex-col justify-around">
             <div v-for="player in filteredAwayPlayers('G')" :key="player.id" class="">
               <div class="flex flex-col items-center">
                 <div class="awayKeeperCircle flex justify-center items-center">
                   <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -166,19 +165,18 @@
 
 
 <script>
-import { getFootballLineup } from '@/service/apiFootBallMatchProvder.js';
+import { getFootballLineup } from '@/service/apiFootBallMatchProvider.js';
 
 export default {
   async mounted() {
+    this.isCN = true;
     // this.getTournamentLineup = await getFootballLineup(1187648, false);
     this.getTournamentLineup = await getFootballLineup(5, true);
-    // console.log("SMTG" + this.getTournamentLineup)
 
     this.homeMatchLineUpList = this.getTournamentLineup['homeMatchLineUpList'];
     this.awayMatchLineList = this.getTournamentLineup['awayMatchLineList'];
 
-    // this.generateLists();
-
+    this.generateLists();
     if (this.homeMatchLineUpList !== null) {
       let lineupList = [...this.homeMatchLineUpList];
 
@@ -240,20 +238,20 @@ export default {
     ApopulateHomePlayer('D', this.AD_list, this.AD_shirtNumber, this.AD_playerName, this.AD_captain);
     ApopulateHomePlayer('S', this.AS_list, this.AS_shirtNumber, this.AS_playerName, this.AS_captain);
 
-  },  
+  },
 
   data() {
     return {
+      isCN: Boolean,
       getTournamentLineup: {},
-
       // Esnglish version
-      // home
+      // Home Team List 
       F_list: [],
       M_list: [],
       G_list: [],
       D_list: [],
       S_list: [],
-      // homeTeamFormation: "4-2-3-1", 
+      homeTeamFormation: "4-2-3-1",
 
       homeMatchLineUpList: [],
 
@@ -277,7 +275,7 @@ export default {
       S_playerName: [],
       S_captain: [],
 
-      // homePlayer: [],
+      homePlayer: [],
 
       // english version
       // away
@@ -286,7 +284,7 @@ export default {
       AG_list: [],
       AD_list: [],
       AS_list: [],
-      // awayTeamFormation: "4-3-3", 
+      awayTeamFormation: "4-3-3",
 
       awayMatchLineList: [],
 
@@ -310,7 +308,7 @@ export default {
       AS_playerName: [],
       AS_captain: [],
 
-      // awayPlayer: [],
+      awayPlayer: [],
 
       // homePlayer: [
       //   //FIRST, CAPTAIN, SHIRT NUMBER, POSITION, PLAYERNAME
@@ -351,69 +349,69 @@ export default {
       }
       return numbersList;
     },
-    // generateLists() {
-    //   const parts = this.homeTeamFormation.split("-");
-    //   let F = 0,
-    //     M = 0,
-    //     D = 0,
-    //     S = 0;
-    
-    //   if (parts.length >= 1) {
-    //     F = parseInt(parts[0]) || 0;
-    //   }
-    //   if (parts.length >= 2) {
-    //     M = parseInt(parts[1]) || 0;
-    //   }
-    //   if (parts.length >= 3) {
-    //     D = parseInt(parts[2]) || 0;
-    //   }
-    //   if (parts.length >= 4) {
-    //     S = parseInt(parts[3]) || 0;
-    //   }
+    generateLists() {
+      const parts = this.homeTeamFormation.split("-");
+      let F = 0,
+        M = 0,
+        D = 0,
+        S = 0;
 
-    //   this.F_list = this.generateNumberList(F + M + 2, F + M + D + 1);
-    //   this.M_list = this.generateNumberList(F + 2, F + M + 1);
-    //   this.D_list = this.generateNumberList(2, F + 1);
-    //   this.S_list = this.generateNumberList(F + M + D + 2, F + M + D + S + 1);
+      if (parts.length >= 1) {
+        F = parseInt(parts[0]) || 0;
+      }
+      if (parts.length >= 2) {
+        M = parseInt(parts[1]) || 0;
+      }
+      if (parts.length >= 3) {
+        D = parseInt(parts[2]) || 0;
+      }
+      if (parts.length >= 4) {
+        S = parseInt(parts[3]) || 0;
+      }
 
-    //   // console.log("first:", this.F_list);
-    //   // console.log("second:", this.M_list);
-    //   // console.log("third:", this.D_list);
-    //   // console.log("fourth:", this.S_list);
+      this.F_list = this.generateNumberList(F + M + 2, F + M + D + 1);
+      this.M_list = this.generateNumberList(F + 2, F + M + 1);
+      this.D_list = this.generateNumberList(2, F + 1);
+      this.S_list = this.generateNumberList(F + M + D + 2, F + M + D + S + 1);
 
-    //   this.G_list = [1];
+      // console.log("first:", this.F_list);
+      // console.log("second:", this.M_list);
+      // console.log("third:", this.D_list);
+      // console.log("fourth:", this.S_list);
 
-    //   const Aparts = this.awayTeamFormation.split("-");
-    //   let AF = 0,
-    //     AM = 0,
-    //     AD = 0,
-    //     AS = 0;
-    
-    //   if (Aparts.length >= 1) {
-    //     AF = parseInt(Aparts[0]) || 0;
-    //   }
-    //   if (Aparts.length >= 2) {
-    //     AM = parseInt(Aparts[1]) || 0;
-    //   }
-    //   if (Aparts.length >= 3) {
-    //     AD = parseInt(Aparts[2]) || 0;
-    //   }
-    //   if (Aparts.length >= 4) {
-    //     AS = parseInt(Aparts[3]) || 0;
-    //   }
+      this.G_list = [1];
 
-    //   this.AF_list = this.generateNumberList(AF + AM + 2, AF + AM + AD + 1);
-    //   this.AM_list = this.generateNumberList(AF + 2, AF + AM + 1);
-    //   this.AD_list = this.generateNumberList(2, AF + 1);
-    //   this.AS_list = this.generateNumberList(AF + AM + AD + 2, AF + AM + AD + AS + 1);
+      const Aparts = this.awayTeamFormation.split("-");
+      let AF = 0,
+        AM = 0,
+        AD = 0,
+        AS = 0;
 
-    //   // console.log("first:", this.AF_list);
-    //   // console.log("second:", this.AM_list);
-    //   // console.log("third:", this.AD_list);
-    //   // console.log("fourth:", this.AS_list);
+      if (Aparts.length >= 1) {
+        AF = parseInt(Aparts[0]) || 0;
+      }
+      if (Aparts.length >= 2) {
+        AM = parseInt(Aparts[1]) || 0;
+      }
+      if (Aparts.length >= 3) {
+        AD = parseInt(Aparts[2]) || 0;
+      }
+      if (Aparts.length >= 4) {
+        AS = parseInt(Aparts[3]) || 0;
+      }
 
-    //   this.AG_list = [1];
-    // },
+      this.AF_list = this.generateNumberList(AF + AM + 2, AF + AM + AD + 1);
+      this.AM_list = this.generateNumberList(AF + 2, AF + AM + 1);
+      this.AD_list = this.generateNumberList(2, AF + 1);
+      this.AS_list = this.generateNumberList(AF + AM + AD + 2, AF + AM + AD + AS + 1);
+
+      // console.log("first:", this.AF_list);
+      // console.log("second:", this.AM_list);
+      // console.log("third:", this.AD_list);
+      // console.log("fourth:", this.AS_list);
+
+      this.AG_list = [1];
+    },
     processPlayerPosition(playerList, positionList, captainList, shirtNumberList, playerNameList) {
       for (let player of playerList) {
         let position = player['position'];
@@ -440,10 +438,20 @@ export default {
 
   computed: {
     filteredHomePlayers() {
-      return (position) => this.homeMatchLineUpList.filter(player => player.position === position);
+      if(this.isCN){
+        return (position) => this.homeMatchLineUpList.filter(player => player.position === position && player.first === 1);
+      }else{
+        return (position) => this.homePlayer.filter(player => player.position === position);
+
+      }
     },
-    filteredAwayPlayers(){
-      return (position) => this.awayMatchLineList.filter(player => player.position === position);
+    filteredAwayPlayers() {
+      if(this.isCN){
+        return (position) => this.awayMatchLineList.filter(player => player.position === position && player.first === 1);
+      }else{
+        return (position) => this.awayPlayer.filter(player => player.position === position);
+
+      }
     },
     hasHomeSPlayers() {
       return this.homeMatchLineUpList.some(player => player.position === 'S');
@@ -451,6 +459,7 @@ export default {
     hasAwaySPlayers() {
       return this.awayMatchLineList.some(player => player.position === 'S');
     },
+
   }
 };
 </script>

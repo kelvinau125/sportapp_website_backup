@@ -32,5 +32,18 @@
     "Friday": "周五",
     "Saturday": "周六",
     "Sunday": "周日",
-    "Today" : "今天"
+    "Today" : "今天",
+
+    "Tournament Status": "赛况",
+    "Anchor of this event":"本场主播",
+    "Live match": "比赛直播",
+    "Line Up":"阵容",
+    "Substitute":"替补",
+    "Broadcast address":"直播地址",
+    "Possession":"控球率",
+    "Danger":"危险进攻",
+    "Attack":"进攻",
+    "Shoot":"射门",
+    "Score":"射正",
+    "Penalty":"点球"
 }

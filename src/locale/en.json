@@ -32,5 +32,14 @@
     "Friday": "Friday",
     "Saturday": "Saturday",
     "Sunday": "Sunday",
-    "Today" : "Today"
+    "Today" : "Today",
+
+    "Tournament Status": "Tournament Status",
+    "Anchor of this event": "Anchor of this event",
+    "Live match":"Live match",
+    "Line Up": "Line Up",
+    "Substitute":"Substitute",
+    "Broadcast address":"Broadcast Address"
+
+
 }

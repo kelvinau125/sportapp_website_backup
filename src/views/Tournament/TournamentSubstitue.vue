@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { getFootballLineup } from '@/service/apiFootBallMatchProvder.js';
+import { getFootballLineup } from '@/service/apiFootBallMatchProvider.js';
 
 export default {
     data() {
