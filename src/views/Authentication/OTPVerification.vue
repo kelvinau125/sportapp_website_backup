@@ -8,13 +8,13 @@
         <form @submit.prevent="">
             <!-- starting when open the otp verfication need enter the otp number -->
             <!-- false / false  -->
-            <h2 v-show="!isRegisterSuccess && !isResetPasswordSuccess" class="text-xl font-bold" style="padding: 20px">验证码验证</h2>
+            <h2 v-show="!isRegisterSuccess && !isResetPasswordSuccess" class="text-xl font-bold" style="padding: 20px">{{ $t("OTP Verify") }}</h2>
 
             <!-- done register -->
-            <h2 v-show="isRegisterSuccess" class="text-xl font-bold" style="padding: 20px">注册成功</h2>
+            <h2 v-show="isRegisterSuccess" class="text-xl font-bold" style="padding: 20px">{{ $t("Register Successful") }}</h2>
 
             <!-- done reset password -->
-            <h2 v-show="isResetPasswordSuccess" class="text-xl font-bold" style="padding: 20px">验证码验证成功</h2>
+            <h2 v-show="isResetPasswordSuccess" class="text-xl font-bold" style="padding: 20px">{{ $t("OTP Verify Successful!") }}</h2>
     
 
             <!-- starting when open the otp verfication need enter the otp number -->
@@ -46,16 +46,16 @@
             <div class="pt-12">
                 <!-- starting when open the otp verfication need enter the otp number -->
                  <!-- false / false  -->
-                <ButtonCom v-show="!isRegisterSuccess && !isResetPasswordSuccess" @click="verify" class="w-screen">验证</ButtonCom>
+                <ButtonCom v-show="!isRegisterSuccess && !isResetPasswordSuccess" @click="verify" class="w-screen">{{ $t("Verify") }}</ButtonCom>
 
                 <!-- done register -->
-                <ButtonCom v-show="isRegisterSuccess" @click="gobacklogin" class="w-screen">返回登录</ButtonCom>
+                <ButtonCom v-show="isRegisterSuccess" @click="gobacklogin" class="w-screen">{{ $t("Back to Login") }}</ButtonCom>
 
                 <!-- starting when open the otp verfication need enter the otp number -->
                 <!-- false / false  -->
                 <div v-show="!isRegisterSuccess && !isResetPasswordSuccess" class="flex justify-center" style="padding: 20px">
-                    <p>没有收到验证码？
-                    <button class="text-green-500" v-show="!isbuttonDisabled" @click="sendAgain()">再次发送</button> 
+                    <p>{{ $t("No verification code received?") }}
+                    <button class="text-green-500" v-show="!isbuttonDisabled" @click="sendAgain()">{{ $t("Resend") }}</button> 
                     <button class="text-green-500" v-show="isbuttonDisabled" disabled>{{countdownMsg}}</button>
                     </p>
                 </div>

@@ -6,17 +6,17 @@
         <CloseButton @click="closeEditPasswordModal"> </CloseButton>
 
         <!-- done reset password -->
-        <h2 v-show="isChangePasswordSuccess" class="text-xl font-bold" style="padding: 20px">成功修改密码</h2>
+        <h2 v-show="isChangePasswordSuccess" class="text-xl font-bold" style="padding: 20px">{{ $t("Password changed successfully") }}</h2>
         <div v-show="isChangePasswordSuccess" class="flex justify-center my-10"><img src="@/assets/otp/Successmark.png" alt="sucessmark" style="width: 100px; height: 100px;"/></div>
         <div v-show="isChangePasswordSuccess" class="pt-12">
-            <ButtonCom @click="gobacklogin" class="w-screen">返回登录</ButtonCom>
+            <ButtonCom @click="gobacklogin" class="w-screen">{{ $t("Back to Login") }}</ButtonCom>
             <div class="flex justify-center" style="padding: 20px"/>
         </div>
     
         <!-- edit password -->
         <form v-show="!isChangePasswordSuccess" @submit.prevent="">
 
-            <h2 class="text-xl font-bold" style="padding: 20px">创建新密码</h2>
+            <h2 class="text-xl font-bold" style="padding: 20px">{{ $t("Create New Password") }}</h2>
             <div class="form-group">
                 <div class="password-container">
                 <input
@@ -54,11 +54,11 @@
                 {{ warningMessage }}
             </div>
 
-            <p class="mb-20">新的密码需要与旧的密码不相同</p>
+            <p class="mb-20">{{ $t("New Passowrd must be different with old password") }}</p>
 
     
             <div class="pt-12">
-                <ButtonCom @click="editPassword" class="w-screen">重置密码</ButtonCom>
+                <ButtonCom @click="editPassword" class="w-screen">{{ $t("Reset Password") }}</ButtonCom>
                 <div class="flex justify-center" style="padding: 20px"/>
             </div>
         </form>

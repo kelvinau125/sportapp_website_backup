@@ -7,7 +7,7 @@
         <CloseButton @click="gobackmypage"> </CloseButton>
         <!-- Above -->
         <div>
-            <h2 class="text-xl font-bold" style="padding: 20px">信息编辑</h2>
+            <h2 class="text-xl font-bold" style="padding: 20px">{{ $t("Information Editing") }}</h2>
             <div class="">
                 <div class="flex flex-col items-center">
                     <div class="relative">
@@ -23,14 +23,14 @@
 
             <div class="pt-12 ">
                 <ButtonPress @click="showEditNicknameModal()" class="w-screen bg-white flex justify-between items-center" style="height: 60px;">
-                    <p class="text-base font-normal" style="color: #333333;">修改昵称</p>
+                    <p class="text-base font-normal" style="color: #333333;">{{ $t("Edit Nickname")}}</p>
                     <img src="@/assets/arrow.png"  style="width: 6px; height: 12px;" />
                 </ButtonPress>
             </div>
 
             <div class="pt-5 pb-32">
                 <ButtonPress @click="changePassword" class="w-screen bg-white flex justify-between items-center" style="height: 60px;">
-                    <p class="text-base font-normal" style="color: #333333;">修改密码</p>
+                    <p class="text-base font-normal" style="color: #333333;">{{ $t("Edit Password")}}</p>
                     <img src="@/assets/arrow.png" style="width: 6px; height: 12px;" />
                 </ButtonPress>
             </div>
