@@ -153,7 +153,7 @@
   
 <script>
   // import to run the login function
-  import { getFootballMatchbyId } from '@/service/apiFootBallMatchProvder.js';
+  import { getFootballMatchbyId } from '@/service/apiFootBallMatchProvider.js';
   
   export default {
     props: {

@@ -70,8 +70,8 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { format } from 'date-fns';
 
-import { getMatchTodaybyCompName } from '@/service/apiFootBallMatchProvder.js';
-import { getMatchByDate } from '@/service/apiFootBallMatchProvder.js';
+import { getMatchTodaybyCompName } from '@/service/apiFootBallMatchProvider.js';
+import { getMatchByDate } from '@/service/apiFootBallMatchProvider.js';
 
 export default {
   data() {

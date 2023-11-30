@@ -100,7 +100,7 @@ import BackgroundImage from '@/components/BackGround.vue'
 import { addDays, startOfWeek, format, isToday } from 'date-fns';
 import { ref } from 'vue'
 
-import { getMatchByDate } from '@/service/apiFootBallMatchProvder.js';
+import { getMatchByDate } from '@/service/apiFootBallMatchProvider.js';
 
 export default {
   components:{
