@@ -166,8 +166,13 @@
 
 <script>
 import { getFootballLineup } from '@/service/apiFootBallMatchProvider.js';
+import { getFootballLineup } from '@/service/apiFootBallMatchProvider.js';
 
 export default {
+  props: {
+    tournamentID: String,
+  },
+
   async mounted() {
     this.isCN = true;
     // this.getTournamentLineup = await getFootballLineup(1187648, false);

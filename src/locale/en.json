@@ -7,6 +7,7 @@
     "Welcome Back, Please Login": "Welcome Back, Please Login",
     "Please Enter Password": "Please Enter Password",
     "Forgot Password?": "Forgot Password?",
+    "Forgot Password": "Forgot Password",
     "Login": "Login",
     "Already Have An Account? ": "Already Have An Account? ",
     "Register Now": "Register Now",
@@ -15,7 +16,9 @@
     "Phone Number and Password cannot be empty": "Phone Number and Password cannot be empty",
     "Please Enter Password Again": "Please Enter Password Again",
 
+    "MyPage": "My Page",
     "Register": "Register",
+    "Logout": "Logout",
     "Login Now": "Login Now",
     "Welcome to Register, Get Started!": "Welcome to Register, Get Started!",
     "Please Enter Username": "Please Enter Username",
@@ -34,12 +37,42 @@
     "Sunday": "Sunday",
     "Today" : "Today",
 
+<<<<<<< HEAD
     "Tournament Status": "Tournament Status",
     "Anchor of this event": "Anchor of this event",
     "Live match":"Live match",
     "Line Up": "Line Up",
     "Substitute":"Substitute",
     "Broadcast address":"Broadcast Address"
+=======
+    "main": "Main",
+    "live": "Live",
+    "myfavouritelive": "Favourite",
+    "Search event/team": "Search event/team",
+
+    "Notification": "Notification",
+    "ContactUs": "ContactUs",
+    "Settings": "Settings",
+    "Edit Nickname": "Edit Nickname",
+    "Edit Password": "Edit Password",
+    "Information Editing": "Information Editing",
+    "Update Nickname": "Update Nickname",
+    "Password changed successfully": "Password changed successfully",
+    "Back to Login": "Back to Login",
+    "Create New Password": "Create New Password",
+    "New Passowrd must be different with old password": "New Passowrd must be different with old password",
+    "Reset Password": "Reset Password",
+    "No Worry! Please Enter Your Registered Phone Number": "No Worry! Please Enter Your Registered Phone Number",
+    "Send OTP": "Send OTP",
+    "Remember Password?": "Remember Password?",
+    "OTP Verify": "OTP Verify",
+    "Register Successful": "Register Successful",
+    "OTP Verify Successful!": "OTP Verify Successful!",
+    "Verify": "Verify",
+    "No verification code received?": "No verification code received?",
+    "Resend": "Resend"
+
+>>>>>>> limin-merge
 
 
 }

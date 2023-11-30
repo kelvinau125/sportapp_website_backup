@@ -48,12 +48,73 @@ export const updateforgotPasswordurl =
     liveStreamUserBaseUrl + updateforgotPassword; //update forgot password
 
 //Basketball CN--------------------------------------------------------------------------------------------//
-export const basketballBaseUrl = '/api/v1/basketballs';
+export const basketballBaseUrl = '/api/v1/basketballs/match';
 
-export const getBasketballList = '/list';
+export const searchBasketballToday = '/now-list';
 
-export const getBasketballListUrl =
-    basketballBaseUrl + getBasketballList; //get basketball list
+export const getStartBasketballMatch = '/list-start?';
+
+export const getFutureBasketballMatch = '/list-future?';
+
+export const getPastBasketballMatch = '/list-past?';
+
+export const getBasketballMatchByDate = '/list/';
+
+export const getBasketballMatchLineUp = '/line-up/';
+
+export const getBasketballMatchLiveData = '/livedata/';
+
+export const getBasketballLiveAddress = '/address/';
+
+export const getBasketballMatchLineUpUrl = basketballBaseUrl +
+    getBasketballMatchLineUp; //get matches line up in matches status
+
+export const getBasketballMatchLiveDataUrl =
+    basketballBaseUrl + getBasketballMatchLiveData; //get matches live data
+
+export const getBasketballLiveAddressUrl =
+    basketballBaseUrl + getBasketballLiveAddress; //get live address
+
+export const getBasketballMatchByDateUrl =
+    basketballBaseUrl + getBasketballMatchByDate; //get all matches by date
+
+export const getPastBasketballMatchUrl =
+    basketballBaseUrl + getPastBasketballMatch; //get past matches
+
+export const getFutureBasketballMatchUrl =
+    basketballBaseUrl + getFutureBasketballMatch; // get future matches
+
+export const getStartBasketballMatchUrl =
+    basketballBaseUrl + getStartBasketballMatch; // get Today started matches
+
+export const searchBasketballTodayUrl = basketballBaseUrl +
+    searchBasketballToday; // get today's matchs via matches or team name
+
+//---Basketball EN-----------------------------------------------------------------------------------------//
+
+export const EN = '/en';
+
+export const searchBasketballTodayENurl =
+    basketballBaseUrl + EN + searchBasketballToday;
+
+export const getBasketballMatchByDateENurl =
+    basketballBaseUrl + EN + getBasketballMatchByDate;
+
+export const getStartBasketballMatchENurl =
+    basketballBaseUrl + EN + getStartBasketballMatch;
+
+export const getFutureBasketballMatchENurl =
+    basketballBaseUrl + EN + getFutureBasketballMatch;
+
+export const getPastBasketballMatchENurl =
+    basketballBaseUrl + EN + getPastBasketballMatch;
+
+export const getBasketballLineUpENurl =
+    basketballBaseUrl + EN + getBasketballMatchLineUp;
+
+export const getBasketballMatchLiveDataENurl =
+    basketballBaseUrl + EN + getBasketballMatchLiveData;
+
 
 //Football CN----------------------------------------------------------------------------------------------//
 export const footballBaseUrl = '/api/v1/footballs';
@@ -62,7 +123,7 @@ export const getFootballMatchList = '/match/list?';
 
 export const getFootballMatchLineUp = '/match/line-up/';
 
-export const searchFootballMatchToday = '/match/now-list';
+export const searchFootballMatchToday = '/match/now-list?';
 
 export const getFootballMatchById = '/match/livedata/';
 
@@ -148,40 +209,51 @@ export const getFootballMatchLineUpENurl =
 
 //---------------------------------------------------------------------------------------------------------------------//
 
-//Live Stream Collection
+ //Live Stream Collection
+ export const liveStreamCollectionBaseUrlFootball =
+ '/api/v1/collections/football';
+
+export const liveStreamCollectionBaseUrlBasketball =
+ '/api/v1/collections/basketball';
+
 export const liveStreamCollectionBaseUrl = '/api/v1/collections';
 
 export const getAllStreamCollectionList = '/list';
 
-export const getFootballMatch = '/football/{matchId}';
-
-export const getBasketballMatch = '/basketball/{matchId}';
+export const getMatch = '/{matchId}';
 
 export const deleteCollectionByMatchId = '/{matchId}';
 
 export const createCollection = '/';
 
-export const getAllStreamCollectionListUrl =
-    liveStreamCollectionBaseUrl +
-        getAllStreamCollectionList; //get all stream collection list
+export const getAllStreamCollectionListFootballUrl =
+ liveStreamCollectionBaseUrlFootball +
+     getAllStreamCollectionList; //get football all stream collection list
+
+export const getAllStreamCollectionListBasketballUrl =
+ liveStreamCollectionBaseUrlBasketball +
+     getAllStreamCollectionList; //get all basketball collection list
 
 export const getFootballMatchUrl =
-    liveStreamCollectionBaseUrl + getFootballMatch; //get football match
+ liveStreamCollectionBaseUrlFootball + getMatch; //get football match
 
 export const getBasketballMatchUrl =
-    liveStreamCollectionBaseUrl + getBasketballMatch; //get basketball match
+ liveStreamCollectionBaseUrlBasketball + getMatch; //get basketball match
 
 export const deleteCollectionByMatchIdUrl =
-    liveStreamCollectionBaseUrl +
-        deleteCollectionByMatchId; //delete collection by id
+ liveStreamCollectionBaseUrl +
+     deleteCollectionByMatchId; //delete collection by id
 
 export const createCollectionUrl =
-    liveStreamCollectionBaseUrl + createCollection; //create collection
+ liveStreamCollectionBaseUrl + createCollection; //create collection
 
 //Live Stream Collection (English)-------------------------------------------------------------------------------------//
 export const liveStreamCollectionBaseEngUrl = '/api/v1/en/collections';
 
-export const getAllStreamCollectionEngList = '/list';
+export const getAllStreamCollectionEngListFootball = '/football/list';
+
+export const getAllStreamCollectionEngListBasketball =
+ '/basketball/list';
 
 export const getFootballEngMatch = '/football/{matchId}';
 
@@ -192,22 +264,26 @@ export const deleteCollectionEngByMatchId = '/{matchId}';
 export const createCollectionEng = '/';
 
 export const createCollectionEngUrl = liveStreamCollectionBaseEngUrl +
-    createCollectionEng; //create collection English ver
+ createCollectionEng; //create collection English ver
 
-export const getAllStreamCollectionListEngUrl =
-    liveStreamCollectionBaseEngUrl +
-        getAllStreamCollectionEngList; //get all stream collection list English ver
+export const getAllStreamCollectionListEngUrlFootball =
+ liveStreamCollectionBaseEngUrl +
+     getAllStreamCollectionEngListFootball; //get all football stream collection list English ver
+
+export const getAllStreamCollectionListEngUrlBasketball =
+ liveStreamCollectionBaseEngUrl +
+     getAllStreamCollectionEngListBasketball; //get all basketball stream collection list English ver
 
 export const getFootballMatchEngUrl = liveStreamCollectionBaseEngUrl +
-    getFootballEngMatch; //get football match English ver
+ getFootballEngMatch; //get football match English ver
 
 export const getBasketballMatchEngUrl =
-    liveStreamCollectionBaseEngUrl +
-        getBasketballEngMatch; //get basketball match English ver
+ liveStreamCollectionBaseEngUrl +
+     getBasketballEngMatch; //get basketball match English ver
 
 export const deleteCollectionEngByMatchIdUrl =
-    liveStreamCollectionBaseEngUrl +
-        deleteCollectionEngByMatchId; //delete collection English ver by id
+ liveStreamCollectionBaseEngUrl +
+     deleteCollectionEngByMatchId; //delete collection English ver by id
 
 //Live Stream Message
 export const liveStreamMessageBaseUrl = '/api/v1/messages';

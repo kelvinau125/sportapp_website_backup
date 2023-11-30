@@ -33,26 +33,26 @@
             <div class="flex justify-between pt-7" style="width: 100%;">
                 <div>
                     <ButtonPress class="w-full bg-white pl-6 pr-6" style="width: 100%; height: 60px; border-radius: 8px;">
-                    <p class="text-base font-normal" style="color: #333333;">系统消息</p>
+                    <p class="text-base font-normal" style="color: #333333;">{{ $t("Notification") }}</p>
                     </ButtonPress>
         
                 </div>
                 <div>
                     <ButtonPress class="w-full bg-white pl-6 pr-6" style="width: 100%; height: 60px;">
-                    <p class="text-base font-normal" style="color: #333333;">联系我们</p>
+                    <p class="text-base font-normal" style="color: #333333;">{{ $t("ContactUs") }}</p>
                     </ButtonPress>
         
                 </div>
                 <div>
                     <ButtonPress class="w-full bg-white pl-6 pr-6" style="width: 100%; height: 60px;">
-                    <p class="text-base font-normal" style="color: #333333;">系统设置</p>
+                    <p class="text-base font-normal" style="color: #333333;">{{ $t("Settings") }}</p>
                     </ButtonPress>
         
                 </div>
             </div>
 
         <div class="pt-12">
-            <ButtonPress @click="logout" class="w-screen" style="height: 56px;">退出登录</ButtonPress>
+            <ButtonPress @click="logout" class="w-screen" style="height: 56px;">{{ $t("Logout") }}</ButtonPress>
             <div class="flex justify-center" style="padding: 20px"/>
         </div>
     

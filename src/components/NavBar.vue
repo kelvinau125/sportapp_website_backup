@@ -37,7 +37,7 @@
           <img src="@/assets/topNav/search.png" alt="Search Icon" class="absolute left-0.5 w-6 h-6 m-2" />
         </div>
         <div class="md:block hidden">
-          <input v-model="searchQuery" @keyup.enter="search" type="text" placeholder="搜索赛事/球队" maxlength="20"
+          <input v-model="searchText" type="text" :placeholder="$t('Search event/team')"
             class="pl-10 md:w-72 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-10 text-white bg-slate-50" />
         </div>
         <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between">
@@ -70,10 +70,10 @@
             <div class="pr-1 pt-1 pb-2 flex flex-col">
               <!-- <button to="/register" class="px-1 hover:text-green-500 text-white">注册</button>
               <button to="/login" class="px-1 hover:text-green-500 text-white">登入</button> -->
-              <button v-if="!loggedIn" class="px-1" @click="showRegisterModal">注册</button>
-              <button v-if="!loggedIn" class="px-1" @click="showLoginModal">登入</button>
-              <button v-if="loggedIn" class="px-1" @click="showMyPageModal">我的主页</button>
-              <button v-if="loggedIn" @click="logout" class="block text-white">退出登入</button>
+              <button v-if="!loggedIn" class="px-1"  @click="showRegisterModal">{{ $t("Register") }}</button>
+              <button v-if="!loggedIn" class="px-1" @click="showLoginModal">{{ $t("Login") }}</button>
+              <button v-if="loggedIn" class="px-1" @click="showMyPageModal">{{ $t("MyPage") }}</button>
+              <button v-if="loggedIn" @click="logout" class="block text-white">{{ $t("Logout") }}</button>
             </div>
           </div>
         </div>
@@ -142,9 +142,9 @@ export default {
       searchQuery: '',
 
       Links: [
-        { name: '首页', link: '/' },
-        { name: '直播', link: '/live' },
-        { name: '收藏', link: '/favourite' },
+        { name: this.$t('main'), link: '/' },
+        { name: this.$t('live'), link: '/live' },
+        { name: this.$t('myfavouritelive'), link: '/favourite' },
       ],
       avatar: ref(''),
       img: ref(require('@/assets/topNav/football.png')),

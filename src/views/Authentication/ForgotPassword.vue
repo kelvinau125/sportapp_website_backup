@@ -7,7 +7,7 @@
     
         <!-- forgot password -->
         <form @submit.prevent="">
-            <h2 class="text-xl font-bold" style="padding: 20px">忘记密码</h2>
+            <h2 class="text-xl font-bold" style="padding: 20px">{{ $t("Forgot Password") }}</h2>
             <div class="form-group flex">
                 <!-- https://vuejsexamples.com/international-telephone-input-with-vue/ -->
                 <!-- API website for future modify -->
@@ -21,13 +21,13 @@
                 {{ warningMessage }}
             </div>
 
-            <p class="mb-20">无需担心！请输入您的账户所绑定的电话号码.</p>
+            <p class="mb-20">{{ $t("No Worry! Please Enter Your Registered Phone Number") }}.</p>
 
     
             <div class="pt-12">
-                <ButtonCom @click="forgotPassword()" class="w-screen">发送验证码</ButtonCom>
+                <ButtonCom @click="forgotPassword()" class="w-screen">{{ $t("Send OTP") }}</ButtonCom>
                 <div class="flex justify-center" style="padding: 20px">
-                    <p>还记得密码吗？ <button class="text-green-500" @click="showLoginModal">{{ $t("Login Now") }}</button></p>
+                    <p>{{ $t("Remember Password?") }} <button class="text-green-500" @click="showLoginModal">{{ $t("Login Now") }}</button></p>
                 </div>
             </div>
         </form>

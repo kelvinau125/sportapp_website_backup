@@ -42,7 +42,8 @@
   <div class="flex flex-col match_status pt-8">
     <h2 class="text-headerFont font-headerWeight">{{ $t("Tournament Status") }}</h2>
     <div class="pt-1">
-      <TournamentStatus />
+      <TournamentStatus
+      :tournamentID="this.TournamentID"/>
     </div>
 
   </div>
@@ -54,6 +55,29 @@
         <span class="pl-2 font-normal text-sm">{{$t("Anchor of this event")}}</span>
       </div>
       <div class="py-3">
+        <LiveList/>
+        <!-- <div>
+          <main class="wrapper">
+            <div class="card-container flex justify-center" style="border: 1px solid red;">
+                <div class="card  py-2 px-1 md:w-1/2 lg: w-1/3 xl:w-1/4" v-for="livedata in liveData" :key="livedata.liveData" style="border: 1px solid gold;">
+                  <div @click="test" class="" >
+                    <img :src="require(`@/assets/tournament/${livedata.image}.png`)" alt="Image" />       
+                  </div>
+                  <div class="bg-white flex items-center" style="border: 1px solid green;">
+                    <div class="pr-1 pl-1 w-10">
+                      <img :src="require(`@/assets/live/${livedata.streamerIcon}.png`)" alt="Image" />
+                    </div>
+                    <div class="flex flex-col pl-1 items-start">
+                      <div class="text-black text-sm font-medium">{{ livedata.liveTitle}}</div>
+                        <div class="font-medium text-grayText" style="font-size: 10px;">{{ livedata.streamerName}}</div>
+                    </div>
+                  </div>
+                
+                </div>
+            </div>
+          </main>
+
+        </div> -->
         <LiveList />
       </div>
 
@@ -79,7 +103,8 @@
   <div class="flex flex-col match_status pb-10 ">
     <h2 class="text-headerFont font-headerWeight ">{{ $t("Line Up") }}</h2>
     <div class="pt-3">
-      <LineUp />
+      <LineUp
+      :tournamentID="this.TournamentID" />
     </div>
 
   </div>
@@ -113,6 +138,8 @@ export default {
         { liveAddress: this.$t("Broadcast address"), addressLink: '/' },
         { liveAddress: this.$t("Broadcast address"), addressLink: '/' },
       ],
+
+      TournamentID: this.$route.query.TournamentID,
     };
   },
 };
