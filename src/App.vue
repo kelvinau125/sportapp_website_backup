@@ -24,7 +24,7 @@ const scrollToTop = () => {
 
   const appElement = document.getElementById('app');
   if (appElement) {
-    appElement.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    appElement.scrollTo({ top: 0,  behavior: 'smooth' });
     console.log(appElement);
   }
 };
@@ -47,9 +47,9 @@ const scrollToTop = () => {
 }
 
 .go-up {
-  position: absolute;
-  bottom: 190px;
-  right: 290px;
+  position:fixed;
+  bottom: 20%;
+  right: 15%;
   cursor: pointer;
 }
 

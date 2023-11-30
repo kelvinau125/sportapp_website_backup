@@ -4,9 +4,18 @@
     <BackgroundImage>
       <div class="live-container">
         <div class="liveStream">
-          <div class="live-window ">
-            <div>直播窗口内容</div>
-          </div>
+          <!-- <div class="live-window"> -->
+            <!-- <div>直播窗口内容</div>
+            <div>Testing</div> -->
+            <video id="my-player" class="video-js vjs-default-skin" controls preload="auto" width="892px" height="505px" poster="https://fictionhorizon.com/wp-content/uploads/2023/09/GojoStar.jpg" >
+
+              <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4"> 
+              <!-- <p class="vjs-no-js"> -->
+                <!-- <a href="https://vjs.zencdn.net/v/oceans.mp4">Testing URL</a> -->
+
+              <!-- </p> -->
+            </video>
+          <!-- </div> -->
         </div>
 
         <div class="flex justify-center">
@@ -96,6 +105,16 @@ const epicMoment = [
   justify-content: center;
   width: 100%;
   flex-direction: column;
+  padding: 10px;
+}
+
+.video-js {
+  border-radius: 8px;
+  width: 892px;
+  height: 505px;
+  color: whitesmoke;
+  background-color: black;
+
 }
 
 .liveStream {
@@ -108,7 +127,7 @@ const epicMoment = [
 .live-window {
   background-color: rgba(255, 255, 255, 0.8);
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 20px;
   width: 892px;
   margin-top: 10px;
   height: 505px;
