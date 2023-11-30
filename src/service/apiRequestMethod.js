@@ -1,8 +1,17 @@
 import axios from 'axios';
 
+// get user cookie / set cookie
+import VueCookies from 'vue-cookies';
+
   const header = {
   "Content-Type": "application/json; charset=utf-8",
   "accept": "application/json"}
+
+  const headerBookmark = {
+    "Content-Type": "application/json; charset=utf-8",
+    "accept": "application/json",
+    "token": VueCookies.get('userToken')
+  }
 
   export async function postRequest(url, body) {
     try {
@@ -25,6 +34,60 @@ import axios from 'axios';
   export async function getRequest(url) {
     try {
       const response = await axios.get(url);
+  
+      console.log(response);
+  
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        throw new Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      throw new Error(`Exception: ${error}`);
+    }
+  }
+
+  export async function getRequestSaveBookmark(url) {
+    try {
+      const response = await axios.get(url, {
+        headers: headerBookmark,
+      });
+  
+      console.log(response);
+  
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        throw new Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      throw new Error(`Exception: ${error}`);
+    }
+  }
+
+  export async function postRequestSaveBookmark(url, body) {
+    try {
+      const response = await axios.post(url, body, {
+        headers: headerBookmark,
+      });
+  
+      console.log(response);
+  
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        throw new Error(`Error: ${response.status}`);
+      }
+    } catch (error) {
+      throw new Error(`Exception: ${error}`);
+    }
+  }
+
+  export async function deleteRequestSaveBookmark(url) {
+    try {
+      const response = await axios.delete(url, {
+        headers: headerBookmark,
+      });
   
       console.log(response);
   

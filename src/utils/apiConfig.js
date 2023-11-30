@@ -209,40 +209,51 @@ export const getFootballMatchLineUpENurl =
 
 //---------------------------------------------------------------------------------------------------------------------//
 
-//Live Stream Collection
+ //Live Stream Collection
+ export const liveStreamCollectionBaseUrlFootball =
+ '/api/v1/collections/football';
+
+export const liveStreamCollectionBaseUrlBasketball =
+ '/api/v1/collections/basketball';
+
 export const liveStreamCollectionBaseUrl = '/api/v1/collections';
 
 export const getAllStreamCollectionList = '/list';
 
-export const getFootballMatch = '/football/{matchId}';
-
-export const getBasketballMatch = '/basketball/{matchId}';
+export const getMatch = '/{matchId}';
 
 export const deleteCollectionByMatchId = '/{matchId}';
 
 export const createCollection = '/';
 
-export const getAllStreamCollectionListUrl =
-    liveStreamCollectionBaseUrl +
-        getAllStreamCollectionList; //get all stream collection list
+export const getAllStreamCollectionListFootballUrl =
+ liveStreamCollectionBaseUrlFootball +
+     getAllStreamCollectionList; //get football all stream collection list
+
+export const getAllStreamCollectionListBasketballUrl =
+ liveStreamCollectionBaseUrlBasketball +
+     getAllStreamCollectionList; //get all basketball collection list
 
 export const getFootballMatchUrl =
-    liveStreamCollectionBaseUrl + getFootballMatch; //get football match
+ liveStreamCollectionBaseUrlFootball + getMatch; //get football match
 
 export const getBasketballMatchUrl =
-    liveStreamCollectionBaseUrl + getBasketballMatch; //get basketball match
+ liveStreamCollectionBaseUrlBasketball + getMatch; //get basketball match
 
 export const deleteCollectionByMatchIdUrl =
-    liveStreamCollectionBaseUrl +
-        deleteCollectionByMatchId; //delete collection by id
+ liveStreamCollectionBaseUrl +
+     deleteCollectionByMatchId; //delete collection by id
 
 export const createCollectionUrl =
-    liveStreamCollectionBaseUrl + createCollection; //create collection
+ liveStreamCollectionBaseUrl + createCollection; //create collection
 
 //Live Stream Collection (English)-------------------------------------------------------------------------------------//
 export const liveStreamCollectionBaseEngUrl = '/api/v1/en/collections';
 
-export const getAllStreamCollectionEngList = '/list';
+export const getAllStreamCollectionEngListFootball = '/football/list';
+
+export const getAllStreamCollectionEngListBasketball =
+ '/basketball/list';
 
 export const getFootballEngMatch = '/football/{matchId}';
 
@@ -253,22 +264,26 @@ export const deleteCollectionEngByMatchId = '/{matchId}';
 export const createCollectionEng = '/';
 
 export const createCollectionEngUrl = liveStreamCollectionBaseEngUrl +
-    createCollectionEng; //create collection English ver
+ createCollectionEng; //create collection English ver
 
-export const getAllStreamCollectionListEngUrl =
-    liveStreamCollectionBaseEngUrl +
-        getAllStreamCollectionEngList; //get all stream collection list English ver
+export const getAllStreamCollectionListEngUrlFootball =
+ liveStreamCollectionBaseEngUrl +
+     getAllStreamCollectionEngListFootball; //get all football stream collection list English ver
+
+export const getAllStreamCollectionListEngUrlBasketball =
+ liveStreamCollectionBaseEngUrl +
+     getAllStreamCollectionEngListBasketball; //get all basketball stream collection list English ver
 
 export const getFootballMatchEngUrl = liveStreamCollectionBaseEngUrl +
-    getFootballEngMatch; //get football match English ver
+ getFootballEngMatch; //get football match English ver
 
 export const getBasketballMatchEngUrl =
-    liveStreamCollectionBaseEngUrl +
-        getBasketballEngMatch; //get basketball match English ver
+ liveStreamCollectionBaseEngUrl +
+     getBasketballEngMatch; //get basketball match English ver
 
 export const deleteCollectionEngByMatchIdUrl =
-    liveStreamCollectionBaseEngUrl +
-        deleteCollectionEngByMatchId; //delete collection English ver by id
+ liveStreamCollectionBaseEngUrl +
+     deleteCollectionEngByMatchId; //delete collection English ver by id
 
 //Live Stream Message
 export const liveStreamMessageBaseUrl = '/api/v1/messages';

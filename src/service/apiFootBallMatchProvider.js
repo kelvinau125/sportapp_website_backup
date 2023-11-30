@@ -14,7 +14,7 @@ import {
     searchFootballMatchTodayENurl,
     } from '@/utils/apiConfig.js';
   
-  // get user cookie / set cookie
+// get user cookie / set cookie
 //   import VueCookies from 'vue-cookies';
 //   import { setCookie, setNicknameCookie, setImageCookie } from '@/service/cookie';
 

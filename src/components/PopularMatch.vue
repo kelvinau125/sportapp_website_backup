@@ -13,10 +13,16 @@
           <div class="text-xs font-normal pt-0.5">
             {{ match.time }}
           </div>
-          <div class="pr-2" @click.stop="toUnfavourite(match)">
-            <img v-if="match.favourite" src="@/assets/content/Favourite.png" />
+          
+          <!-- <div class="pr-2" @click.stop="toUnfavourite(match)">
+            <img v-if="!match.favourite" src="@/assets/content/Favourite.png" />
             <img v-else src="@/assets/content/Unfavourite.png" alt="Favourite" />
-          </div>
+          </div> -->
+
+          <button @click.stop="toggleFavorite(match, match.linkAddress)" :class="{fav: match.favorite}" >
+              <img v-if="!match.favorite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
+              <img v-else src="@/assets/content/Favourite.png" alt="Favourite" />
+            </button>
 
         </div>
         <!-- 热门赛程 Contents -->
@@ -72,6 +78,7 @@ import { format } from 'date-fns';
 
 import { getMatchTodaybyCompName } from '@/service/apiFootBallMatchProvider.js';
 import { getMatchByDate } from '@/service/apiFootBallMatchProvider.js';
+import { liveStreamSaveBookmark, deleteStreamSaveBookmark } from '@/service/apiBookmarkProvider.js';
 
 export default {
   data() {
@@ -138,8 +145,14 @@ export default {
   },
 
   methods: {
-    toUnfavourite(matchDetails) {
-      matchDetails.favourite = !matchDetails.favourite;
+    async toggleFavorite(match, matchID) {
+      match.favorite= !match.favorite;
+
+      if (match.favorite) {
+        await liveStreamSaveBookmark(matchID, 0, this.isCN);
+      } else {
+        await deleteStreamSaveBookmark(matchID, this.isCN);
+      }
     },
 
     async fetchMatchDetailsForLeagues(leagues) {

@@ -22,7 +22,7 @@
       <div class="schedule_detail">
         <div class="schedule_detail_box">
           <ul v-for="match in matchDetails" :key="match.matchDetails">
-            <li @click="toAllMatchPage" class="max-w-full h-52 bg-white">
+            <li @click="toAllMatchPage(match.linkAddress)" class="max-w-full h-52 bg-white">
               <div class="conten_box">
                 <div class="flex justify-between">
                   <div class="flex items-center">
@@ -34,8 +34,8 @@
                     </div>
                   </div>
                   <div>
-                    <button @click.stop="toggleFavorite(match)" :class="{fav: match.favorite}" >
-                      <img v-if="match.favorite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
+                    <button @click.stop="toggleFavorite(match, match.linkAddress)" :class="{fav: match.favorite}" >
+                      <img v-if="!match.favorite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
                       <img v-else src="@/assets/content/Favourite.png" alt="Favourite" />
                     </button>
 
@@ -101,6 +101,7 @@ import { addDays, startOfWeek, format, isToday } from 'date-fns';
 import { ref } from 'vue'
 
 import { getMatchByDate } from '@/service/apiFootBallMatchProvider.js';
+import { getLiveStreamBookmark, liveStreamSaveBookmark, deleteStreamSaveBookmark } from '@/service/apiBookmarkProvider.js';
 
 export default {
   components:{
@@ -112,7 +113,7 @@ export default {
     // const isCN = ((this.$i18n.locale === 'ZH')?true :false)
     this.isCN = false;
 
-    this.generateMatchDetailsList(format(this.currentDate, 'yyyyMMdd'));
+    this.getFavoriteFromBookmark();
   },
 
   data() {
@@ -123,6 +124,7 @@ export default {
       daysToShow: ref(7),
       selectedDate: ref(null),
 
+      favoriteList: [],
       matchdate: "",
       getfootballMatchList: [],
       matchDetails: [],
@@ -146,13 +148,19 @@ export default {
 
   },
   methods: {
-    toggleFavorite(match) {
+    async toggleFavorite(match, matchID) {
       match.favorite= !match.favorite;
+
+      if (match.favorite) {
+        await liveStreamSaveBookmark(matchID, 0, this.isCN);
+      } else {
+        await deleteStreamSaveBookmark(matchID, this.isCN);
+      }
     },
-    toAllMatchPage() {
-      // Navigating
+    toAllMatchPage(linkAddress) {
       // Push to the Live Page
-      this.$router.push({ name: 'TournamentDetails' });
+      const routeData = this.$router.resolve({name: 'TournamentDetails', query: {TournamentID: linkAddress}});
+      window.open(routeData.href, '_blank');
     },
     formatDay(date) {
       return format(date, 'MM/dd');
@@ -174,9 +182,14 @@ export default {
     
     async generateMatchDetailsList(matchdate) {
       this.matchDetails = [];
-
       this.getfootballMatchList = await getMatchByDate(matchdate, this.isCN);
+
       for (let i = 0; i < this.getfootballMatchList.length; i++) {
+
+        const matchId = this.getfootballMatchList[i]["id"];
+        // Check if the match ID is in the list of favorite IDs
+        const isFavorite = this.favoriteList.includes(matchId);
+
         this.matchDetails.push({
           matchType: this.getfootballMatchList[i]["competitionName"],
           date: this.getfootballMatchList[i]["matchDate"],
@@ -188,10 +201,18 @@ export default {
           awayTeamIcon: this.getfootballMatchList[i]["awayTeamLogo"],
           awayTeamScore: this.getfootballMatchList[i]["awayTeamScore"],
           overTime: "null",
-          favorite: false,
+          favorite: isFavorite,
           statusStr: this.getfootballMatchList[i]["statusStr"],
+          linkAddress: this.getfootballMatchList[i]["id"],
         });
       }
+    },
+
+    async getFavoriteFromBookmark() {
+      this.getfootballMatchList = await getLiveStreamBookmark(this.isCN);
+
+      this.favoriteList = this.getfootballMatchList.map(item => item.id);
+      this.generateMatchDetailsList(format(this.currentDate, 'yyyyMMdd'));
     },
   },
 };
