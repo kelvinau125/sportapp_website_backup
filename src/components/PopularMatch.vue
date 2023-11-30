@@ -31,8 +31,12 @@
             </div>
           </div>
           <div class=" w-16 flex flex-col justify-start items-center py-2 ">
-            <div class="font-medium text-sm pt-1 flex items-center justify-center"
+            <div v-show="isCN" class="font-medium text-sm pt-1 flex items-center justify-center"
               :class="{ 'statusStartBorder': match.status === '开', 'statusEndBorder': match.status === '终' }">{{
+                match.status }}</div>
+                
+            <div v-show="!isCN" class="font-medium text-sm pt-1 flex items-center justify-center"
+              :class="{ 'statusStartBorder': match.status === ('Started'||'Start'), 'statusEndBorder': match.status === match.status }">{{
                 match.status }}</div>
             <span class="pt-2 text-base font-semibold">VS</span>
           </div>
@@ -73,6 +77,7 @@ export default {
   data() {
     return{
       currentDate: ref(new Date()),
+      isCN: Boolean,
     }
   },
   
@@ -106,7 +111,9 @@ export default {
   },
 
   mounted() {
-  // this.generateMatchDetailsListByCompName("Premier League");
+  // ------------------------------------------------------------------- Translation Part ------------------------------------------ Remember Change It ----------------------------
+  // const isCN = ((this.$i18n.locale === 'ZH')?true :false)
+  this.isCN = false;
 
   const leaguesToFetch = [
     "Premier League",
@@ -117,16 +124,16 @@ export default {
     "La Liga",
   ];
 
-  // const leaguesToFetch = [
-  //   "英超",
-  //   "欧冠",
-  //   "意甲",
-  //   "德甲",
-  //   "法甲",
-  //   "西甲",
-  // ];
+  const CNleaguesToFetch = [
+    "英超",
+    "欧冠",
+    "意甲",
+    "德甲",
+    "法甲",
+    "西甲",
+  ];
 
-  this.fetchMatchDetailsForLeagues(leaguesToFetch);
+  this.fetchMatchDetailsForLeagues((this.isCN) ?CNleaguesToFetch :leaguesToFetch);
 
   },
 
@@ -135,34 +142,12 @@ export default {
       matchDetails.favourite = !matchDetails.favourite;
     },
 
-    // async generateMatchDetailsListByCompName(name) {
-    //   this.matchDetails = [];
-
-    //   this.getfootballMatchList = await getMatchTodaybyCompName(name, false);
-
-    //   for (let i = 0; i < this.getfootballMatchList.length; i++) {
-    //     this.matchDetails.push({
-    //       matchType: this.getfootballMatchList[i]["competitionName"],
-    //       date: this.getfootballMatchList[i]["matchDate"],
-    //       time: this.getfootballMatchList[i]["matchTimeStr"],
-    //       homeTeamName: this.getfootballMatchList[i]["homeTeamName"],
-    //       homeTeamIcon: this.getfootballMatchList[i]["homeTeamLogo"],
-    //       homeTeamScore: this.getfootballMatchList[i]["homeTeamScore"],
-    //       awayTeamName: this.getfootballMatchList[i]["awayTeamName"],
-    //       awayTeamIcon: this.getfootballMatchList[i]["awayTeamLogo"],
-    //       awayTeamScore: this.getfootballMatchList[i]["awayTeamScore"],
-    //       overTime: "null",
-    //       favorite: false,
-    //       statusStr: this.getfootballMatchList[i]["statusStr"],
-    //     });
-    //   }
-    // },
     async fetchMatchDetailsForLeagues(leagues) {
     this.matchDetails = [];
 
     for (let i = 0; i < leagues.length; i++) {
       const leagueName = leagues[i];
-      const matches = await getMatchTodaybyCompName(leagueName, false);
+      const matches = await getMatchTodaybyCompName(leagueName, this.isCN);
 
       if (matches.length > 0) {
         for (let j = 0; j < Math.min(1, matches.length); j++) {
@@ -180,15 +165,15 @@ export default {
             overTime: "null",
             favourite: false,
             linkAddress:  match["id"],
-            // statusStr: match["statusStr"],
-            status: "开",
+            status: match["statusStr"],
+            // status: "开",
           });
         }
       }
     }
 
     if (this.matchDetails.length <= 4) {
-      this.getfootballMatchList = await getMatchByDate(format(this.currentDate, 'yyyyMMdd'), false);
+      this.getfootballMatchList = await getMatchByDate(format(this.currentDate, 'yyyyMMdd'), this.isCN);
 
       console.log(this.getfootballMatchList)
 
@@ -207,7 +192,7 @@ export default {
             overTime: "null",
             favourite: false,
             linkAddress: this.getfootballMatchList[i]["id"],
-            statusStr: this.getfootballMatchList[i]["statusStr"],
+            status: this.getfootballMatchList[i]["statusStr"],
             // status: "开",
           });
         }

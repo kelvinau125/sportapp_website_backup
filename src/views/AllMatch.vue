@@ -108,11 +108,17 @@ export default {
   },
 
   async mounted() {
+     // ------------------------------------------------------------------- Translation Part ------------------------------------------ Remember Change It ----------------------------
+    // const isCN = ((this.$i18n.locale === 'ZH')?true :false)
+    this.isCN = false;
+
     this.generateMatchDetailsList(format(this.currentDate, 'yyyyMMdd'));
   },
 
   data() {
     return {
+      isCN: Boolean,
+
       currentDate: ref(new Date()),
       daysToShow: ref(7),
       selectedDate: ref(null),
@@ -169,7 +175,7 @@ export default {
     async generateMatchDetailsList(matchdate) {
       this.matchDetails = [];
 
-      this.getfootballMatchList = await getMatchByDate(matchdate, false);
+      this.getfootballMatchList = await getMatchByDate(matchdate, this.isCN);
       for (let i = 0; i < this.getfootballMatchList.length; i++) {
         this.matchDetails.push({
           matchType: this.getfootballMatchList[i]["competitionName"],
