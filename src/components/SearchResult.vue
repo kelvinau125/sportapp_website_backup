@@ -14,11 +14,11 @@
     <div class="flex justify-center pt-8">
       <div class="searchContainer flex">
         <input class="searchInput pl-4 w-full h-full text-xs font-normal text-grayText" v-model="searchQuery"
-          @keyup.enter="search" type="text" placeholder="搜索赛事/球队" maxlength="20" />
+          @keyup.enter="search" type="text" :placeholder="$t('Search event/team')" maxlength="20" />
 
         <div class="searchButton w-full h-full flex justify-center items-center pl-1">
           <img src="@/assets/topNav/search.png" alt="Search Icon" class="" />
-          <span class="text-white font-normal text-xs pb-0.5 pr-2">搜索</span>
+          <span class="text-white font-normal text-xs pb-0.5 pr-2">{{$t("Search")}}</span>
         </div>
 
       </div>

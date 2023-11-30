@@ -75,5 +75,7 @@
     "Attack":"进攻",
     "Shoot":"射门",
     "Score":"射正",
-    "Penalty":"点球"
+    "Penalty":"点球",
+
+    "Search":"搜索"
 }
