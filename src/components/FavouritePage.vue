@@ -8,8 +8,8 @@
             <img src="@/assets/toLeft.png" alt="Previous Week" class="" />
           </button>
         </div>
-        <div @click="selectDate(day)" v-for="day in week" :key="day" class="date-item hover:bg-hoverGreen px-0.5 rounded-lg"
-          style="width: 119px; height: 35px;">
+        <div @click="selectDate(day)" v-for="day in week" :key="day"
+          class="date-item hover:bg-hoverGreen px-0.5 rounded-lg" style="width: 119px; height: 35px;">
           <div class="flex flex-col items-center rounded-lg">
             <div class="font-medium text-sm">{{ formatDay(day) }}</div>
             <div class="day-of-week font-medium text-xs text-grayText">{{ $t(formatDayOfWeek(day)) }}</div>
@@ -47,22 +47,22 @@
               )" class="max-w-full h-52 bg-white">
               <div class="conten_box">
                 <div class="flex justify-between">
-                  <div class="flex items-center">
-                    <div class="pr-2">
-                      <img src="@/assets/favourite/icon.png" />
+                  <div class="flex items-center justify-start w-[350px]">
+                    <div class="w-6 h-6">
+                      <img src="@/assets/favourite/footIcon.png" />
                     </div>
-                    <div class="border flex justify-center">
-                      <span class="text-xs font-medium" style="color: #666666;">欧冠</span>
+                    <div class="px-3 flex justify-center ml-2 MatchTypeBorder">
+                      <span class="text-xs font-medium" style="color: #666666;">{{match.matchType}}</span>
                     </div>
                   </div>
-                  <div @click.stop="toUnfavourite(match, match.linkAddress)">
-                    <img v-if="!match.favorite" src="@/assets/content/Favourite.png" />
-                    <img v-else src="@/assets/content/Unfavourite.png" alt="Favourite" />
-                  </div>
+                  <button @click.stop="toUnfavourite(match, match.linkAddress)">
+                      <img v-if="match.favourite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
+                      <img v-else src="@/assets/content/Favourite.png" alt="Favourite" />
+                  </button>
                 </div>
 
-                <div class="flex justify-between">
-                  <div class="flex items-end">
+                <div class="flex justify-start">
+                  <div class="flex items-end pr-5">
                     <div class="pr-2 font-medium text-xs text-grayText ">
                       <span>{{ match.date }}</span>
                     </div>
@@ -70,37 +70,34 @@
                       <span>{{ match.time }}</span>
                     </div>
                   </div>
-                  <div class="flex">
-                    <div class="flex items-center">
-                      <div class="pr-3">
-                        <span class="text-lg font-semibold">{{ match.homeTeamName }}</span>
+                  <div class="flex" style="width: 570px; ">
+                    <div class="flex justify-end items-center w-full">
+                      <div class="">
+                        <span class="text-lg font-semibold pr-2">{{ match.homeTeamName }}</span>
                       </div>
                       <div>
-                        <img :src= match.homeTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
+                        <img :src=match.homeTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
                       </div>
                     </div>
-                    <div class="flex flex-col px-5 items-center">
-                      <div class="font-semibold text-2xl px-2">
+                    <div class="flex flex-col  items-center  w-1/3">
+                      <div class="font-semibold text-2xl">
                         <span>{{ match.homeTeamScore }}</span>
                         <span class="px-2">-</span>
                         <span>{{ match.awayTeamScore }}</span>
                       </div>
-                      <div class="font-medium text-xs" style="color: #999999;">
-                        <span>{{ "(" + match.overTime + ")" }}</span>
-                      </div>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center justify-start w-full">
                       <div>
-                        <img :src= match.awayTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
+                        <img :src=match.awayTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
                       </div>
                       <div class="pl-3">
                         <span class="text-lg font-semibold">{{ match.awayTeamName }}</span>
                       </div>
                     </div>
                   </div>
-                  <div class="pt-2 statusBorder">
+                  <div class="pt-2 pl-24 ">
                     <!-- <img src="@/assets/favourite/ended.png" /> -->
-                    <p>{{ match.statusStr }}</p>
+                    <p :class="{'bg-transparent': match.statusStr === ' ' , 'statusBorder': match.statusStr !==''}">{{ match.statusStr }}</p>
                   </div>
                 </div>
               </div>
@@ -126,8 +123,8 @@ export default {
     BackgroundImage
   },
   async mounted() {
-     // ------------------------------------------------------------------- Translation Part ------------------------------------------ Remember Change It ----------------------------
-     this.isCN = ((this.$i18n.locale === 'ZH')?true :false)
+    // ------------------------------------------------------------------- Translation Part ------------------------------------------ Remember Change It ----------------------------
+    this.isCN = ((this.$i18n.locale === 'ZH') ? true : false)
     // this.isCN = false;
 
     // this.generateMatchDetailsList(format(this.currentDate, 'yyyyMMdd')); 
@@ -142,7 +139,7 @@ export default {
       daysToShow: ref(7),
       selectedDate: ref(null),
 
-      matchDetails:[],
+      matchDetails: [],
       // matchDetails: [
       //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite:true },
       //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite:true },
@@ -196,10 +193,10 @@ export default {
       }});
       window.open(routeData.href, '_blank');
     },
-    async toUnfavourite(match, matchID){
-      match.favourite= !match.favourite;
+    async toUnfavourite(match, matchID) {
+      match.favourite = !match.favourite;
 
-      if (match.favorite) {
+      if (!match.favourite) {
         await liveStreamSaveBookmark(matchID, 0, this.isCN);
       } else {
         await deleteStreamSaveBookmark(matchID, this.isCN);
@@ -211,8 +208,8 @@ export default {
       this.getfootballMatchList = await getLiveStreamBookmark(this.isCN);
 
       for (let i = 0; i < this.getfootballMatchList.length; i++) {
-        if((this.getfootballMatchList[i]["matchDate"]).replace(/-/g, '') === matchdate || matchdate === "showall"){
-        // if(matchdate){
+        if ((this.getfootballMatchList[i]["matchDate"]).replace(/-/g, '') === matchdate || matchdate === "showall") {
+          // if(matchdate){
           this.matchDetails.push({
             matchType: this.getfootballMatchList[i]["competitionName"],
             date: this.getfootballMatchList[i]["matchDate"],
@@ -238,12 +235,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.tournamentList {
-  width: 50%;
-  max-width: 960px;
-
-
+.MatchTypeBorder {
+  background-color: #F5F5F5;
+  border: 1px solid rgba(156, 163, 175, 0.5);
+  border-radius: 49px;
 }
+
 
 .schedule_list {
   width: 50%;
@@ -280,10 +277,12 @@ export default {
   border-radius: 49px;
 }
 
-.statusBorder{
+.statusBorder {
   background-color: #EEEDF4;
   border-radius: 8px;
-  
+  width: auto;
+  padding: 8px;
+
 }
 
 .schedule_list .schedule_detail .schedule_detail_box>ul {
