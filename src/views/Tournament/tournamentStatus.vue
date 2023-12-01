@@ -164,45 +164,49 @@
       // --------------------------- call the tournment api --------------------------------------
       console.log(this.tournamentID);
 
-      this.getTournamentDetails = await getFootballMatchbyId(1187648, false);
+      this.getTournamentDetails = await getFootballMatchbyId(this.tournamentID, (this.$i18n.locale === 'ZH')?true :false);
+
+      // this.getTournamentDetails = await getFootballMatchbyId(1187648, false);
       // this.getTournamentDetails = await getFootballMatchbyId(1187648, ((this.$i18n.locale === 'ZH')?true :false));
       console.log(this.getTournamentDetails)
 
-      //homePossessionRate (控球率), awayPossessionRate (控球率)
-      this.homePossessionRate = parseInt(this.getTournamentDetails['homePossessionRate']);
-      this.awayPossessionRate = parseInt(this.getTournamentDetails['awayPossessionRate']);
+      if (this.getTournamentDetails !== null && this.getTournamentDetails !== " ") {
+        //homePossessionRate (控球率), awayPossessionRate (控球率)
+        this.homePossessionRate = parseInt(this.getTournamentDetails['homePossessionRate']);
+        this.awayPossessionRate = parseInt(this.getTournamentDetails['awayPossessionRate']);
 
-      //homeCornerKickNum (角球)，awayCornerKickNum(角球)
-      this.homeCornerKickNum = this.getTournamentDetails['homeCornerKickNum'];
-      this.awayCornerKickNum = this.getTournamentDetails['awayCornerKickNum'];
-      
-      //homeRedCardNum (红卡), awayRedCardNum(红卡)
-      this.homeRedCardNum = this.getTournamentDetails['homeRedCardNum'];
-      this.awayRedCardNum = this.getTournamentDetails['awayRedCardNum'];
-      
-      //homeYellowCardNum（黄卡), awayYellowCardNum(黄卡)
-      this.homeYellowCardNum = this.getTournamentDetails['homeYellowCardNum'];
-      this.awayYellowCardNum = this.getTournamentDetails['awayYellowCardNum'];
+        //homeCornerKickNum (角球)，awayCornerKickNum(角球)
+        this.homeCornerKickNum = this.getTournamentDetails['homeCornerKickNum'];
+        this.awayCornerKickNum = this.getTournamentDetails['awayCornerKickNum'];
+        
+        //homeRedCardNum (红卡), awayRedCardNum(红卡)
+        this.homeRedCardNum = this.getTournamentDetails['homeRedCardNum'];
+        this.awayRedCardNum = this.getTournamentDetails['awayRedCardNum'];
+        
+        //homeYellowCardNum（黄卡), awayYellowCardNum(黄卡)
+        this.homeYellowCardNum = this.getTournamentDetails['homeYellowCardNum'];
+        this.awayYellowCardNum = this.getTournamentDetails['awayYellowCardNum'];
 
-      //Home Attack Number (进攻)， Away Attack Number (进攻)
-      this.homeAttackNum = this.getTournamentDetails['homeAttackNum'];
-      this.awayAttackNum = this.getTournamentDetails['awayAttackNum'];
+        //Home Attack Number (进攻)， Away Attack Number (进攻)
+        this.homeAttackNum = this.getTournamentDetails['homeAttackNum'];
+        this.awayAttackNum = this.getTournamentDetails['awayAttackNum'];
 
-      //homeAttackDangerNum (危险进攻), awayAttackDangerNum (危险进攻)
-      this.homeAttackDangerNum = this.getTournamentDetails['homeAttackDangerNum'];
-      this.awayAttackDangerNum = this.getTournamentDetails['awayAttackDangerNum'];
+        //homeAttackDangerNum (危险进攻), awayAttackDangerNum (危险进攻)
+        this.homeAttackDangerNum = this.getTournamentDetails['homeAttackDangerNum'];
+        this.awayAttackDangerNum = this.getTournamentDetails['awayAttackDangerNum'];
 
-      //homePenaltyNum (点球)，awayPenaltyNum(点球)
-      this.homePenaltyNum = this.getTournamentDetails['homePenaltyNum'];
-      this.awayPenaltyNum = this.getTournamentDetails['awayPenaltyNum'];
+        //homePenaltyNum (点球)，awayPenaltyNum(点球)
+        this.homePenaltyNum = this.getTournamentDetails['homePenaltyNum'];
+        this.awayPenaltyNum = this.getTournamentDetails['awayPenaltyNum'];
 
-      //homeShootGoalNum (射正), homeBiasNum (射偏) 
-      this.homeShootGoalNum = this.getTournamentDetails['homeShootGoalNum'];
-      this.homeBiasNum = this.getTournamentDetails['homeBiasNum'];
+        //homeShootGoalNum (射正), homeBiasNum (射偏) 
+        this.homeShootGoalNum = this.getTournamentDetails['homeShootGoalNum'];
+        this.homeBiasNum = this.getTournamentDetails['homeBiasNum'];
 
-       //awayShootGoalNum(射正)， awayBiasNum(射偏)
-      this.awayShootGoalNum = this.getTournamentDetails['awayShootGoalNum'];
-      this.awayBiasNum = this.getTournamentDetails['awayBiasNum'];
+        //awayShootGoalNum(射正)， awayBiasNum(射偏)
+        this.awayShootGoalNum = this.getTournamentDetails['awayShootGoalNum'];
+        this.awayBiasNum = this.getTournamentDetails['awayBiasNum'];
+      }
     },
 
     data() {

@@ -49,7 +49,8 @@
     <h2 class="text-headerFont font-headerWeight">{{ $t("Tournament Status") }}</h2>
     <div class="pt-1">
       <TournamentStatus
-      :tournamentID="this.TournamentID"/>
+      :tournamentID="this.TournamentID"
+      :homeFormation="homeFormation"/>
     </div>
 
   </div>

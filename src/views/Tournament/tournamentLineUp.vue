@@ -177,6 +177,7 @@
 
 
 <script>
+// import { getFootballLineup, getFootballMatchbyId } from '@/service/apiFootBallMatchProvider.js';
 import { getFootballLineup } from '@/service/apiFootBallMatchProvider.js';
 
 export default {
@@ -188,75 +189,88 @@ export default {
 
   async mounted() {
     this.isCN = false;
-    this.getTournamentLineup = await getFootballLineup(1253806, false);
-    // this.getTournamentLineup = await getFootballLineup(5, true);
+    // this.getTournamentLineup = await getFootballLineup(this.tournamentID, (this.$i18n.locale === 'ZH')?true :false);
+
+    // this.getTournamentDetails = await getFootballMatchbyId(this.tournamentID, (this.$i18n.locale === 'ZH')?true :false);
+
+    // this.getTournamentLineup = await getFootballLineup(1253806, false);
+    this.homeTeamFormation = "4-2-3-1";
+    this.awayTeamFormation = "4-3-3"
+
+    this.getTournamentLineup = await getFootballLineup(5, true);
 
     console.log(this.getTournamentLineup)
 
-    this.homeMatchLineUpList = this.getTournamentLineup['homeMatchLineUpList'];
-    this.awayMatchLineList = this.getTournamentLineup['awayMatchLineList'];
+    if (this.getTournamentLineup !== null) {
+      // this.homeTeamFormation = this.getTournamentLineup['homeFormation'].length || "0";
+      // this.awayTeamFormation = this.getTournamentLineup['awayFormation'].length || "0";
 
-    this.generateLists();
-    if (this.homeMatchLineUpList !== null) {
-      let lineupList = [...this.homeMatchLineUpList];
+      this.homeMatchLineUpList = this.getTournamentLineup['homeMatchLineUpList'];
+      this.awayMatchLineList = this.getTournamentLineup['awayMatchLineList'];
 
-      this.processPlayerPosition(lineupList, this.F_list, this.F_captain, this.F_shirtNumber, this.F_playerName);
-      this.processPlayerPosition(lineupList, this.M_list, this.M_captain, this.M_shirtNumber, this.M_playerName);
-      this.processPlayerPosition(lineupList, this.G_list, this.G_captain, this.G_shirtNumber, this.G_playerName);
-      this.processPlayerPosition(lineupList, this.D_list, this.D_captain, this.D_shirtNumber, this.D_playerName);
-      this.processPlayerPosition(lineupList, this.S_list, this.S_captain, this.S_shirtNumber, this.S_playerName);
-    }
+      this.generateLists();
+      if (this.homeMatchLineUpList !== null) {
+        let lineupList = [...this.homeMatchLineUpList];
 
-    if (this.awayMatchLineList !== null) {
-      let lineupList = [...this.awayMatchLineList];
-
-      this.processPlayerPosition(lineupList, this.AF_list, this.AF_captain, this.AF_shirtNumber, this.AF_playerName);
-      this.processPlayerPosition(lineupList, this.AM_list, this.AM_captain, this.AM_shirtNumber, this.AM_playerName);
-      this.processPlayerPosition(lineupList, this.AG_list, this.AG_captain, this.AG_shirtNumber, this.AG_playerName);
-      this.processPlayerPosition(lineupList, this.AD_list, this.AD_captain, this.AD_shirtNumber, this.AD_playerName);
-      this.processPlayerPosition(lineupList, this.AS_list, this.AS_captain, this.AS_shirtNumber, this.AS_playerName);
-    }
-
-
-    const populateHomePlayer = (position, positionArray, shirtNo, playerName, captain) => {
-      for (let i = 0; i < positionArray.length; i++) {
-        this.homePlayer.push({
-          id: this.homePlayer.length + 1,
-          playerName: playerName[i],
-          image: 'defaultProfile',
-          position: position,
-          shirtNo: shirtNo[i],
-          captain: captain[i],
-          first: positionArray[i].first,
-        });
+        this.processPlayerPosition(lineupList, this.F_list, this.F_captain, this.F_shirtNumber, this.F_playerName);
+        this.processPlayerPosition(lineupList, this.M_list, this.M_captain, this.M_shirtNumber, this.M_playerName);
+        this.processPlayerPosition(lineupList, this.G_list, this.G_captain, this.G_shirtNumber, this.G_playerName);
+        this.processPlayerPosition(lineupList, this.D_list, this.D_captain, this.D_shirtNumber, this.D_playerName);
+        this.processPlayerPosition(lineupList, this.S_list, this.S_captain, this.S_shirtNumber, this.S_playerName);
       }
-    };
 
-    const ApopulateHomePlayer = (position, positionArray, shirtNo, playerName, captain) => {
-      for (let i = 0; i < positionArray.length; i++) {
-        this.awayPlayer.push({
-          id: this.awayPlayer.length + 1,
-          playerName: playerName[i],
-          image: 'defaultProfile',
-          position: position,
-          shirtNo: shirtNo[i],
-          captain: captain[i],
-          first: positionArray[i].first,
-        });
+      if (this.awayMatchLineList !== null) {
+        let lineupList = [...this.awayMatchLineList];
+
+        this.processPlayerPosition(lineupList, this.AF_list, this.AF_captain, this.AF_shirtNumber, this.AF_playerName);
+        this.processPlayerPosition(lineupList, this.AM_list, this.AM_captain, this.AM_shirtNumber, this.AM_playerName);
+        this.processPlayerPosition(lineupList, this.AG_list, this.AG_captain, this.AG_shirtNumber, this.AG_playerName);
+        this.processPlayerPosition(lineupList, this.AD_list, this.AD_captain, this.AD_shirtNumber, this.AD_playerName);
+        this.processPlayerPosition(lineupList, this.AS_list, this.AS_captain, this.AS_shirtNumber, this.AS_playerName);
       }
-    };
 
-    populateHomePlayer('F', this.F_list, this.F_shirtNumber, this.F_playerName, this.F_captain);
-    populateHomePlayer('M', this.M_list, this.M_shirtNumber, this.M_playerName, this.M_captain);
-    populateHomePlayer('G', this.G_list, this.G_shirtNumber, this.G_playerName, this.G_captain);
-    populateHomePlayer('D', this.D_list, this.D_shirtNumber, this.D_playerName, this.D_captain);
-    populateHomePlayer('S', this.S_list, this.S_shirtNumber, this.S_playerName, this.S_captain);
 
-    ApopulateHomePlayer('F', this.AF_list, this.AF_shirtNumber, this.AF_playerName, this.AF_captain);
-    ApopulateHomePlayer('M', this.AM_list, this.AM_shirtNumber, this.AM_playerName, this.AM_captain);
-    ApopulateHomePlayer('G', this.AG_list, this.AG_shirtNumber, this.AG_playerName, this.AG_captain);
-    ApopulateHomePlayer('D', this.AD_list, this.AD_shirtNumber, this.AD_playerName, this.AD_captain);
-    ApopulateHomePlayer('S', this.AS_list, this.AS_shirtNumber, this.AS_playerName, this.AS_captain);
+      const populateHomePlayer = (position, positionArray, shirtNo, playerName, captain) => {
+        for (let i = 0; i < positionArray.length; i++) {
+          this.homePlayer.push({
+            id: this.homePlayer.length + 1,
+            playerName: playerName[i],
+            image: 'defaultProfile',
+            position: position,
+            shirtNo: shirtNo[i],
+            captain: captain[i],
+            first: positionArray[i].first,
+          });
+        }
+      };
+
+      const ApopulateHomePlayer = (position, positionArray, shirtNo, playerName, captain) => {
+        for (let i = 0; i < positionArray.length; i++) {
+          this.awayPlayer.push({
+            id: this.awayPlayer.length + 1,
+            playerName: playerName[i],
+            image: 'defaultProfile',
+            position: position,
+            shirtNo: shirtNo[i],
+            captain: captain[i],
+            first: positionArray[i].first,
+          });
+        }
+      };
+
+      populateHomePlayer('F', this.F_list, this.F_shirtNumber, this.F_playerName, this.F_captain);
+      populateHomePlayer('M', this.M_list, this.M_shirtNumber, this.M_playerName, this.M_captain);
+      populateHomePlayer('G', this.G_list, this.G_shirtNumber, this.G_playerName, this.G_captain);
+      populateHomePlayer('D', this.D_list, this.D_shirtNumber, this.D_playerName, this.D_captain);
+      populateHomePlayer('S', this.S_list, this.S_shirtNumber, this.S_playerName, this.S_captain);
+
+      ApopulateHomePlayer('F', this.AF_list, this.AF_shirtNumber, this.AF_playerName, this.AF_captain);
+      ApopulateHomePlayer('M', this.AM_list, this.AM_shirtNumber, this.AM_playerName, this.AM_captain);
+      ApopulateHomePlayer('G', this.AG_list, this.AG_shirtNumber, this.AG_playerName, this.AG_captain);
+      ApopulateHomePlayer('D', this.AD_list, this.AD_shirtNumber, this.AD_playerName, this.AD_captain);
+      ApopulateHomePlayer('S', this.AS_list, this.AS_shirtNumber, this.AS_playerName, this.AS_captain);
+
+    }
 
   },
 
@@ -271,7 +285,7 @@ export default {
       G_list: [],
       D_list: [],
       S_list: [],
-      homeTeamFormation: "4-2-3-1",
+      homeTeamFormation: "",
 
       homeMatchLineUpList: [],
 
@@ -304,7 +318,7 @@ export default {
       AG_list: [],
       AD_list: [],
       AS_list: [],
-      awayTeamFormation: "4-3-3",
+      awayTeamFormation: "",
 
       awayMatchLineList: [],
 
@@ -458,35 +472,52 @@ export default {
 
   computed: {
     filteredHomePlayers() {
-      if (this.isCN) {
-        return (position) => this.homeMatchLineUpList.filter(player => player.position === position && player.first === 1);
-      } else {
-        return (position) => this.homePlayer.filter(player => player.position === position);
+      if (this.homeMatchLineUpList !== null && this.homeMatchLineUpList !== " ") {
+        if (this.isCN) {
+          return (position) => this.homeMatchLineUpList.filter(player => player.position === position && player.first === 1);
+        } else {
+          return (position) => this.homePlayer.filter(player => player.position === position);
 
+        }
+      } else{
+        return null;
       }
     },
     filteredAwayPlayers() {
-      if (this.isCN) {
-        return (position) => this.awayMatchLineList.filter(player => player.position === position && player.first === 1);
-      } else {
-        return (position) => this.awayPlayer.filter(player => player.position === position);
+      if (this.homeMatchLineUpList !== null && this.homeMatchLineUpList !== " ") {
+        if (this.isCN) {
+          return (position) => this.awayMatchLineList.filter(player => player.position === position && player.first === 1);
+        } else {
+          return (position) => this.awayPlayer.filter(player => player.position === position);
 
+        }
+      } else{
+        return null;
       }
     },
     hasHomeSPlayers() {
-      if (this.isCN) {
-        return this.homeMatchLineUpList.some(player => player.position === 'S');
+      if (this.homeMatchLineUpList !== null && this.homeMatchLineUpList !== " ") {
+        if (this.isCN) {
+          return this.homeMatchLineUpList.some(player => player.position === 'S');
 
-      } else {
-        return this.homePlayer.some(player => player.position === 'S');
+        } else {
+          return this.homePlayer.some(player => player.position === 'S');
+        }
+      } else{
+        return null;
       }
     },
     hasAwaySPlayers() {
-      if (this.isCN) {
-        return this.awayMatchLineList.some(player => player.position === 'S');
-      } else {
-        return this.awayPlayer.some(player => player.position === 'S');
+      if (this.homeMatchLineUpList !== null && this.homeMatchLineUpList !== " ") {
+        if (this.isCN) {
+          return this.awayMatchLineList.some(player => player.position === 'S');
+        } else {
+          return this.awayPlayer.some(player => player.position === 'S');
 
+        }
+      }
+      else{
+        return null;
       }
     },
 
