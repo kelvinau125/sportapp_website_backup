@@ -1,6 +1,13 @@
 <template>
   <BackgroundImage>
     <div class="schedule_list">
+      <div style="color: bisque; width: 892px; height: 45px; background-color: rgb(255, 247, 238); border-radius: 10px;">
+        <carousel-slider>
+      </carousel-slider>
+      </div>
+    </div>
+
+    <div class="schedule_list">
       <div class="flex justify-between my-6 py-1.5 date-slider" style="width: 892px; height: 46px;">
         <div class=" flex justify-center"
           style="height: 32px; width: 17px; background-color: #808F7E; border-radius: 8px;">
@@ -107,10 +114,12 @@ import { ref } from 'vue'
 
 import { getMatchByDate } from '@/service/apiFootBallMatchProvider.js';
 import { getLiveStreamBookmark, liveStreamSaveBookmark, deleteStreamSaveBookmark } from '@/service/apiBookmarkProvider.js';
+import CarouselSlider from './CarouselSlider.vue';
 
 export default {
   components: {
-    BackgroundImage
+    BackgroundImage,
+    CarouselSlider
   },
 
   async mounted() {
@@ -128,6 +137,7 @@ export default {
       currentDate: ref(new Date()),
       daysToShow: ref(7),
       selectedDate: ref(null),
+      
 
       favoriteList: [],
       matchdate: "",
@@ -166,6 +176,7 @@ export default {
       // Push to the Live Page
       const routeData = this.$router.resolve({name: 'TournamentDetails', query: {TournamentID: linkAddress}});
       window.open(routeData.href, '_blank');
+      console.log("check:" + this.formatDay);
     },
     formatDay(date) {
       return format(date, 'MM/dd');

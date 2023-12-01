@@ -7,6 +7,7 @@ import AllMatch from '@/views/AllMatch.vue'
 import TournamentDetails from '@/views/Tournament/TournamentDetails.vue'
 import NotFound from '@/components/NotFound.vue'
 import ResultPage from '@/components/SearchResult.vue'
+import CarouselSlider from '@/views/CarouselSlider.vue'
 
 const routes = [
 
@@ -71,6 +72,11 @@ const routes = [
     component: ResultPage,
     props: true,
   },
+  {
+    path: '/carousel',
+    name: "CarouselSlider",
+    component: CarouselSlider,
+  }
 
 ]
 

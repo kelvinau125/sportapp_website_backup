@@ -39,7 +39,7 @@
                 </div>
                 <div>
                     <ButtonPress class="w-full bg-white pl-6 pr-6" style="width: 100%; height: 60px;">
-                    <p class="text-base font-normal" style="color: #333333;">{{ $t("ContactUs") }}</p>
+                    <p class="text-base font-normal" style="color: #333333;">{{ $t("Contact Us") }}</p>
                     </ButtonPress>
         
                 </div>

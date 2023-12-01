@@ -8,7 +8,7 @@
         <!-- edit user nickname -->
         <form @submit.prevent="">
 
-            <h2 class="text-xl font-bold" style="padding: 20px"> {{ $t("Change Nickname") }} </h2>
+            <h2 class="text-xl font-bold" style="padding: 20px"> {{ $t("Update Nickname") }} </h2>
 
             <div class="form-group flex">
                 <input :placeholder="$t('Please Enter Username')"  type="text" id="nickname"  v-model="nickName" required />
