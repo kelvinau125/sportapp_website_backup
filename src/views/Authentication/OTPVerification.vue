@@ -318,6 +318,7 @@
         },
 
         closeOTPModalBtn() {
+            window.location.reload();
             this.closeOTPModal();
         }
     },

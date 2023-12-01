@@ -4,9 +4,9 @@
             <div class="w-1/2">
                 <div class="flex items-center h-8 bg-white">
                     <div class="">
-                        <img src="@/assets/favourite/icon_.png" />
+                        <img class="h-[18px] w-[18px]" :src= homeTeamLogo />
                     </div>
-                    <div class="font-normal text-xs pl-2" style="color: #666666;">{{ "球队A名称" }}</div>
+                    <div class="font-normal text-xs pl-2" style="color: #666666;">{{ homeTeamName }}</div>
                 </div>
 
                 <div v-for="(homeSub, index) in filteredHomeSubPlayers(0)" :key="homeSub.homeTeamSubstitute"
@@ -17,7 +17,7 @@
                             <p class="text-white text-sm font-normal"> {{ homeSub.shirtNumber }}</p>
                         </div>
                     </div>
-                    <div class="flex flex-col justify-center items-start pl-2  ">
+                    <div class="flex flex-col justify-center items-start pl-2">
                         <div class="font-normal text-xs" style="color: #333333;">{{ homeSub.playerName }}</div>
                         <div class="font-normal text-10px" style=" color: #666666;">{{ homeSub.position }}</div>
                     </div>
@@ -25,8 +25,8 @@
             </div>
             <div class="w-1/2">
                 <div class="flex items-center h-8 bg-white">
-                    <img src="@/assets/favourite/icon_.png" />
-                    <div class="font-normal text-xs pl-2" style="color: #666666;">{{ "球队A名称" }}</div>
+                    <img class="h-[18px] w-[18px]" :src= awayTeamLogo />
+                    <div class="font-normal text-xs pl-2" style="color: #666666;">{{ awayTeamName }}</div>
                 </div>
                 <div v-for="(awaySub, index) in filteredAwaySubPlayers(0)" :key="awaySub.awayTeamSubstitute"
                     :class="{'oddRowColor': index % 2 === 0, 'bg-white': index % 2 !== 0 }" class="flex justify-start items-center h-10">
@@ -49,6 +49,13 @@
 import { getFootballLineup } from '@/service/apiFootBallMatchProvider.js';
 
 export default {
+    props: {
+        homeTeamName: String,
+        awayTeamName: String,
+        homeTeamLogo: String,
+        awayTeamLogo: String,
+    },
+
     data() {
         return {
             homeTeamSubstitute: [],
@@ -63,6 +70,8 @@ export default {
     methods: {
         async getResult() {
             this.getTournamentLineup = await getFootballLineup(5, true);
+            // this.getTournamentLineup = await getFootballLineup(1253806, false);
+
             // console.log("HALLO" + this.getTournamentLineup)
 
             this.homeTeamSubstitute = this.getTournamentLineup['homeMatchLineUpList'];

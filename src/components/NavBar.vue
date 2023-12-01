@@ -2,9 +2,10 @@
   <div class="bg-navColor  text-white py-1 px-10 shadow md:flex justify-between items-center">
     <div class="flex items-center cursor-pointer">
       <img class="mr-2" alt="App logo" src="@/assets/topNav/appImage.png">
-      <router-link to="/" class="text-xl hover:text-green-500">
-        <span class="md:text-lg text-base font-semibold text-green-500"> {{ $t("PandaSport") }}</span>
-      </router-link>
+
+      <a href="/"> <span class="md:text-lg text-base font-semibold py-10 " style="color: #33BA53; "> {{ $t("PandaSport")
+      }}</span>
+      </a>
 
       <span @click="MenuOpen()" class="relative md:hidden md:pl-0 pl-10 md:right-0 left-44" style="width: 60px;">
         <img v-if="openNav" src="@/assets/topNav/x.png">
@@ -13,10 +14,11 @@
       <div class="">
         <ul :class="openNav ? 'left-0' : 'left-[-100%]'"
           class="md:items-center md:pr-0 pr-4 md:pl-5 pl-72 md:static absolute bg-navColor md:w-auto w-auto md:right-0 md:top-14 top-14 duration-700 ease-in">
-          <li class="nav-button md:inline-flex flex-col ml-4 my-2.5" v-for="link in Links" :key="link.link">
-            <router-link :to="link.link" class="md:text-base text-sm font-normal hover:text-green-500 text-white">{{
-              link.name
-            }}</router-link>
+          <li class=" md:inline-flex flex-col ml-4 my-2.5" v-for="link in Links" :key="link.link">
+            <router-link :to="link.link"
+              class="nav-button md:text-base text-sm font-normal hover:text-gray-200 text-white">{{
+                link.name
+              }}</router-link>
           </li>
         </ul>
       </div>
@@ -33,7 +35,6 @@
         style="border: 1px; background-color: black; border-radius: 10px; padding: 10px; ">TEst</button></div>
 
     <div class="md:flex items-center">
-
       <div class="md:flex relative">
         <div @click="search" class="md:block hidden">
           <img src="@/assets/topNav/search.png" alt="Search Icon" class="absolute left-0.5 w-6 h-6 m-2" />
@@ -65,7 +66,10 @@
         <div @click="toggleDropdownProfile">
           <!-- <img class="md:static absolute md:right-0 right-7 md:top-0 top-2" :src="avatar"
             alt="Profile Picture" /> -->
-          <img :src="avatar"
+          <img v-if="!loggedIn" src="@/assets/avatar_default.jpg"
+            class="md:static absolute md:right-0 right-7 md:top-0 top-2 rounded-full border-2 border-white"
+            style="width: 40px; height: 40px; object-fit: cover;" />
+          <img v-if="loggedIn" :src="avatar"
             class="md:static absolute md:right-0 right-7 md:top-0 top-2 rounded-full border-2 border-white"
             style="width: 40px; height: 40px; object-fit: cover;" />
           <div v-show="showDropdown"
@@ -318,8 +322,12 @@ export default {
 }
 
 .nav-button {
-  width: 60px;
-  height: 30px;
+  width: auto;
+  height: auto;
+  padding-left: 13px;
+  padding-right: 13px;
+  padding-top: 3px;
+  padding-bottom: 3px;
   background-color: #4C6B94;
   border-radius: 6px;
   justify-content: center;
@@ -395,7 +403,7 @@ a {
 }
 
 a.router-link-exact-active {
-  color: #42b983;
-  /* color: white; */
+  /* color: #42b983; */
+  background-color: #33BA53;
 }
 </style>

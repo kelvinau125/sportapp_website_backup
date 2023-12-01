@@ -7,29 +7,35 @@
         <div class="tournament_window">
           <div class="content_s">
             <div class="flex flex-col items-center">
-              <span class="font-semibold text-lg text-white">欧冠</span>
+              <span class="font-semibold text-lg text-white">{{ this.competitionName }}</span>
               <div class="flex flex-col items-center pt-2">
-                <span style="color: #F8FEE4;" class="font-normal text-xs text-white">2023-08-03 17:30</span>
-                <span style="color: #F8FEE4;" class="font-normal text-xs ">已开赛</span>
+                <span style="color: #F8FEE4;" class="font-normal text-xs text-white">{{ this.matchDate + " " + this.matchTimeStr}}</span>
+                <span style="color: #F8FEE4;" class="font-normal text-xs ">{{ this.statusStr }}</span>
               </div>
             </div>
           </div>
           <div class="flex tournament_icon">
             <div class="" style="margin-right: 80px;">
               <div class="flex flex-col items-center">
-                <img class="pb-3" src="@/assets/tournament/moneyBadge.png" />
-                <p class="text-white">球队名字</p>
+                <img class="pb-3" :src="this.homeTeamLogo" style="
+                    height: 46px;
+                    width: 46px;
+                "/>
+                <p class="text-white">{{ this.homeTeamName }}</p>
               </div>
             </div>
             <div class="text-white flex w-24 justify-between pt-10">
-              <span class="text-3xl font-semibold">0</span>
+              <span class="text-3xl font-semibold">{{ this.homeTeamScore }}</span>
               <span class="text-3xl font-semibold">-</span>
-              <span class="text-3xl font-semibold">5</span>
+              <span class="text-3xl font-semibold">{{ this.awayTeamScore }}</span>
             </div>
             <div class="" style="margin-left: 80px;">
               <div class="flex flex-col items-center">
-                <img class="pb-3" src="@/assets/tournament/badge_.png" />
-                <p class="text-white">球队名字</p>
+                <img class="pb-3" :src="this.awayTeamLogo" style="
+                    height: 46px;
+                    width: 46px;
+                "/>
+                <p class="text-white">{{ this.awayTeamName }}</p>
               </div>
             </div>
 
@@ -81,14 +87,20 @@
     <h2 class="text-headerFont font-headerWeight ">{{ $t("Line Up") }}</h2>
     <div class="pt-3">
       <LineUp
-      :tournamentID="this.TournamentID" />
+      :tournamentID="this.TournamentID"
+      :homeTeamLogo="this.homeTeamLogo" 
+      :awayTeamLogo="this.awayTeamLogo"/>
     </div>
 
   </div>
   <div class="flex flex-col match_status pb-10">
     <h2 class="text-headerFont font-headerWeight ">{{$t("Substitute")}}</h2>
     <div class="pt-3">
-      <TournamentSubstitue />
+      <TournamentSubstitue
+      :homeTeamName="this.homeTeamName" 
+      :awayTeamName="this.awayTeamName" 
+      :homeTeamLogo="this.homeTeamLogo" 
+      :awayTeamLogo="this.awayTeamLogo"  />
 
     </div>
   </div>
@@ -117,6 +129,17 @@ export default {
       ],
 
       TournamentID: this.$route.query.TournamentID,
+      competitionName: this.$route.query.competitionName,
+      matchDate: this.$route.query.matchDate,
+      matchTimeStr: this.$route.query.matchTimeStr,
+      statusStr: this.$route.query.statusStr,
+      homeTeamName: this.$route.query.homeTeamName,
+      homeTeamScore: this.$route.query.homeTeamScore,
+      homeTeamLogo: this.$route.query.homeTeamLogo,
+      awayTeamName: this.$route.query.awayTeamName,
+      awayTeamScore: this.$route.query.awayTeamScore,
+      awayTeamLogo: this.$route.query.awayTeamLogo,
+
     };
   },
 };

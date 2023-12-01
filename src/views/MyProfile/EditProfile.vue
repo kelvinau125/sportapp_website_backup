@@ -82,7 +82,12 @@
             
             if (result === true) {
                 // show modal
-                this.gobackmypage()
+                // this.gobackmypage()
+
+                // Set a flag in local storage to show the edit profile modal after refreshing
+                localStorage.setItem('gobackmypage', 'true');
+                window.location.reload();
+
             } else if (result === false) {
                 this.warningMessage = "Please check your network";
             } else {
@@ -104,7 +109,19 @@
                 this.warningMessage = result;
             }
         }
-    }
+    },
+
+    mounted() {
+        // Check if the flag is set in local storage
+        const gobackmypage = localStorage.getItem('gobackmypage');
+
+        if (gobackmypage === 'true') {
+            // Call the method to show the edit profile modal
+            this.gobackmypage();
+            // Clear the flag from local storage
+            localStorage.removeItem('gobackmypage');
+        }
+    },
 }
 </script>
   

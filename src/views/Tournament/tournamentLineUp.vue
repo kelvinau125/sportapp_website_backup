@@ -13,7 +13,7 @@
               <div class="flex flex-col items-center">
                 <div class="homeKeeperCircle flex justify-center items-center">
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -26,7 +26,7 @@
               <div class="flex flex-col items-center">
                 <div class="homeCircle flex justify-center items-center">
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -39,7 +39,7 @@
               <div class="flex flex-col items-center">
                 <div class="homeCircle flex justify-center items-center">
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -52,17 +52,23 @@
               <div class="flex flex-col items-center">
                 <div class="homeCircle flex justify-center items-center">
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
               </div>
             </div>
-            <div class="absolute bottom-1" style="left: 285px; ">
+            <div class="absolute bottom-0 left-[275px]">
               <div class="flex pb-2">
-                <span class="pl-2.5 pr-1 pt-1.5 text-xs font-normal text-white">{{ filteredHomePlayers('D').length + "-" +
-                  filteredHomePlayers('M').length + "-" + filteredHomePlayers('F').length }}</span>
-                <img class="" style="width: 24px; height: 24px;" src="@/assets/tournament/moneyBadge.png" />
+                <div class="pr-1">
+                  <span v-show="isCN" class="pl-2.5 pr-1 pt-1.5 text-xs font-normal text-white">{{
+                    filteredHomePlayers('D').length + "-" +
+                    filteredHomePlayers('M').length + "-" + filteredHomePlayers('F').length + "-" +
+                    filteredHomePlayers('S').length }}</span>
+                  <span v-show="!isCN" class="pl-2.5 pt-1.5 text-xs font-normal text-white">{{
+                    homeTeamFormation }}</span>
+                </div>
+                <img class="" style="width: 24px; height: 24px;" :src="homeTeamLogo" />
               </div>
             </div>
           </div>
@@ -73,7 +79,7 @@
                 <div class="homeCircle flex justify-center items-center">
                   <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -89,7 +95,7 @@
               <div class="flex flex-col items-center">
                 <div class="awayCircle flex justify-center items-center">
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -102,18 +108,24 @@
                 <div class="awayCircle flex justify-center items-center">
                   <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
               </div>
             </div>
 
-            <div class="absolute bottom-1" style="left: 370px; ">
-              <div class="flex pb-1.5">
-                <img class="" style="width: 24px; height: 24px;" src="@/assets/tournament/badge_.png" />
-                <span class="pl-1.5 pr-2 pt-1 text-xs font-normal text-white">{{ filteredAwayPlayers('D').length + "-" +
-                  filteredAwayPlayers('M').length + "-" + filteredAwayPlayers('F').length }}</span>
+            <div class="absolute bottom-1" style="left: 372px; ">
+              <div class="flex pb-1">
+                <img class="" style="width: 24px; height: 24px;" :src=awayTeamLogo />
+                <div>
+                  <span v-show="isCN" class="pl-1.5 pr-2 pt-1 text-xs font-normal text-white">{{
+                    filteredAwayPlayers('D').length + "-" +
+                    filteredAwayPlayers('M').length + "-" + filteredAwayPlayers('F').length + "-" +
+                    filteredAwayPlayers('S').length }}</span>
+                  <span v-show="!isCN" class="pl-1.5 pr-2 pt-1 text-xs font-normal text-white">{{
+                    awayTeamFormation }}</span>
+                </div>
               </div>
             </div>
 
@@ -124,7 +136,7 @@
                 <div class="awayCircle flex justify-center items-center">
                   <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -137,7 +149,7 @@
                 <div class="awayCircle flex justify-center items-center">
                   <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -150,7 +162,7 @@
                 <div class="awayKeeperCircle flex justify-center items-center">
                   <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN? player.shirtNumber : player.shirtNo }}</p>
+                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -170,6 +182,8 @@ import { getFootballLineup } from '@/service/apiFootBallMatchProvider.js';
 export default {
   props: {
     tournamentID: String,
+    homeTeamLogo: String,
+    awayTeamLogo: String,
   },
 
   async mounted() {
@@ -444,26 +458,36 @@ export default {
 
   computed: {
     filteredHomePlayers() {
-      if(this.isCN){
+      if (this.isCN) {
         return (position) => this.homeMatchLineUpList.filter(player => player.position === position && player.first === 1);
-      }else{
+      } else {
         return (position) => this.homePlayer.filter(player => player.position === position);
 
       }
     },
     filteredAwayPlayers() {
-      if(this.isCN){
+      if (this.isCN) {
         return (position) => this.awayMatchLineList.filter(player => player.position === position && player.first === 1);
-      }else{
+      } else {
         return (position) => this.awayPlayer.filter(player => player.position === position);
 
       }
     },
     hasHomeSPlayers() {
-      return this.homeMatchLineUpList.some(player => player.position === 'S');
+      if (this.isCN) {
+        return this.homeMatchLineUpList.some(player => player.position === 'S');
+
+      } else {
+        return this.homePlayer.some(player => player.position === 'S');
+      }
     },
     hasAwaySPlayers() {
-      return this.awayMatchLineList.some(player => player.position === 'S');
+      if (this.isCN) {
+        return this.awayMatchLineList.some(player => player.position === 'S');
+      } else {
+        return this.awayPlayer.some(player => player.position === 'S');
+
+      }
     },
 
   }

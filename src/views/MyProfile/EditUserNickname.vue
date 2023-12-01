@@ -69,18 +69,37 @@
         const result = await UpdateUserNickname(this.nickName);
 
         if (result === true) {
+            this.nickName= '',
+            this.warningMessage= '',
             this.closeEditNicknameModal();
-            this.showEditProfileModal(); 
+
+            // Set a flag in local storage to show the edit profile modal after refreshing
+            localStorage.setItem('showEditProfileModal', 'true');
+                
+            // Refresh the page
+            window.location.reload();
 
         } else if (result === false) {
             this.warningMessage = "Please check your network";
         } else {
             this.warningMessage = result;
         }
-
         },
     
     },
+
+    mounted() {
+        // Check if the flag is set in local storage
+        const showEditProfileModal = localStorage.getItem('showEditProfileModal');
+
+        if (showEditProfileModal === 'true') {
+            // Call the method to show the edit profile modal
+            this.showEditProfileModal();
+            // Clear the flag from local storage
+            localStorage.removeItem('showEditProfileModal');
+        }
+    },
+
     };
 </script>
         

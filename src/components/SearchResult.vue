@@ -14,12 +14,12 @@
     <div class="flex justify-center pt-8">
       <div class="searchContainer flex">
         <input class="searchInput pl-4 w-full h-full text-xs font-normal text-grayText" v-model="searchQuery"
-          @keyup.enter="search" type="text" :placeholder="$t('Search event/team')" maxlength="20" />
+          @keyup.enter="search" type="text" placeholder="搜索赛事/球队" maxlength="20" />
 
-        <div class="searchButton w-full h-full flex justify-center items-center pl-1">
+        <button @click="search" class="searchButton w-full h-full flex justify-center items-center pl-1">
           <img src="@/assets/topNav/search.png" alt="Search Icon" class="" />
-          <span class="text-white font-normal text-xs pb-0.5 pr-2">{{$t("Search")}}</span>
-        </div>
+          <span class="text-white font-normal text-xs pb-0.5 pr-2">{{ $t("Search") }}</span>
+        </button>
 
       </div>
 
@@ -80,8 +80,9 @@
                       </div>
                     </div>
                   </div>
-                  <div class="pt-2 pl-24">
-                    <img src="@/assets/favourite/ended.png" />
+                  <div class="pt-2 pl-24  ">
+                    <!-- <img src="@/assets/favourite/ended.png" /> -->
+                    <p :class="{'bg-transparent': match.statusStr === ' ' , 'statusBorder': match.statusStr !==''}">{{ match.statusStr }}</p>
                   </div>
                 </div>
               </div>
@@ -114,27 +115,27 @@ export default {
 
     };
   },
-  created() {
-    this.getResult()
-    this.searchQuery = "";
+  mounted() {
+    this.search();
   },
   methods: {
-    async getResult() {
+    // async getResult() {
 
-      this.searchLiveTeamResult = await searchLiveTeamStream(this.searchQuery, this.searchPages)
-      console.log("NEW TEAM RESULT" + this.searchLiveTeamResult);
-      this.searchLiveCompetitionResult = await searchLiveCompetitionStream(this.searchQuery, this.searchPages)
-      console.log("NEW COMP RESULT" + this.searchLiveCompetitionResult);
+    //   this.searchLiveTeamResult = await searchLiveTeamStream(this.searchQuery, this.searchPages)
+    //   this.searchLiveCompetitionResult = await searchLiveCompetitionStream(this.searchQuery, this.searchPages)
+    //   // console.log("NEW TEAM RESULT" + this.searchLiveTeamResult);
+    //   // console.log("NEW COMP RESULT" + this.searchLiveCompetitionResult);
 
-      this.filterSearchResult = [
-        ...this.searchLiveTeamResult.filter(team => !this.searchLiveCompetitionResult.find(comp => comp.id === team.id)),
-        ...this.searchLiveCompetitionResult
-      ];
+    //   //Fillter Both Data By id
+    //   this.filterSearchResult = [
+    //     ...this.searchLiveTeamResult.filter(team => !this.searchLiveCompetitionResult.find(comp => comp.id === team.id)),
+    //     ...this.searchLiveCompetitionResult
+    //   ];
 
-      // this.filterSearchResult = [...this.searchLiveTeamResult, ...this.searchLiveCompetitionResult];
-      // console.log("NEW HALLO" + this.filterSearchResult);
+    //   // this.filterSearchResult = [...this.searchLiveTeamResult, ...this.searchLiveCompetitionResult];
+    //   // console.log("NEW HALLO" + this.filterSearchResult);
 
-    },
+    // },
     async search() {
       const searchPages = "1";
 
@@ -146,9 +147,10 @@ export default {
         this.searchLiveCompetitionResult = await searchLiveCompetitionStream(this.searchQuery, searchPages)
 
         console.log(' ' + this.searchQuery);
-        console.log("THE LIVE TEAM RESULT" + this.searchLiveTeamResult);
-        console.log("THE COMP TEAM RESULT" + this.searchLiveCompetitionResult);
+        // console.log("THE LIVE TEAM RESULT" + this.searchLiveTeamResult);
+        // console.log("THE COMP TEAM RESULT" + this.searchLiveCompetitionResult);
 
+        //Fillter Both Data By id
         this.filterSearchResult = [
           ...this.searchLiveTeamResult.filter(team => !this.searchLiveCompetitionResult.find(comp => comp.id === team.id)),
           ...this.searchLiveCompetitionResult
@@ -214,6 +216,14 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
+}
+
+.statusBorder {
+  background-color: #EEEDF4;
+  border-radius: 8px;
+  width: auto;
+  padding: 8px;
+
 }
 
 .MatchTypeBorder {

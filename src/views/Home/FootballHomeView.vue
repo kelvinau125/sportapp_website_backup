@@ -38,11 +38,11 @@
         <img class="banner mt-5" src="@/assets/main/advertisment.png" alt="Banner" />
       </div>
       <div>
-        <h2 class="text-2xl pr-5 py-5 font-normal">热门赛程</h2>
+        <h2 class="text-2xl pr-5 py-5 font-normal">{{ $t("Popular fixtures") }} </h2>
         <PopularMatch />
       </div>
       <div class="pb-20">
-        <h2 class="text-2xl pr-5 py-5 font-normal">热门主播榜</h2>
+        <h2 class="text-2xl pr-5 py-5 font-normal">{{ $t("Popular anchor list") }}</h2>
         <div class="flex">
           <img style="width: 142px ; height: 116px;" src="@/assets/content/champion.png" />
           <div class="md:mx-4 w-52 flex flex-col items-center py-3" v-for="link in streamer" :key="link.streamer">
