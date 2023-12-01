@@ -17,7 +17,7 @@
                             <p class="text-white text-sm font-normal"> {{ homeSub.shirtNumber }}</p>
                         </div>
                     </div>
-                    <div class="flex flex-col justify-center items-start pl-2  ">
+                    <div class="flex flex-col justify-center items-start pl-2">
                         <div class="font-normal text-xs" style="color: #333333;">{{ homeSub.playerName }}</div>
                         <div class="font-normal text-10px" style=" color: #666666;">{{ homeSub.position }}</div>
                     </div>
@@ -70,6 +70,8 @@ export default {
     methods: {
         async getResult() {
             this.getTournamentLineup = await getFootballLineup(5, true);
+            // this.getTournamentLineup = await getFootballLineup(1253806, false);
+
             // console.log("HALLO" + this.getTournamentLineup)
 
             this.homeTeamSubstitute = this.getTournamentLineup['homeMatchLineUpList'];
