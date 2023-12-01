@@ -63,7 +63,10 @@
         <div @click="toggleDropdownProfile">
           <!-- <img class="md:static absolute md:right-0 right-7 md:top-0 top-2" :src="avatar"
             alt="Profile Picture" /> -->
-          <img :src="avatar"
+          <img v-if="!loggedIn" src="@/assets/avatar_default.jpg"
+            class="md:static absolute md:right-0 right-7 md:top-0 top-2 rounded-full border-2 border-white"
+            style="width: 40px; height: 40px; object-fit: cover;" />
+          <img v-if="loggedIn" :src="avatar"
             class="md:static absolute md:right-0 right-7 md:top-0 top-2 rounded-full border-2 border-white"
             style="width: 40px; height: 40px; object-fit: cover;" />
           <div v-show="showDropdown"
