@@ -17,7 +17,7 @@
           <li class=" md:inline-flex flex-col ml-4 my-2.5" v-for="link in Links" :key="link.link">
             <router-link :to="link.link"
               class="nav-button md:text-base text-sm font-normal hover:text-gray-200 text-white">{{
-                link.name
+                $t(link.name)
               }}</router-link>
           </li>
         </ul>
@@ -31,10 +31,25 @@
         <img src="@/assets/topNav/search.png" />
         <span class="word">搜索</span>
     </div> -->
-    <div style="padding: 10px;"> <button class="button_language " @click="languageChange"
-        style="border: 1px; background-color: black; border-radius: 10px; padding: 10px; ">TEst</button></div>
+    <!-- <div style="padding: 10px;"> 
+      <button class="button_language " @click="languageChange"
+        style="border: 1px; background-color: black; border-radius: 10px; padding: 10px; ">Test
+      </button>
+    </div> -->
+
 
     <div class="md:flex items-center">
+      <div class="dropdown-button language-dropdown">
+        <button class="language-toggle" @click="toggleDropdownLanguage">
+          {{ $i18n.locale }}
+          <span> &#9662;</span>
+        </button>
+        <div v-show="isDropdownOpenLanguage" class="language-options">
+          <button v-for="locale in $i18n.availableLocales" :key="locale" @click="languageChange(locale)">
+            {{ locale }}
+          </button>
+        </div>
+      </div>
       <div class="md:flex relative">
         <div @click="search" class="md:block hidden">
           <img src="@/assets/topNav/search.png" alt="Search Icon" class="absolute left-0.5 w-6 h-6 m-2" />
@@ -149,11 +164,12 @@ export default {
       searchQuery: '',
 
       Links: [
-        { name: this.$t('main'), link: '/' },
-        { name: this.$t('live'), link: '/live' },
-        { name: this.$t('myfavouritelive'), link: '/favourite' },
+        { name: 'Home', link: '/' },
+        { name: 'Live', link: '/live' },
+        { name: 'Favourite', link: '/favourite' },
 
       ],
+
       avatar: ref(''),
       img: ref(require('@/assets/topNav/football.png')),
       isDropdownOpen: ref(false),
@@ -168,6 +184,7 @@ export default {
       isEditProfileModalVisible: ref(false),
       isEditNicknameModalVisible: ref(false),
       openNav: ref(false),
+      isDropdownOpenLanguage: ref(false),
 
     };
   },
@@ -284,10 +301,13 @@ export default {
     closeEditNicknameModal() {
       this.isEditNicknameModalVisible = false;
     },
+    toggleDropdownLanguage() {
+      this.isDropdownOpenLanguage = !this.isDropdownOpenLanguage;
+    },
 
-    languageChange() {
-      const newLocale = this.$i18n.locale === 'EN' ? 'ZH' : 'EN';
-      this.$i18n.locale = newLocale;
+    languageChange(locale) {
+      this.isDropdownOpenLanguage = false;
+      this.$i18n.locale = locale;
     }
   },
   mounted() {
@@ -348,6 +368,30 @@ export default {
   border: none;
   cursor: pointer;
   width: 55px;
+}
+
+.language-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.language-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.language-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+  border: 1px solid rgb(17 24 39 / var(--tw-bg-opacity));
+  border-radius: 4px;
+  padding: 5px;
 }
 
 /* Style the dropdown content (hidden by default) */
