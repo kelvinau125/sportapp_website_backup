@@ -45,7 +45,7 @@
           <span> &#9662;</span>
         </button>
         <div v-show="isDropdownOpenLanguage" class="language-options">
-          <button v-for="locale in $i18n.availableLocales" :key="locale" @click="languageChange(locale)">
+          <button v-for="locale in $i18n.availableLocales" :key="locale" @click="languageChange(locale)" class="languages">
             {{ $t(locale) }}
           </button>
         </div>
@@ -361,7 +361,7 @@ export default {
   border: none;
   cursor: pointer;
   width: 55px;
-  max-width: 100px;
+  max-width: 120px;
 }
 
 /* Style the dropdown trigger button */
@@ -395,6 +395,10 @@ export default {
   border: 1px solid rgb(17 24 39 / var(--tw-bg-opacity));
   border-radius: 4px;
   padding: 5px;
+}
+
+.languages:hover{
+  color: #33BA53;
 }
 
 /* Style the dropdown content (hidden by default) */
