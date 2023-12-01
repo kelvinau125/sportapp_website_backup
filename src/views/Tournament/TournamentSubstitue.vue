@@ -70,6 +70,8 @@ export default {
     methods: {
         async getResult() {
             this.getTournamentLineup = await getFootballLineup(5, true);
+            // this.getTournamentLineup = await getFootballLineup(1253806, false);
+
             // console.log("HALLO" + this.getTournamentLineup)
 
             this.homeTeamSubstitute = this.getTournamentLineup['homeMatchLineUpList'];
