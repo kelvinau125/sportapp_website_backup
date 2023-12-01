@@ -1,6 +1,6 @@
 <template>
   <BackgroundImage>
-    <div >
+    <div class="pt-6">
       <PopularMatch />
 
     </div>
