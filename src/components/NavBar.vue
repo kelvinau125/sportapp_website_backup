@@ -39,14 +39,14 @@
 
 
     <div class="md:flex items-center">
-      <div class="dropdown-button language-dropdown">
+      <div class="dropdown-button language-dropdown" style="width: auto; padding: 10px;">
         <button class="language-toggle" @click="toggleDropdownLanguage">
-          {{ $i18n.locale }}
+          {{ $t($i18n.locale) }}
           <span> &#9662;</span>
         </button>
         <div v-show="isDropdownOpenLanguage" class="language-options">
           <button v-for="locale in $i18n.availableLocales" :key="locale" @click="languageChange(locale)">
-            {{ locale }}
+            {{ $t(locale) }}
           </button>
         </div>
       </div>
@@ -308,6 +308,7 @@ export default {
     languageChange(locale) {
       this.isDropdownOpenLanguage = false;
       this.$i18n.locale = locale;
+      console.log("let me see see: " + locale);
     }
   },
   mounted() {
@@ -360,6 +361,7 @@ export default {
   border: none;
   cursor: pointer;
   width: 55px;
+  max-width: 100px;
 }
 
 /* Style the dropdown trigger button */
@@ -373,6 +375,7 @@ export default {
 .language-dropdown {
   position: relative;
   display: inline-block;
+
 }
 
 .language-toggle {
@@ -432,8 +435,8 @@ export default {
   width: 40px;
 }
 
-.button_language:hover {
-  color: brown;
+.language-toggle:hover {
+  color: green;
 }
 
 .show-dropdown {
