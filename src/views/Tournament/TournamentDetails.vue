@@ -94,7 +94,9 @@
   <div class="flex flex-col match_status pb-10">
     <h2 class="text-headerFont font-headerWeight ">{{$t("Substitute")}}</h2>
     <div class="pt-3">
-      <TournamentSubstitue />
+      <TournamentSubstitue
+      :homeTeamName="this.homeTeamName" 
+      :awayTeamName="this.awayTeamName"  />
 
     </div>
   </div>
