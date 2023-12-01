@@ -74,7 +74,7 @@
                         <span class="text-lg font-semibold pr-2">{{ match.homeTeamName }}</span>
                       </div>
                       <div>
-                        <img :src=match.homeTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
+                        <img :src= match.homeTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
                       </div>
                     </div>
                     <div class="flex flex-col items-center w-1/3">
@@ -86,7 +86,7 @@
                     </div>
                     <div class="flex items-center justify-start w-full">
                       <div>
-                        <img :src=match.awayTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
+                        <img :src= match.awayTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
                       </div>
                       <div class="pl-3">
                         <span class="text-lg font-semibold">{{ match.awayTeamName }}</span>
