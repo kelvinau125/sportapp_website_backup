@@ -6,7 +6,7 @@
                     <div class="">
                         <img src="@/assets/favourite/icon_.png" />
                     </div>
-                    <div class="font-normal text-xs pl-2" style="color: #666666;">{{ "球队A名称" }}</div>
+                    <div class="font-normal text-xs pl-2" style="color: #666666;">{{ homeTeamName }}</div>
                 </div>
 
                 <div v-for="(homeSub, index) in filteredHomeSubPlayers(0)" :key="homeSub.homeTeamSubstitute"
@@ -26,7 +26,7 @@
             <div class="w-1/2">
                 <div class="flex items-center h-8 bg-white">
                     <img src="@/assets/favourite/icon_.png" />
-                    <div class="font-normal text-xs pl-2" style="color: #666666;">{{ "球队A名称" }}</div>
+                    <div class="font-normal text-xs pl-2" style="color: #666666;">{{ awayTeamName }}</div>
                 </div>
                 <div v-for="(awaySub, index) in filteredAwaySubPlayers(0)" :key="awaySub.awayTeamSubstitute"
                     :class="{'oddRowColor': index % 2 === 0, 'bg-white': index % 2 !== 0 }" class="flex justify-start items-center h-10">
@@ -49,6 +49,11 @@
 import { getFootballLineup } from '@/service/apiFootBallMatchProvider.js';
 
 export default {
+    props: {
+        homeTeamName: String,
+        awayTeamName: String,
+    },
+
     data() {
         return {
             homeTeamSubstitute: [],
