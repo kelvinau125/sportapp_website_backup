@@ -69,6 +69,8 @@
         const result = await UpdateUserNickname(this.nickName);
 
         if (result === true) {
+            this.nickName= '',
+            this.warningMessage= '',
             this.closeEditNicknameModal();
             this.showEditProfileModal(); 
 
