@@ -43,7 +43,7 @@
           <div class="flex flex-col justify-center items-center pb-3 w-full">
             <div class="text-base font-semibold "> {{ match.homeTeamScore }}</div>
             <div class="pt-2">
-              <img src="@/assets/content/moneyBadge.png" />
+              <img class="" style="width: 24px; height: 24px;" :src=" match.homeTeamIcon" />
             </div>
             <div class="pt-2">
               <span class="flex text-center text-xs font-normal text-grayText">{{ match.homeTeamName }}</span>
@@ -62,7 +62,7 @@
           <div class="flex flex-col justify-center items-center w-full pb-3">
             <div class="text-base font-semibold">{{ match.awayTeamScore }}</div>
             <div class="pt-2">
-              <img src="@/assets/content/Badge.png" />
+              <img class="" style="width: 24px; height: 24px;" :src=" match.awayTeamIcon" />
             </div>
             <div class="w-20 pt-2 overflow-hidden text-xs font-normal text-grayText"> {{ match.awayTeamName }}</div>
 
@@ -183,7 +183,7 @@ export default {
     async fetchMatchDetailsForLeagues(leagues) {
     this.matchDetails = [];
 
-    for (let i = 0; i < leagues.length; i++) {
+    for (let i = 0; i < 4; i++) {
       const leagueName = leagues[i];
       const matches = await getMatchTodaybyCompName(leagueName, this.isCN);
 
