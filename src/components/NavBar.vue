@@ -2,9 +2,10 @@
   <div class="bg-navColor  text-white py-1 px-10 shadow md:flex justify-between items-center">
     <div class="flex items-center cursor-pointer">
       <img class="mr-2" alt="App logo" src="@/assets/topNav/appImage.png">
-      <router-link to="/" class="text-xl hover:text-green-500">
-        <span class="md:text-lg text-base font-semibold text-green-500"> {{ $t("PandaSport") }}</span>
-      </router-link>
+
+      <a href="/"> <span class="md:text-lg text-base font-semibold py-10 " style="color: #33BA53; "> {{ $t("PandaSport")
+      }}</span>
+      </a>
 
       <span @click="MenuOpen()" class="relative md:hidden md:pl-0 pl-10 md:right-0 left-44" style="width: 60px;">
         <img v-if="openNav" src="@/assets/topNav/x.png">
@@ -13,32 +14,23 @@
       <div class="">
         <ul :class="openNav ? 'left-0' : 'left-[-100%]'"
           class="md:items-center md:pr-0 pr-4 md:pl-5 pl-72 md:static absolute bg-navColor md:w-auto w-auto md:right-0 md:top-14 top-14 duration-700 ease-in">
-          <li class="nav-button md:inline-flex flex-col ml-4 my-2.5" v-for="link in Links" :key="link.link">
-            <router-link :to="link.link" class="md:text-base text-sm font-normal hover:text-green-500 text-white">{{
-              link.name
-            }}</router-link>
+          <li class=" md:inline-flex flex-col ml-4 my-2.5" v-for="link in Links" :key="link.link">
+            <router-link :to="link.link"
+              class="nav-button md:text-base text-sm font-normal hover:text-gray-200 text-white">{{
+                link.name
+              }}</router-link>
           </li>
         </ul>
       </div>
     </div>
-    <!-- <div class="searchInputBox">
-      <div class="searchLeftBox">
-        <input v-model="searchQuery" @keyup.enter="search" type="text" placeholder="搜索主播/比赛/房间名" maxlength="20" />
-      </div>
-      <div class="searchIconBox bg-green-500" @click="search">
-        <img src="@/assets/topNav/search.png" />
-        <span class="word">搜索</span>
-      </div>
-    </div> -->
-
     <div class="md:flex items-center">
-
       <div class="md:flex relative">
         <div @click="search" class="md:block hidden">
           <img src="@/assets/topNav/search.png" alt="Search Icon" class="absolute left-0.5 w-6 h-6 m-2" />
         </div>
         <div class="md:block hidden">
-          <input v-model="searchQuery" @keyup.enter="search" type="text" :placeholder="$t('Search event/team')" maxlength="20"
+          <input v-model="searchQuery" @keyup.enter="search" type="text" :placeholder="$t('Search event/team')"
+            maxlength="20"
             class="pl-10 md:w-72 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-10 text-white bg-slate-50" />
         </div>
         <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between">
@@ -74,7 +66,7 @@
             <div class="pr-1 pt-1 pb-2 flex flex-col">
               <!-- <button to="/register" class="px-1 hover:text-green-500 text-white">注册</button>
               <button to="/login" class="px-1 hover:text-green-500 text-white">登入</button> -->
-              <button v-if="!loggedIn" class="px-1"  @click="showRegisterModal">{{ $t("Register") }}</button>
+              <button v-if="!loggedIn" class="px-1" @click="showRegisterModal">{{ $t("Register") }}</button>
               <button v-if="!loggedIn" class="px-1" @click="showLoginModal">{{ $t("Login") }}</button>
               <button v-if="loggedIn" class="px-1" @click="showMyPageModal">{{ $t("MyPage") }}</button>
               <button v-if="loggedIn" @click="logout" class="block text-white">{{ $t("Logout") }}</button>
@@ -313,8 +305,12 @@ export default {
 }
 
 .nav-button {
-  width: 60px;
-  height: 30px;
+  width: auto;
+  height: auto;
+  padding-left: 13px;
+  padding-right: 13px;
+  padding-top: 3px;
+  padding-bottom: 3px;
   background-color: #4C6B94;
   border-radius: 6px;
   justify-content: center;
@@ -386,7 +382,7 @@ a {
 }
 
 a.router-link-exact-active {
-  color: #42b983;
-  /* color: white; */
+  /* color: #42b983; */
+  background-color: #33BA53;
 }
 </style>
