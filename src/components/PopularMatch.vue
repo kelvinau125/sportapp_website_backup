@@ -16,10 +16,11 @@
         match.awayTeamIcon
       )" class="border cursor-pointer" style="width: 204px; height: 136px; border-radius: 8px;">
         <!-- 热门赛程 Header -->
-          <div class="py-1.5 flex justify-start items-center rounded-t-lg" style="background-color: #D6F1DD; height: 30px;">
+        <div class="py-1.5 flex justify-start items-center rounded-t-lg" style="background-color: #D6F1DD; height: 30px;">
           <div class="headerContainer pl-2.5 overflow-clip ">
             <div class="headerBorder text-xs font-medium flex justify-center text-start pl-1.5 pt-0.5">
-              <span class="whitespace-nowrap overflow-hidden text-ellipsis" style="color: #666666;">{{ match.matchType }}</span>
+              <span class="whitespace-nowrap overflow-hidden text-ellipsis" style="color: #666666;">{{ match.matchType
+              }}</span>
             </div>
           </div>
           <div class="text-xs font- w-[35px] pl-2">
@@ -44,16 +45,18 @@
               <span class="flex text-center text-xs font-normal text-grayText">{{ match.homeTeamName }}</span>
             </div>
           </div>
-          <div style="border: 1px solid red" class=" w-16 flex flex-col justify-start items-center py-2 ">
-            <div v-show="isCN" class="font-medium text-sm pt-1 flex items-center justify-center"
-              :class="{ 'statusStartBorder': match.status === '开', 'statusEndBorder': match.status === '终'}">{{
+          <div class=" w-16 flex relative flex-col justify-start items-center py-2 ">
+            <div v-show="isCN" class="h-1/2 absolute font-medium text-sm pt-1 flex items-center justify-center"
+              :class="{ 'statusStartBorder': match.status === '开', 'statusEndBorder': match.status === '终' }">{{
                 match.status }}</div>
 
-            <div v-show="!isCN" style="" class=" font-medium text-sm pt-1 flex items-center justify-center"
+            <div v-show="!isCN"  class="h-1/2 absolute font-medium text-sm pt-1 flex items-center justify-center"
               :class="{ 'statusStartBorder': match.status === ('Started' || 'Start'), 'statusEndBorder': match.status === match.status && match.status !== '' }">
               {{
                 match.status }}</div>
-            <span class="pt-2 text-base font-semibold">VS</span>
+            <div class="h-1/2 mt-8" >
+              <span class="pt-2 text-base font-semibold">VS</span>
+            </div>
           </div>
           <div class="flex flex-col justify-center items-center w-full pb-3">
             <div class="text-base font-semibold">{{ match.awayTeamScore }}</div>
