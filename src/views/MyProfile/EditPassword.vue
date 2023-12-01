@@ -3,7 +3,7 @@
         <div class="modal-content">
     
         <!-- close button -->
-        <CloseButton @click="closeEditPasswordModal"> </CloseButton>
+        <CloseButton @click="closeEditPasswordModalBtn"> </CloseButton>
 
         <!-- done reset password -->
         <h2 v-show="isChangePasswordSuccess" class="text-xl font-bold" style="padding: 20px">{{ $t("Password changed successfully") }}</h2>
@@ -214,10 +214,32 @@
             this.isChangePasswordSuccess = false;
             removeCookie();
             this.closeEditPasswordModal();
-            this.showLoginModal();
+            // this.showLoginModal();
+
+            // Set a flag in local storage to show the edit profile modal after refreshing
+            localStorage.setItem('showLoginModal', 'true');
+            window.location.reload();
         },
+
+        closeEditPasswordModalBtn() {
+            this.closeEditPasswordModal();
+            window.location.reload();
+        }
     
     },
+
+    mounted() {
+        // Check if the flag is set in local storage
+        const showLoginModal = localStorage.getItem('showLoginModal');
+
+        if (showLoginModal === 'true') {
+            // Call the method to show the edit profile modal
+            this.showLoginModal();
+            // Clear the flag from local storage
+            localStorage.removeItem('showLoginModal');
+        }
+    },
+
     };
 </script>
         

@@ -8,7 +8,7 @@
         <!-- edit user nickname -->
         <form @submit.prevent="">
 
-            <h2 class="text-xl font-bold" style="padding: 20px"> {{ $t("Change Nickname") }} </h2>
+            <h2 class="text-xl font-bold" style="padding: 20px"> {{ $t("Edit Nickname") }} </h2>
 
             <div class="form-group flex">
                 <input :placeholder="$t('Please Enter Username')"  type="text" id="nickname"  v-model="nickName" required />
@@ -72,17 +72,34 @@
             this.nickName= '',
             this.warningMessage= '',
             this.closeEditNicknameModal();
-            this.showEditProfileModal(); 
+
+            // Set a flag in local storage to show the edit profile modal after refreshing
+            localStorage.setItem('showEditProfileModal', 'true');
+                
+            // Refresh the page
+            window.location.reload();
 
         } else if (result === false) {
             this.warningMessage = "Please check your network";
         } else {
             this.warningMessage = result;
         }
-
         },
     
     },
+
+    mounted() {
+        // Check if the flag is set in local storage
+        const showEditProfileModal = localStorage.getItem('showEditProfileModal');
+
+        if (showEditProfileModal === 'true') {
+            // Call the method to show the edit profile modal
+            this.showEditProfileModal();
+            // Clear the flag from local storage
+            localStorage.removeItem('showEditProfileModal');
+        }
+    },
+
     };
 </script>
         
