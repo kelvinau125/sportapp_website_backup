@@ -4,7 +4,7 @@
             <div class="w-1/2">
                 <div class="flex items-center h-8 bg-white">
                     <div class="">
-                        <img src="@/assets/favourite/icon_.png" />
+                        <img class="h-[18px] w-[18px]" :src= homeTeamLogo />
                     </div>
                     <div class="font-normal text-xs pl-2" style="color: #666666;">{{ homeTeamName }}</div>
                 </div>
@@ -25,7 +25,7 @@
             </div>
             <div class="w-1/2">
                 <div class="flex items-center h-8 bg-white">
-                    <img src="@/assets/favourite/icon_.png" />
+                    <img class="h-[18px] w-[18px]" :src= awayTeamLogo />
                     <div class="font-normal text-xs pl-2" style="color: #666666;">{{ awayTeamName }}</div>
                 </div>
                 <div v-for="(awaySub, index) in filteredAwaySubPlayers(0)" :key="awaySub.awayTeamSubstitute"
@@ -52,6 +52,8 @@ export default {
     props: {
         homeTeamName: String,
         awayTeamName: String,
+        homeTeamLogo: String,
+        awayTeamLogo: String,
     },
 
     data() {

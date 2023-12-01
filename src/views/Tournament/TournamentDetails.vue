@@ -87,7 +87,9 @@
     <h2 class="text-headerFont font-headerWeight ">{{ $t("Line Up") }}</h2>
     <div class="pt-3">
       <LineUp
-      :tournamentID="this.TournamentID" />
+      :tournamentID="this.TournamentID"
+      :homeTeamLogo="this.homeTeamLogo" 
+      :awayTeamLogo="this.awayTeamLogo"/>
     </div>
 
   </div>
@@ -96,7 +98,9 @@
     <div class="pt-3">
       <TournamentSubstitue
       :homeTeamName="this.homeTeamName" 
-      :awayTeamName="this.awayTeamName"  />
+      :awayTeamName="this.awayTeamName" 
+      :homeTeamLogo="this.homeTeamLogo" 
+      :awayTeamLogo="this.awayTeamLogo"  />
 
     </div>
   </div>

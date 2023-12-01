@@ -62,7 +62,7 @@
               <div class="flex pb-2">
                 <span class="pl-2.5 pr-1 pt-1.5 text-xs font-normal text-white">{{ filteredHomePlayers('D').length + "-" +
                   filteredHomePlayers('M').length + "-" + filteredHomePlayers('F').length }}</span>
-                <img class="" style="width: 24px; height: 24px;" src="@/assets/tournament/moneyBadge.png" />
+                <img class="" style="width: 24px; height: 24px;" :src=" homeTeamLogo" />
               </div>
             </div>
           </div>
@@ -111,7 +111,7 @@
 
             <div class="absolute bottom-1" style="left: 370px; ">
               <div class="flex pb-1.5">
-                <img class="" style="width: 24px; height: 24px;" src="@/assets/tournament/badge_.png" />
+                <img class="" style="width: 24px; height: 24px;" :src= awayTeamLogo />
                 <span class="pl-1.5 pr-2 pt-1 text-xs font-normal text-white">{{ filteredAwayPlayers('D').length + "-" +
                   filteredAwayPlayers('M').length + "-" + filteredAwayPlayers('F').length }}</span>
               </div>
@@ -170,6 +170,8 @@ import { getFootballLineup } from '@/service/apiFootBallMatchProvider.js';
 export default {
   props: {
     tournamentID: String,
+    homeTeamLogo: String,
+    awayTeamLogo: String,
   },
 
   async mounted() {
