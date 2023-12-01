@@ -13,7 +13,7 @@
       </span>
       <div class="">
         <ul :class="openNav ? 'left-0' : 'left-[-100%]'"
-          class="md:items-center md:pr-0 pr-4 md:pl-5 pl-72 md:static absolute bg-navColor md:w-auto w-auto md:right-0 md:top-14 top-14 duration-700 ease-in">
+          style="z-index: 1000;" class="md:items-center md:pr-0 pr-4 md:pl-5 pl-72 md:static absolute bg-navColor md:w-auto w-auto md:right-0 md:top-14 top-14 duration-700 ease-in">
           <li class=" md:inline-flex flex-col ml-4 my-2.5" v-for="link in Links" :key="link.link">
             <router-link :to="link.link"
               class="nav-button md:text-base text-sm font-normal hover:text-gray-200 text-white">{{
@@ -35,7 +35,7 @@
         </div>
         <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between">
           <button class="md:flex cursor-pointer text-xl mr-2.5 items-center md:pl-3" @click="toggleDropdown">
-            <img class="md:static absolute md:right-0 right-10 md:top-0 bottom-9 hover:bg-blue-950" :src="img"
+            <img :src="img" class="md:static absolute md:right-0 right-10 md:top-0 bottom-9 hover:bg-blue-950" 
               alt="defaultFootBall Image" />
             <img class="md:block hidden pl-1.5 py-1" src="@/assets/topNav/arrowDown.png" alt="Arrow Down">
           </button>
@@ -49,6 +49,9 @@
               <img src="@/assets/topNav/football.png" alt="Football" />
             </button>
           </div>
+        </div>
+        <div>
+          H
         </div>
       </div>
       <div class="md:flex items-center pl-1">

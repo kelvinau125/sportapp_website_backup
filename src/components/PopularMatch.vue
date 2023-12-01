@@ -36,21 +36,21 @@
         </div>
         <!-- 热门赛程 Contents -->
         <div class="flex justify-between rounded-b-lg bg-white w-full" style=" height: 106px; ">
-          <div class="flex flex-col justify-center items-center pb-3 w-full">
-            <div class="text-base font-semibold "> {{ match.homeTeamScore }}</div>
-            <div class="pt-2">
+          <div class="flex flex-col justify-center items-center pb-3" style= "width: 100px; ">
+            <div class="text-base font-semibold h-1/3 pt-2"> {{ match.homeTeamScore }}</div>
+            <div class="pt-2 h-1/2">
               <img class="" style="width: 24px; height: 24px;" :src="match.homeTeamIcon" />
             </div>
-            <div class="pt-2">
+            <div class="pt-2 h-full">
               <span class="flex text-center text-xs font-normal text-grayText">{{ match.homeTeamName }}</span>
             </div>
           </div>
-          <div class=" w-16 flex relative flex-col justify-start items-center py-2 ">
-            <div v-show="isCN" class="h-1/2 absolute font-medium text-sm pt-1 flex items-center justify-center"
+          <div class="flex relative flex-col justify-start items-center py-2 " >
+            <div v-show="isCN" class="h-1/2 absolute font-medium text-sm pt-3 flex items-center justify-center"
               :class="{ 'statusStartBorder': match.status === '开', 'statusEndBorder': match.status === '终' }">{{
                 match.status }}</div>
 
-            <div v-show="!isCN"  class="h-1/2 absolute font-medium text-sm pt-1 flex items-center justify-center"
+            <div v-show="!isCN"  class="h-1/2 absolute font-medium text-sm pt-3 flex items-center justify-center" 
               :class="{ 'statusStartBorder': match.status === ('Started' || 'Start'), 'statusEndBorder': match.status === match.status && match.status !== '' }">
               {{
                 match.status }}</div>
@@ -58,12 +58,15 @@
               <span class="pt-2 text-base font-semibold">VS</span>
             </div>
           </div>
-          <div class="flex flex-col justify-center items-center w-full pb-3">
-            <div class="text-base font-semibold">{{ match.awayTeamScore }}</div>
-            <div class="pt-2">
+          <div class="flex flex-col justify-center items-center  pb-3 " style= "width: 100px; ">
+            <div class="text-base font-semibold h-1/3 pt-2">{{ match.awayTeamScore }}</div>
+            <div class="pt-2 h-1/2">
               <img class="" style="width: 24px; height: 24px;" :src="match.awayTeamIcon" />
             </div>
-            <div class="w-20 pt-2 overflow-hidden text-xs font-normal text-grayText"> {{ match.awayTeamName }}</div>
+            <div class="pt-2 h-full" style= "width: 90px; "> 
+              <span class="flex justify-center text-center text-xs font-normal text-grayText whitespace-normal overflow-hidden text-ellipsis">{{ match.awayTeamName  }}</span>
+
+            </div>
 
           </div>
         </div>
