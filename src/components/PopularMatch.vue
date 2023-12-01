@@ -65,8 +65,8 @@
       <div class="" style="width: 24px; height: 24px;">
         <img class="" src="@/assets/hello.png" alt="全部赛程" />
       </div>
-      <div class=" flex text-center pt-5" style="width: 31px; height: 36px; ">
-        <span class="text-xs font-medium text-white">全部赛程</span>
+      <div class="flex text-center pt-5" style="width: 31px; height: 36px; ">
+        <span class="text-xs font-medium text-white">{{ $t("All fixtures") }}</span>
       </div>
     </div>
   </div>
