@@ -2,7 +2,19 @@
   <!-- Overflow Setting -->
   <div class="flex gap-1   ">
     <div class="w-full flex-wrap" v-for="match in matchDetails" :key="match.matchDetails">
-      <div @click="navigateTo(match.linkAddress)" class="border" style="width: 204px; height: 136px; border-radius: 8px;">
+      <div @click="navigateTo( 
+              match.linkAddress,
+              match.matchType, 
+              match.date, 
+              match.time, 
+              match.statusStr, 
+              match.homeTeamName, 
+              match.homeTeamScore, 
+              match.homeTeamIcon, 
+              match.awayTeamName,
+              match.awayTeamScore, 
+              match.awayTeamIcon
+              )" class="border" style="width: 204px; height: 136px; border-radius: 8px;">
         <!-- 热门赛程 Header -->
         <div class="py-1.5 flex justify-between items-center rounded-t-lg"
           style="background-color: #D6F1DD; height: 30px;">
@@ -92,10 +104,22 @@ export default {
   setup() {
     const router = useRouter();
 
-    const navigateTo = (linkAddress) => {
+    const navigateTo = (linkAddress, competitionName, matchDate, matchTimeStr, statusStr, homeTeamName, homeTeamScore, homeTeamLogo, awayTeamName,awayTeamScore, awayTeamLogo) => {
       // Navigating to the specified page
       // router.push({ path: linkAddress });
-      const routeData = router.resolve({name: 'TournamentDetails', query: {TournamentID: linkAddress}});
+      const routeData = router.resolve({name: 'TournamentDetails', query: {
+        TournamentID: linkAddress,
+        competitionName: competitionName,
+        matchDate: matchDate,
+        matchTimeStr: matchTimeStr,
+        statusStr: statusStr,
+        homeTeamName: homeTeamName,
+        homeTeamScore: homeTeamScore,
+        homeTeamLogo: homeTeamLogo,
+        awayTeamName: awayTeamName,
+        awayTeamScore: awayTeamScore,
+        awayTeamLogo: awayTeamLogo,
+      }});
       window.open(routeData.href, '_blank');
     };
     const toAllMatchPage = () => {

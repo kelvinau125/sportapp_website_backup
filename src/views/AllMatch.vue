@@ -27,7 +27,19 @@
       <div class="schedule_detail" style="width: 892px; height: 108px;">
         <div class="schedule_detail_box">
           <ul v-for="match in matchDetails" :key="match.matchDetails">
-            <li @click="toAllMatchPage(match.linkAddress)" class="max-w-full h-52 bg-white">
+            <li @click="toAllMatchPage(
+              match.linkAddress,
+              match.matchType, 
+              match.date, 
+              match.time, 
+              match.statusStr, 
+              match.homeTeamName, 
+              match.homeTeamScore, 
+              match.homeTeamIcon, 
+              match.awayTeamName,
+              match.awayTeamScore, 
+              match.awayTeamIcon
+              )" class="max-w-full h-52 bg-white">
               <div class="conten_box">
                 <div class="flex justify-between">
                   <div class="flex items-center">
@@ -162,9 +174,22 @@ export default {
         await deleteStreamSaveBookmark(matchID, this.isCN);
       }
     },
-    toAllMatchPage(linkAddress) {
+    toAllMatchPage(linkAddress, competitionName, matchDate, matchTimeStr, statusStr, homeTeamName, homeTeamScore, homeTeamLogo, awayTeamName,awayTeamScore, awayTeamLogo) {
       // Push to the Live Page
-      const routeData = this.$router.resolve({name: 'TournamentDetails', query: {TournamentID: linkAddress}});
+      const routeData = this.$router.resolve({name: 'TournamentDetails', query: {
+        TournamentID: linkAddress,
+        competitionName: competitionName,
+        matchDate: matchDate,
+        matchTimeStr: matchTimeStr,
+        statusStr: statusStr,
+        homeTeamName: homeTeamName,
+        homeTeamScore: homeTeamScore,
+        homeTeamLogo: homeTeamLogo,
+        awayTeamName: awayTeamName,
+        awayTeamScore: awayTeamScore,
+        awayTeamLogo: awayTeamLogo,
+      
+      }});
       window.open(routeData.href, '_blank');
     },
     formatDay(date) {
