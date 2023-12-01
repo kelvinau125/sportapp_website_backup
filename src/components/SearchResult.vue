@@ -16,10 +16,10 @@
         <input class="searchInput pl-4 w-full h-full text-xs font-normal text-grayText" v-model="searchQuery"
           @keyup.enter="search" type="text" placeholder="搜索赛事/球队" maxlength="20" />
 
-        <div class="searchButton w-full h-full flex justify-center items-center pl-1">
+        <button @click="search" class="searchButton w-full h-full flex justify-center items-center pl-1">
           <img src="@/assets/topNav/search.png" alt="Search Icon" class="" />
-          <span class="text-white font-normal text-xs pb-0.5 pr-2">搜索</span>
-        </div>
+          <span class="text-white font-normal text-xs pb-0.5 pr-2">{{ $t("Search") }}</span>
+        </button>
 
       </div>
 
@@ -80,8 +80,9 @@
                       </div>
                     </div>
                   </div>
-                  <div class="pt-2 pl-24">
-                    <img src="@/assets/favourite/ended.png" />
+                  <div class="pt-2 pl-24  ">
+                    <!-- <img src="@/assets/favourite/ended.png" /> -->
+                    <p :class="{'bg-transparent': match.statusStr === ' ' , 'statusBorder': match.statusStr !==''}">{{ match.statusStr }}</p>
                   </div>
                 </div>
               </div>
@@ -115,7 +116,6 @@ export default {
     };
   },
   mounted() {
-    this.searchQuery = "";
     this.search();
   },
   methods: {
@@ -216,6 +216,14 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
+}
+
+.statusBorder {
+  background-color: #EEEDF4;
+  border-radius: 8px;
+  width: auto;
+  padding: 8px;
+
 }
 
 .MatchTypeBorder {
