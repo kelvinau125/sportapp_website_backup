@@ -14,26 +14,27 @@
         match.awayTeamName,
         match.awayTeamScore,
         match.awayTeamIcon
-      )" class="border" style="width: 204px; height: 136px; border-radius: 8px;">
+      )" class="border cursor-pointer" style="width: 204px; height: 136px; border-radius: 8px;">
         <!-- 热门赛程 Header -->
         <div class="py-1.5 flex justify-start items-center rounded-t-lg" style="background-color: #D6F1DD; height: 30px;">
           <div class="headerContainer pl-2.5 overflow-clip ">
-            <div class="headerBorder text-xs font-medium flex justify-center text-start pl-2 pt-0.5">
-              <span>{{ match.matchType }}</span>
+            <div class="headerBorder text-xs font-medium flex justify-center text-start pl-1.5 pt-0.5">
+              <span class="whitespace-nowrap overflow-hidden text-ellipsis" style="color: #666666;">{{ match.matchType }}</span>
             </div>
           </div>
-          <div class="text-xs font- w-[35px]" style="border: 1px solid red">
+          <div class="text-xs font- w-[35px] pl-2">
             {{ match.time }}
           </div>
 
-          <button class="pl-[54px]" @click.stop="toggleFavorite(match, match.linkAddress)" :class="{ fav: match.favorite }">
+          <button class="pl-[54px]" @click.stop="toggleFavorite(match, match.linkAddress)"
+            :class="{ fav: match.favorite }">
             <img v-if="!match.favorite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
             <img v-else src="@/assets/content/Favourite.png" alt="Favourite" />
           </button>
 
         </div>
         <!-- 热门赛程 Contents -->
-        <div class="flex justify-between rounded-b-lg" style="background-color: white; height: 106px; ">
+        <div class="flex justify-between rounded-b-lg bg-white" style=" height: 106px; ">
           <div class="flex flex-col justify-center items-center pb-3 w-full">
             <div class="text-base font-semibold "> {{ match.homeTeamScore }}</div>
             <div class="pt-2">
@@ -45,11 +46,11 @@
           </div>
           <div class=" w-16 flex flex-col justify-start items-center py-2 ">
             <div v-show="isCN" class="font-medium text-sm pt-1 flex items-center justify-center"
-              :class="{ 'statusStartBorder': match.status === '开', 'statusEndBorder': match.status === '终' }">{{
+              :class="{ 'statusStartBorder': match.status === '开', 'statusEndBorder': match.status === '终'}">{{
                 match.status }}</div>
 
-            <div v-show="!isCN" class="font-medium text-sm pt-1 flex items-center justify-center"
-              :class="{ 'statusStartBorder': match.status === ('Started' || 'Start'), 'statusEndBorder': match.status === match.status }">
+            <div v-show="!isCN" style="" class=" font-medium text-sm pt-1 flex items-center justify-center"
+              :class="{ 'statusStartBorder': match.status === ('Started' || 'Start'), 'statusEndBorder': match.status === match.status && match.status !== '' }">
               {{
                 match.status }}</div>
             <span class="pt-2 text-base font-semibold">VS</span>
@@ -238,19 +239,6 @@ export default {
 };
 </script>
 <style scoped>
-.content {
-  border: 2px solid red;
-  width: 100%;
-  height: 136px;
-  margin: auto;
-}
-
-.teamContainer {
-  width: 100%;
-  height: 160px;
-  margin: auto;
-}
-
 .border {
   width: 100%;
   /* border: 1px solid red; */
@@ -258,7 +246,7 @@ export default {
 }
 
 .headerBorder {
-  width: 75px;
+  width: 70px;
   height: 20px;
   background-color: white;
   border-radius: 49px;
@@ -282,15 +270,20 @@ export default {
 
 .statusEndBorder {
   background-color: #F5F5F5;
-  width: 28px;
-  height: 28px;
+  width: auto;
+  height: auto;
   border-radius: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 .statusStartBorder {
   background-color: #EEFBEE;
-  width: 28px;
-  height: 28px;
+  width: auto;
+  height: auto;
+  padding: 100px;
   border-radius: 30px;
 
 }

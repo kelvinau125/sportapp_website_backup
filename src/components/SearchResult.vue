@@ -115,7 +115,6 @@ export default {
     };
   },
   mounted() {
-    this.searchQuery = "";
     this.search();
   },
   methods: {
