@@ -1,8 +1,15 @@
 <template>
-    {{ defendPlayerIndexInt }}
-    {{ MiddlePlayerIndexInt }}
-    {{ FirstPlayerIndexInt }}
-    {{ SSFirstPlayerIndexInt }}
+  <!-- {{ defendPlayerIndexInt }}
+  {{ MiddlePlayerIndexInt }}
+  {{ FirstPlayerIndexInt }}
+  {{ SSFirstPlayerIndexInt }} -->
+  <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between">
+    <button class="md:flex cursor-pointer text-xl mr-2.5 items-center md:pl-3" @click="toggleDropdown">
+      <img :src="img" class="md:static absolute md:right-0 right-10 md:top-0 bottom-9 hover:bg-blue-950"
+        alt="defaultFootBall Image" />
+      <img class="md:block hidden pl-1.5 py-1" src="@/assets/topNav/arrowDown.png" alt="Arrow Down">
+    </button>
+  </div>
   <div>
     <div v-for="i in (defendPlayerIndexInt)" :key="i">
       {{ i }}
@@ -10,15 +17,15 @@
   </div>
 
   <div class="" v-for="(smtg, index) in homeFirstAscending" :key="index.homeFirstAscending">
-      <div v-if="defendPlayerIndex < teamTotal">
-        Halo
-      </div>
-      <div v-if="MiddlePlayerIndexInt < teamTotal - defendPlayerIndex">
-        Second
-      </div>
-      <div v-if="MiddlePlayerIndexInt < teamTotal - defendPlayerIndex">
-        Second
-      </div>
+    <div v-if="defendPlayerIndex < teamTotal">
+      Halo
+    </div>
+    <div v-if="MiddlePlayerIndexInt < teamTotal - defendPlayerIndex">
+      Second
+    </div>
+    <div v-if="MiddlePlayerIndexInt < teamTotal - defendPlayerIndex">
+      Second
+    </div>
   </div>
 
   <!-- {{ this.homeFormation }} -->

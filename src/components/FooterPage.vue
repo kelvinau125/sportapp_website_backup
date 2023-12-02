@@ -1,24 +1,27 @@
 <template>
   <footer class="bg-black text-white pt-3 " style="height: 103px;">
-    <div class="max-w-7xl m-auto flex  flex-col  items-center" >
-      <div  class="footer-links flex items-center mt-1 text-grayText">
-        <p class="text-xs font-normal px-1">{{ $t("User service") }}</p>
+    <div class=" max-w-7xl m-auto flex  flex-col  items-center" >
+      <div  class="footer-links flex text-center items-center mt-1 text-grayText">
+        <p class="text-10px md:text-xs font-normal px-1">{{ $t("User service") }}</p>
         <span>|</span>
-        <p class="text-xs font-normal px-1">{{ $t("Agreement Privacy Policy") }}</p>
+        <p class="text-10px md:text-xs font-normal px-1">{{ $t("Agreement Privacy Policy") }}</p>
         <span>|</span>
-        <p class="text-xs font-normal px-1">{{ $t("Disclaimer") }}</p>
+        <p class="text-10px md:text-xs font-normal px-1">{{ $t("Disclaimer") }}</p>
         <span>|</span>
-        <p class="text-xs font-normal px-1">{{ $t("Permission details") }}</p>
+        <p class="text-10px md:text-xs font-normal px-1">{{ $t("Permission details") }}</p>
         <span>|</span>
-        <p class="text-xs font-normal px-1">{{ $t("Contact us") }}</p>
+        <p class="text-10px md:text-xs font-normal px-1">{{ $t("Contact us") }}</p>
         <span>|</span>
       </div>
-      <div  class="text-xs font-normal text-grayText">
-        {{ $t("All live broadcasts on this site are from the Internet. This site is not engaged in any business. It only provides free live broadcasts for sports enthusiasts. If your rights are infringed, please contact us") }}
+      <div  class="w-full flex justify-center text-10px md:text-xs font-normal text-grayText">
+        <span  class="text-center"> 
+          {{ 
+            $t("All live broadcasts on this site are from the Internet. This site is not engaged in any business. It only provides free live broadcasts for sports enthusiasts. If your rights are infringed, please contact us") 
+          }}
+        </span>
       </div>
-      <div  class="text-xs font-normal text-grayText mt-3">
-        Copyright © 2021 All Rights Reserved
-
+      <div class="flex justify-center text-10px md:text-xs font-normal text-grayText mt-1">
+        <span>Copyright © 2021 All Rights Reserved</span>
       </div>
       <!-- <div class="footer-links flex items-center text-grayText">
         <p class="text-xs font-normal px-1">用户服务</p>
