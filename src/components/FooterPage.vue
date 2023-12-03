@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-black text-white pt-3 " style="height: 103px;">
+  <footer class="bg-black text-white pt-3 pb-4 h-full">
     <div class=" max-w-7xl m-auto flex  flex-col  items-center" >
       <div  class="footer-links flex text-center items-center mt-1 text-grayText">
         <p class="text-10px md:text-xs font-normal px-1">{{ $t("User service") }}</p>
