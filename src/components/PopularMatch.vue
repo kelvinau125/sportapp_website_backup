@@ -1,7 +1,7 @@
 <template>
   <!-- Overflow Setting -->
-  <div class="flex gap-1">
-    <div class="w-full flex-wrap" v-for="match in matchDetails" :key="match.matchDetails">
+  <div class="flex gap-1 flex-wrap">
+    <div class="" v-for="match in matchDetails" :key="match.matchDetails">
       <div @click="navigateTo(
         match.linkAddress,
         match.matchType,
@@ -76,13 +76,13 @@
 
     </div>
 
-    <div @click="toAllMatchPage" class="flex flex-col justify-start items-center border cursor-pointer px-5 pt-8"
-      style="width: 42px; height: 136px; background-color: #808F7E;">
+    <div @click="toAllMatchPage"
+      class="max-w-[42px] h-[136px] flex flex-col justify-start items-center rounded-lg cursor-pointer px-5 pt-8"
+      style=" background-color: #808F7E;">
       <div class="" style="width: 24px; height: 24px;">
         <img src="@/assets/menu.png" alt="全部赛程" />
       </div>
-      <div class="flex justify-center"
-        style="width: 31px; height: 36px; ">
+      <div class="flex justify-center" style="width: 31px; height: 36px; ">
         <span class="pt-4 text-center text-xs font-medium text-white">{{ $t("All fixtures") }}</span>
       </div>
     </div>
@@ -249,7 +249,6 @@ export default {
 </script>
 <style scoped>
 .border {
-  width: 100%;
   /* border: 1px solid red; */
   border-radius: 8px;
 }
@@ -295,4 +294,5 @@ export default {
   padding: 100px;
   border-radius: 30px;
 
-}</style>
+}
+</style>

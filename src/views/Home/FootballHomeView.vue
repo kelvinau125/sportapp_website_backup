@@ -40,17 +40,17 @@
         alt="Banner" />
     </div>
     <div class="flex justify-center ">
-      <div class="w-[897px]">
+      <div class="w-full md:w-[897px]">
         <h2 class="md:text-2xl text-xl pr-5 py-5 font-normal">{{ $t("Popular fixtures") }} </h2>
         <PopularMatch />
       </div>
     </div>
     <div class="flex justify-center">
-      <div class="w-full md:w-[897px] pb-20 ">
+      <div  class="w-full md:w-[897px] pb-20 ">
         <h2 class="md:text-2xl text-xl pr-5 py-5 font-normal">{{ $t("Popular anchor list") }}</h2>
-        <div class="flex flex-wrap rounded-lg bg-white">
+        <div  class="flex gap-[5px] flex-wrap rounded-lg w-full bg-white">
           <img class="md:w-[142px] w-[120px] md:h-[116px] h-[94px]" src="@/assets/content/champion.png" />
-          <div class=" md:w-[125px] w-[103px] flex flex-col items-center py-3" v-for="link in streamer"
+          <div   class=" md:w-[120px] w-[103px] flex flex-col items-center py-3" v-for="link in streamer"
             :key="link.streamer">
             <div>
               <img class="md:w-[50px]" :src="require(`@/assets/topNav/${link.image}.png`)" alt="Link Image" />

@@ -13,8 +13,8 @@
 
       </div> -->
       <div class="md:static relative">
-        <ul :class="openNav ? 'right-0' : 'right-[50px]'" style="z-index: 1000;"
-          class="md:items-center md:pr-0 pr-4 md:pl-5 pl-20 md:static absolute bg-navColor md:w-auto w-auto md:right-0 md:top-14 top-14 ">
+        <ul :class="openNav ? 'block' : 'hidden'" style="z-index: 1000;"
+          class="md:items-center md:pr-0 pr-0 md:pl-5 pl-5 md:static absolute bg-navColor md:w-auto w-auto md:right-0 right-20 md:top-14 top-14 ">
           <li class=" md:inline-flex flex-col ml-4 my-2.5" v-for="link in Links" :key="link.link">
             <router-link :to="link.link"
               class="nav-button md:text-base text-sm font-normal hover:text-gray-200 text-white">{{
@@ -25,6 +25,14 @@
       </div>
     </div>
     <div class="md:flex items-center">
+      <div  class="relative">
+        <div @click="MenuOpen()" class="md:static absolute md:hidden md:pl-0 pl-10 md:left-0 left-[110px] md:top-0 -top-[35px]"
+          style="width: 60px;">
+          <img class="cursor-pointer" v-if="openNav" src="@/assets/topNav/x.png">
+          <img class="cursor-pointer" v-else src="@/assets/topNav/hamburger.png">
+        </div>
+
+      </div>
       <div class="md:flex relative">
         <div @click="search" class="md:block hidden">
           <img src="@/assets/topNav/search.png" alt="Search Icon" class="absolute left-0.5 w-6 h-6 m-2" />
@@ -34,9 +42,9 @@
             maxlength="20"
             class="pl-10 md:w-72 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-10 text-white bg-slate-50" />
         </div>
-        <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between">
+        <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between ">
           <button class="md:flex cursor-pointer text-xl mr-2.5 items-center md:pl-3" @click="toggleDropdown">
-            <img :src="img" class="md:static absolute md:right-0 right-10 md:top-0 bottom-9 hover:bg-blue-950"
+            <img :src="img" class="max-w-[24px] md:static absolute md:right-0 right-10 md:top-0 bottom-9 hover:bg-blue-950"
               alt="defaultFootBall Image" />
             <img class="md:block hidden pl-1.5 py-1" src="@/assets/topNav/arrowDown.png" alt="Arrow Down">
           </button>
@@ -53,9 +61,9 @@
         </div>
       </div>
       <div class=" md:flex relative items-center pl-1">
-        <div @click="toggleDropdownProfile">
+        <div @click="toggleDropdownProfile" class="">
           <img :src="avatar"
-            class="w-[40px] md:static absolute md:right-0 -right-4 md:top-0 -top-[72px] rounded-full border-2 border-white"
+            class="max-w-[40px] md:static absolute md:right-0 -right-4 md:top-0 -top-[72px] rounded-full border-2 border-white"
             style=" object-fit: cover;" />
           <div v-show="showDropdown"
             class="md:absolute absolute md:right-0 -right-4 md:top-12 -top-6 bg-gray-900 mt-1 p-1 py-3">
