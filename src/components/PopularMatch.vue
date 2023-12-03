@@ -26,23 +26,21 @@
           <div class="text-xs font- w-[35px] pl-2">
             {{ match.time }}
           </div>
-
           <button class="pl-[54px]" @click.stop="toggleFavorite(match, match.linkAddress)"
             :class="{ fav: match.favorite }">
             <img v-if="!match.favorite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
             <img v-else src="@/assets/content/Favourite.png" alt="Favourite" />
           </button>
-
         </div>
         <!-- 热门赛程 Contents -->
         <div class="flex justify-between rounded-b-lg bg-white w-full" style=" height: 106px; ">
-          <div class="flex flex-col justify-center items-center pb-3" style="width: 100px; ">
+          <div class="flex flex-col justify-center items-center pb-3 h-full" style="width: 100px; ">
             <div class="text-base font-semibold h-1/3 pt-2"> {{ match.homeTeamScore }}</div>
             <div class="pt-2 h-1/2">
               <img class="" style="width: 24px; height: 24px;" :src="match.homeTeamIcon" />
             </div>
-            <div class="pt-2 h-full">
-              <span class="flex text-center text-xs font-normal text-grayText">{{ match.homeTeamName }}</span>
+            <div class="nameBorder flex justify-center text-center text-xs font-normal text-grayText">
+              <span class=" whitspace-nowrap overflow-hidden text-elleipsis">{{ match.homeTeamName}}</span>
             </div>
           </div>
           <div class="flex relative flex-col justify-start items-center py-2 ">
@@ -63,9 +61,9 @@
             <div class="pt-2 h-1/2">
               <img class="" style="width: 24px; height: 24px;" :src="match.awayTeamIcon" />
             </div>
-            <div class="pt-2 h-full" style="width: 90px; ">
+            <div class="nameBorder flex justify-center text-center text-xs font-normal text-grayText">
               <span
-                class="flex justify-center text-center text-xs font-normal text-grayText whitespace-normal overflow-hidden text-ellipsis">{{
+                class="whitspace-nowrap overflow-hidden text-elleipsis">{{
                   match.awayTeamName }}</span>
 
             </div>
@@ -258,6 +256,12 @@ export default {
   height: 20px;
   background-color: white;
   border-radius: 49px;
+}
+
+.nameBorder{
+  width: 70px;
+  height: 100%;
+
 }
 
 .button {
