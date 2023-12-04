@@ -338,6 +338,7 @@ export default {
 
       // Save the selected language to localStorage
       localStorage.setItem('locale', locale);
+      window.location.reload();
     },
   },
 
