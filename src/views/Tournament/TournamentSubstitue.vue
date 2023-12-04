@@ -72,8 +72,10 @@ export default {
     },
     methods: {
         async getResult() {
+            // this.getTournamentLineup = await getFootballLineup(this.tournamentID, (this.$i18n.locale === 'ZH')?true :false);
+
             // this.getTournamentLineup = await getFootballLineup(5, true);
-            this.getTournamentLineup = await getFootballLineup(1253806, false);
+            this.getTournamentLineup = await getFootballLineup(1000, false);
 
             // console.log("HALLO" + this.getTournamentLineup)
 
@@ -83,17 +85,32 @@ export default {
             // console.log(this.homeTeamSubstitute)
             // console.log("AWAY" + this.awayTeamSubstitute)
 
-
-
         },
 
     },
     computed: {
         filteredHomeSubPlayers() {
-            return (first) => this.homeTeamSubstitute.filter(player => player.first === first);
+            if (
+                this.homeTeamSubstitute !== null &&
+                this.homeTeamSubstitute !== " " &&
+                this.homeTeamSubstitute.length > 0
+            ) {
+                return (first) => this.homeTeamSubstitute.filter((player) => player.first === first);
+            } else{
+                return () => [];
+            }
         },
         filteredAwaySubPlayers() {
-            return (first) => this.awayTeamSubstitute.filter(player => player.first === first);
+            if (
+                this.awayTeamSubstitute !== null &&
+                this.awayTeamSubstitute !== " " &&
+                this.awayTeamSubstitute.length > 0
+            ) {
+                return (first) => this.awayTeamSubstitute.filter((player) => player.first === first);
+            } else{
+                return () => [];
+
+            }
         },
     }
 }

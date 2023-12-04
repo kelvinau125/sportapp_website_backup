@@ -28,7 +28,19 @@
       <div class="schedule_detail " style="height: 108px;">
         <div class="schedule_detail_box">
           <ul v-for="match in filterSearchResult" :key="match.searchLiveTeamResult">
-            <li @click="toAllMatchPage" class="max-w-full h-52 bg-white">
+            <li @click="toAllMatchPage(
+              match.linkAddress,
+              match.competitionName, 
+              match.matchDate, 
+              match.matchTimeStr, 
+              match.statusStr, 
+              match.homeTeamName, 
+              match.homeTeamScore, 
+              match.homeTeamLogo, 
+              match.awayTeamName,
+              match.awayTeamScore, 
+              match.awayTeamLogo
+              )" class="max-w-full h-52 bg-white">
               <div class="conten_box ">
                 <div class="flex justify-between ">
                   <div class="flex items-center justify-start " style="width: 350px;">
@@ -40,10 +52,10 @@
                     </div>
                   </div>
                   <div>
-                    <button @click.stop="toggleFavorite(match)" :class="{ fav: match.favorite }">
-                      <img v-if="match.favorite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
+                    <button @click.stop="toggleFavorite(match, match.linkAddress)" :class="{ fav: match.favorite }">
+                      <img v-if="!match.favorite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
                       <img v-else src="@/assets/content/Favourite.png" alt="Favourite" />
-                    </button>
+                    </button> 
                   </div>
                 </div>
                 <div class="flex justify-start ">
@@ -61,7 +73,7 @@
                         <span class="text-lg font-semibold pr-2">{{ match.homeTeamName }}</span>
                       </div>
                       <div class="">
-                        <img src="@/assets/favourite/favTeamIcon.png" />
+                        <img :src= match.homeTeamLogo style="width: 40px; height: 40px; border-radius: 20px;" />
                       </div>
                     </div>
                     <div class="flex flex-col  items-center  w-1/3">
@@ -73,7 +85,7 @@
                     </div>
                     <div class="flex items-center justify-start w-full ">
                       <div>
-                        <img src="@/assets/favourite/favTeamIcon.png" />
+                        <img :src= match.awayTeamLogo style="width: 40px; height: 40px; border-radius: 20px;" />
                       </div>
                       <div class="pl-3">
                         <span class="text-lg font-semibold">{{ match.awayTeamName }}</span>
@@ -100,6 +112,8 @@
 import { searchLiveTeamStream, searchLiveCompetitionStream } from '@/service/searchLiveStreamProvider.js'
 import BackgroundImage from '@/components/BackGround.vue'
 
+import { getLiveStreamBookmark, liveStreamSaveBookmark, deleteStreamSaveBookmark } from '@/service/apiBookmarkProvider.js';
+
 export default {
   components: {
     BackgroundImage
@@ -112,11 +126,19 @@ export default {
       searchLiveTeamResult: [],
       searchLiveCompetitionResult: [],
       filterSearchResult: [],
+      filterSearchResultTemp: [],
+
+      favoriteList: [],
+      isCN: Boolean,
 
     };
   },
   mounted() {
     this.search();
+    // ------------------------------------------------------------------- Translation Part ------------------------------------------ Remember Change It ----------------------------
+    this.isCN = ((this.$i18n.locale === 'ZH') ? true : false)
+
+    this.getFavoriteFromBookmark();
   },
   methods: {
     // async getResult() {
@@ -146,20 +168,71 @@ export default {
         this.searchLiveTeamResult = await searchLiveTeamStream(this.searchQuery, searchPages)
         this.searchLiveCompetitionResult = await searchLiveCompetitionStream(this.searchQuery, searchPages)
 
-        console.log(' ' + this.searchQuery);
+        // console.log(' ' + this.searchQuery);
         // console.log("THE LIVE TEAM RESULT" + this.searchLiveTeamResult);
         // console.log("THE COMP TEAM RESULT" + this.searchLiveCompetitionResult);
 
         //Fillter Both Data By id
-        this.filterSearchResult = [
+        this.filterSearchResultTemp = [
           ...this.searchLiveTeamResult.filter(team => !this.searchLiveCompetitionResult.find(comp => comp.id === team.id)),
           ...this.searchLiveCompetitionResult
         ];
+        
+        for (let i = 0; i < this.filterSearchResultTemp.length; i++) {
+
+          const matchId = this.filterSearchResultTemp[i]["id"];
+          // Check if the match ID is in the list of favorite IDs
+          const isFavorite = this.favoriteList.includes(matchId);
+
+          this.filterSearchResult.push({
+            competitionName: this.filterSearchResultTemp[i]["competitionName"],
+            matchDate: this.filterSearchResultTemp[i]["matchDate"],
+            matchTimeStr: this.filterSearchResultTemp[i]["matchTimeStr"],
+            homeTeamName: this.filterSearchResultTemp[i]["homeTeamName"],
+            homeTeamLogo: this.filterSearchResultTemp[i]["homeTeamLogo"],
+            homeTeamScore: this.filterSearchResultTemp[i]["homeTeamScore"],
+            awayTeamScore: this.filterSearchResultTemp[i]["awayTeamScore"],
+            awayTeamLogo: this.filterSearchResultTemp[i]["awayTeamLogo"],
+            awayTeamName: this.filterSearchResultTemp[i]["awayTeamName"],
+            favorite: isFavorite,
+            statusStr: this.filterSearchResultTemp[i]["statusStr"],
+            linkAddress: this.filterSearchResultTemp[i]["id"],
+          });
+        }
 
       }
     },
-    toggleFavorite(searchLiveTeamResult) {
-      searchLiveTeamResult.favorite = !searchLiveTeamResult.favorite;
+    async toggleFavorite(match, matchID) {
+      match.favorite = !match.favorite;
+
+      if (match.favorite) {
+        await liveStreamSaveBookmark(matchID, 0, this.isCN);
+      } else {
+        await deleteStreamSaveBookmark(matchID, this.isCN);
+      }
+    },
+    async getFavoriteFromBookmark() {
+      this.getfootballMatchList = await getLiveStreamBookmark(this.isCN);
+
+      this.favoriteList = this.getfootballMatchList.map(item => item.id);
+    },
+    toAllMatchPage(linkAddress, competitionName, matchDate, matchTimeStr, statusStr, homeTeamName, homeTeamScore, homeTeamLogo, awayTeamName,awayTeamScore, awayTeamLogo) {
+      // Push to the Live Page
+      const routeData = this.$router.resolve({name: 'TournamentDetails', query: {
+        TournamentID: linkAddress,
+        competitionName: competitionName,
+        matchDate: matchDate,
+        matchTimeStr: matchTimeStr,
+        statusStr: statusStr,
+        homeTeamName: homeTeamName,
+        homeTeamScore: homeTeamScore,
+        homeTeamLogo: homeTeamLogo,
+        awayTeamName: awayTeamName,
+        awayTeamScore: awayTeamScore,
+        awayTeamLogo: awayTeamLogo,
+      
+      }});
+      window.open(routeData.href, '_blank');
     },
   },
 };

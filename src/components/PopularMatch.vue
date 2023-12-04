@@ -27,8 +27,8 @@
             {{ match.time }}
           </div>
           <button class="pl-[54px]" @click.stop="toggleFavorite(match, match.linkAddress)"
-            :class="{ fav: match.favorite }">
-            <img v-if="!match.favorite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
+            :class="{ fav: match.favourite }">
+            <img v-if="!match.favourite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
             <img v-else src="@/assets/content/Favourite.png" alt="Favourite" />
           </button>
         </div>
@@ -40,18 +40,18 @@
               <img class="" style="width: 24px; height: 24px;" :src="match.homeTeamIcon" />
             </div>
             <div class="nameBorder flex justify-center text-center text-xs font-normal text-grayText">
-              <span class=" whitspace-nowrap overflow-hidden text-elleipsis">{{ match.homeTeamName}}</span>
+              <span class=" whitspace-nowrap overflow-hidden text-elleipsis">{{ match.homeTeamName }}</span>
             </div>
           </div>
           <div class="flex relative flex-col justify-start items-center py-2 ">
-            <div v-show="isCN" class="h-1/2 absolute font-medium text-sm pt-3 flex items-center justify-center"
+            <div v-show="isCN" class="w-[80px] h-1/2 absolute font-medium text-sm pt-3 flex items-center justify-center"
               :class="{ 'statusStartBorder': match.status === '开', 'statusEndBorder': match.status === '终' }">{{
                 match.status }}</div>
 
-            <div v-show="!isCN" class="h-1/2 absolute font-medium text-sm pt-3 flex items-center justify-center"
+            <div v-show="!isCN" class="w-[80px] h-1/2 absolute font-medium text-sm pt-3 flex items-center justify-center"
               :class="{ 'statusStartBorder': match.status === ('Started' || 'Start'), 'statusEndBorder': match.status === match.status && match.status !== '' }">
-              {{
-                match.status }}</div>
+              <span class="whitspace-normal overflow-hidden text-ellipsis">{{match.status}}</span>
+            </div>
             <div class="h-1/2 mt-8">
               <span class="pt-2 text-base font-semibold">VS</span>
             </div>
@@ -62,9 +62,8 @@
               <img class="" style="width: 24px; height: 24px;" :src="match.awayTeamIcon" />
             </div>
             <div class="nameBorder flex justify-center text-center text-xs font-normal text-grayText">
-              <span
-                class="whitspace-nowrap overflow-hidden text-elleipsis">{{
-                  match.awayTeamName }}</span>
+              <span class="whitspace-nowrap overflow-hidden text-elleipsis">{{
+                match.awayTeamName }}</span>
 
             </div>
 
@@ -94,7 +93,7 @@ import { format } from 'date-fns';
 
 import { getMatchTodaybyCompName } from '@/service/apiFootBallMatchProvider.js';
 import { getMatchByDate } from '@/service/apiFootBallMatchProvider.js';
-import { liveStreamSaveBookmark, deleteStreamSaveBookmark } from '@/service/apiBookmarkProvider.js';
+import { getLiveStreamBookmark, liveStreamSaveBookmark, deleteStreamSaveBookmark } from '@/service/apiBookmarkProvider.js';
 
 export default {
   data() {
@@ -170,19 +169,27 @@ export default {
       "西甲",
     ];
 
-    this.fetchMatchDetailsForLeagues((this.isCN) ? CNleaguesToFetch : leaguesToFetch);
-
+    // this.fetchMatchDetailsForLeagues((this.isCN) ? CNleaguesToFetch : leaguesToFetch);
+    this.getFavoriteFromBookmark(CNleaguesToFetch, leaguesToFetch)
   },
 
   methods: {
     async toggleFavorite(match, matchID) {
-      match.favorite = !match.favorite;
+      match.favourite = !match.favourite;
 
-      if (match.favorite) {
+      if (match.favourite) {
         await liveStreamSaveBookmark(matchID, 0, this.isCN);
       } else {
         await deleteStreamSaveBookmark(matchID, this.isCN);
       }
+    },
+
+    async getFavoriteFromBookmark(CNleaguesToFetch, leaguesToFetch) {
+      this.getfootballMatchList = await getLiveStreamBookmark(this.isCN);
+
+      this.favoriteList = this.getfootballMatchList.map(item => item.id);
+
+      this.fetchMatchDetailsForLeagues((this.isCN) ? CNleaguesToFetch : leaguesToFetch);
     },
 
     async fetchMatchDetailsForLeagues(leagues) {
@@ -195,6 +202,11 @@ export default {
         if (matches.length > 0) {
           for (let j = 0; j < Math.min(1, matches.length); j++) {
             const match = matches[j];
+
+            const matchId = match["id"];
+            // Check if the match ID is in the list of favorite IDs
+            const isFavorite = this.favoriteList.includes(matchId);
+
             this.matchDetails.push({
               matchType: match["competitionName"],
               date: match["matchDate"],
@@ -206,7 +218,7 @@ export default {
               awayTeamIcon: match["awayTeamLogo"],
               awayTeamScore: match["awayTeamScore"],
               overTime: "null",
-              favourite: false,
+              favourite: isFavorite,
               linkAddress: match["id"],
               status: match["statusStr"],
               // status: "开",
@@ -215,6 +227,10 @@ export default {
         }
       }
 
+      // console.log("--------------------")
+      //   console.log(this.matchDetails)
+      //   console.log("--------------------")
+
       if (this.matchDetails.length <= 4) {
         this.getfootballMatchList = await getMatchByDate(format(this.currentDate, 'yyyyMMdd'), this.isCN);
 
@@ -222,6 +238,10 @@ export default {
 
         if (this.getfootballMatchList.length !== 0) {
           for (let i = this.matchDetails.length; i < 4; i++) {
+            const matchId = this.getfootballMatchList[i]["id"];
+            // Check if the match ID is in the list of favorite IDs
+            const isFavorite = this.favoriteList.includes(matchId);
+
             this.matchDetails.push({
               matchType: this.getfootballMatchList[i]["competitionName"],
               date: this.getfootballMatchList[i]["matchDate"],
@@ -233,7 +253,7 @@ export default {
               awayTeamIcon: this.getfootballMatchList[i]["awayTeamLogo"],
               awayTeamScore: this.getfootballMatchList[i]["awayTeamScore"],
               overTime: "null",
-              favourite: false,
+              favourite: isFavorite,
               linkAddress: this.getfootballMatchList[i]["id"],
               status: this.getfootballMatchList[i]["statusStr"],
               // status: "开",
@@ -258,7 +278,7 @@ export default {
   border-radius: 49px;
 }
 
-.nameBorder{
+.nameBorder {
   width: 70px;
   height: 100%;
 
@@ -282,7 +302,6 @@ export default {
 
 .statusEndBorder {
   background-color: #F5F5F5;
-  width: auto;
   height: auto;
   border-radius: 30px;
   padding-left: 10px;
@@ -293,7 +312,6 @@ export default {
 
 .statusStartBorder {
   background-color: #EEFBEE;
-  width: auto;
   height: auto;
   padding: 100px;
   border-radius: 30px;
