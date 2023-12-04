@@ -1,18 +1,18 @@
 <template>
   <!-- Main Component -->
-  <div class="flex py-2 md:w-[892px]" style="border: 1px solid hotpink;">
-    <div style="border: 3px solid green ;" class="md:w-[890px] statusContainer">
-      <div class=" flex box" style="border: 1px solid red;">
+  <div class="flex py-2 md:w-[892px]" >
+    <div  class="md:w-[890px] statusContainer">
+      <div class=" flex box" >
         <div class="md:flex items-center">
-          <div style="border: 2px solid yellow;" class="flex pb-1.5">
+          <div  class="flex pb-1.5 md:px-3">
             <img style="width: 24px; height: 24px;" src="@/assets/tournament/jiaoQiu.png" />
             <span class="font-medium text-sm pt-1.5 pr-1">{{ homeCornerKickNum }}</span>
           </div>
-          <div style="border: 2px solid yellow;" class="flex  pb-1.5">
+          <div  class="flex  pb-1.5 md:px-3">
             <img style="width: 24px; height: 24px;" src="@/assets/tournament/hongPai.png" />
             <span class="font-medium text-sm pt-1.5 pr-1">{{ homeRedCardNum }}</span>
           </div>
-          <div style="border: 2px solid yellow;" class="flex pb-1.5">
+          <div  class="flex pb-1.5 md:px-3">
             <img style="width: 24px; height: 24px;" src="@/assets/tournament/huangPai.png" />
             <span class="font-medium text-sm pt-1.5 pr-1">{{ homeYellowCardNum }}</span>
           </div>
@@ -39,15 +39,15 @@
           </div>
         </div>
         <div class="md:flex items-center">
-          <div style="border: 2px solid yellow;" class="flex pb-1.5">
+          <div  class="flex pb-1.5 md:px-3">
             <img style="width: 24px; height: 24px;" src="@/assets/tournament/huangPai.png" />
             <span class="font-medium text-sm pt-1.5 pr-1">{{ awayYellowCardNum }}</span>
           </div>
-          <div style="border: 2px solid yellow;" class="flex pb-1.5">
+          <div  class="flex pb-1.5 md:px-3">
             <img style="width: 24px; height: 24px;" src="@/assets/tournament/hongPai.png" />
             <span class="font-medium text-sm pt-1.5 pr-1">{{ awayRedCardNum }}</span>
           </div>
-          <div style="border: 2px solid yellow;" class="flex pb-1.5">
+          <div  class="flex pb-1.5 md:px-3">
             <img style="width: 24px; height: 24px;" src="@/assets/tournament/jiaoQiu.png" />
             <span class="font-medium text-sm pt-1.5 pr-1">{{ awayCornerKickNu }}</span>
           </div>
@@ -411,6 +411,7 @@ export default {
     position: relative;
     width: 50px;
     padding: 20px;
+    border: 1px solid red;
 
   }
 
@@ -420,7 +421,7 @@ export default {
 
   .box{
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
   }
 }
 
@@ -433,7 +434,7 @@ export default {
 
   .teamDown{
     position: relative;
-    width: 100px;
+    width: 80px;
     padding: 20px;
 
   }

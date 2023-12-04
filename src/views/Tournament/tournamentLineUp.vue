@@ -1,204 +1,199 @@
 <template>
   <!-- {{ filteredHomePlayers('G').length }} -->
 
-  <div class="flex justify-start">
-    <div class="overflow-hidden">
-      <div class="soccer-field flex">
+  <div style="border: 1px solid red;" class="soccer-field flex ">
+    <!-- Home Players -->
+    <div style="border: 1px solid red;" class="w-1/2 h-full flex justify-between ">
+      <!-- IF G PASS HERE -->
+      <div class="w-full flex flex-col justify-around">
+        <div v-for="player in filteredHomePlayers('G')" :key="player.id" class="">
+          <div class="flex flex-col items-center">
+            <div class="homeKeeperCircle relative flex justify-center items-center">
+              <div>
+                <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+              </div>
+              <div v-if="player.captain === 1" class="CaptainCircle ">
+                <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
+              </div>
 
-        <!-- Home Players -->
-        <div class="w-1/2 h-full flex justify-between">
-          <!-- IF G PASS HERE -->
-          <div class="w-full flex flex-col justify-around">
-            <div v-for="player in filteredHomePlayers('G')" :key="player.id" class="">
-              <div class="flex flex-col items-center">
-                <div class="homeKeeperCircle relative flex justify-center items-center">
-                  <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
-                  </div>
-                  <div v-if="player.captain === 1" class="CaptainCircle ">
-                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
-                  </div>
+            </div>
+            <p>{{ player.playerName }}</p>
+          </div>
+        </div>
+      </div>
+      <!-- IF D PASS HERE -->
+      <div class="w-full flex flex-col justify-around">
+        <div v-for="player in filteredHomePlayers('D')" :key="player.id" class="">
+          <div class="flex flex-col items-center">
+            <div class="homeCircle relative flex justify-center items-center">
+              <div>
+                <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+              </div>
+              <div v-if="player.captain === 1" class="CaptainCircle ">
+                <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
+              </div>
+            </div>
+            <p>{{ player.playerName }}</p>
+          </div>
+        </div>
+      </div>
+      <!-- IF M PASS HERE -->
+      <div class="w-full flex flex-col justify-around">
+        <div v-for="player in filteredHomePlayers('M')" :key="player.id" class="">
+          <div class="flex flex-col items-center">
+            <div class="homeCircle relative flex justify-center items-center">
+              <div>
+                <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+              </div>
+              <div v-if="player.captain === 1" class="CaptainCircle ">
+                <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
+              </div>
+            </div>
+            <p>{{ player.playerName }}</p>
+          </div>
+        </div>
+      </div>
+      <!-- IF F PASS HERE -->
+      <div class="w-full flex flex-col justify-around">
+        <div v-for="player in filteredHomePlayers('F')" :key="player.id" class="">
+          <div class="flex flex-col items-center">
+            <div class="homeCircle relative flex justify-center items-center">
+              <div>
+                <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+              </div>
+              <div v-if="player.captain === 1" class="CaptainCircle ">
+                <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
+              </div>
+            </div>
+            <p>{{ player.playerName }}</p>
+          </div>
+        </div>
+        <div class="absolute bottom-0 left-[275px]">
+          <div class="flex pb-2">
+            <div class="pr-1">
+              <span v-show="isCN" class="pl-2.5 pr-1 pt-1.5 text-xs font-normal text-white">{{
+                filteredHomePlayers('D').length + "-" +
+                filteredHomePlayers('M').length + "-" + filteredHomePlayers('F').length + "-" +
+                filteredHomePlayers('S').length }}</span>
+              <span v-show="!isCN" class="pl-2.5 pt-1.5 text-xs font-normal text-white">{{
+                homeTeamFormation }}</span>
+            </div>
+            <img class="" style="width: 24px; height: 24px;" :src="homeTeamLogo" />
+          </div>
+        </div>
+      </div>
+      <!-- IF有S 的球员 -->
+      <div class="w-full flex flex-col justify-around" v-if="hasHomeSPlayers">
+        <div v-for="player in filteredHomePlayers('S')" :key="player.id" class="">
+          <div class="flex flex-col items-center">
+            <div class="homeCircle relative flex justify-center items-center">
+              <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
+              <div>
+                <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+              </div>
+              <div v-if="player.captain === 1" class="CaptainCircle ">
+                <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
+              </div>
+            </div>
+            <p>{{ player.playerName }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- AWAY TEAM -->
+    <div class="w-1/2 h-full flex justify-between ">
+      <!-- IF有S 的球员 -->
+      <div class="w-full flex flex-col justify-around" v-if="hasAwaySPlayers">
+        <div v-for="player in filteredAwayPlayers('S')" :key="player.id" class="">
+          <div class="flex flex-col items-center">
+            <div class="awayCircle relative flex justify-center items-center">
+              <div>
+                <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+              </div>
+              <div v-if="player.captain === 1" class="CaptainCircle ">
+                <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
+              </div>
+            </div>
+            <p>{{ player.playerName }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="w-full flex flex-col justify-around">
+        <div v-for="player in filteredAwayPlayers('F')" :key="player.id" class="">
+          <div class="flex flex-col items-center">
+            <div class="awayCircle relative flex justify-center items-center">
+              <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
+              <div>
+                <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+              </div>
+              <div v-if="player.captain === 1" class="CaptainCircle ">
+                <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
+              </div>
+            </div>
+            <p>{{ player.playerName }}</p>
+          </div>
+        </div>
 
-                </div>
-                <p>{{ player.playerName }}</p>
-              </div>
-            </div>
-          </div>
-          <!-- IF D PASS HERE -->
-          <div class="w-full flex flex-col justify-around">
-            <div v-for="player in filteredHomePlayers('D')" :key="player.id" class="">
-              <div class="flex flex-col items-center">
-                <div class="homeCircle relative flex justify-center items-center">
-                  <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
-                  </div>
-<div v-if="player.captain === 1" class="CaptainCircle ">
-                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
-                  </div>
-                </div>
-                <p>{{ player.playerName }}</p>
-              </div>
-            </div>
-          </div>
-          <!-- IF M PASS HERE -->
-          <div class="w-full flex flex-col justify-around">
-            <div v-for="player in filteredHomePlayers('M')" :key="player.id" class="">
-              <div class="flex flex-col items-center">
-                <div class="homeCircle relative flex justify-center items-center">
-                  <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
-                  </div>
-<div v-if="player.captain === 1" class="CaptainCircle ">
-                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
-                  </div>
-                </div>
-                <p>{{ player.playerName }}</p>
-              </div>
-            </div>
-          </div>
-          <!-- IF F PASS HERE -->
-          <div class="w-full flex flex-col justify-around">
-            <div v-for="player in filteredHomePlayers('F')" :key="player.id" class="">
-              <div class="flex flex-col items-center">
-                <div class="homeCircle relative flex justify-center items-center">
-                  <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
-                  </div>
-<div v-if="player.captain === 1" class="CaptainCircle ">
-                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
-                  </div>
-                </div>
-                <p>{{ player.playerName }}</p>
-              </div>
-            </div>
-            <div class="absolute bottom-0 left-[275px]">
-              <div class="flex pb-2">
-                <div class="pr-1">
-                  <span v-show="isCN" class="pl-2.5 pr-1 pt-1.5 text-xs font-normal text-white">{{
-                    filteredHomePlayers('D').length + "-" +
-                    filteredHomePlayers('M').length + "-" + filteredHomePlayers('F').length + "-" +
-                    filteredHomePlayers('S').length }}</span>
-                  <span v-show="!isCN" class="pl-2.5 pt-1.5 text-xs font-normal text-white">{{
-                    homeTeamFormation }}</span>
-                </div>
-                <img class="" style="width: 24px; height: 24px;" :src="homeTeamLogo" />
-              </div>
-            </div>
-          </div>
-          <!-- IF有S 的球员 -->
-          <div class="w-full flex flex-col justify-around" v-if="hasHomeSPlayers">
-            <div v-for="player in filteredHomePlayers('S')" :key="player.id" class="">
-              <div class="flex flex-col items-center">
-                <div class="homeCircle relative flex justify-center items-center">
-                  <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
-                  <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
-                  </div>
-<div v-if="player.captain === 1" class="CaptainCircle ">
-                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
-                  </div>
-                </div>
-                <p>{{ player.playerName }}</p>
-              </div>
+        <div class="absolute bottom-1" style="left: 372px; ">
+          <div class="flex pb-1">
+            <img class="" style="width: 24px; height: 24px;" :src=awayTeamLogo />
+            <div>
+              <span v-show="isCN" class="pl-1.5 pr-2 pt-1 text-xs font-normal text-white">{{
+                filteredAwayPlayers('D').length + "-" +
+                filteredAwayPlayers('M').length + "-" + filteredAwayPlayers('F').length + "-" +
+                filteredAwayPlayers('S').length }}</span>
+              <span v-show="!isCN" class="pl-1.5 pr-2 pt-1 text-xs font-normal text-white">{{
+                awayTeamFormation }}</span>
             </div>
           </div>
         </div>
-        <!-- AWAY TEAM -->
-        <div class="w-1/2 h-full flex justify-between">
-          <!-- IF有S 的球员 -->
-          <div class="w-full flex flex-col justify-around" v-if="hasAwaySPlayers">
-            <div v-for="player in filteredAwayPlayers('S')" :key="player.id" class="">
-              <div class="flex flex-col items-center">
-                <div class="awayCircle relative flex justify-center items-center">
-                  <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
-                  </div>
-<div v-if="player.captain === 1" class="CaptainCircle ">
-                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
-                  </div>
-                </div>
-                <p>{{ player.playerName }}</p>
-              </div>
-            </div>
-          </div>
-          <div class="w-full flex flex-col justify-around">
-            <div v-for="player in filteredAwayPlayers('F')" :key="player.id" class="">
-              <div class="flex flex-col items-center">
-                <div class="awayCircle relative flex justify-center items-center">
-                  <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
-                  <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
-                  </div>
-<div v-if="player.captain === 1" class="CaptainCircle ">
-                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
-                  </div>
-                </div>
-                <p>{{ player.playerName }}</p>
-              </div>
-            </div>
 
-            <div class="absolute bottom-1" style="left: 372px; ">
-              <div class="flex pb-1">
-                <img class="" style="width: 24px; height: 24px;" :src=awayTeamLogo />
-                <div>
-                  <span v-show="isCN" class="pl-1.5 pr-2 pt-1 text-xs font-normal text-white">{{
-                    filteredAwayPlayers('D').length + "-" +
-                    filteredAwayPlayers('M').length + "-" + filteredAwayPlayers('F').length + "-" +
-                    filteredAwayPlayers('S').length }}</span>
-                  <span v-show="!isCN" class="pl-1.5 pr-2 pt-1 text-xs font-normal text-white">{{
-                    awayTeamFormation }}</span>
-                </div>
+      </div>
+      <div class="w-full flex flex-col justify-around">
+        <div v-for="player in filteredAwayPlayers('M')" :key="player.id" class="">
+          <div class="flex flex-col items-center">
+            <div class="awayCircle relative flex justify-center items-center">
+              <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
+              <div>
+                <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+              </div>
+              <div v-if="player.captain === 1" class="CaptainCircle ">
+                <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
               </div>
             </div>
-
+            <p>{{ player.playerName }}</p>
           </div>
-          <div class="w-full flex flex-col justify-around">
-            <div v-for="player in filteredAwayPlayers('M')" :key="player.id" class="">
-              <div class="flex flex-col items-center">
-                <div class="awayCircle relative flex justify-center items-center">
-                  <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
-                  <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
-                  </div>
-<div v-if="player.captain === 1" class="CaptainCircle ">
-                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
-                  </div>
-                </div>
-                <p>{{ player.playerName }}</p>
+        </div>
+      </div>
+      <div class="w-full flex flex-col justify-around">
+        <div v-for="player in filteredAwayPlayers('D')" :key="player.id" class="">
+          <div class="flex flex-col items-center">
+            <div class="awayCircle relative flex justify-center items-center">
+              <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
+              <div>
+                <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+              </div>
+              <div v-if="player.captain === 1" class="CaptainCircle ">
+                <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
               </div>
             </div>
+            <p>{{ player.playerName }}</p>
           </div>
-          <div class="w-full flex flex-col justify-around">
-            <div v-for="player in filteredAwayPlayers('D')" :key="player.id" class="">
-              <div class="flex flex-col items-center">
-                <div class="awayCircle relative flex justify-center items-center">
-                  <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
-                  <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
-                  </div>
-<div v-if="player.captain === 1" class="CaptainCircle ">
-                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
-                  </div>
-                </div>
-                <p>{{ player.playerName }}</p>
+        </div>
+      </div>
+      <div class="w-full flex flex-col justify-around">
+        <div v-for="player in filteredAwayPlayers('G')" :key="player.id" class="">
+          <div class="flex flex-col items-center">
+            <div class="awayKeeperCircle relative flex justify-center items-center">
+              <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
+              <div>
+                <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+              </div>
+              <div v-if="player.captain === 1" class="CaptainCircle ">
+                <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
               </div>
             </div>
-          </div>
-          <div class="w-full flex flex-col justify-around">
-            <div v-for="player in filteredAwayPlayers('G')" :key="player.id" class="">
-              <div class="flex flex-col items-center">
-                <div class="awayKeeperCircle relative flex justify-center items-center">
-                  <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
-                  <div>
-                    <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
-                  </div>
-<div v-if="player.captain === 1" class="CaptainCircle ">
-                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
-                  </div>
-                </div>
-                <p>{{ player.playerName }}</p>
-              </div>
-            </div>
+            <p>{{ player.playerName }}</p>
           </div>
         </div>
       </div>
@@ -220,9 +215,9 @@ export default {
 
   async mounted() {
     this.isCN = false;
-    this.getTournamentLineup = await getFootballLineup(this.tournamentID, (this.$i18n.locale === 'ZH')?true :false);
+    this.getTournamentLineup = await getFootballLineup(this.tournamentID, (this.$i18n.locale === 'ZH') ? true : false);
 
-    this.getTournamentDetails = await getFootballMatchbyId(this.tournamentID, (this.$i18n.locale === 'ZH')?true :false);
+    this.getTournamentDetails = await getFootballMatchbyId(this.tournamentID, (this.$i18n.locale === 'ZH') ? true : false);
 
     // this.getTournamentLineup = await getFootballLineup(1253806, false);
     // this.homeTeamFormation = "4-2-3-1";
@@ -234,7 +229,7 @@ export default {
 
     if (this.getTournamentLineup !== null) {
       if (this.getTournamentDetails !== null) {
-          if (this.getTournamentDetails['homeFormation'] !== "" && this.getTournamentDetails['awayFormation'] !== "") {
+        if (this.getTournamentDetails['homeFormation'] !== "" && this.getTournamentDetails['awayFormation'] !== "") {
           this.homeTeamFormation = this.getTournamentDetails['homeFormation']
           this.awayTeamFormation = this.getTournamentDetails['awayFormation']
         } else {
@@ -271,7 +266,6 @@ export default {
         this.processPlayerPosition(lineupList, this.AD_list, this.AD_captain, this.AD_shirtNumber, this.AD_playerName);
         this.processPlayerPosition(lineupList, this.AS_list, this.AS_captain, this.AS_shirtNumber, this.AS_playerName);
       }
-
 
       const populateHomePlayer = (position, positionArray, shirtNo, playerName, captain) => {
         for (let i = 0; i < positionArray.length; i++) {
@@ -316,7 +310,6 @@ export default {
     }
 
   },
-
   data() {
     return {
       isCN: Boolean,
@@ -455,10 +448,10 @@ export default {
       // console.log("second:", this.M_list);
       // console.log("third:", this.D_list);
       // console.log("fourth:", this.S_list);
-      
-      if(this.homeTeamFormation !== "-"){
+
+      if (this.homeTeamFormation !== "-") {
         this.G_list = [1];
-      }else{
+      } else {
         this.G_list = [];
       }
 
@@ -490,9 +483,9 @@ export default {
       // console.log("second:", this.AM_list);
       // console.log("third:", this.AD_list);
       // console.log("fourth:", this.AS_list);
-      if(this.awayTeamFormation !== "-"){
+      if (this.awayTeamFormation !== "-") {
         this.AG_list = [1];
-      }else{
+      } else {
         this.AG_list = [];
       }
     },
@@ -529,7 +522,7 @@ export default {
           return (position) => this.homePlayer.filter(player => player.position === position);
 
         }
-      } else{
+      } else {
         return null;
       }
     },
@@ -541,7 +534,7 @@ export default {
           return (position) => this.awayPlayer.filter(player => player.position === position);
 
         }
-      } else{
+      } else {
         return null;
       }
     },
@@ -553,7 +546,7 @@ export default {
         } else {
           return this.homePlayer.some(player => player.position === 'S');
         }
-      } else{
+      } else {
         return null;
       }
     },
@@ -566,7 +559,7 @@ export default {
 
         }
       }
-      else{
+      else {
         return null;
       }
     },
@@ -581,7 +574,10 @@ export default {
   position: relative;
   width: 728px;
   height: 343px;
-  background-size: contain;
+  background-position: 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  justify-content: space-between;
   background: url('@/assets/tournament/football_court.png') center/cover;
 }
 
@@ -648,15 +644,13 @@ export default {
   position: absolute;
   left: -2px;
   bottom: -3px;
-  width: 10px; 
-  height: 10px; 
-  background-color: yellow; 
+  width: 10px;
+  height: 10px;
+  background-color: yellow;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: black; 
+  color: black;
 }
-
-
 </style>
