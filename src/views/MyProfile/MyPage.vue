@@ -40,10 +40,21 @@
                 </div>
                 <div class="w-1/2 pl-2">
                     <ButtonPress class="w-full bg-white pl-6 pr-6" style="width: 100%; height: 60px; border-radius: 8px;">
-                        <p class="text-base font-normal" style="color: #333333;">{{ $t("Broadcasting") }}</p>
+                        <p class="text-base font-normal" style="color: #333333;">{{ $t("Broadcasting")}}</p>
                     </ButtonPress>
 
                 </div>
+                <!-- <div>
+                    <ButtonPress class="w-full bg-white pl-6 pr-6" style="width: 100%; height: 60px;">
+                        <p class="text-base font-normal" style="color: #333333;">{{ $t("ContactUs") }}</p>
+                    </ButtonPress>
+                </div>
+                <div>
+                    <ButtonPress class="w-full bg-white pl-6 pr-6" style="width: 100%; height: 60px;">
+                        <p class="text-base font-normal" style="color: #333333;">{{ $t("Settings") }}</p>
+                    </ButtonPress>
+
+                </div> -->
             </div>
 
             <div class="pt-12">

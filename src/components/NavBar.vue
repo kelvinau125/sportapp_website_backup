@@ -1,19 +1,20 @@
 <template>
   <div class="bg-navColor  text-white py-1 px-10 shadow md:flex justify-between items-center">
-    <div class="flex items-center cursor-pointer">
+    <div class="md:pt-1 pt-2 flex items-center cursor-pointer">
       <img class="mr-2" alt="App logo" src="@/assets/topNav/appImage.png">
 
-      <a href="/"> <span class="md:text-lg text-base font-semibold py-10 " style="color: #33BA53; "> {{ $t("PandaSport")
-      }}</span>
-      </a>
+      <a class="md:text-lg text-base font-semibold" style="color: #33BA53; " href="/"> {{ $t("PandaSport") }}</a>
+      <!-- <div class="relative">
+        <div @click="MenuOpen()" class="md:static absolute md:hidden md:pl-0 pl-10 md:left-0 left-20 md:bottom-0 -bottom-[12px]"
+          style="border: 1px solid red; width: 60px;">
+          <img v-if="openNav" src="@/assets/topNav/x.png">
+          <img v-else src="@/assets/topNav/hamburger.png">
+        </div>
 
-      <span @click="MenuOpen()" class="relative md:hidden md:pl-0 pl-10 md:right-0 left-44" style="width: 60px;">
-        <img v-if="openNav" src="@/assets/topNav/x.png">
-        <img v-else src="@/assets/topNav/hamburger.png">
-      </span>
-      <div class="">
-        <ul :class="openNav ? 'left-0' : 'left-[-100%]'"
-          class="md:items-center md:pr-0 pr-4 md:pl-5 pl-72 md:static absolute bg-navColor md:w-auto w-auto md:right-0 md:top-14 top-14 duration-700 ease-in">
+      </div> -->
+      <div class="md:static relative">
+        <ul :class="openNav ? 'block' : 'hidden'" style="z-index: 1000;"
+          class="md:items-center md:pr-0 pr-2 md:pl-5 pl-5 md:static absolute bg-navColor md:w-auto w-auto md:right-0 right-20 md:top-14 top-14 ">
           <li class=" md:inline-flex flex-col ml-4 my-2.5" v-for="link in Links" :key="link.link">
             <router-link :to="link.link"
               class="nav-button md:text-base text-sm font-normal hover:text-gray-200 text-white">{{
@@ -50,6 +51,13 @@
           </button>
         </div>
       </div>
+      <div  class="relative">
+        <div @click="MenuOpen()" class="md:static absolute md:hidden md:pl-0 pl-10 md:left-0 left-[110px] md:top-0 -top-[35px]"
+          style="width: 60px;">
+          <img class="cursor-pointer" v-if="openNav" src="@/assets/topNav/x.png">
+          <img class="cursor-pointer" v-else src="@/assets/topNav/hamburger.png">
+        </div>
+      </div>
       <div class="md:flex relative">
         <div @click="search" class="md:block hidden">
           <img src="@/assets/topNav/search.png" alt="Search Icon" class="absolute left-0.5 w-6 h-6 m-2" />
@@ -59,14 +67,14 @@
             maxlength="20"
             class="pl-10 md:w-72 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-10 text-white bg-slate-50" />
         </div>
-        <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between">
+        <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between ">
           <button class="md:flex cursor-pointer text-xl mr-2.5 items-center md:pl-3" @click="toggleDropdown">
-            <img class="md:static absolute md:right-0 right-10 md:top-0 bottom-9 hover:bg-blue-950" :src="img"
+            <img :src="img" class="max-w-[24px] md:static absolute md:right-0 right-10 md:top-0 bottom-9 hover:bg-blue-950"
               alt="defaultFootBall Image" />
             <img class="md:block hidden pl-1.5 py-1" src="@/assets/topNav/arrowDown.png" alt="Arrow Down">
           </button>
 
-          <div class="dropdown-content md:hidden absolute md:right-9 right-7 md:top-10 top-0"
+          <div class="dropdown-content md:hidden absolute md:right-6 right-8 md:top-10 top-0"
             :class="{ 'show-dropdown': isDropdownOpen }">
             <button class="dropdown-button" @click="selectOption(require('@/assets/topNav/basketball.png'))">
               <img src="@/assets/topNav/basketball.png" alt="Basketball" />
@@ -77,18 +85,13 @@
           </div>
         </div>
       </div>
-      <div class="md:flex items-center pl-1">
-        <div @click="toggleDropdownProfile">
-          <!-- <img class="md:static absolute md:right-0 right-7 md:top-0 top-2" :src="avatar"
-            alt="Profile Picture" /> -->
-          <img v-if="!loggedIn" src="@/assets/avatar_default.jpg"
-            class="md:static absolute md:right-0 right-7 md:top-0 top-2 rounded-full border-2 border-white"
-            style="width: 40px; height: 40px; object-fit: cover;" />
-          <img v-if="loggedIn" :src="avatar"
-            class="md:static absolute md:right-0 right-7 md:top-0 top-2 rounded-full border-2 border-white"
-            style="width: 40px; height: 40px; object-fit: cover;" />
+      <div class=" md:flex relative items-center pl-1">
+        <div @click="toggleDropdownProfile" class="">
+          <img :src="avatar"
+            class="max-w-[40px] md:static absolute md:right-0 -right-4 md:top-0 -top-[72px] rounded-full border-2 border-white"
+            style=" object-fit: cover;" />
           <div v-show="showDropdown"
-            class="md:absolute absolute md:right-8 right-6 md:top-14 top-14 bg-gray-900 mt-1 p-1 py-3">
+            class="md:absolute absolute md:right-0 -right-4 md:top-12 -top-6 bg-gray-900 mt-1 p-1 py-3">
             <div class="pr-1 pt-1 pb-2 flex flex-col">
               <!-- <button to="/register" class="px-1 hover:text-green-500 text-white">注册</button>
               <button to="/login" class="px-1 hover:text-green-500 text-white">登入</button> -->
@@ -100,6 +103,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
   <div class="md:flex items-center pl-1">
@@ -405,7 +409,6 @@ export default {
 .dropdown-content {
   display: none;
   position: absolute;
-  top: 100%;
   --tw-bg-opacity: 1;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);

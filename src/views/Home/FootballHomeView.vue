@@ -1,20 +1,22 @@
 <template>
   <!-- <div style="height: 150rem" /> -->
+
   <div class="w-full flex flex-col">
     <BackgroundImage>
       <div class="live-container">
         <div class="liveStream">
           <!-- <div class="live-window"> -->
-            <!-- <div>直播窗口内容</div>
+          <!-- <div>直播窗口内容</div>
             <div>Testing</div> -->
-            <video id="my-player" class="video-js vjs-default-skin" controls preload="auto" width="892px" height="505px" poster="https://fictionhorizon.com/wp-content/uploads/2023/09/GojoStar.jpg" >
+          <video id="my-player" class="video-js vjs-default-skin" controls preload="auto" width="892px" height="505px"
+            poster="https://fictionhorizon.com/wp-content/uploads/2023/09/GojoStar.jpg">
 
-              <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4"> 
-              <!-- <p class="vjs-no-js"> -->
-                <!-- <a href="https://vjs.zencdn.net/v/oceans.mp4">Testing URL</a> -->
+            <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+            <!-- <p class="vjs-no-js"> -->
+            <!-- <a href="https://vjs.zencdn.net/v/oceans.mp4">`1`ing URL</a> -->
 
-              <!-- </p> -->
-            </video>
+            <!-- </p> -->
+          </video>
           <!-- </div> -->
         </div>
 
@@ -26,18 +28,57 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </BackgroundImage>
 
   </div>
-  <div class="flex justify-center">
-    <div class="flex flex-col smtg">
-      <div class="pb-1">
-        <img class="banner mt-5" src="@/assets/main/advertisment.png" alt="Banner" />
+
+  <div class="flex flex-col justify-center">
+    <div class="flex justify-center">
+      <img class="w-[520px] sm:w-[700px] md:w-[800px] lg:w-[897px] md:pl-0 mt-5" src="@/assets/main/advertisment.png"
+        alt="Banner" />
+    </div>
+    <div class="flex justify-center ">
+      <div class="w-full md:w-[897px]">
+        <h2 class="md:text-2xl text-xl pr-5 py-5 font-normal">{{ $t("Popular fixtures") }} </h2>
+        <PopularMatch />
       </div>
-      <div>
+    </div>
+    <div class="flex justify-center">
+      <div  class="w-full md:w-[897px] pb-20 ">
+        <h2 class="md:text-2xl text-xl pr-5 py-5 font-normal">{{ $t("Popular anchor list") }}</h2>
+        <div  class="flex gap-[5px] flex-wrap rounded-lg w-full bg-white">
+          <img class="md:w-[142px] w-[120px] md:h-[116px] h-[94px]" src="@/assets/content/champion.png" />
+          <div   class=" md:w-[120px] w-[103px] flex flex-col items-center py-3" v-for="link in streamer"
+            :key="link.streamer">
+            <div>
+              <img class="md:w-[50px]" :src="require(`@/assets/topNav/${link.image}.png`)" alt="Link Image" />
+            </div>
+            <div class="pt-1">
+              <p class="md:text-sm text-xs font-normal hover:text-green-500">{{ link.name }}</p>
+            </div>
+            <div class="flex items-center">
+              <div>
+                <p class="text-10px font-normal text-grayText hover:text-green-500">{{ link.no }}</p>
+              </div>
+              <div>
+                <img class="pl-1 md:w-[18px] w-[16px]" src="@/assets/content/Frame.png" alt="Frame Icon">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="flex justify-center">
+    <div class="flex flex-col w-[897px]">
+      <div class="flex justify-center pb-1">
+        <img class="w-[520px] sm:w-[700px] md:w-[800px] lg:w-full   md:pl-0 mt-5" src="@/assets/main/advertisment.png"
+          alt="Banner" />
+      </div>
+      <div style="border: 1px solid green;" class="w-[897px]">
         <h2 class="text-2xl pr-5 py-5 font-normal">{{ $t("Popular fixtures") }} </h2>
         <PopularMatch />
       </div>
@@ -64,7 +105,7 @@
       </div>
 
     </div>
-  </div>
+  </div> -->
   <div>
     <FooterBar />
   </div>
@@ -95,9 +136,10 @@ const epicMoment = [
 
 </script>
 
-<style >
-.smtg {
+<style scoped>
+.containerWidth {
   width: 892px;
+  border: 1px solid red;
 }
 
 .live-container {
