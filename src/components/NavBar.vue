@@ -17,7 +17,7 @@
           <li class=" md:inline-flex flex-col ml-4 my-2.5" v-for="link in Links" :key="link.link">
             <router-link :to="link.link"
               class="nav-button md:text-base text-sm font-normal hover:text-gray-200 text-white">{{
-                link.name
+                $t(link.name)
               }}</router-link>
           </li>
         </ul>
@@ -33,7 +33,24 @@
             maxlength="20"
             class="pl-10 md:w-72 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-10 text-white bg-slate-50" />
         </div>
+
         <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between">
+          <div class="md:flex items-center">
+            <div class="dropdown-button language-dropdown" style="width: 100px; padding: 10px;">
+              <button class="language-toggle" @click="toggleDropdownLanguage">
+                {{ $t($i18n.locale) }}
+                <span> &#9662;</span>
+              </button>
+              <div v-show="isDropdownOpenLanguage" class="language-options">
+                <button v-for="locale in $i18n.availableLocales" :key="locale" @click="languageChange(locale)"
+                  class="languages">
+                  {{ $t(locale) }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+
           <button class="md:flex cursor-pointer text-xl mr-2.5 items-center md:pl-3" @click="toggleDropdown">
             <img class="md:static absolute md:right-0 right-10 md:top-0 bottom-9 hover:bg-blue-950" :src="img"
               alt="defaultFootBall Image" />
@@ -49,6 +66,8 @@
               <img src="@/assets/topNav/football.png" alt="Football" />
             </button>
           </div>
+
+
         </div>
       </div>
       <div class="md:flex items-center pl-1">
@@ -138,9 +157,9 @@ export default {
       searchQuery: '',
 
       Links: [
-        { name: this.$t('main'), link: '/' },
-        { name: this.$t('live'), link: '/live' },
-        { name: this.$t('myfavouritelive'), link: '/favourite' },
+        { name: 'main', link: '/' },
+        { name: 'live', link: '/live' },
+        { name: 'myfavouritelive', link: '/favourite' },
       ],
       avatar: ref(''),
       img: ref(require('@/assets/topNav/football.png')),
@@ -156,7 +175,7 @@ export default {
       isEditProfileModalVisible: ref(false),
       isEditNicknameModalVisible: ref(false),
       openNav: ref(false),
-
+      isDropdownOpenLanguage: ref(false),
     };
   },
   methods: {
@@ -272,6 +291,16 @@ export default {
     closeEditNicknameModal() {
       this.isEditNicknameModalVisible = false;
     },
+
+    toggleDropdownLanguage() {
+      this.isDropdownOpenLanguage = !this.isDropdownOpenLanguage;
+    },
+
+    languageChange(locale) {
+      this.isDropdownOpenLanguage = false;
+      this.$i18n.locale = locale;
+      console.log("let me see see: " + locale);
+    }
   },
   mounted() {
     this.searchQuery = "";
@@ -384,5 +413,32 @@ a {
 a.router-link-exact-active {
   /* color: #42b983; */
   background-color: #33BA53;
+}
+
+/* language switching drop down button */
+.language-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.language-options {
+  position: absolute;
+  top: 100%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+  border: 1px solid rgb(17 24 39 / var(--tw-bg-opacity));
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.languages:hover {
+  color: #33BA53;
+}
+
+.language-toggle:hover {
+  color: #33BA53;
 }
 </style>
