@@ -111,30 +111,44 @@
   </div>
 </template>
 
-<script setup>
-// import { ref } from 'vue'
+<script>
 import PopularMatch from '@/components/PopularMatch.vue'
 import FooterBar from '@/components/FooterPage.vue'
 import BackgroundImage from '@/components/BackGround.vue'
+import { ref } from 'vue'
 
-const streamer = [
-  { name: '主播名称', image: 'defaultProfile', no: '1234' },
-  { name: '主播名称', image: 'defaultProfile', no: '1234' },
-  { name: '主播名称', image: 'defaultProfile', no: '1234' },
-  { name: '主播名称', image: 'defaultProfile', no: '1234' },
-  { name: '主播名称', image: 'defaultProfile', no: '1234' },
-  { name: '主播名称', image: 'defaultProfile', no: '520' }
-]
-
-const epicMoment = [
-  { image: 'moment5' },
-  { image: 'moment5' },
-  { image: 'moment5' },
-  { image: 'moment5' },
-  { image: 'moment5' },
-]
-
+export default {
+  components: {
+    PopularMatch,
+    FooterBar,
+    BackgroundImage,
+  },
+  data() {
+    return {
+      streamer: [
+        { name: '主播名称', image: 'defaultProfile', no: '1234' },
+        { name: '主播名称', image: 'defaultProfile', no: '1234' },
+        { name: '主播名称', image: 'defaultProfile', no: '1234' },
+        { name: '主播名称', image: 'defaultProfile', no: '1234' },
+        { name: '主播名称', image: 'defaultProfile', no: '1234' },
+        { name: '主播名称', image: 'defaultProfile', no: '520' }
+      ],
+      epicMoment: [
+        { image: 'moment5' },
+        { image: 'moment5' },
+        { image: 'moment5' },
+        { image: 'moment5' },
+        { image: 'moment5' },
+      ],
+      currentChannel: ref((localStorage.getItem('currentChannel') === "football")?true :false),
+    };
+  },
+  mounted(){
+    console.log(this.currentChannel);
+  }
+};
 </script>
+
 
 <style scoped>
 .containerWidth {

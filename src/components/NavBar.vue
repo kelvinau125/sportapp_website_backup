@@ -209,10 +209,13 @@ export default {
     basketballchoice() {
       this.selectOption(require('@/assets/topNav/basketball.png'))
       this.switchChannel('basketball')
+      window.location.reload()
     },
     footballchoice() {
       this.selectOption(require('@/assets/topNav/football.png'))
       this.switchChannel('football')
+      window.location.reload()
+
     },
     //Search Functions
     search() {
