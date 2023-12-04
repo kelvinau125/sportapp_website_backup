@@ -411,7 +411,6 @@ export default {
     position: relative;
     width: 50px;
     padding: 20px;
-    border: 1px solid red;
 
   }
 

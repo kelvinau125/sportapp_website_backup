@@ -1,9 +1,9 @@
 <template>
   <!-- {{ filteredHomePlayers('G').length }} -->
 
-  <div style="border: 1px solid red;" class="soccer-field flex ">
+  <div  class="soccer-field flex ">
     <!-- Home Players -->
-    <div style="border: 1px solid red;" class="w-1/2 h-full flex justify-between ">
+    <div  class="w-1/2 h-full flex justify-between ">
       <!-- IF G PASS HERE -->
       <div class="w-full flex flex-col justify-around">
         <div v-for="player in filteredHomePlayers('G')" :key="player.id" class="">

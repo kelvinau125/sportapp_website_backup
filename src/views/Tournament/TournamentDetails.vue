@@ -159,7 +159,7 @@
     </div>
   </div> -->
   <div class="flex justify-center pb-10 ">
-    <div style="border: 1px solid red;" class="w-[892px]">
+    <div class="w-[892px]">
       <h2 class="text-headerFont font-headerWeight ">{{ $t("Line Up") }}</h2>
       <!-- <div class="pt-3">
         <LineUp :tournamentID="this.TournamentID" :homeTeamLogo="this.homeTeamLogo" :awayTeamLogo="this.awayTeamLogo" />
@@ -173,7 +173,7 @@
   </div>
 
   <div class="flex justify-center pb-10 ">
-    <div style="border: 1px solid red;" class="w-[892px]">
+    <div class="w-[892px]">
       <h2 class="text-headerFont font-headerWeight ">{{ $t("Substitute") }}</h2>
       <div class="pt-3">
       <TournamentSubstitue :homeTeamName="this.homeTeamName" :awayTeamName="this.awayTeamName"
@@ -181,7 +181,6 @@
     </div>
     </div>
   </div>
-  <LineUp :tournamentID="this.TournamentID" :homeTeamLogo="this.homeTeamLogo" :awayTeamLogo="this.awayTeamLogo" />
 </template>
 
 <script>
