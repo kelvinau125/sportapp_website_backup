@@ -13,8 +13,9 @@
 
       </div> -->
       <div class="md:static relative">
-        <ul :class="openNav ? 'block' : 'hidden'" style="z-index: 1000;"
-          class="md:block md:items-center md:pr-0 pr-2 md:pl-5 pl-5 md:static absolute bg-navColor md:w-auto w-auto md:right-0 right-20 md:top-14 top-14 ">
+        <ul style="z-index: 1000;"
+        :class="openNav ? 'block': 'hidden'"
+          class=" md:block  md:items-center md:pr-0 pr-2 md:pl-5 pl-5 md:static absolute bg-navColor md:w-auto w-auto md:right-0 right-20 md:top-14 top-14 ">
           <li class=" md:inline-flex flex-col ml-4 my-2.5" v-for="link in Links" :key="link.link">
             <router-link :to="link.link"
               class="nav-button md:text-base text-sm font-normal hover:text-gray-200 text-white">{{

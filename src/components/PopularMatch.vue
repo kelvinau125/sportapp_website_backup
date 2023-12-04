@@ -40,18 +40,18 @@
               <img class="" style="width: 24px; height: 24px;" :src="match.homeTeamIcon" />
             </div>
             <div class="nameBorder flex justify-center text-center text-xs font-normal text-grayText">
-              <span class=" whitspace-nowrap overflow-hidden text-elleipsis">{{ match.homeTeamName}}</span>
+              <span class=" whitspace-nowrap overflow-hidden text-elleipsis">{{ match.homeTeamName }}</span>
             </div>
           </div>
           <div class="flex relative flex-col justify-start items-center py-2 ">
-            <div v-show="isCN" class="h-1/2 absolute font-medium text-sm pt-3 flex items-center justify-center"
+            <div v-show="isCN" class="w-[80px] h-1/2 absolute font-medium text-sm pt-3 flex items-center justify-center"
               :class="{ 'statusStartBorder': match.status === '开', 'statusEndBorder': match.status === '终' }">{{
                 match.status }}</div>
 
-            <div v-show="!isCN" class="h-1/2 absolute font-medium text-sm pt-3 flex items-center justify-center"
+            <div v-show="!isCN" class="w-[80px] h-1/2 absolute font-medium text-sm pt-3 flex items-center justify-center"
               :class="{ 'statusStartBorder': match.status === ('Started' || 'Start'), 'statusEndBorder': match.status === match.status && match.status !== '' }">
-              {{
-                match.status }}</div>
+              <span class="whitspace-normal overflow-hidden text-ellipsis">{{match.status}}</span>
+            </div>
             <div class="h-1/2 mt-8">
               <span class="pt-2 text-base font-semibold">VS</span>
             </div>
@@ -62,9 +62,8 @@
               <img class="" style="width: 24px; height: 24px;" :src="match.awayTeamIcon" />
             </div>
             <div class="nameBorder flex justify-center text-center text-xs font-normal text-grayText">
-              <span
-                class="whitspace-nowrap overflow-hidden text-elleipsis">{{
-                  match.awayTeamName }}</span>
+              <span class="whitspace-nowrap overflow-hidden text-elleipsis">{{
+                match.awayTeamName }}</span>
 
             </div>
 
@@ -258,7 +257,7 @@ export default {
   border-radius: 49px;
 }
 
-.nameBorder{
+.nameBorder {
   width: 70px;
   height: 100%;
 
@@ -282,7 +281,6 @@ export default {
 
 .statusEndBorder {
   background-color: #F5F5F5;
-  width: auto;
   height: auto;
   border-radius: 30px;
   padding-left: 10px;
@@ -293,7 +291,6 @@ export default {
 
 .statusStartBorder {
   background-color: #EEFBEE;
-  width: auto;
   height: auto;
   padding: 100px;
   border-radius: 30px;
