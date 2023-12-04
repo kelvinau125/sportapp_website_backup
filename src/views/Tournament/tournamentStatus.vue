@@ -1,8 +1,8 @@
 <template>
     <!-- Main Component -->
-    <div class="flex flex-col py-2">
-      <div class="overflow-hidden">
-        <div class="flex justify-center">
+    <div class="flex flex-col py-2 w-[892px]" style="border: 1px solid hotpink;">
+      <div style="border: 1px solid green ;" class="">
+        <div class=" flex justify-center" style="border: 1px solid red;">
           <div class="flex items-center">
             <div class="flex px-2 pb-1.5">
               <img style="width: 24px; height: 24px;" src="@/assets/tournament/jiaoQiu.png" />
