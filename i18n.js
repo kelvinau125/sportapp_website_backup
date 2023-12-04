@@ -12,8 +12,10 @@ function loadLocalMessages(){
     return messages
 }
 
+const savedLocale = localStorage.getItem('locale');
+
 export default createI18n({
-    locale : 'ZH',
+    locale : savedLocale || 'ZH',
     fallbackLocale: 'EN',
     messages: loadLocalMessages()
 })

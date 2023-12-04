@@ -9,6 +9,7 @@ export default createStore({
     password: '',
     userId: null,
     status: false,
+    currentChannel: localStorage.getItem('currentChannel') || 'football',
   },
   mutations: {
     setUserData(state, { nickName, phoneNumber, password, userId }) {
@@ -33,6 +34,10 @@ export default createStore({
       state.status = false
       state.userId = null
     },
+    setCurrentChannel(state, channel) {
+      state.currentChannel = channel;
+      localStorage.setItem('currentChannel', channel);
+    },
   },
   actions: {
     register({ commit }, { nickName, phoneNumber, password, userId }) {
@@ -52,7 +57,10 @@ export default createStore({
     forgotPasswordDone({ commit }) {
       commit('clearForgotPassword')
       console.log("done delete");
-    }
+    },
+    switchChannel({ commit }, channel) {
+      commit('setCurrentChannel', channel);
+    },
   },
   getters: {
     isLoggedIn: state => !!state.userId,
@@ -60,5 +68,6 @@ export default createStore({
     phoneNumber: state => state.phoneNumber,
     password: state => state.password,
     status: state => state.status,
+    getCurrentChannel: state => state.currentChannel,
   }
 })

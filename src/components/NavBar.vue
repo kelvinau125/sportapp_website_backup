@@ -64,14 +64,15 @@
             <img :src="img" class="max-w-[24px] md:static absolute md:right-0 right-10 md:top-0 bottom-9 hover:bg-blue-950"
               alt="defaultFootBall Image" />
             <img class="md:block hidden pl-1.5 py-1" src="@/assets/topNav/arrowDown.png" alt="Arrow Down">
+            <p>{{ this.currentChannel }}</p>
           </button>
 
           <div class="dropdown-content md:hidden absolute md:right-6 right-8 md:top-10 top-0"
             :class="{ 'show-dropdown': isDropdownOpen }">
-            <button class="dropdown-button" @click="selectOption(require('@/assets/topNav/basketball.png'))">
+            <button class="dropdown-button" @click="basketballchoice()">
               <img src="@/assets/topNav/basketball.png" alt="Basketball" />
             </button>
-            <button class="dropdown-button" @click="selectOption(require('@/assets/topNav/football.png'))">
+            <button class="dropdown-button" @click="footballchoice()">
               <img src="@/assets/topNav/football.png" alt="Football" />
             </button>
           </div>
@@ -137,6 +138,9 @@ import VueCookies from 'vue-cookies';
 // import the remove cookie function
 import { removeCookie } from '@/service/cookie';
 
+// vuex
+import { mapState, mapActions } from 'vuex';
+
 import LoginModal from '@/views/Authentication/LoginModal.vue';
 import RegisterModal from '@/views/Authentication/RegisterModal.vue';
 import OTPModal from '@/views/Authentication/OTPVerification.vue';
@@ -157,6 +161,15 @@ export default {
     EditProfile,
     EditNicknameModal,
   },
+
+  computed: {
+    ...mapState(['currentChannel']),
+    currentChannelComponent() {
+      console.log(this.currentChannel)
+      return this.currentChannel === 'football' ? 'football' : 'basketball';
+    },
+  },
+
   data() {
     return {
       searchQuery: '',
@@ -167,7 +180,8 @@ export default {
         { name: 'myfavouritelive', link: '/favourite' },
       ],
       avatar: ref(''),
-      img: ref(require('@/assets/topNav/football.png')),
+      // img: ref(require('@/assets/topNav/football.png')),
+      img: "",
       isDropdownOpen: ref(false),
       showDropdown: ref(false),
       loggedIn: ref(false),
@@ -183,7 +197,23 @@ export default {
       isDropdownOpenLanguage: ref(false),
     };
   },
+
   methods: {
+    ...mapActions(['switchChannel']),
+
+    created() {
+      // Dispatch the action to set the initial channel
+      this.switchChannel(this.currentChannel);
+    },
+    
+    basketballchoice() {
+      this.selectOption(require('@/assets/topNav/basketball.png'))
+      this.switchChannel('basketball')
+    },
+    footballchoice() {
+      this.selectOption(require('@/assets/topNav/football.png'))
+      this.switchChannel('football')
+    },
     //Search Functions
     search() {
       const searchPages = "1";
@@ -305,8 +335,12 @@ export default {
       this.isDropdownOpenLanguage = false;
       this.$i18n.locale = locale;
       console.log("let me see see: " + locale);
-    }
+
+      // Save the selected language to localStorage
+      localStorage.setItem('locale', locale);
+    },
   },
+
   mounted() {
     this.searchQuery = "";
     if (VueCookies.isKey('avatar')) {
@@ -319,6 +353,10 @@ export default {
     } else {
       this.loggedIn = false;
     }
+
+    this.currentChannel == "football"
+    ?this.img = require('@/assets/topNav/football.png')
+    :this.img = require('@/assets/topNav/basketball.png')
   },
 };
 
