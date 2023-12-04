@@ -1,6 +1,6 @@
 <template>
-  <div style="border: 1px solid red;" class="flex justify-center ">
-    <div style="border: 1px solid red;" class="w-[892px] tournament_window">
+  <div class="flex justify-center ">
+    <div class="w-[892px] tournament_window">
       <div class="content_s">
         <div class="flex flex-col items-center">
           <span class="font-semibold text-lg text-white">{{ this.competitionName }}</span>
@@ -11,30 +11,32 @@
           </div>
         </div>
       </div>
-      <div class="flex justify-start relative top-[30px] items-center ">
+      <div class="flex justify-start relative top-[35px] items-center ">
         <div class="absolute left-[20px] homeTeamPos sm:left-[300px]" style="">
-          <div style="border: 2px solid black;" class="mt-10 h-30 w-28 flex flex-col items-center">
+          <div class="mt-10 h-30 w-28 flex flex-col items-center">
             <img class="pb-3" :src="this.homeTeamLogo" style="
                     height: 46px;
                     width: 46px;
                 " />
-            <p class="flex justify-center text-white w-28 h-16 whitespace-normal overflow-hidden text-ellipsis"
-              style="border: 1px solid red;">{{ this.homeTeamName }}</p>
+            <p
+              class="text-sm font-normal flex justify-center text-white w-28 h-16 whitespace-normal overflow-hidden text-ellipsis">
+              {{ this.homeTeamName }}</p>
           </div>
         </div>
-        <div class="absolute left-[140px] sm:left-[320px] md:left-[395px]  text-white flex w-24 justify-between pt-10">
+        <div class="absolute left-[155px] scorePosition   text-white flex w-24 justify-between pt-10 ">
           <span class="md:text-3xl text-2xl md:pl-0 pl-4 font-semibold">{{ this.homeTeamScore }}</span>
           <span class="md:text-3xl text-2xl font-semibold">-</span>
           <span class="md:text-3xl text-2xl md:pr-0 pr-4 font-semibold">{{ this.awayTeamScore }}</span>
         </div>
-        <div class="absolute left-[250px]" style="">
-          <div style="border: 2px solid black;" class="mt-10 h-30 w-28 flex flex-col items-center">
+        <div class="absolute left-[270px] awayTeamPosition" style="">
+          <div class="mt-10 h-30 w-28 flex flex-col items-center">
             <img class="pb-3" :src="this.awayTeamLogo" style="
                     height: 46px;
                     width: 46px;
                 " />
-            <p class="flex justify-center text-white w-28 h-16 whitespace-normal overflow-hidden text-ellipsis"
-              style="border: 1px solid red;">{{ this.awayTeamName }}</p>
+            <p
+              class="text-sm font-normal flex justify-center text-white w-28 h-16 whitespace-normal overflow-hidden text-ellipsis">
+              {{ this.awayTeamName }}</p>
           </div>
         </div>
       </div>
@@ -82,15 +84,35 @@
       </div>
     </div>
   </div> -->
-  <div class="flex flex-col match_status pt-8">
-    <h2 class="text-headerFont font-headerWeight">{{ $t("Tournament Status") }}</h2>
-    <div class="pt-1">
-      <TournamentStatus
-      :tournamentID="this.TournamentID"
-      :homeFormation="homeFormation"/>
+  <div class="flex justify-center ">
+    <div class="w-full md:w-[897px] flex flex-col">
+      <h2 class="text-headerFont font-headerWeight">{{ $t("Tournament Status") }}</h2>
     </div>
-
   </div>
+  <!-- <div class="flex justify-center ">
+    <div class="w-full md:w-[897px] flex flex-col">
+      <TournamentStatus :tournamentID="this.TournamentID" :homeFormation="homeFormation" />
+    </div>
+  </div> -->
+  <div style="border: 1px solid red;" class="flex justify-center">
+    <div style="border: 1px solid red;" class="w-full md:w-[892px] flex flex-col">
+      <h2 class="text-headerFont font-headerWeight">{{ $t("Tournament Status") }}</h2>
+      <div class="pt-1">
+        <TournamentStatus :tournamentID="this.TournamentID" :homeFormation="homeFormation" />
+      </div>
+    </div>
+  </div>
+  <!-- <div style="border: 1px solid black;" class="w-[892px]">
+    <div class="flex justify-center">
+      <div style="border: 1px solid red;" class="flex   pt-8">
+        <div class="pt-1">
+          <TournamentStatus :tournamentID="this.TournamentID" :homeFormation="homeFormation" />
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+
   <div class="flex flex-col match_status pt-8">
     <h2 class="text-headerFont font-headerWeight">{{ $t("Live") }}</h2>
     <div>
@@ -179,37 +201,20 @@ export default {
 
 <style scoped>
 @media (min-width: 500px) {
-  .backgroundImg {
-    height: 500px;
-  }
 
-  .VPNBoard {
-    width: 25rem;
-    height: 25rem;
-    z-index: 0;
-    margin-right: 20px;
-  }
 
   .homeTeamPos {
     left: 150px
   }
 
   .scorePosition {
-    left: 300px
+    left: 260px
   }
 
   .awayTeamPosition {
-    left: 400px
+    left: 360px
   }
 
-  .tournament_icon {
-    position: absolute;
-    top: 75px;
-    left: 252px;
-    display: flex;
-    align-items: center;
-
-  }
 }
 
 @media (min-width: 640px) {
@@ -218,11 +223,11 @@ export default {
   }
 
   .scorePosition {
-    left: 300px
+    left: 395px
   }
 
   .awayTeamPosition {
-    left: 400px
+    left: 525px
   }
 }
 

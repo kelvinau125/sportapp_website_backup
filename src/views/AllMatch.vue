@@ -1,22 +1,23 @@
 <template>
   <BackgroundImage>
     <div class="schedule_list">
-      <div class="flex justify-between my-6 py-1.5 date-slider" style="width: 892px; height: 46px;">
-        <div class=" flex justify-center"
+      <div class="flex justify-between my-5 date-slider" style="width: 892px; height: 46px;">
+        <div class=" flex justify-center mt-1"
           style="height: 32px; width: 17px; background-color: #808F7E; border-radius: 8px;">
           <button @click="prevWeek">
             <img src="@/assets/toLeft.png" alt="Previous Week" class="" />
           </button>
         </div>
-        <div @click="selectDate(day)" v-for="day in week" :key="day"
-          class="date-item hover:bg-hoverGreen px-0.5 rounded-lg" style="width: 119px; height: 35px;">
-          <div class="flex flex-col items-center rounded-lg">
-            <div class="font-medium text-sm">{{ formatDay(day) }}</div>
+        <div @click="selectDate(day)" v-for="day in week" :key="day" class="date-item  px-0.5 rounded-lg"
+          style="width: 119px; height: 35px;">
+          <div :class="{ 'active-date': isActiveDate(day) }"
+            class="flex flex-col hover:bg-hoverGreen items-center rounded-lg h-[45px]">
+            <div class="font-medium text-sm pt-1">{{ formatDay(day) }}</div>
             <div class="day-of-week font-medium text-xs text-grayText">{{ $t(formatDayOfWeek(day)) }}</div>
-
           </div>
         </div>
-        <div class="flex justify-center" style="height: 32px; width: 17px; background-color: #808F7E;border-radius: 8px;">
+        <div class="flex justify-center mt-1"
+          style="height: 32px; width: 17px; background-color: #808F7E;border-radius: 8px;">
           <button @click="nextWeek">
             <img class="" src="@/assets/toRight.png" alt="Next Week" />
           </button>
@@ -133,6 +134,7 @@ export default {
   data() {
     return {
       isCN: Boolean,
+      activeDate: null,
 
       currentDate: ref(new Date()),
       daysToShow: ref(7),
@@ -203,8 +205,12 @@ export default {
     },
     selectDate(date) {
       this.selectedDate = date;
+      this.activeDate = date;
       console.log(this.selectedDate);
       this.generateMatchDetailsList(format(this.selectedDate, 'yyyyMMdd'));
+    },
+    isActiveDate(date) {
+      return this.activeDate === date;
     },
 
     async generateMatchDetailsList(matchdate) {
@@ -322,6 +328,9 @@ export default {
 
 }
 
+.active-date {
+  background-color: #D6F1DD;
+}
 
 .date-slider {
   background-color: #F5F5F5;
