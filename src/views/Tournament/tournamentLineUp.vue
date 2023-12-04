@@ -11,10 +11,14 @@
           <div class="w-full flex flex-col justify-around">
             <div v-for="player in filteredHomePlayers('G')" :key="player.id" class="">
               <div class="flex flex-col items-center">
-                <div class="homeKeeperCircle flex justify-center items-center">
+                <div class="homeKeeperCircle relative flex justify-center items-center">
                   <div>
                     <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
                   </div>
+                  <div v-if="player.captain === 1" class="CaptainCircle ">
+                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
+                  </div>
+
                 </div>
                 <p>{{ player.playerName }}</p>
               </div>
@@ -24,9 +28,12 @@
           <div class="w-full flex flex-col justify-around">
             <div v-for="player in filteredHomePlayers('D')" :key="player.id" class="">
               <div class="flex flex-col items-center">
-                <div class="homeCircle flex justify-center items-center">
+                <div class="homeCircle relative flex justify-center items-center">
                   <div>
                     <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+                  </div>
+<div v-if="player.captain === 1" class="CaptainCircle ">
+                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -37,9 +44,12 @@
           <div class="w-full flex flex-col justify-around">
             <div v-for="player in filteredHomePlayers('M')" :key="player.id" class="">
               <div class="flex flex-col items-center">
-                <div class="homeCircle flex justify-center items-center">
+                <div class="homeCircle relative flex justify-center items-center">
                   <div>
                     <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+                  </div>
+<div v-if="player.captain === 1" class="CaptainCircle ">
+                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -50,9 +60,12 @@
           <div class="w-full flex flex-col justify-around">
             <div v-for="player in filteredHomePlayers('F')" :key="player.id" class="">
               <div class="flex flex-col items-center">
-                <div class="homeCircle flex justify-center items-center">
+                <div class="homeCircle relative flex justify-center items-center">
                   <div>
                     <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+                  </div>
+<div v-if="player.captain === 1" class="CaptainCircle ">
+                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -76,10 +89,13 @@
           <div class="w-full flex flex-col justify-around" v-if="hasHomeSPlayers">
             <div v-for="player in filteredHomePlayers('S')" :key="player.id" class="">
               <div class="flex flex-col items-center">
-                <div class="homeCircle flex justify-center items-center">
+                <div class="homeCircle relative flex justify-center items-center">
                   <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
                     <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+                  </div>
+<div v-if="player.captain === 1" class="CaptainCircle ">
+                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -93,9 +109,12 @@
           <div class="w-full flex flex-col justify-around" v-if="hasAwaySPlayers">
             <div v-for="player in filteredAwayPlayers('S')" :key="player.id" class="">
               <div class="flex flex-col items-center">
-                <div class="awayCircle flex justify-center items-center">
+                <div class="awayCircle relative flex justify-center items-center">
                   <div>
                     <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+                  </div>
+<div v-if="player.captain === 1" class="CaptainCircle ">
+                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -105,10 +124,13 @@
           <div class="w-full flex flex-col justify-around">
             <div v-for="player in filteredAwayPlayers('F')" :key="player.id" class="">
               <div class="flex flex-col items-center">
-                <div class="awayCircle flex justify-center items-center">
+                <div class="awayCircle relative flex justify-center items-center">
                   <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
                     <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+                  </div>
+<div v-if="player.captain === 1" class="CaptainCircle ">
+                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -133,10 +155,13 @@
           <div class="w-full flex flex-col justify-around">
             <div v-for="player in filteredAwayPlayers('M')" :key="player.id" class="">
               <div class="flex flex-col items-center">
-                <div class="awayCircle flex justify-center items-center">
+                <div class="awayCircle relative flex justify-center items-center">
                   <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
                     <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+                  </div>
+<div v-if="player.captain === 1" class="CaptainCircle ">
+                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -146,10 +171,13 @@
           <div class="w-full flex flex-col justify-around">
             <div v-for="player in filteredAwayPlayers('D')" :key="player.id" class="">
               <div class="flex flex-col items-center">
-                <div class="awayCircle flex justify-center items-center">
+                <div class="awayCircle relative flex justify-center items-center">
                   <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
                     <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+                  </div>
+<div v-if="player.captain === 1" class="CaptainCircle ">
+                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -159,10 +187,13 @@
           <div class="w-full flex flex-col justify-around">
             <div v-for="player in filteredAwayPlayers('G')" :key="player.id" class="">
               <div class="flex flex-col items-center">
-                <div class="awayKeeperCircle flex justify-center items-center">
+                <div class="awayKeeperCircle relative flex justify-center items-center">
                   <!-- <img class="" src="@/assets/tournament/playerIcon.png" /> -->
                   <div>
                     <p class="text-white text-sm font-normal"> {{ isCN ? player.shirtNumber : player.shirtNo }}</p>
+                  </div>
+<div v-if="player.captain === 1" class="CaptainCircle ">
+                    <span class="mb-[1px] mr-[0.5px] text-[8px]">c</span>
                   </div>
                 </div>
                 <p>{{ player.playerName }}</p>
@@ -593,4 +624,20 @@ export default {
   /* Make it a circle by setting border-radius to 50% */
   border: 2px solid black;
 }
+
+.CaptainCircle {
+  position: absolute;
+  left: -2px;
+  bottom: -3px;
+  width: 10px; 
+  height: 10px; 
+  background-color: yellow; 
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black; 
+}
+
+
 </style>
