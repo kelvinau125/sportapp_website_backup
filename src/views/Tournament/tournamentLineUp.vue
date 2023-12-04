@@ -208,8 +208,8 @@
 
 
 <script>
-// import { getFootballLineup, getFootballMatchbyId } from '@/service/apiFootBallMatchProvider.js';
-import { getFootballLineup } from '@/service/apiFootBallMatchProvider.js';
+import { getFootballLineup, getFootballMatchbyId } from '@/service/apiFootBallMatchProvider.js';
+// import { getFootballLineup } from '@/service/apiFootBallMatchProvider.js';
 
 export default {
   props: {
@@ -220,21 +220,33 @@ export default {
 
   async mounted() {
     this.isCN = false;
-    // this.getTournamentLineup = await getFootballLineup(this.tournamentID, (this.$i18n.locale === 'ZH')?true :false);
+    this.getTournamentLineup = await getFootballLineup(this.tournamentID, (this.$i18n.locale === 'ZH')?true :false);
 
-    // this.getTournamentDetails = await getFootballMatchbyId(this.tournamentID, (this.$i18n.locale === 'ZH')?true :false);
+    this.getTournamentDetails = await getFootballMatchbyId(this.tournamentID, (this.$i18n.locale === 'ZH')?true :false);
 
     // this.getTournamentLineup = await getFootballLineup(1253806, false);
-    this.homeTeamFormation = "4-2-3-1";
-    this.awayTeamFormation = "4-3-3"
+    // this.homeTeamFormation = "4-2-3-1";
+    // this.awayTeamFormation = "4-3-3"
 
-    this.getTournamentLineup = await getFootballLineup(5, true);
+    // this.getTournamentLineup = await getFootballLineup(5, true);
 
     console.log(this.getTournamentLineup)
 
     if (this.getTournamentLineup !== null) {
-      // this.homeTeamFormation = this.getTournamentLineup['homeFormation'].length || "0";
-      // this.awayTeamFormation = this.getTournamentLineup['awayFormation'].length || "0";
+      if (this.getTournamentDetails !== null) {
+          if (this.getTournamentDetails['homeFormation'] !== "" && this.getTournamentDetails['awayFormation'] !== "") {
+          this.homeTeamFormation = this.getTournamentDetails['homeFormation']
+          this.awayTeamFormation = this.getTournamentDetails['awayFormation']
+        } else {
+          // Handle the case where getTournamentDetails is null
+          this.homeTeamFormation = "-";
+          this.awayTeamFormation = "-";
+        }
+      } else {
+        // Handle the case where getTournamentDetails is null
+        this.homeTeamFormation = "-";
+        this.awayTeamFormation = "-";
+      }
 
       this.homeMatchLineUpList = this.getTournamentLineup['homeMatchLineUpList'];
       this.awayMatchLineList = this.getTournamentLineup['awayMatchLineList'];
@@ -443,8 +455,12 @@ export default {
       // console.log("second:", this.M_list);
       // console.log("third:", this.D_list);
       // console.log("fourth:", this.S_list);
-
-      this.G_list = [1];
+      
+      if(this.homeTeamFormation !== "-"){
+        this.G_list = [1];
+      }else{
+        this.G_list = [];
+      }
 
       const Aparts = this.awayTeamFormation.split("-");
       let AF = 0,
@@ -474,8 +490,11 @@ export default {
       // console.log("second:", this.AM_list);
       // console.log("third:", this.AD_list);
       // console.log("fourth:", this.AS_list);
-
-      this.AG_list = [1];
+      if(this.awayTeamFormation !== "-"){
+        this.AG_list = [1];
+      }else{
+        this.AG_list = [];
+      }
     },
     processPlayerPosition(playerList, positionList, captainList, shirtNumberList, playerNameList) {
       for (let player of playerList) {
