@@ -4,14 +4,6 @@
       <img class="mr-2" alt="App logo" src="@/assets/topNav/appImage.png">
 
       <a class="md:text-lg text-base font-semibold" style="color: #33BA53; " href="/"> {{ $t("PandaSport") }}</a>
-      <!-- <div class="relative">
-        <div @click="MenuOpen()" class="md:static absolute md:hidden md:pl-0 pl-10 md:left-0 left-20 md:bottom-0 -bottom-[12px]"
-          style="border: 1px solid red; width: 60px;">
-          <img v-if="openNav" src="@/assets/topNav/x.png">
-          <img v-else src="@/assets/topNav/hamburger.png">
-        </div>
-
-      </div> -->
       <div class="md:static relative">
         <ul style="z-index: 1000;"
         :class="openNav ? 'block': 'hidden'"
@@ -25,33 +17,9 @@
         </ul>
       </div>
     </div>
-    <!-- <div class="searchInputBox">
-      <div class="searchLeftBox">
-        <input v-model="searchQuery" @keyup.enter="search" type="text" placeholder="搜索主播/比赛/房间名" maxlength="20" />
-      </div>
-      <div class="searchIconBox bg-green-500" @click="search">
-        <img src="@/assets/topNav/search.png" />
-        <span class="word">搜索</span>
-    </div> -->
-    <!-- <div style="padding: 10px;"> 
-      <button class="button_language " @click="languageChange"
-        style="border: 1px; background-color: black; border-radius: 10px; padding: 10px; ">Test
-      </button>
-    </div> -->
 
 
     <div class="md:flex items-center">
-      <div class="dropdown-button language-dropdown" style="width: auto; padding: 10px;">
-        <button class="language-toggle" @click="toggleDropdownLanguage">
-          {{ $t($i18n.locale) }}
-          <span> &#9662;</span>
-        </button>
-        <div v-show="isDropdownOpenLanguage" class="language-options">
-          <button v-for="locale in $i18n.availableLocales" :key="locale" @click="languageChange(locale)" class="languages">
-            {{ $t(locale) }}
-          </button>
-        </div>
-      </div>
       <div  class="relative">
         <div @click="MenuOpen()" class="md:static absolute md:hidden md:pl-0 pl-10 md:left-0 left-[110px] md:top-0 -top-[35px]"
           style="width: 60px;">

@@ -72,40 +72,7 @@
     </div>
   </div>
 
-  <!-- <div class="flex justify-center">
-    <div class="flex flex-col w-[897px]">
-      <div class="flex justify-center pb-1">
-        <img class="w-[520px] sm:w-[700px] md:w-[800px] lg:w-full   md:pl-0 mt-5" src="@/assets/main/advertisment.png"
-          alt="Banner" />
-      </div>
-      <div style="border: 1px solid green;" class="w-[897px]">
-        <h2 class="text-2xl pr-5 py-5 font-normal">{{ $t("Popular fixtures") }} </h2>
-        <PopularMatch />
-      </div>
-      <div class="pb-20">
-        <h2 class="text-2xl pr-5 py-5 font-normal">{{ $t("Popular anchor list") }}</h2>
-        <div class="flex">
-          <img style="width: 142px ; height: 116px;" src="@/assets/content/champion.png" />
-          <div class="md:mx-4 w-52 flex flex-col items-center py-3" v-for="link in streamer" :key="link.streamer">
-            <div>
-              <img :src="require(`@/assets/topNav/${link.image}.png`)" alt="Link Image"
-                style="width: 50px; height: 50px;" />
-            </div>
-            <div class="pt-1">
-              <p class="text-sm font-normal hover:text-green-500">{{ link.name }}</p>
-
-            </div>
-            <div class="flex items-center">
-              <p class="text-xs font-normal text-grayText hover:text-green-500">{{ link.no }}</p>
-              <img class="pl-1" src="@/assets/content/Frame.png" alt="Frame Icon">
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div> -->
+  
   <div>
     <FooterBar />
   </div>
