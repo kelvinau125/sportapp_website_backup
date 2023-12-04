@@ -1,7 +1,7 @@
 <template>
   <!-- Overflow Setting -->
-  <div class="flex gap-1   ">
-    <div class="w-full flex-wrap" v-for="match in matchDetails" :key="match.matchDetails">
+  <div class="flex gap-1 flex-wrap">
+    <div class="" v-for="match in matchDetails" :key="match.matchDetails">
       <div @click="navigateTo(
         match.linkAddress,
         match.matchType,
@@ -26,44 +26,46 @@
           <div class="text-xs font- w-[35px] pl-2">
             {{ match.time }}
           </div>
-
           <button class="pl-[54px]" @click.stop="toggleFavorite(match, match.linkAddress)"
             :class="{ fav: match.favourite }">
             <img v-if="!match.favourite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
             <img v-else src="@/assets/content/Favourite.png" alt="Favourite" />
           </button>
-
         </div>
         <!-- 热门赛程 Contents -->
         <div class="flex justify-between rounded-b-lg bg-white w-full" style=" height: 106px; ">
-          <div class="flex flex-col justify-center items-center pb-3 w-full">
-            <div class="text-base font-semibold "> {{ match.homeTeamScore }}</div>
-            <div class="pt-2">
+          <div class="flex flex-col justify-center items-center pb-3 h-full" style="width: 100px; ">
+            <div class="text-base font-semibold h-1/3 pt-2"> {{ match.homeTeamScore }}</div>
+            <div class="pt-2 h-1/2">
               <img class="" style="width: 24px; height: 24px;" :src="match.homeTeamIcon" />
             </div>
-            <div class="pt-2">
-              <span class="flex text-center text-xs font-normal text-grayText">{{ match.homeTeamName }}</span>
+            <div class="nameBorder flex justify-center text-center text-xs font-normal text-grayText">
+              <span class=" whitspace-nowrap overflow-hidden text-elleipsis">{{ match.homeTeamName }}</span>
             </div>
           </div>
-          <div class=" w-16 flex relative flex-col justify-start items-center py-2 ">
-            <div v-show="isCN" class="h-1/2 absolute font-medium text-sm pt-1 flex items-center justify-center"
+          <div class="flex relative flex-col justify-start items-center py-2 ">
+            <div v-show="isCN" class="w-[80px] h-1/2 absolute font-medium text-sm pt-3 flex items-center justify-center"
               :class="{ 'statusStartBorder': match.status === '开', 'statusEndBorder': match.status === '终' }">{{
                 match.status }}</div>
 
-            <div v-show="!isCN"  class="h-1/2 absolute font-medium text-sm pt-1 flex items-center justify-center"
+            <div v-show="!isCN" class="w-[80px] h-1/2 absolute font-medium text-sm pt-3 flex items-center justify-center"
               :class="{ 'statusStartBorder': match.status === ('Started' || 'Start'), 'statusEndBorder': match.status === match.status && match.status !== '' }">
-              {{
-                match.status }}</div>
-            <div class="h-1/2 mt-8" >
+              <span class="whitspace-normal overflow-hidden text-ellipsis">{{match.status}}</span>
+            </div>
+            <div class="h-1/2 mt-8">
               <span class="pt-2 text-base font-semibold">VS</span>
             </div>
           </div>
-          <div class="flex flex-col justify-center items-center w-full pb-3">
-            <div class="text-base font-semibold">{{ match.awayTeamScore }}</div>
-            <div class="pt-2">
+          <div class="flex flex-col justify-center items-center  pb-3 " style="width: 100px; ">
+            <div class="text-base font-semibold h-1/3 pt-2">{{ match.awayTeamScore }}</div>
+            <div class="pt-2 h-1/2">
               <img class="" style="width: 24px; height: 24px;" :src="match.awayTeamIcon" />
             </div>
-            <div class="w-20 pt-2 overflow-hidden text-xs font-normal text-grayText"> {{ match.awayTeamName }}</div>
+            <div class="nameBorder flex justify-center text-center text-xs font-normal text-grayText">
+              <span class="whitspace-nowrap overflow-hidden text-elleipsis">{{
+                match.awayTeamName }}</span>
+
+            </div>
 
           </div>
         </div>
@@ -71,13 +73,14 @@
 
     </div>
 
-    <div @click="toAllMatchPage" class="flex flex-col justify-start items-center border cursor-pointer px-5 pt-8"
-      style="width: 42px; height: 136px; background-color: #808F7E;">
+    <div @click="toAllMatchPage"
+      class="max-w-[42px] h-[136px] flex flex-col justify-start items-center rounded-lg cursor-pointer px-5 pt-8"
+      style=" background-color: #808F7E;">
       <div class="" style="width: 24px; height: 24px;">
-        <img class="" src="@/assets/hello.png" alt="全部赛程" />
+        <img src="@/assets/menu.png" alt="全部赛程" />
       </div>
-      <div class="flex text-center pt-5" style="width: 31px; height: 36px; ">
-        <span class="text-xs font-medium text-white">{{ $t("All fixtures") }}</span>
+      <div class="flex justify-center" style="width: 31px; height: 36px; ">
+        <span class="pt-4 text-center text-xs font-medium text-white">{{ $t("All fixtures") }}</span>
       </div>
     </div>
   </div>
@@ -264,7 +267,6 @@ export default {
 </script>
 <style scoped>
 .border {
-  width: 100%;
   /* border: 1px solid red; */
   border-radius: 8px;
 }
@@ -274,6 +276,12 @@ export default {
   height: 20px;
   background-color: white;
   border-radius: 49px;
+}
+
+.nameBorder {
+  width: 70px;
+  height: 100%;
+
 }
 
 .button {
@@ -294,7 +302,6 @@ export default {
 
 .statusEndBorder {
   background-color: #F5F5F5;
-  width: auto;
   height: auto;
   border-radius: 30px;
   padding-left: 10px;
@@ -305,7 +312,6 @@ export default {
 
 .statusStartBorder {
   background-color: #EEFBEE;
-  width: auto;
   height: auto;
   padding: 100px;
   border-radius: 30px;
