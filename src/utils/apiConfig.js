@@ -51,7 +51,7 @@ export const updateforgotPasswordurl =
 //Basketball CN--------------------------------------------------------------------------------------------//
 export const basketballBaseUrl = '/api/v1/basketballs/match';
 
-export const searchBasketballToday = '/now-list';
+export const searchBasketballToday = '/now-list?';
 
 export const getStartBasketballMatch = '/list-start?';
 

@@ -91,15 +91,19 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { format } from 'date-fns';
 
-import { getMatchTodaybyCompName } from '@/service/apiFootBallMatchProvider.js';
-import { getMatchByDate } from '@/service/apiFootBallMatchProvider.js';
+import { getMatchTodaybyCompName, getMatchByDate } from '@/service/apiFootBallMatchProvider.js';
+import { getBasketBallMatchTodaybyCompName, getBasketballMatchByDate } from '@/service/apiBasketBallMatchProvider.js';
+
 import { getLiveStreamBookmark, liveStreamSaveBookmark, deleteStreamSaveBookmark } from '@/service/apiBookmarkProvider.js';
 
 export default {
   data() {
     return {
       currentDate: ref(new Date()),
+
+      // check language and basketball and football swtich
       isCN: Boolean,
+      currentChannel: ref((localStorage.getItem('currentChannel') === "football")?true :false),
     }
   },
 
@@ -152,21 +156,35 @@ export default {
     // this.isCN = false;
 
     const leaguesToFetch = [
+      //football
       "Premier League",
       "UEFA Champions League",
       "Serie A",
       "Bundesliga",
       "Ligue 1",
       "La Liga",
+      //basketball
+      "NBA",
+      "CBA",
+      "EuroLeague",
+      "Liga ACB",
+      "NBL",
     ];
 
     const CNleaguesToFetch = [
+      //football
       "英超",
       "欧冠",
       "意甲",
       "德甲",
       "法甲",
       "西甲",
+      //basketball
+      "美国",
+      "中国",
+      "欧洲",
+      "西班牙",
+      "澳大利亚",
     ];
 
     // this.fetchMatchDetailsForLeagues((this.isCN) ? CNleaguesToFetch : leaguesToFetch);
@@ -178,14 +196,14 @@ export default {
       match.favourite = !match.favourite;
 
       if (match.favourite) {
-        await liveStreamSaveBookmark(matchID, 0, this.isCN);
+        await liveStreamSaveBookmark(matchID, this.currentChannel, this.isCN);
       } else {
         await deleteStreamSaveBookmark(matchID, this.isCN);
       }
     },
 
     async getFavoriteFromBookmark(CNleaguesToFetch, leaguesToFetch) {
-      this.getfootballMatchList = await getLiveStreamBookmark(this.isCN);
+      this.getfootballMatchList = await getLiveStreamBookmark(this.isCN, this.currentChannel);
 
       this.favoriteList = this.getfootballMatchList.map(item => item.id);
 
@@ -197,7 +215,14 @@ export default {
 
       for (let i = 0; i < 4; i++) {
         const leagueName = leagues[i];
-        const matches = await getMatchTodaybyCompName(leagueName, this.isCN);
+        let matches = [];
+
+        (this.currentChannel)
+        //football
+        ? matches = await getMatchTodaybyCompName(leagueName, this.isCN)
+        //basketball
+        : matches = await getBasketBallMatchTodaybyCompName(leagueName, this.isCN);
+
 
         if (matches.length > 0) {
           for (let j = 0; j < Math.min(1, matches.length); j++) {
@@ -232,7 +257,11 @@ export default {
       //   console.log("--------------------")
 
       if (this.matchDetails.length <= 4) {
-        this.getfootballMatchList = await getMatchByDate(format(this.currentDate, 'yyyyMMdd'), this.isCN);
+        (this.currentChannel)
+        //football
+        ? this.getfootballMatchList = await getMatchByDate(format(this.currentDate, 'yyyyMMdd'), this.isCN)
+        //basketball
+        : this.getfootballMatchList = await getBasketballMatchByDate(format(this.currentDate, 'yyyyMMdd'), this.isCN);
 
         console.log(this.getfootballMatchList)
 

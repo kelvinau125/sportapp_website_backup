@@ -143,9 +143,6 @@ export default {
       currentChannel: ref((localStorage.getItem('currentChannel') === "football")?true :false),
     };
   },
-  mounted(){
-    console.log(this.currentChannel);
-  }
 };
 </script>
 

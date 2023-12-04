@@ -8,6 +8,8 @@ import {
     baseUrl,
     getAllStreamCollectionListFootballUrl,
     getAllStreamCollectionListEngUrlFootball,
+    getAllStreamCollectionListBasketballUrl,
+    getAllStreamCollectionListEngUrlBasketball,
     deleteCollectionByMatchIdUrl,
     deleteCollectionEngByMatchIdUrl,
     createCollectionUrl,
@@ -15,7 +17,7 @@ import {
     } from '@/utils/apiConfig.js';
 
 // liveStreamSaveBookmark
-export async function liveStreamSaveBookmark(matchId, categoryId, isCN) {
+export async function liveStreamSaveBookmark(matchId, isFootBall, isCN) {
     let url = "";
 
     (isCN)
@@ -24,7 +26,10 @@ export async function liveStreamSaveBookmark(matchId, categoryId, isCN) {
 
     const apiDetails = {
         matchId: matchId,
-        category: categoryId,
+        category:     
+        (isFootBall)
+        ? 0
+        : 1,
     };
   
     try {
@@ -47,12 +52,20 @@ export async function liveStreamSaveBookmark(matchId, categoryId, isCN) {
   }
 
 // getLiveStreamBookmark
-export async function getLiveStreamBookmark(isCN) {
+export async function getLiveStreamBookmark(isCN, isFootBall) {
     let url = "";
 
+    // (isCN)
+    // ? (url = baseUrl + getAllStreamCollectionListFootballUrl)
+    // : (url = baseUrl + getAllStreamCollectionListEngUrlFootball);
+
     (isCN)
-    ? (url = baseUrl + getAllStreamCollectionListFootballUrl)
-    : (url = baseUrl + getAllStreamCollectionListEngUrlFootball);
+    ? ((isFootBall)
+      ? url = baseUrl + getAllStreamCollectionListFootballUrl
+      : url = baseUrl + getAllStreamCollectionListBasketballUrl)
+    : ((isFootBall)
+      ? url = baseUrl + getAllStreamCollectionListEngUrlFootball
+      : url = baseUrl + getAllStreamCollectionListEngUrlBasketball)
   
     try {
       const response = await getRequestSaveBookmark(url);

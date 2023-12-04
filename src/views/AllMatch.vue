@@ -115,6 +115,7 @@ import { addDays, startOfWeek, format, isToday } from 'date-fns';
 import { ref } from 'vue'
 
 import { getMatchByDate } from '@/service/apiFootBallMatchProvider.js';
+import { getBasketballMatchByDate } from '@/service/apiBasketBallMatchProvider.js';
 import { getLiveStreamBookmark, liveStreamSaveBookmark, deleteStreamSaveBookmark } from '@/service/apiBookmarkProvider.js';
 
 export default {
@@ -132,7 +133,9 @@ export default {
 
   data() {
     return {
+      // check language and basketball and football swtich
       isCN: Boolean,
+      currentChannel: ref((localStorage.getItem('currentChannel') === "football")?true :false),
 
       currentDate: ref(new Date()),
       daysToShow: ref(7),
@@ -140,7 +143,7 @@ export default {
 
       favoriteList: [],
       matchdate: "",
-      getfootballMatchList: [],
+      getMatchList: [],
       matchDetails: [],
       // matchDetails: [
       //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
@@ -166,7 +169,7 @@ export default {
       match.favorite = !match.favorite;
 
       if (match.favorite) {
-        await liveStreamSaveBookmark(matchID, 0, this.isCN);
+        await liveStreamSaveBookmark(matchID, this.currentChannel, this.isCN);
       } else {
         await deleteStreamSaveBookmark(matchID, this.isCN);
       }
@@ -209,36 +212,40 @@ export default {
 
     async generateMatchDetailsList(matchdate) {
       this.matchDetails = [];
-      this.getfootballMatchList = await getMatchByDate(matchdate, this.isCN);
+      (this.currentChannel)
+      //football
+      ?this.getMatchList = await getMatchByDate(matchdate, this.isCN)
+      //basketball
+      :this.getMatchList = await getBasketballMatchByDate(matchdate, this.isCN)
 
-      for (let i = 0; i < this.getfootballMatchList.length; i++) {
+      for (let i = 0; i < this.getMatchList.length; i++) {
 
-        const matchId = this.getfootballMatchList[i]["id"];
+        const matchId = this.getMatchList[i]["id"];
         // Check if the match ID is in the list of favorite IDs
         const isFavorite = this.favoriteList.includes(matchId);
 
         this.matchDetails.push({
-          matchType: this.getfootballMatchList[i]["competitionName"],
-          date: this.getfootballMatchList[i]["matchDate"],
-          time: this.getfootballMatchList[i]["matchTimeStr"],
-          homeTeamName: this.getfootballMatchList[i]["homeTeamName"],
-          homeTeamIcon: this.getfootballMatchList[i]["homeTeamLogo"],
-          homeTeamScore: this.getfootballMatchList[i]["homeTeamScore"],
-          awayTeamName: this.getfootballMatchList[i]["awayTeamName"],
-          awayTeamIcon: this.getfootballMatchList[i]["awayTeamLogo"],
-          awayTeamScore: this.getfootballMatchList[i]["awayTeamScore"],
+          matchType: this.getMatchList[i]["competitionName"],
+          date: this.getMatchList[i]["matchDate"],
+          time: this.getMatchList[i]["matchTimeStr"],
+          homeTeamName: this.getMatchList[i]["homeTeamName"],
+          homeTeamIcon: this.getMatchList[i]["homeTeamLogo"],
+          homeTeamScore: this.getMatchList[i]["homeTeamScore"],
+          awayTeamName: this.getMatchList[i]["awayTeamName"],
+          awayTeamIcon: this.getMatchList[i]["awayTeamLogo"],
+          awayTeamScore: this.getMatchList[i]["awayTeamScore"],
           overTime: "null",
           favorite: isFavorite,
-          statusStr: this.getfootballMatchList[i]["statusStr"],
-          linkAddress: this.getfootballMatchList[i]["id"],
+          statusStr: this.getMatchList[i]["statusStr"],
+          linkAddress: this.getMatchList[i]["id"],
         });
       }
     },
 
     async getFavoriteFromBookmark() {
-      this.getfootballMatchList = await getLiveStreamBookmark(this.isCN);
+      this.getMatchList = await getLiveStreamBookmark(this.isCN, this.currentChannel);
 
-      this.favoriteList = this.getfootballMatchList.map(item => item.id);
+      this.favoriteList = this.getMatchList.map(item => item.id);
       this.generateMatchDetailsList(format(this.currentDate, 'yyyyMMdd'));
     },
   },
