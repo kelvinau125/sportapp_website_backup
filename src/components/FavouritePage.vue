@@ -1,115 +1,226 @@
 <template>
-  <BackgroundImage>
-    <div class="schedule_list">
-      <div class="flex justify-between my-5 max-w-[892px] w-[100%] h-[46px] date-slider overflow-hidden">
-        <div class=" flex justify-center mt-1"
-          style="height: 32px; width: 17px; background-color: #808F7E; border-radius: 8px;">
-          <button @click="prevWeek">
-            <img src="@/assets/toLeft.png" alt="Previous Week" class="" />
-          </button>
-        </div>
-        <div @click="selectDate(day)" v-for="day in week" :key="day" class="date-item  px-0.5 rounded-lg"
-          style="width: 119px; height: 35px;">
-          <div :class="{ 'active-date': isActiveDate(day) }"
-            class="flex flex-col hover:bg-hoverGreen items-center rounded-lg h-[45px]">
-            <div class="font-medium text-sm pt-1">{{ formatDay(day) }}</div>
-            <div class="day-of-week font-medium text-xs text-grayText">{{ $t(formatDayOfWeek(day)) }}</div>
+  <div class="backgroundImg">
+    <div class="scroll-container">
+      <div class="inner-container">
+        <div class="flex justify-between my-5 max-w-[892px] w-[100%] h-[46px] date-slider ">
+          <div class=" flex justify-center mt-1"
+            style="height: 32px; width: 17px; background-color: #808F7E; border-radius: 8px;">
+            <button @click="prevWeek">
+              <img src="@/assets/toLeft.png" alt="Previous Week" class="" />
+            </button>
+          </div>
+          <div @click="selectDate(day)" v-for="day in week" :key="day" class="date-item  px-0.5 rounded-lg"
+            style="width: 119px; height: 35px;">
+            <div :class="{ 'active-date': isActiveDate(day) }"
+              class="flex flex-col hover:bg-hoverGreen items-center rounded-lg h-[45px]">
+              <div class="font-medium text-sm pt-1">{{ formatDay(day) }}</div>
+              <div class="day-of-week font-medium text-xs text-grayText">{{ $t(formatDayOfWeek(day)) }}</div>
+            </div>
+          </div>
+          <div class="flex justify-center mt-1"
+            style="height: 32px; width: 17px; background-color: #808F7E;border-radius: 8px;">
+            <button @click="nextWeek">
+              <img class="" src="@/assets/toRight.png" alt="Next Week" />
+            </button>
           </div>
         </div>
-        <div class="flex justify-center mt-1"
-          style="height: 32px; width: 17px; background-color: #808F7E;border-radius: 8px;">
-          <button @click="nextWeek">
-            <img class="" src="@/assets/toRight.png" alt="Next Week" />
-          </button>
+        <div class=" schedule_detail max-w-[892px] w-[100%]">
+          <div class=" schedule_detail_box">
+            <ul class=" h-[120px]" v-for="match in matchDetails" :key="match.matchDetails">
+              <li @click="toAllMatchPage(
+                match.linkAddress,
+                match.matchType,
+                match.date,
+                match.time,
+                match.statusStr,
+                match.homeTeamName,
+                match.homeTeamScore,
+                match.homeTeamIcon,
+                match.awayTeamName,
+                match.awayTeamScore,
+                match.awayTeamIcon
+              )" class=" max-w-full h-52 bg-white">
+                <div class="h-[120px] p-5">
+                  <div class="flex justify-between">
+                    <div class="flex items-center justify-start w-[350px]">
+                      <div class="w-6 h-6">
+                        <img src="@/assets/favourite/footIcon.png" />
+                      </div>
+                      <div class="px-3 flex justify-center ml-2 MatchTypeBorder">
+                        <span class="text-xs font-medium" style="color: #666666;">{{ match.matchType }}</span>
+                      </div>
+                    </div>
+                    <button @click.stop="toUnfavourite(match, match.linkAddress)">
+                      <img v-if="match.favourite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
+                      <img v-else src="@/assets/content/Favourite.png" alt="Favourite" />
+                    </button>
+                  </div>
+
+                  <div class="flex justify-start">
+                    <div class="flex items-end">
+                      <div class="pr-2 font-medium text-xs text-grayText ">
+                        <span>{{ match.date }}</span>
+                      </div>
+                      <div class="font-semibold text-xs" style="color: #333333;">
+                        <span>{{ match.time }}</span>
+                      </div>
+                    </div>
+                    <div class="flex" style="width: 570px; ">
+                      <div class="flex justify-end items-center w-full">
+                        <div class="w-[160px]  overflow-hidden ">
+                          <span class="text-lg font-semibold pr-2 whitespace-nowrap overflow-ellipsis ">{{
+                            match.homeTeamName }}</span>
+                        </div>
+                        <div>
+                          <img :src=match.homeTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
+                        </div>
+                      </div>
+                      <div class="flex flex-col items-center w-1/3 ">
+                        <div class="font-semibold text-2xl">
+                          <span>{{ match.homeTeamScore }}</span>
+                          <span class="px-2">-</span>
+                          <span>{{ match.awayTeamScore }}</span>
+                        </div>
+                      </div>
+                      <div class="flex items-center justify-start w-full">
+                        <div>
+                          <img :src=match.awayTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
+                        </div>
+                        <div class="pl-3">
+                          <span class="text-lg font-semibold">{{ match.awayTeamName }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="relative  pt-2">
+                      <span class="absolute bottom-0 -right-[130px]"
+                        :class="{ 'bg-transparent': match.statusStr === ' ', 'statusBorder': match.statusStr !== '' }">
+                        {{
+                          match.statusStr }}</span>
+                    </div>
+                  </div>
+                </div>
+
+              </li>
+            </ul>
+          </div>
         </div>
+
       </div>
-
-      <div class="schedule_detail max-w-[892px] w-[100%] h-[108px]">
-        <div class="schedule_detail_box">
-          <ul v-for="match in matchDetails" :key="match.matchDetails">
-            <li @click="toAllMatchPage(
-              match.linkAddress,
-              match.matchType,
-              match.date,
-              match.time,
-              match.statusStr,
-              match.homeTeamName,
-              match.homeTeamScore,
-              match.homeTeamIcon,
-              match.awayTeamName,
-              match.awayTeamScore,
-              match.awayTeamIcon
-            )" class="max-w-full h-52 bg-white">
-              <div class="conten_box">
-                <div class="flex justify-between">
-                  <div class="flex items-center justify-start w-[350px]">
-                    <div class="w-6 h-6">
-                      <img src="@/assets/favourite/footIcon.png" />
-                    </div>
-                    <div class="px-3 flex justify-center ml-2 MatchTypeBorder">
-                      <span class="text-xs font-medium" style="color: #666666;">{{ match.matchType }}</span>
-                    </div>
-                  </div>
-                  <button @click.stop="toUnfavourite(match, match.linkAddress)">
-                    <img v-if="match.favourite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
-                    <img v-else src="@/assets/content/Favourite.png" alt="Favourite" />
-                  </button>
-                </div>
-
-                <div class="flex justify-start">
-                  <div class="flex items-end">
-                    <div class="pr-2 font-medium text-xs text-grayText ">
-                      <span>{{ match.date }}</span>
-                    </div>
-                    <div class="font-semibold text-xs" style="color: #333333;">
-                      <span>{{ match.time }}</span>
-                    </div>
-                  </div>
-                  <div class="flex" style="width: 570px; ">
-                    <div class="flex justify-end items-center w-full">
-                      <div class="">
-                        <span class="text-lg font-semibold pr-2">{{ match.homeTeamName }}</span>
-                      </div>
-                      <div>
-                        <img :src=match.homeTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
-                      </div>
-                    </div>
-                    <div class="flex flex-col items-center w-1/3 ">
-                      <div class="font-semibold text-2xl">
-                        <span>{{ match.homeTeamScore }}</span>
-                        <span class="px-2">-</span>
-                        <span>{{ match.awayTeamScore }}</span>
-                      </div>
-                    </div>
-                    <div class="flex items-center justify-start w-full">
-                      <div>
-                        <img :src=match.awayTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
-                      </div>
-                      <div class="pl-3">
-                        <span class="text-lg font-semibold">{{ match.awayTeamName }}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="pt-2">
-                    <p class="statusRes"
-                      :class="{ 'bg-transparent': match.statusStr === ' ', 'statusBorder': match.statusStr !== '' }">{{
-                        match.statusStr }}</p>
-                  </div>
-                </div>
+    </div>
+  </div>
+  <!-- <BackgroundImage>
+    <div class="schedule_list">
+      <div class="scroll-container border-2 border-green-500">
+        <div class="inner-container">
+          <div class="flex justify-between my-5 max-w-[892px] w-[100%] h-[46px] date-slider ">
+            <div class=" flex justify-center mt-1"
+              style="height: 32px; width: 17px; background-color: #808F7E; border-radius: 8px;">
+              <button @click="prevWeek">
+                <img src="@/assets/toLeft.png" alt="Previous Week" class="" />
+              </button>
+            </div>
+            <div @click="selectDate(day)" v-for="day in week" :key="day" class="date-item  px-0.5 rounded-lg"
+              style="width: 119px; height: 35px;">
+              <div :class="{ 'active-date': isActiveDate(day) }"
+                class="flex flex-col hover:bg-hoverGreen items-center rounded-lg h-[45px]">
+                <div class="font-medium text-sm pt-1">{{ formatDay(day) }}</div>
+                <div class="day-of-week font-medium text-xs text-grayText">{{ $t(formatDayOfWeek(day)) }}</div>
               </div>
+            </div>
+            <div class="flex justify-center mt-1"
+              style="height: 32px; width: 17px; background-color: #808F7E;border-radius: 8px;">
+              <button @click="nextWeek">
+                <img class="" src="@/assets/toRight.png" alt="Next Week" />
+              </button>
+            </div>
+          </div>
+          <div class="schedule_detail max-w-[892px] w-[100%] h-[108px]">
+            <div class="schedule_detail_box">
+              <ul v-for="match in matchDetails" :key="match.matchDetails">
+                <li @click="toAllMatchPage(
+                  match.linkAddress,
+                  match.matchType,
+                  match.date,
+                  match.time,
+                  match.statusStr,
+                  match.homeTeamName,
+                  match.homeTeamScore,
+                  match.homeTeamIcon,
+                  match.awayTeamName,
+                  match.awayTeamScore,
+                  match.awayTeamIcon
+                )" class="max-w-full h-52 bg-white">
+                  <div class="conten_box">
+                    <div class="flex justify-between">
+                      <div class="flex items-center justify-start w-[350px]">
+                        <div class="w-6 h-6">
+                          <img src="@/assets/favourite/footIcon.png" />
+                        </div>
+                        <div class="px-3 flex justify-center ml-2 MatchTypeBorder">
+                          <span class="text-xs font-medium" style="color: #666666;">{{ match.matchType }}</span>
+                        </div>
+                      </div>
+                      <button @click.stop="toUnfavourite(match, match.linkAddress)">
+                        <img v-if="match.favourite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
+                        <img v-else src="@/assets/content/Favourite.png" alt="Favourite" />
+                      </button>
+                    </div>
 
-            </li>
-          </ul>
+                    <div class="flex justify-start">
+                      <div class="flex items-end">
+                        <div class="pr-2 font-medium text-xs text-grayText ">
+                          <span>{{ match.date }}</span>
+                        </div>
+                        <div class="font-semibold text-xs" style="color: #333333;">
+                          <span>{{ match.time }}</span>
+                        </div>
+                      </div>
+                      <div class="flex" style="width: 570px; ">
+                        <div class="flex justify-end items-center w-full">
+                          <div class="">
+                            <span class="text-lg font-semibold pr-2">{{ match.homeTeamName }}</span>
+                          </div>
+                          <div>
+                            <img :src=match.homeTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
+                          </div>
+                        </div>
+                        <div class="flex flex-col items-center w-1/3 ">
+                          <div class="font-semibold text-2xl">
+                            <span>{{ match.homeTeamScore }}</span>
+                            <span class="px-2">-</span>
+                            <span>{{ match.awayTeamScore }}</span>
+                          </div>
+                        </div>
+                        <div class="flex items-center justify-start w-full">
+                          <div>
+                            <img :src=match.awayTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
+                          </div>
+                          <div class="pl-3">
+                            <span class="text-lg font-semibold">{{ match.awayTeamName }}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="pt-2">
+                        <p class="statusRes"
+                          :class="{ 'bg-transparent': match.statusStr === ' ', 'statusBorder': match.statusStr !== '' }">
+                          {{
+                            match.statusStr }}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-
-  </BackgroundImage>
+  </BackgroundImage> -->
 </template>
 
 <script>
-import BackgroundImage from '@/components/BackGround.vue'
+// import BackgroundImage from '@/components/BackGround.vue'
 import { addDays, startOfWeek, format, isToday } from 'date-fns';
 import { ref } from 'vue'
 
@@ -117,7 +228,7 @@ import { getLiveStreamBookmark, liveStreamSaveBookmark, deleteStreamSaveBookmark
 
 export default {
   components: {
-    BackgroundImage
+    // BackgroundImage
   },
   async mounted() {
     // ------------------------------------------------------------------- Translation Part ------------------------------------------ Remember Change It ----------------------------
@@ -244,22 +355,69 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 @media (min-width: 300px) {
-  .statusRes{
-   position: absolute;
-   right: 0px; 
+  .statusRes {
+    position: absolute;
+    right: 0px;
   }
 }
 
 @media (min-width: 500px) {
-  .statusRes{
-   position: absolute;
-   right: 18px; 
+  .statusRes {
+    position: absolute;
+    right: 18px;
   }
 }
 
-@media (min-width: 640px) {}
+@media (min-width: 640px) {
+  .statusRes {
+    position: absolute;
+    right: 18px;
+  }
+}
 
 @media (min-width: 768px) {}
+
+.backgroundImg {
+  width: 100%;
+  height: 647px;
+  display: flex;
+  align-items: center;
+  background-image: url('@/assets/main/background_2.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+
+}
+
+.scroll-container {
+  position: absolute;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+
+}
+
+.inner-container {
+  max-width: 892px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 20px;
+  margin: 0 auto;
+  /* Center the inner container */
+}
+
+/* 隐藏滚动条 */
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 892px) {
+  .backgroundImg .inner-container {
+    min-width: 892px;
+    /* Set a minimum width to stop shrinking */
+  }
+}
 
 .MatchTypeBorder {
   background-color: #F5F5F5;

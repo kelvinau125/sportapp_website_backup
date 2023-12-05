@@ -106,7 +106,7 @@ const toLiveStream = () => {
 
   .titleBox {
     position: absolute;
-    bottom: 53px;
+    bottom: 50px;
   }
 }
 
@@ -120,7 +120,7 @@ const toLiveStream = () => {
 
   .titleBox {
     position: absolute;
-    bottom: 30px;
+    bottom: 20px;
   }
 }
 

@@ -27,7 +27,7 @@ export default {
   background-size:cover ;
   background-position: center;
   width: 100%;
-  overflow: hidden;
+  position: relative;
 }
 
 .basketballbackgroundImg {

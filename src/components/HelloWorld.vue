@@ -2,11 +2,72 @@
   <div class="backgroundImg">
     <div class="scroll-container">
       <div class="inner-container">
-        <!-- Your content here -->
-        HALo
+        <div class="flex justify-between my-5 max-w-[892px] w-[100%] h-[46px] date-slider ">
+          <div class=" flex justify-center mt-1"
+            style="height: 32px; width: 17px; background-color: #808F7E; border-radius: 8px;">
+            <button @click="prevWeek">
+              <img src="@/assets/toLeft.png" alt="Previous Week" class="" />
+            </button>
+          </div>
+          <div @click="selectDate(day)" v-for="day in week" :key="day" class="date-item  px-0.5 rounded-lg"
+            style="width: 119px; height: 35px;">
+            <div :class="{ 'active-date': isActiveDate(day) }"
+              class="flex flex-col hover:bg-hoverGreen items-center rounded-lg h-[45px]">
+              <div class="font-medium text-sm pt-1">{{ formatDay(day) }}</div>
+              <div class="day-of-week font-medium text-xs text-grayText">{{ $t(formatDayOfWeek(day)) }}</div>
+            </div>
+          </div>
+          <div class="flex justify-center mt-1"
+            style="height: 32px; width: 17px; background-color: #808F7E;border-radius: 8px;">
+            <button @click="nextWeek">
+              <img class="" src="@/assets/toRight.png" alt="Next Week" />
+            </button>
+          </div>
+        </div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
+        <div>HALO</div>
       </div>
     </div>
   </div>
+
 
   <!-- {{ defendPlayerIndexInt }}
   {{ MiddlePlayerIndexInt }}
@@ -197,14 +258,15 @@ export default {
   background-image: url('@/assets/main/background_2.png');
   background-size: cover;
   background-position: center;
-  overflow: hidden;
-  /* Hide overflow */
+  position: relative;
+
 }
 
 .scroll-container {
+  position: absolute;
   width: 100%;
   overflow-x: auto;
-  /* Enable horizontal scrolling */
+  overflow-y: visible;
 }
 
 .inner-container {
