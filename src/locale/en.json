@@ -93,6 +93,19 @@
     "Broadcasting" : "Start Streaming",
 
     "ZH": "Chinese",
-    "EN": "English"
+    "EN": "English",
+
+    "Player Name": "Player Name",
+    "Minutes": "Time",
+    "Scores": "Score",
+    "Rebound": "Rebound",
+    "Assist": "Assist",
+    "Field Goal": "Field Goal",
+    "Three Pointer": "Three Pointer",
+    "Free Throw": "Free Throw",
+    "Steal": "Steal",
+    "Turnover": "Turnover",
+    "Block Shot": "Block Shot",
+    "Foul": "Foul"
 
 }

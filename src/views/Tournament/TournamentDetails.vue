@@ -85,9 +85,7 @@
   <div class="flex flex-col match_status pt-8">
     <h2 class="text-headerFont font-headerWeight">{{ $t("Tournament Status") }}</h2>
     <div class="pt-1">
-      <TournamentStatus
-      :tournamentID="this.TournamentID"
-      :homeFormation="homeFormation"/>
+      <TournamentStatus :tournamentID="this.TournamentID" :homeFormation="homeFormation" />
     </div>
 
   </div>
@@ -136,6 +134,13 @@
 
     </div>
   </div>
+
+  <div class="flex flex-col match_status pb-10" style="background-color: white;">
+    <div class="pt-3">
+      <BasketballTournament></BasketballTournament>
+    </div>
+
+  </div>
 </template>
 
 <script>
@@ -143,6 +148,8 @@ import LiveList from '@/components/ListOfLive.vue'
 import LineUp from '@/views/Tournament/tournamentLineUp.vue'
 import TournamentStatus from '@/views/Tournament/tournamentStatus.vue'
 import TournamentSubstitue from './TournamentSubstitue.vue';
+import BasketballTournament from '@/components/BasketballTournament.vue';
+
 
 export default {
   components: {
@@ -150,6 +157,7 @@ export default {
     LineUp,
     TournamentStatus,
     TournamentSubstitue,
+    BasketballTournament
   },
   data() {
     return {
