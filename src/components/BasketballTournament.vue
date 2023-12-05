@@ -83,11 +83,13 @@
         <vue-scrolling-table class="scrolling w2 freezeFirstColumn" ref="scrollingTable">
             <template #thead>
                 <tr>
-                    <th v-for="(col, index) in useColumns" :key="col.id" :class="{'double': isGrey(index)}">{{ $t(col.title) }}</th>
+                    <th v-for="(col, index) in useColumns" :key="col.id" :class="{ 'double': isGrey(index) }">{{
+                        $t(col.title)
+                    }}</th>
                 </tr>
             </template>
-            <template #tbody >
-                <tr v-for="(item, index) in items" :key="item.id" :class="{'single': isGrey(index)}">
+            <template #tbody>
+                <tr v-for="(item, index) in items" :key="item.id" :class="{ 'single': isGrey(index) }">
                     <td v-for="col in useColumns" :key="col.id">{{ item[col.id] }}</td>
                 </tr>
             </template>
@@ -99,14 +101,20 @@
 <script>
 import { reactive } from 'vue'
 import VueScrollingTable from 'vue-scrolling-table';
-import { getBasketballMatchLineUpUrl } from '@/utils/apiConfig';
+import { getBasketballLineUp } from '@/service/apiBasketBallMatchProvider';
 
 export default {
-    components:{
+    components: {
         VueScrollingTable
+    },
+    props: {
+        tournamentID: String
     },
     data() {
         return {
+            homeTeamLineUpList: [],
+            awayTeamLineUpList: [],
+
             state: reactive({
                 maxRows: 14,
                 scrollVertical: true,
@@ -130,7 +138,7 @@ export default {
                         id: "assist", title: "Assist", cssClasses: ""
                     },
                     {
-                        id: "fieldGoal", title: "FieldGoal", cssClasses: ""
+                        id: "fieldGoal", title: "Field Goal", cssClasses: ""
                     },
                     {
                         id: "threePointer", title: "Three Pointer", cssClasses: ""
@@ -152,22 +160,46 @@ export default {
                     },
                 ],
                 allItems: [
-                    {
-                        playerName: 'Phillip', minutes: '00:00', scores: '42', rebound: '18', assist: '3', fieldGoal: '7', threePointer: '8', freeThrow: '4', steal: '7', turnover: '4', blockShot: '7', foul: '8'
-                    },
-                    {
-                        playerName: 'Phillip', minutes: '00:00', scores: '42', rebound: '18', assist: '3', fieldGoal: '7', threePointer: '8', freeThrow: '4', steal: '7', turnover: '4', blockShot: '7', foul: '8'
-                    },
-                    {
-                        playerName: 'Phillip', minutes: '00:00', scores: '42', rebound: '18', assist: '3', fieldGoal: '7', threePointer: '8', freeThrow: '4', steal: '7', turnover: '4', blockShot: '7', foul: '8'
-                    },
-                    {
-                        playerName: 'Phillip', minutes: '00:00', scores: '42', rebound: '18', assist: '3', fieldGoal: '7', threePointer: '8', freeThrow: '4', steal: '7', turnover: '4', blockShot: '7', foul: '8'
-                    },
-                ]
-            })
+
+
+                    // {
+                    //     playerName: 'Phillip', minutes: '00:00', scores: '42', rebound: '18', assist: '3', fieldGoal: '7', threePointer: '8', freeThrow: '4', steal: '7', turnover: '4', blockShot: '7', foul: '8'
+                    // },
+                    // {
+                    //     playerName: 'Phillip', minutes: '00:00', scores: '42', rebound: '18', assist: '3', fieldGoal: '7', threePointer: '8', freeThrow: '4', steal: '7', turnover: '4', blockShot: '7', foul: '8'
+                    // },
+                    // {
+                    //     playerName: 'Phillip', minutes: '00:00', scores: '42', rebound: '18', assist: '3', fieldGoal: '7', threePointer: '8', freeThrow: '4', steal: '7', turnover: '4', blockShot: '7', foul: '8'
+                    // },
+                    // {
+                    //     playerName: 'Phillip', minutes: '00:00', scores: '42', rebound: '18', assist: '3', fieldGoal: '7', threePointer: '8', freeThrow: '4', steal: '7', turnover: '4', blockShot: '7', foul: '8'
+                    // },
+
+                ],
+
+            }),
         };
 
+    },
+    async mounted() {
+        this.isCN = ((this.$i18n.locale === 'ZH') ? true : false)
+
+        // this.getBasketballLineUpList = await getBasketballMatchLineUpUrl
+
+        this.getBasketballLineUpList = await getBasketballLineUp(this.tournamentID, (this.$i18n.locale === 'ZH') ? true : false);
+
+        this.homeTeamLineUpList = this.getBasketballLineUpList['home'];
+        this.awayTeamLineUpList = this.getBasketballLineUpList['away'];
+
+        // console.log(this.getBasketballLineUpList);
+        // console.log(`check home: ${this.homeTeamLineUpList[1]["id"]}`);
+
+        this.homeTeamList();
+
+        console.log(`apa ini: ${this.allItems}`);
+        console.log(`apa ini: ${this.allItems}`);
+        console.log(this.homeTeamList);
+        console.log(`apa ini: ${this.items}`);
     },
     computed: {
         items() {
@@ -176,34 +208,50 @@ export default {
         useColumns() {
             return this.state.columns.slice(0, this.state.maxColumns);
         },
-        isGrey(){
-            return (i) => i %2 ===0;
-        }
+        isGrey() {
+            return (i) => i % 2 === 0;
+        },
+
     },
 
-    mounted() {
-        this.isCN = ((this.$i18n.locale === 'ZH') ? true : false)
 
-        // this.getBasketballLineUpList = await getBasketballMatchLineUpUrl
-        console.log("Field Goal");
-    },
     methods: {
-        // handleScroll() {
-        //     const thead = document.getElementById("myhead");
-        //     const tbodyScroll = document.getElementById("mybody").scrollLeft;
-        //     thead.scrollLeft = tbodyScroll;
-        // }
 
-        // async fetchBasketballLineUpData() {
-        //     this.getBasketballLineUpList = await 
-        // }
+        async homeTeamList() {
+            this.homeTeamList = [];
+            this.allItems = [];
+
+            for (let i = 0; i < this.homeTeamLineUpList.length; i++) {
+                this.allItems.push({
+                    // id: i,
+                    playerName: this.homeTeamLineUpList[i].playerName,
+                    minutes: this.homeTeamLineUpList[i].minutes,
+                    scores: this.homeTeamLineUpList[i].point,
+                    rebound: this.homeTeamLineUpList[i].totalRebounds,
+                    assist: this.homeTeamLineUpList[i].assists,
+                    // fieldGoal: `${this.homeTeamLineUpList[i].fieldGoalsMade} - ${this.homeTeamLineUpList[i].fieldGoalsAttempts}`,
+                    // threePointer: `${this.homeTeamLineUpList[i].threePointGoalsMade} - ${this.homeTeamLineUpList[i].threePointGoalsAttempts}`,
+                    // freeThrow: `${this.homeTeamLineUpList[i].freeThrowsGoalsMade} - ${this.homeTeamLineUpList[i].freeThrowsGoalsAttempts}`,
+
+                    fieldGoal: "0",
+                    threePointer: "0",
+                    freeThrow: "0",
+                    steal: this.homeTeamLineUpList[i].steals,
+                    turnover: this.homeTeamLineUpList[i].turnovers,
+                    blockShot: this.homeTeamLineUpList[i].blocks,
+                    foul: this.homeTeamLineUpList[i].personalFouls
+                });
+                // this.homeTeamList.push(allList);
+            }
+            console.log("--------------------------")
+            console.log(this.allItems)
+        },
     }
 }
 </script>
 
 <style scoped>
-
-.box{
+.box {
     clear: both;
     padding: 0;
     min-height: 150px;
@@ -212,12 +260,12 @@ export default {
     overflow: hidden;
 }
 
- .scrolling .w2{
-    width: auto ;
+.scrolling .w2 {
+    width: auto;
 }
 
- .freezeFirstColumn thead tr,
- .freezeFirstColumn tbody tr {
+.freezeFirstColumn thead tr,
+.freezeFirstColumn tbody tr {
     display: block;
     width: min-content;
 }
@@ -226,9 +274,9 @@ export default {
 .freezeFirstColumn tbody td:first-child,
 .freezeFirstColumn thead th:first-child,
 .freezeFirstColumn tbody th:first-child {
-	position: sticky;
-	position: -webkit-sticky;
-	left: 0;
+    position: sticky;
+    position: -webkit-sticky;
+    left: 0;
 }
 
 thead {

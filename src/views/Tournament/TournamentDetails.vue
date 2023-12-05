@@ -184,7 +184,7 @@
 
   <div class="flex flex-col match_status pb-10" style="background-color: white;">
     <div class="pt-3">
-      <BasketballTournament></BasketballTournament>
+      <BasketballTournament :tournamentID="1"></BasketballTournament>
     </div>
 
   </div>

@@ -57,6 +57,7 @@ export async function getBasketballLineUp(matchId, isCN) {
   
     try {
       const response = await getRequest(url);
+      console.log(`check url: ${url}`);
   
       const code = response.code;
       const data = response.data;
@@ -65,6 +66,7 @@ export async function getBasketballLineUp(matchId, isCN) {
         return data;
       }else {
         console.log(`get footballlineup Unsuccessfully: ${code}`);
+        
         return [];
       }
   
