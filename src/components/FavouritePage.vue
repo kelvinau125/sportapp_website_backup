@@ -39,7 +39,7 @@
                 match.awayTeamName,
                 match.awayTeamScore,
                 match.awayTeamIcon
-              )" class=" max-w-full h-52 bg-white">
+              )" class=" max-w-full bg-white">
                 <div class="h-[120px] p-5">
                   <div class="flex justify-between">
                     <div class="flex items-center justify-start w-[350px]">
@@ -75,7 +75,7 @@
                           <img :src=match.homeTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
                         </div>
                       </div>
-                      <div class="flex flex-col items-center w-1/3 ">
+                      <div class="flex flex-col items-center w-[60%] ">
                         <div class="font-semibold text-2xl">
                           <span>{{ match.homeTeamScore }}</span>
                           <span class="px-2">-</span>

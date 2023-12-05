@@ -1,69 +1,62 @@
 <template>
-  <div class="backgroundImg">
-    <div class="scroll-container">
-      <div class="inner-container">
-        <div class="flex justify-between my-5 max-w-[892px] w-[100%] h-[46px] date-slider ">
-          <div class=" flex justify-center mt-1"
-            style="height: 32px; width: 17px; background-color: #808F7E; border-radius: 8px;">
-            <button @click="prevWeek">
-              <img src="@/assets/toLeft.png" alt="Previous Week" class="" />
-            </button>
+  <div class="flex justify-center">
+    <div class="border-2 border-green-500 w-[890px] flex justify-between">
+      <div class="flex flex-col justify-center py-4">
+        <div class="borderColor mb-3 flex justify-center items-center">
+          <span class="font-medium text-sm">暂停 1</span>
+        </div>
+        <div class="borderColor flex justify-center items-center">
+          <span class="font-medium text-sm">犯规 7</span>
+
+        </div>
+      </div>
+      <div class="flex">
+        <div class="flex flex-col justify-around items">
+          <div class="flex">
+            <span>LEFT</span>
+            <span>RIGHT</span>
           </div>
-          <div @click="selectDate(day)" v-for="day in week" :key="day" class="date-item  px-0.5 rounded-lg"
-            style="width: 119px; height: 35px;">
-            <div :class="{ 'active-date': isActiveDate(day) }"
-              class="flex flex-col hover:bg-hoverGreen items-center rounded-lg h-[45px]">
-              <div class="font-medium text-sm pt-1">{{ formatDay(day) }}</div>
-              <div class="day-of-week font-medium text-xs text-grayText">{{ $t(formatDayOfWeek(day)) }}</div>
-            </div>
+          <div class="flex">
+            <span>LEFT</span>
+            <span>RIGHT</span>
           </div>
-          <div class="flex justify-center mt-1"
-            style="height: 32px; width: 17px; background-color: #808F7E;border-radius: 8px;">
-            <button @click="nextWeek">
-              <img class="" src="@/assets/toRight.png" alt="Next Week" />
-            </button>
+          <div class="flex">
+            <span>LEFT</span>
+            <span>RIGHT</span>
           </div>
         </div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
-        <div>HALO</div>
+        <div class="flex flex-col justify-around items-center border-2 border-green-500 w-[180px]">
+          <div class="font-medium text-sm">3分球得分</div>
+          <div class="font-medium text-sm">2分球得分</div>
+          <div class="flex border-2 justify-between w-full">
+            <div class="font-medium text-sm">63.6%</div>
+            <div class="font-medium text-sm">罚球</div>
+            <div class="font-medium text-sm">78.6%</div>
+          </div>
+        </div>
+        <div class="flex flex-col justify-around items">
+          <div class="flex">
+            <span>LEFT</span>
+            <span>RIGHT</span>
+          </div>
+          <div class="flex">
+            <span>LEFT</span>
+            <span>RIGHT</span>
+          </div>
+          <div class="flex">
+            <span>LEFT</span>
+            <span>RIGHT</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col justify-center py-4">
+        <div class="borderColor mb-3 flex justify-center items-center">
+          <span class="font-medium text-sm">暂停 1</span>
+        </div>
+        <div class="borderColor flex justify-center items-center">
+          <span class="font-medium text-sm">犯规 7</span>
+
+        </div>
       </div>
     </div>
   </div>
@@ -249,7 +242,14 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.borderColor {
+  width: 84px;
+  height: 32px;
+  background-color: #D7DDD7;
+  border-radius: 19px;
+}
+
 .backgroundImg {
   width: 100%;
   height: 647px;

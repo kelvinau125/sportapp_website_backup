@@ -12,8 +12,8 @@
         </div>
       </div>
       <div class="inner-container">
-        <div class="schedule_detail max-w-[892px] w-[100%]">
-          <div class="schedule_detail_box">
+        <div class=" schedule_detail max-w-[892px] w-[100%]">
+          <div class=" schedule_detail_box">
             <ul class=" h-[120px]" v-for="match in filterSearchResult" :key="match.searchLiveTeamResult">
               <li @click="toAllMatchPage(
                 match.linkAddress,
@@ -27,7 +27,7 @@
                 match.awayTeamName,
                 match.awayTeamScore,
                 match.awayTeamLogo
-              )" class="max-w-full h-52 bg-white">
+              )" class="max-w-full bg-white">
                 <div class="h-[120px] p-5 ">
                   <div class="flex justify-between ">
                     <div class="flex items-center justify-start " style="width: 350px;">
@@ -65,7 +65,7 @@
                           <img :src=match.homeTeamLogo style="width: 40px; height: 40px; border-radius: 20px;" />
                         </div>
                       </div>
-                      <div class="flex flex-col  items-center  w-1/3">
+                      <div class="flex flex-col  items-center w-[60%]">
                         <div class="font-semibold text-2xl ">
                           <span>{{ match.homeTeamScore }}</span>
                           <span class="px-2">-</span>

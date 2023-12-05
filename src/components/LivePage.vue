@@ -13,12 +13,12 @@
               <img class="" :src="require(`@/assets/live/${livedata.image}.png`)" alt="Image" />
             </div>
             <div class="gradient_bottom w-full flex titleBox items-center p-1 pb-2">
-              <div class="pr-1 pl-1 z-10 max-w-[40px]  pb-1.5">
+              <div class="pr-1 pl-1 z-10 contentImage pb-1.5">
                 <img :src="require(`@/assets/live/${livedata.streamerIcon}.png`)" alt="Image" />
               </div>
               <div class="flex flex-col pl-1 z-10 items-start pb-1.5">
-                <div class="text-white font-normal text-sm">{{ livedata.liveTitle }}</div>
-                <div class="text-10px font-bold text-white opacity-60">{{ livedata.streamerName }}</div>
+                <div class="text-white font-normal md:text-sm text-10px">{{ livedata.liveTitle }}</div>
+                <div class="md:text-10px text-8px font-bold text-white opacity-60">{{ livedata.streamerName }}</div>
               </div>
             </div>
           </div>
@@ -100,27 +100,35 @@ const toLiveStream = () => {
 @media (min-width: 300px) {
   .card {
     display: inline-block;
-    width: 200px;
+    width: 175px;
     height: 162px;
   }
 
   .titleBox {
     position: absolute;
-    bottom: 50px;
+    bottom: 60px;
+  }
+
+  .contentImage{
+    width: 30px;
   }
 }
 
 @media (min-width: 500px) {
   .card {
     display: inline-block;
-    width: 240px;
+    width: 230px;
     height: 162px;
 
   }
 
   .titleBox {
     position: absolute;
-    bottom: 20px;
+    bottom: 30px;
+  }
+
+  .contentImage{
+    width: 35px;
   }
 }
 

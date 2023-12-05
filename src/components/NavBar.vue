@@ -3,22 +3,15 @@
     <div class="md:pt-1 pt-2 flex items-center cursor-pointer">
       <img class="mr-2" alt="App logo" src="@/assets/topNav/appImage.png">
 
-      <a class="md:text-lg text-base font-semibold" style="color: #33BA53; " href="/"> {{ $t("PandaSport") }}</a>
-      <!-- <div class="relative">
-        <div @click="MenuOpen()" class="md:static absolute md:hidden md:pl-0 pl-10 md:left-0 left-20 md:bottom-0 -bottom-[12px]"
-          style="border: 1px solid red; width: 60px;">
-          <img v-if="openNav" src="@/assets/topNav/x.png">
-          <img v-else src="@/assets/topNav/hamburger.png">
-        </div>
+      <a class="md:text-lg text-base font-semibold " style="color: #33BA53; " href="/"> {{ $t("PandaSport") }}</a>
 
-      </div> -->
       <div class="md:static relative">
         <ul style="z-index: 1000;"
         :class="openNav ? 'block': 'hidden'"
-          class=" md:block  md:items-center md:pr-0 pr-2 md:pl-5 pl-5 md:static absolute bg-navColor md:w-auto w-auto md:right-0 right-20 md:top-14 top-14 ">
+          class=" md:block md:items-center md:pr-0 pr-2 md:pl-5 pl-5 md:static absolute bg-navColor md:w-auto w-auto md:right-0 right-20 md:top-14 top-14 ">
           <li class=" md:inline-flex flex-col ml-4 my-2.5" v-for="link in Links" :key="link.link">
             <router-link :to="link.link"
-              class="nav-button md:text-base text-sm font-normal hover:text-gray-200 text-white">{{
+              class="flex nav-button md:text-base text-sm font-normal hover:text-gray-200 text-white">{{
                 $t(link.name)
               }}</router-link>
           </li>
@@ -27,17 +20,17 @@
     </div>
     <div class="md:flex items-center">
       <div  class="relative">
-        <div @click="MenuOpen()" class="md:static absolute md:hidden md:pl-0 pl-10 md:left-0 left-[110px] md:top-0 -top-[35px]"
+        <div @click="MenuOpen()" class="md:static absolute md:hidden md:pl-0 pl-10 md:left-0 left-[110px] md:top-0 -top-[33px]"
           style="width: 60px;">
           <img class="cursor-pointer" v-if="openNav" src="@/assets/topNav/x.png">
           <img class="cursor-pointer" v-else src="@/assets/topNav/hamburger.png">
         </div>
       </div>
       <div class="md:flex relative">
-        <div @click="search" class="md:block hidden">
+        <div @click="search" class="md:block hidden pt-1.5">
           <img src="@/assets/topNav/search.png" alt="Search Icon" class="absolute left-0.5 w-6 h-6 m-2" />
         </div>
-        <div class="md:block hidden">
+        <div class="md:block hidden pt-1.5">
           <input v-model="searchQuery" @keyup.enter="search" type="text" :placeholder="$t('Search event/team')"
             maxlength="20"
             class="pl-10 md:w-72 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-10 text-white bg-slate-50" />
@@ -45,15 +38,15 @@
 
         <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between">
           <div class="md:flex items-center">
-            <div class="dropdown-button language-dropdown" style="width: 100px; padding: 10px;">
-              <button class="language-toggle" @click="toggleDropdownLanguage">
-                {{ $t($i18n.locale) }}
+            <div class="dropdown-button language-dropdown " style="width: 100px; padding: 10px;">
+              <button class="language-toggle md:static absolute md:right-0 right-20 md:top-0 -top-3 " @click="toggleDropdownLanguage">
+                {{ $t($i18n.locale)}}
                 <span> &#9662;</span>
               </button>
-              <div v-show="isDropdownOpenLanguage" class="language-options">
+              <div v-show="isDropdownOpenLanguage" class="language-options md:hidden absolute md:right-[210px] right-20 md:top-[100%] top-5">
                 <button v-for="locale in $i18n.availableLocales" :key="locale" @click="languageChange(locale)"
                   class="languages">
-                  {{ $t(locale) }}
+                  {{ $t(locale)}}
                 </button>
               </div>
             </div>
@@ -193,7 +186,7 @@ export default {
       isMyPageModalVisible: ref(false),
       isEditProfileModalVisible: ref(false),
       isEditNicknameModalVisible: ref(false),
-      openNav: ref(false),
+      openNav: ref(true),
       isDropdownOpenLanguage: ref(false),
     };
   },
@@ -430,7 +423,6 @@ export default {
   text-overflow: ellipsis;
 }
 
-/* Style the dropdown options */
 .dropdown-content .dropdown-button {
   display: block;
   padding: 8px;
@@ -440,7 +432,6 @@ export default {
   text-overflow: ellipsis;
 }
 
-/* Change color on hover */
 .dropdown-content .dropdown-button:hover {
   background-color: #ddd;
   width: 40px;
@@ -470,8 +461,8 @@ a.router-link-exact-active {
 
 .language-options {
   position: absolute;
-  top: 100%;
-  z-index: 1;
+  /* top: 100%; */
+  z-index: 1000;
   display: flex;
   flex-direction: column;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));

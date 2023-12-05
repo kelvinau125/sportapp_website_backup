@@ -51,6 +51,7 @@ const scrollToTop = () => {
   bottom: 20%;
   right: 15%;
   cursor: pointer;
+  z-index: 1000;
 }
 
 </style>
