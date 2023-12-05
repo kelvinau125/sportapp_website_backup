@@ -41,7 +41,7 @@
       </div>
     </div>
 
-  </template>
+</template>
 
 <script>
 import ButtonCom from './ButtonPress.vue'

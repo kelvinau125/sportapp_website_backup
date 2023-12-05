@@ -3,8 +3,8 @@
         <div class="modal-content">
     
         <!-- close button -->
-        <!-- <CloseButton @click="closeEditProfileModal"> </CloseButton> -->
-        <CloseButton @click="gobackmypage"> </CloseButton>
+        <CloseButton @click="closeEditProfileModal"> </CloseButton>
+        <ReverseButton @click="gobackmypage"> </ReverseButton>
         <!-- Above -->
         <div>
             <h2 class="text-xl font-bold" style="padding: 20px">{{ $t("Information Editing") }}</h2>
@@ -42,6 +42,7 @@
 <script>
     import ButtonPress from '@/components/ButtonPress.vue';
     import CloseButton from '@/components/CloseButton.vue';
+    import ReverseButton from '@/components/ReverseButton.vue';
 
     // get the avatar
     import VueCookies from 'vue-cookies';
@@ -56,6 +57,7 @@
     components:{
         ButtonPress,
         CloseButton,
+        ReverseButton,
 
     },
 
@@ -67,6 +69,7 @@
 
     props: {
         showEditProfileModal: Boolean,
+        closeEditProfileModal: Function,
         gobackmypage: Function,
         showOTPModal: Function,
         showEditNicknameModal: Function,
