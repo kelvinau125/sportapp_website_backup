@@ -13,8 +13,12 @@
       <div class="flex">
         <div class="flex flex-col justify-around items">
           <div class="flex">
-            <span>LEFT</span>
-            <span>RIGHT</span>
+            <p class=" font-medium md:text-sm text-10px md:pr-2 pr-1">{{ 50 + '%' }}</p>
+            <div class="team">
+              <div class="stat-bar-left totalGrayBar border_leftTB " :style="{ width: 100 + '%' }"></div>
+              <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: 50 + '%' }">
+              </div>
+            </div>
           </div>
           <div class="flex">
             <span>LEFT</span>
@@ -243,6 +247,131 @@ export default {
 </script>
 
 <style scoped>
+@media (min-width: 300px) {
+  .team {
+    position: relative;
+    width: 70px;
+    padding: 20px;
+  }
+
+  .teamDown {
+    position: relative;
+    width: 50px;
+    padding: 20px;
+
+  }
+
+  .statusContainer {
+    width: 384px;
+  }
+
+  .box {
+    display: flex;
+    justify-content: flex-start;
+  }
+}
+
+@media (min-width: 500px) {
+  .team {
+    position: relative;
+    width: 100px;
+    padding: 20px;
+  }
+
+  .teamDown {
+    position: relative;
+    width: 80px;
+    padding: 20px;
+
+  }
+
+  .statusContainer {
+    width: 615px;
+  }
+
+  .box {
+    display: flex;
+    justify-content: center;
+  }
+
+}
+
+@media (min-width: 640px) {
+  .team {
+    position: relative;
+    width: 120px;
+    padding: 20px;
+  }
+
+  .teamDown {
+    position: relative;
+    width: 120px;
+    padding: 20px;
+
+  }
+
+  .statusContainer {
+    width: 100%;
+  }
+
+  .box {
+    display: flex;
+    justify-content: center;
+  }
+
+
+}
+
+.border_leftTB {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.border_rightTB {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.totalGrayBar {
+  background-color: #D7DDD7;
+  /* Color for combined total shots */
+}
+
+/* .team {
+    position: relative;
+    width: 150px;
+    padding: 20px;
+  } */
+
+.stat-bar-right {
+  height: 9px;
+  width: 137px;
+  position: absolute;
+  left: 0;
+  bottom: 8px;
+  margin-bottom: 5px;
+}
+
+/* 左边的Bar */
+.stat-bar-left {
+  height: 9px;
+  width: 137px;
+  position: absolute;
+  right: 0;
+  bottom: 8px;
+  margin-bottom: 5px;
+
+}
+
+
+.left-bar-color {
+  background-color: #FDA24C;
+}
+
+.right-bar-color {
+  background-color: #33BA53;
+}
+
 .borderColor {
   width: 84px;
   height: 32px;

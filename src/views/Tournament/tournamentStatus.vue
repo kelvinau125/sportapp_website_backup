@@ -511,15 +511,6 @@ export default {
 
 }
 
-.short-bar-right {
-  height: 9px;
-  width: 110px;
-  position: absolute;
-  right: 0;
-  bottom: 8px;
-  margin-bottom: 5px;
-
-}
 
 .left-bar-color {
   background-color: #FDA24C;
