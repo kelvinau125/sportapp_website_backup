@@ -70,9 +70,7 @@
           </div>
         </div>
       </div>
-
     </div>
-
     <div @click="toAllMatchPage"
       class="max-w-[42px] h-[136px] flex flex-col justify-start items-center rounded-lg cursor-pointer px-5 pt-8"
       style=" background-color: #808F7E;">

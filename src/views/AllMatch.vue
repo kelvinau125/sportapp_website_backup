@@ -30,17 +30,17 @@
           <ul v-for="match in matchDetails" :key="match.matchDetails">
             <li @click="toAllMatchPage(
               match.linkAddress,
-              match.matchType, 
-              match.date, 
-              match.time, 
-              match.statusStr, 
-              match.homeTeamName, 
-              match.homeTeamScore, 
-              match.homeTeamIcon, 
+              match.matchType,
+              match.date,
+              match.time,
+              match.statusStr,
+              match.homeTeamName,
+              match.homeTeamScore,
+              match.homeTeamIcon,
               match.awayTeamName,
-              match.awayTeamScore, 
+              match.awayTeamScore,
               match.awayTeamIcon
-              )" class="max-w-full h-52 bg-white">
+            )" class="max-w-full h-52 bg-white">
               <div class="conten_box">
                 <div class="flex justify-between">
                   <div class="flex items-center justify-start w-[350px]">
@@ -75,7 +75,7 @@
                         <span class="text-lg font-semibold pr-2">{{ match.homeTeamName }}</span>
                       </div>
                       <div>
-                        <img :src= match.homeTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
+                        <img :src=match.homeTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
                       </div>
                     </div>
                     <div class="flex flex-col items-center w-1/3">
@@ -87,16 +87,16 @@
                     </div>
                     <div class="flex items-center justify-start w-full">
                       <div>
-                        <img :src= match.awayTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
+                        <img :src=match.awayTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
                       </div>
                       <div class="pl-3">
                         <span class="text-lg font-semibold">{{ match.awayTeamName }}</span>
                       </div>
                     </div>
                   </div>
-                  <div class="pt-2 pl-24  ">
-                    <!-- <img src="@/assets/favourite/ended.png" /> -->
-                    <p :class="{'bg-transparent': match.statusStr === ' ' , 'statusBorder': match.statusStr !==''}">{{ match.statusStr }}</p>
+                  <div class="pt-2 pl-24 relative">
+                    <p class="absolute -right-12" :class="{ 'bg-transparent': match.statusStr === ' ', 'statusBorder': match.statusStr !== '' }">{{
+                      match.statusStr }}</p>
                   </div>
                 </div>
               </div>
@@ -136,7 +136,7 @@ export default {
     return {
       // check language and basketball and football swtich
       isCN: Boolean,
-      currentChannel: ref((localStorage.getItem('currentChannel') === "football")?true :false),
+      currentChannel: ref((localStorage.getItem('currentChannel') === "football") ? true : false),
       activeDate: null,
 
       currentDate: ref(new Date()),
@@ -176,22 +176,24 @@ export default {
         await deleteStreamSaveBookmark(matchID, this.isCN);
       }
     },
-    toAllMatchPage(linkAddress, competitionName, matchDate, matchTimeStr, statusStr, homeTeamName, homeTeamScore, homeTeamLogo, awayTeamName,awayTeamScore, awayTeamLogo) {
+    toAllMatchPage(linkAddress, competitionName, matchDate, matchTimeStr, statusStr, homeTeamName, homeTeamScore, homeTeamLogo, awayTeamName, awayTeamScore, awayTeamLogo) {
       // Push to the Live Page
-      const routeData = this.$router.resolve({name: 'TournamentDetails', query: {
-        TournamentID: linkAddress,
-        competitionName: competitionName,
-        matchDate: matchDate,
-        matchTimeStr: matchTimeStr,
-        statusStr: statusStr,
-        homeTeamName: homeTeamName,
-        homeTeamScore: homeTeamScore,
-        homeTeamLogo: homeTeamLogo,
-        awayTeamName: awayTeamName,
-        awayTeamScore: awayTeamScore,
-        awayTeamLogo: awayTeamLogo,
-      
-      }});
+      const routeData = this.$router.resolve({
+        name: 'TournamentDetails', query: {
+          TournamentID: linkAddress,
+          competitionName: competitionName,
+          matchDate: matchDate,
+          matchTimeStr: matchTimeStr,
+          statusStr: statusStr,
+          homeTeamName: homeTeamName,
+          homeTeamScore: homeTeamScore,
+          homeTeamLogo: homeTeamLogo,
+          awayTeamName: awayTeamName,
+          awayTeamScore: awayTeamScore,
+          awayTeamLogo: awayTeamLogo,
+
+        }
+      });
       window.open(routeData.href, '_blank');
     },
     formatDay(date) {
@@ -219,10 +221,10 @@ export default {
     async generateMatchDetailsList(matchdate) {
       this.matchDetails = [];
       (this.currentChannel)
-      //football
-      ?this.getMatchList = await getMatchByDate(matchdate, this.isCN)
-      //basketball
-      :this.getMatchList = await getBasketballMatchByDate(matchdate, this.isCN)
+        //football
+        ? this.getMatchList = await getMatchByDate(matchdate, this.isCN)
+        //basketball
+        : this.getMatchList = await getBasketballMatchByDate(matchdate, this.isCN)
 
       for (let i = 0; i < this.getMatchList.length; i++) {
 
@@ -344,5 +346,4 @@ export default {
   border-radius: 8px;
   padding-left: 10px;
   padding-right: 10px;
-}
-</style>
+}</style>

@@ -92,10 +92,12 @@
                       </div>
                     </div>
                   </div>
-                  <div class="pt-2 pl-24  ">
-                    <!-- <img src="@/assets/favourite/ended.png" /> -->
-                    <p :class="{'bg-transparent': match.statusStr === ' ' , 'statusBorder': match.statusStr !==''}">{{ match.statusStr }}</p>
+
+                  <div class="pt-2 pl-24 relative">
+                    <p class="absolute -right-[87px]" :class="{ 'bg-transparent': match.statusStr === ' ', 'statusBorder': match.statusStr !== '' }">{{
+                      match.statusStr }}</p>
                   </div>
+
                 </div>
               </div>
 
@@ -332,6 +334,5 @@ export default {
 
 }
 
-div {}
 </style>
 

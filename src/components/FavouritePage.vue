@@ -1,7 +1,7 @@
 <template>
   <BackgroundImage>
     <div class="schedule_list">
-      <div class="flex justify-between my-5 date-slider" style="width: 892px; height: 46px;">
+      <div class="flex justify-between my-5 max-w-[892px] w-[100%] h-[46px] date-slider overflow-hidden">
         <div class=" flex justify-center mt-1"
           style="height: 32px; width: 17px; background-color: #808F7E; border-radius: 8px;">
           <button @click="prevWeek">
@@ -23,14 +23,8 @@
           </button>
         </div>
       </div>
-      <div v-if="selectedDate">
-        <!-- <h2>Content for {{ formatDay(selectedDate) }}</h2>
-        <p>Day of the week: {{ formatDayOfWeek(selectedDate) }}</p> -->
-        <!-- Display content specific to the selected date here -->
-      </div>
 
-      <!-- ListView -->
-      <div class="schedule_detail" style="width: 892px; height: 108px;">
+      <div class="schedule_detail max-w-[892px] w-[100%] h-[108px]">
         <div class="schedule_detail_box">
           <ul v-for="match in matchDetails" :key="match.matchDetails">
             <li @click="toAllMatchPage(
@@ -96,10 +90,10 @@
                       </div>
                     </div>
                   </div>
-                  <div class="pt-2 pl-24 ">
-                    <!-- <img src="@/assets/favourite/ended.png" /> -->
-                    <p :class="{ 'bg-transparent': match.statusStr === ' ', 'statusBorder': match.statusStr !== '' }">{{
-                      match.statusStr }}</p>
+                  <div class="pt-2">
+                    <p class="statusRes"
+                      :class="{ 'bg-transparent': match.statusStr === ' ', 'statusBorder': match.statusStr !== '' }">{{
+                        match.statusStr }}</p>
                   </div>
                 </div>
               </div>
@@ -108,8 +102,9 @@
           </ul>
         </div>
       </div>
-
     </div>
+
+
   </BackgroundImage>
 </template>
 
@@ -138,7 +133,7 @@ export default {
     return {
       // check language and basketball and football swtich
       isCN: Boolean,
-      currentChannel: ref((localStorage.getItem('currentChannel') === "football")?true :false),
+      currentChannel: ref((localStorage.getItem('currentChannel') === "football") ? true : false),
 
       activeDate: null,
       currentDate: ref(new Date()),
@@ -248,6 +243,24 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+@media (min-width: 300px) {
+  .statusRes{
+   position: absolute;
+   right: 0px; 
+  }
+}
+
+@media (min-width: 500px) {
+  .statusRes{
+   position: absolute;
+   right: 18px; 
+  }
+}
+
+@media (min-width: 640px) {}
+
+@media (min-width: 768px) {}
+
 .MatchTypeBorder {
   background-color: #F5F5F5;
   border: 1px solid rgba(156, 163, 175, 0.5);
@@ -256,15 +269,13 @@ export default {
 
 
 .schedule_list {
-  width: 50%;
+  width: 100%;
   margin: 20px 0 0 0;
-  padding-right: .65%;
-  padding-left: .65%;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   position: relative;
-  max-width: 960px;
+  max-width: 892px;
 }
 
 .schedule_list .schedule_detail {

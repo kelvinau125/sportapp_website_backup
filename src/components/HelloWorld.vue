@@ -1,4 +1,13 @@
 <template>
+  <div class="backgroundImg">
+    <div class="scroll-container">
+      <div class="inner-container">
+        <!-- Your content here -->
+        HALo
+      </div>
+    </div>
+  </div>
+
   <!-- {{ defendPlayerIndexInt }}
   {{ MiddlePlayerIndexInt }}
   {{ FirstPlayerIndexInt }}
@@ -178,3 +187,42 @@ export default {
 
 }
 </script>
+
+<style>
+.backgroundImg {
+  width: 100%;
+  height: 647px;
+  display: flex;
+  align-items: center;
+  background-image: url('@/assets/main/background_2.png');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  /* Hide overflow */
+}
+
+.scroll-container {
+  width: 100%;
+  overflow-x: auto;
+  /* Enable horizontal scrolling */
+}
+
+.inner-container {
+  border: 2px solid red;
+  max-width: 892px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 20px;
+  margin: 0 auto;
+  /* Center the inner container */
+}
+
+@media (max-width: 892px) {
+  .backgroundImg .inner-container {
+    min-width: 892px;
+    /* Set a minimum width to stop shrinking */
+  }
+}
+</style>
+

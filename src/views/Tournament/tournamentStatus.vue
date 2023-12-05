@@ -125,8 +125,8 @@
           </div>
           <div class="flex flex-col items-center justify-around">
             <div class="md:flex md:px-1 px-0">
-              <p class="font-medium md:text-sm text-10px ">{{ $t("Shoot") }} </p>
-              <p class="font-medium md:text-sm text-10px ">{{ "(" + $t("Score") + ")" }} </p>
+              <p class="font-medium md:text-sm text-10px ">{{ $t("Shoot") + "(" + $t("Score") + ")"  }} </p>
+              <!-- <p class="font-medium md:text-sm text-10px ">{{ "(" + $t("Score") + ")" }} </p> -->
             </div>
             <p class="font-medium md:text-sm text-10px ">{{ $t("Penalty") }}</p>
           </div>

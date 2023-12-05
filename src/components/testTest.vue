@@ -1,4 +1,6 @@
 <template>
+
+  <p>HALo</p>
   <form @submit.prevent="handleSubmit">
     <div v-for="(controller, index) in controllers" :key="index" class="digit-input">
       <input
