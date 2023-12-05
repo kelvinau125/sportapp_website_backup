@@ -67,7 +67,7 @@
             <p>{{ this.currentChannel }}</p>
           </button>
 
-          <div class="dropdown-content md:hidden absolute md:right-6 right-8 md:top-10 top-0"
+          <div style="z-index: 1000;" class="dropdown-content md:hidden absolute md:right-6 right-8 md:top-10 top-0"
             :class="{ 'show-dropdown': isDropdownOpen }">
             <button class="dropdown-button" @click="basketballchoice()">
               <img src="@/assets/topNav/basketball.png" alt="Basketball" />

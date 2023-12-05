@@ -1,5 +1,5 @@
 <template>
-  <div class="backgroundImg">
+  <BackgroundImage>
     <div class="scroll-container">
       <div class="inner-container">
         <div class="flex justify-between my-5 max-w-[892px] w-[100%] h-[46px] date-slider ">
@@ -86,12 +86,13 @@
                         <div>
                           <img :src=match.awayTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
                         </div>
-                        <div class="pl-3">
-                          <span class="text-lg font-semibold">{{ match.awayTeamName }}</span>
+                        <div class="pl-3 w-[160px] overflow-hidden">
+                          <span class="text-lg font-semibold whitespace-nowrap overflow-ellipsis">{{ match.awayTeamName
+                          }}</span>
                         </div>
                       </div>
                     </div>
-                    <div class="relative  pt-2">
+                    <div class="relative pt-2">
                       <span class="absolute bottom-0 -right-[130px]"
                         :class="{ 'bg-transparent': match.statusStr === ' ', 'statusBorder': match.statusStr !== '' }">
                         {{
@@ -107,7 +108,8 @@
 
       </div>
     </div>
-  </div>
+  </BackgroundImage>
+
   <!-- <BackgroundImage>
     <div class="schedule_list">
       <div class="scroll-container border-2 border-green-500">
@@ -220,7 +222,7 @@
 </template>
 
 <script>
-// import BackgroundImage from '@/components/BackGround.vue'
+import BackgroundImage from '@/components/BackGround.vue'
 import { addDays, startOfWeek, format, isToday } from 'date-fns';
 import { ref } from 'vue'
 
@@ -228,7 +230,7 @@ import { getLiveStreamBookmark, liveStreamSaveBookmark, deleteStreamSaveBookmark
 
 export default {
   components: {
-    // BackgroundImage
+    BackgroundImage
   },
   async mounted() {
     // ------------------------------------------------------------------- Translation Part ------------------------------------------ Remember Change It ----------------------------
@@ -377,18 +379,6 @@ export default {
 
 @media (min-width: 768px) {}
 
-.backgroundImg {
-  width: 100%;
-  height: 647px;
-  display: flex;
-  align-items: center;
-  background-image: url('@/assets/main/background_2.png');
-  background-size: cover;
-  background-position: center;
-  position: relative;
-
-}
-
 .scroll-container {
   position: absolute;
   width: 100%;
@@ -404,16 +394,14 @@ export default {
   text-align: center;
   padding: 20px;
   margin: 0 auto;
-  /* Center the inner container */
 }
 
-/* 隐藏滚动条 */
 .scroll-container::-webkit-scrollbar {
   display: none;
 }
 
 @media (max-width: 892px) {
-  .backgroundImg .inner-container {
+  .inner-container {
     min-width: 892px;
     /* Set a minimum width to stop shrinking */
   }

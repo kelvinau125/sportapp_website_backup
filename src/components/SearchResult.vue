@@ -1,112 +1,106 @@
 <template>
-  <!-- <div>
-    <h2>Search searchLiveTeamResult</h2>
-    <p>Search Query: {{ searchQuery }}</p>
-    <p>Search Query: {{ searchPages }}</p>
-  </div>
-
-  <div class="searchInputBox">
-    <div class="searchLeftBox">
-      <input v-model="searchQuery" @keyup.enter="search" type="text" placeholder="搜索主播/比赛/房间名" maxlength="20" />
-    </div>
-  </div> -->
   <BackgroundImage>
-    <div class="flex justify-center pt-8">
-      <div class="searchContainer flex">
-        <input class="searchInput pl-4 w-full h-full text-xs font-normal text-grayText" v-model="searchQuery"
-          @keyup.enter="search" type="text" placeholder="搜索赛事/球队" maxlength="20" />
-
-        <button @click="search" class="searchButton w-full h-full flex justify-center items-center pl-1">
-          <img src="@/assets/topNav/search.png" alt="Search Icon" class="" />
-          <span class="text-white font-normal text-xs pb-0.5 pr-2">{{ $t("Search") }}</span>
-        </button>
-
-      </div>
-
-    </div>
-    <div class="schedule_list pt-4">
-      <div class="schedule_detail " style="height: 108px;">
-        <div class="schedule_detail_box">
-          <ul v-for="match in filterSearchResult" :key="match.searchLiveTeamResult">
-            <li @click="toAllMatchPage(
-              match.linkAddress,
-              match.competitionName, 
-              match.matchDate, 
-              match.matchTimeStr, 
-              match.statusStr, 
-              match.homeTeamName, 
-              match.homeTeamScore, 
-              match.homeTeamLogo, 
-              match.awayTeamName,
-              match.awayTeamScore, 
-              match.awayTeamLogo
-              )" class="max-w-full h-52 bg-white">
-              <div class="conten_box ">
-                <div class="flex justify-between ">
-                  <div class="flex items-center justify-start " style="width: 350px;">
-                    <div class="w-6 h-6">
-                      <img style="" src="@/assets/favourite/footIcon.png" />
-                    </div>
-                    <div class="px-3 flex justify-center ml-2 MatchTypeBorder ">
-                      <span class="text-xs font-medium" style="color: #666666;">{{ match.competitionName }}</span>
-                    </div>
-                  </div>
-                  <div>
-                    <button @click.stop="toggleFavorite(match, match.linkAddress)" :class="{ fav: match.favorite }">
-                      <img v-if="!match.favorite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
-                      <img v-else src="@/assets/content/Favourite.png" alt="Favourite" />
-                    </button> 
-                  </div>
-                </div>
-                <div class="flex justify-start ">
-                  <div class="flex items-end pr-5">
-                    <div class="pr-2 font-medium text-xs text-grayText">
-                      <span>{{ match.matchDate }}</span>
-                    </div>
-                    <div class="font-semibold text-xs " style="color: #333333;">
-                      <span>{{ match.matchTimeStr }}</span>
-                    </div>
-                  </div>
-                  <div class="flex" style="width: 570px; ">
-                    <div class="flex justify-end items-center w-full ">
-                      <div class="">
-                        <span class="text-lg font-semibold pr-2">{{ match.homeTeamName }}</span>
-                      </div>
-                      <div class="">
-                        <img :src= match.homeTeamLogo style="width: 40px; height: 40px; border-radius: 20px;" />
-                      </div>
-                    </div>
-                    <div class="flex flex-col  items-center  w-1/3">
-                      <div class="font-semibold text-2xl ">
-                        <span>{{ match.homeTeamScore }}</span>
-                        <span class="px-2">-</span>
-                        <span>{{ match.awayTeamScore }}</span>
-                      </div>
-                    </div>
-                    <div class="flex items-center justify-start w-full ">
-                      <div>
-                        <img :src= match.awayTeamLogo style="width: 40px; height: 40px; border-radius: 20px;" />
-                      </div>
-                      <div class="pl-3">
-                        <span class="text-lg font-semibold">{{ match.awayTeamName }}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="pt-2 pl-24 relative">
-                    <p class="absolute -right-[87px]" :class="{ 'bg-transparent': match.statusStr === ' ', 'statusBorder': match.statusStr !== '' }">{{
-                      match.statusStr }}</p>
-                  </div>
-
-                </div>
-              </div>
-
-            </li>
-          </ul>
+    <div class="scroll-container">
+      <div class="flex justify-center pt-9 pb-6">
+        <div class="searchContainer flex">
+          <input class="searchInput pl-4 w-full h-full text-xs font-normal text-grayText" v-model="searchQuery"
+            @keyup.enter="search" type="text" placeholder="搜索赛事/球队" maxlength="20" />
+          <button @click="search" class="searchButton w-full h-full flex justify-center items-center pl-1">
+            <img src="@/assets/topNav/search.png" alt="Search Icon" class="" />
+            <span class="text-white font-normal text-xs pb-0.5 pr-2">{{ $t("Search") }}</span>
+          </button>
         </div>
       </div>
+      <div class="inner-container">
+        <div class="schedule_detail max-w-[892px] w-[100%]">
+          <div class="schedule_detail_box">
+            <ul class=" h-[120px]" v-for="match in filterSearchResult" :key="match.searchLiveTeamResult">
+              <li @click="toAllMatchPage(
+                match.linkAddress,
+                match.competitionName,
+                match.matchDate,
+                match.matchTimeStr,
+                match.statusStr,
+                match.homeTeamName,
+                match.homeTeamScore,
+                match.homeTeamLogo,
+                match.awayTeamName,
+                match.awayTeamScore,
+                match.awayTeamLogo
+              )" class="max-w-full h-52 bg-white">
+                <div class="h-[120px] p-5 ">
+                  <div class="flex justify-between ">
+                    <div class="flex items-center justify-start " style="width: 350px;">
+                      <div class="w-6 h-6">
+                        <img style="" src="@/assets/favourite/footIcon.png" />
+                      </div>
+                      <div class="px-3 flex justify-center ml-2 MatchTypeBorder ">
+                        <span class="text-xs font-medium" style="color: #666666;">{{ match.competitionName }}</span>
+                      </div>
+                    </div>
+                    <div>
+                      <button @click.stop="toggleFavorite(match, match.linkAddress)" :class="{ fav: match.favorite }">
+                        <img v-if="!match.favorite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
+                        <img v-else src="@/assets/content/Favourite.png" alt="Favourite" />
+                      </button>
+                    </div>
+                  </div>
+                  <div class="flex justify-start ">
+                    <div class="flex items-end pr-5">
+                      <div class="pr-2 font-medium text-xs text-grayText">
+                        <span>{{ match.matchDate }}</span>
+                      </div>
+                      <div class="font-semibold text-xs " style="color: #333333;">
+                        <span>{{ match.matchTimeStr }}</span>
+                      </div>
+                    </div>
+                    <div class="flex" style="width: 570px; ">
+                      <div class="flex justify-end items-center w-full ">
+                        <div class="w-[160px]  overflow-hidden">
+                          <span class="text-lg font-semibold pr-2 whitespace-nowrap overflow-ellipsis">{{
+                            match.homeTeamName
+                          }}</span>
+                        </div>
+                        <div class="">
+                          <img :src=match.homeTeamLogo style="width: 40px; height: 40px; border-radius: 20px;" />
+                        </div>
+                      </div>
+                      <div class="flex flex-col  items-center  w-1/3">
+                        <div class="font-semibold text-2xl ">
+                          <span>{{ match.homeTeamScore }}</span>
+                          <span class="px-2">-</span>
+                          <span>{{ match.awayTeamScore }}</span>
+                        </div>
+                      </div>
+                      <div class="flex items-center justify-start w-full ">
+                        <div>
+                          <img :src=match.awayTeamLogo style="width: 40px; height: 40px; border-radius: 20px;" />
+                        </div>
+                        <div class="pl-3 w-[160px] overflow-hidden">
+                          <span class="text-lg font-semibold whitespace-nowrap overflow-ellipsis">{{ match.awayTeamName
+                          }}</span>
+                        </div>
+                      </div>
+                    </div>
 
+                    <div class="relative pt-2">
+                      <span class="absolute bottom-0 -right-[130px]"
+                        :class="{ 'bg-transparent': match.statusStr === ' ', 'statusBorder': match.statusStr !== '' }">{{
+                          match.statusStr }}</span>
+                    </div>
+
+                  </div>
+                </div>
+
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
+
+
+
   </BackgroundImage>
 </template>
 
@@ -135,7 +129,7 @@ export default {
 
       // check language and basketball and football swtich
       isCN: Boolean,
-      currentChannel: ref((localStorage.getItem('currentChannel') === "football")?true :false),
+      currentChannel: ref((localStorage.getItem('currentChannel') === "football") ? true : false),
 
     };
   },
@@ -145,7 +139,7 @@ export default {
     // ------------------------------------------------------------------- Translation Part ------------------------------------------ Remember Change It ----------------------------
     this.isCN = ((this.$i18n.locale === 'ZH') ? true : false)
 
-  
+
   },
   methods: {
     // async getResult() {
@@ -170,6 +164,8 @@ export default {
         console.log('Search is empty');
         this.searchLiveTeamResult = [];
       } else {
+        this.$router.push({ name: 'ResultPage', query: { searchQuery: this.searchQuery } });
+
         this.filterSearchResult = [];
         this.searchLiveTeamResult = await searchLiveTeamStream(this.searchQuery, this.isCN, this.currentChannel)
         this.searchLiveCompetitionResult = await searchLiveCompetitionStream(this.searchQuery, this.isCN, this.currentChannel)
@@ -183,7 +179,7 @@ export default {
           ...this.searchLiveTeamResult.filter(team => !this.searchLiveCompetitionResult.find(comp => comp.id === team.id)),
           ...this.searchLiveCompetitionResult
         ];
-        
+
         for (let i = 0; i < this.filterSearchResultTemp.length; i++) {
 
           const matchId = this.filterSearchResultTemp[i]["id"];
@@ -222,22 +218,24 @@ export default {
       this.favoriteList = this.getfootballMatchList.map(item => item.id);
       this.search();
     },
-    toAllMatchPage(linkAddress, competitionName, matchDate, matchTimeStr, statusStr, homeTeamName, homeTeamScore, homeTeamLogo, awayTeamName,awayTeamScore, awayTeamLogo) {
+    toAllMatchPage(linkAddress, competitionName, matchDate, matchTimeStr, statusStr, homeTeamName, homeTeamScore, homeTeamLogo, awayTeamName, awayTeamScore, awayTeamLogo) {
       // Push to the Live Page
-      const routeData = this.$router.resolve({name: 'TournamentDetails', query: {
-        TournamentID: linkAddress,
-        competitionName: competitionName,
-        matchDate: matchDate,
-        matchTimeStr: matchTimeStr,
-        statusStr: statusStr,
-        homeTeamName: homeTeamName,
-        homeTeamScore: homeTeamScore,
-        homeTeamLogo: homeTeamLogo,
-        awayTeamName: awayTeamName,
-        awayTeamScore: awayTeamScore,
-        awayTeamLogo: awayTeamLogo,
-      
-      }});
+      const routeData = this.$router.resolve({
+        name: 'TournamentDetails', query: {
+          TournamentID: linkAddress,
+          competitionName: competitionName,
+          matchDate: matchDate,
+          matchTimeStr: matchTimeStr,
+          statusStr: statusStr,
+          homeTeamName: homeTeamName,
+          homeTeamScore: homeTeamScore,
+          homeTeamLogo: homeTeamLogo,
+          awayTeamName: awayTeamName,
+          awayTeamScore: awayTeamScore,
+          awayTeamLogo: awayTeamLogo,
+
+        }
+      });
       window.open(routeData.href, '_blank');
     },
   },
@@ -246,6 +244,34 @@ export default {
 
 
 <style scoped>
+.scroll-container {
+  position: absolute;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+
+}
+
+.inner-container {
+  max-width: 892px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 892px) {
+  .inner-container {
+    min-width: 892px;
+    /* Set a minimum width to stop shrinking */
+  }
+}
+
 .searchContainer {
   border: 1px solid #33BA53;
   border-radius: 6px;
@@ -333,6 +359,5 @@ export default {
 
 
 }
-
 </style>
 
