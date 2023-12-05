@@ -18,10 +18,10 @@
                     <p class="text-lg font-normal mt-2 w-14 flex items-start">封面</p>
 
                     <div class="flex flex-col items-start">
-                        <label class="bg-white rounded py-1.5 flex items-center justify-center cursor-pointer" style="width: 117px; height: 67px; border: 1px solid #ccc;">
-                            <img v-if="imageUrl" :src="imageUrl" class="border-2 border-white mx-auto mt-4" style="width: 100%; height: 100%;" />
+                        <label class="bg-white rounded flex items-center justify-center cursor-pointer" style="width: 117px; height: 67px; border: 1px solid #ccc;">
+                            <img v-if="imageUrl" :src="imageUrl" class="w-full h-full border-2" />
                             <!-- <span v-if="!imageUrl" @click="removeImage" class="absolute top-[130px] left-[178px] cursor-pointer text-red-500 p-2"  >X</span> -->
-                            <img v-if="!imageUrl" src="@/assets/add_picture.png" class="border-2 border-white mx-auto mt-4" style="width: 20px; height: 20px;" />
+                            <img v-if="!imageUrl" src="@/assets/add_picture.png" class="border-2 border-white mx-auto mt-6" style="width: 20px; height: 20px;" />
                             <!-- <img src="@/assets/add_picture.png" class="border-2 border-white mx-auto mt-4" style="width: 20px; height: 20px;" /> -->
                             <input type="file" id="upload" style="display: none;" @change="handleImageUpload" />
                         </label>
@@ -31,24 +31,24 @@
 
                 <div class="flex flex-col items-start pt-5">
                     <div class="flex items-center">
-                        <p class="text-lg font-normal mt-2">推流码</p>
-                        <img src="@/assets/copy.png" class="ml-2 mt-2 cursor-pointer" style="width: 20px; height: 20px;" @click="copyToClipboard"/>
+                        <p class="text-lg font-normal mt-2">服务器地址</p>
+                        <img src="@/assets/copy.png" class="ml-2 mt-2 cursor-pointer" style="width: 20px; height: 20px;" @click="copyToClipboard(true)"/>
                     </div>
-                    <p class="text-gray-400 text-sm font-normal mt-2 cursor-pointer" @click="copyToClipboard">rtmp://190299.push.tlivecloud.com/live/</p>
+                    <p class="text-gray-400 text-sm font-normal mt-2 cursor-pointer" @click="copyToClipboard(true)">{{ this.host }}</p>
                 </div>
 
                 
                 <div class="flex flex-col items-start pt-5">
                     <div class="flex items-center">
-                        <p class="text-lg font-normal mt-2">服务器地址</p>
-                        <img src="@/assets/copy.png" class="ml-2 mt-2 cursor-pointer" style="width: 20px; height: 20px;"  @click="copyToClipboard" />
+                        <p class="text-lg font-normal mt-2">推流码</p>
+                        <img src="@/assets/copy.png" class="ml-2 mt-2 cursor-pointer" style="width: 20px; height: 20px;"  @click="copyToClipboard(false)" />
                     </div>
-                    <p class="text-gray-400 text-sm font-normal mt-2 h-16 break-all text-left cursor-pointer" @click="copyToClipboard">phillip?txSecret=08a985db4f4c8801fd64d63bc8f74233&txTime=656E9BEC</p>
+                    <p class="text-gray-400 text-sm font-normal mt-2 h-16 break-all text-left cursor-pointer" @click="copyToClipboard(false)">{{ this.code }}</p>
                 </div>
             </div>
 
             <div class="pt-8">
-                <ButtonPress @click="showStreamPreviewModal()" class="w-screen font-bold" style="height: 56px;">开播浏览</ButtonPress>
+                <ButtonPress @click="createStream()" class="w-screen font-bold" style="height: 56px;">开播浏览</ButtonPress>
                 <div class="flex justify-center" style="padding: 8px" />
             </div>
         </div>
@@ -56,10 +56,14 @@
 </template>
   
 <script>
+import { ref } from 'vue'
+
 import ButtonPress from '@/components/ButtonPress.vue';
 import CloseButton from '@/components/CloseButton.vue';
 import ReverseButton from '@/components/ReverseButton.vue';
 import Clipboard from 'clipboard';
+
+import { getPushStreamUrl} from '@/service/apiStreamProvider.js';
 
 export default {
     components: {
@@ -70,8 +74,11 @@ export default {
 
     data() {
         return {
-            title: "",
+            title: ref(""),
             imageUrl: null,
+            code: ref(""),
+            host: ref(""),
+            time: ref(""),
         }
     },
 
@@ -80,6 +87,14 @@ export default {
         closeStreamDetailModal: Function,
         showStreamPreviewModal: Function,
         gobackmypage: Function,
+    },
+
+    async mounted() {
+        const getStreamUrl = await getPushStreamUrl()
+
+        this.code = getStreamUrl["code"]
+        this.host = getStreamUrl["host"]
+        this.time = getStreamUrl["time"]
     },
 
     methods: {
@@ -101,8 +116,15 @@ export default {
                 input.value = null;
             }
         },
-        copyToClipboard() {
-            const textToCopy = 'phillip?txSecret=08a985db4f4c8801fd64d63bc8f74233&txTime=656E9BEC';
+        copyToClipboard(details) {
+            // true = host 
+            // false = code
+
+            let textToCopy;
+
+            (details)
+            ? textToCopy = this.host
+            : textToCopy = this.code
 
             const clipboard = new Clipboard('.text-gray-400', {
                 text: () => textToCopy,
@@ -120,6 +142,15 @@ export default {
 
             clipboard.onClick({ currentTarget: document.querySelector('.text-gray-400') });
         },
+        createStream(){
+            this.showStreamPreviewModal()
+            console.log(this.title)
+            console.log(this.imageUrl)
+            console.log(this.code)
+            console.log(this.host)
+            console.log(this.time)
+
+        }
     }
 
 }

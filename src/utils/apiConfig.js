@@ -347,6 +347,23 @@ export const uploadFile = '/upload/tx';
 
 export const deleteFile = '/delete/{fileName}';
 
+export const uploadStreamCover = '/upload/cover';
+
 export const uploadFileUrl = uploadFileBaseUrl + uploadFile; //upload file
 
 export const deleteFileUrl = uploadFileBaseUrl + deleteFile; //delete file
+
+export const uploadStreamFileUrl = uploadFileBaseUrl + uploadStreamCover; //upload stream cover file
+
+//stream
+export const streamBaseUrl = '/api/v1/pushAndPlay';
+
+export const pushStream = '/pushUrl';
+
+export const createStream = '/create/{userId}';
+
+export const pushStreamUrl = streamBaseUrl + pushStream; //push stream
+
+export const createStreamUrl = streamBaseUrl + createStream; //create live stream
+
+
