@@ -35,22 +35,23 @@
         <!-- 热门赛程 Contents -->
         <div class="flex justify-between rounded-b-lg bg-white w-full" style=" height: 106px; ">
           <div class="flex flex-col justify-center items-center pb-3 h-full" style="width: 100px; ">
-            <div class="text-base font-semibold h-1/3 pt-2"> {{ match.homeTeamScore }}</div>
+            <div class=" text-base font-semibold h-1/3 pt-2"> {{ match.homeTeamScore }}</div>
             <div class="pt-2 h-1/2">
               <img class="" style="width: 24px; height: 24px;" :src="match.homeTeamIcon" />
             </div>
-            <div class="nameBorder flex justify-center text-center text-xs font-normal text-grayText">
-              <span class=" whitspace-nowrap overflow-hidden text-elleipsis">{{ match.homeTeamName }}</span>
+            <div class=" w-[60px] h-[100%] flex justify-center text-center text-xs font-normal text-grayText">
+              <span class=" whitespace-nowrap overflow-hidden text-elleipsis">{{ match.homeTeamName }}</span>
             </div>
           </div>
           <div class="flex relative flex-col justify-start items-center py-2 ">
             <div v-show="isCN" class="w-[80px] h-1/2 absolute font-medium text-sm pt-3 flex items-center justify-center"
-              :class="{ 'statusStartBorder': match.status === '开', 'statusEndBorder': match.status === '终' }">{{
-                match.status }}</div>
+              :class="{ 'statusStartBorder': match.status === '开', 'statusEndBorder': match.status === '终' }">
+              <span class="whitspace-normal overflow-hidden text-ellipsis">{{ match.status }}</span>
+            </div>
 
-            <div v-show="!isCN" class="w-[80px] h-1/2 absolute font-medium text-sm pt-3 flex items-center justify-center"
+            <div v-show="!isCN" class="w-[80px] h-1/2 absolute font-medium text-xs pt-3 flex items-center justify-center"
               :class="{ 'statusStartBorder': match.status === ('Started' || 'Start'), 'statusEndBorder': match.status === match.status && match.status !== '' }">
-              <span class="whitspace-normal overflow-hidden text-ellipsis">{{match.status}}</span>
+              <span class="whitspace-normal overflow-hidden text-ellipsis">{{ match.status }}</span>
             </div>
             <div class="h-1/2 mt-8">
               <span class="pt-2 text-base font-semibold">VS</span>
@@ -61,8 +62,8 @@
             <div class="pt-2 h-1/2">
               <img class="" style="width: 24px; height: 24px;" :src="match.awayTeamIcon" />
             </div>
-            <div class="nameBorder flex justify-center text-center text-xs font-normal text-grayText">
-              <span class="whitspace-nowrap overflow-hidden text-elleipsis">{{
+            <div class="w-[60px] h-[100%] flex justify-center text-center text-xs font-normal text-grayText">
+              <span class="whitespace-normal overflow-hidden text-elleipsis">{{
                 match.awayTeamName }}</span>
 
             </div>
@@ -281,6 +282,7 @@ export default {
 .nameBorder {
   width: 70px;
   height: 100%;
+  border: 1px solid red;
 
 }
 
