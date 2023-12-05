@@ -136,7 +136,10 @@ export default {
   },
   data() {
     return {
+      // check language and basketball and football swtich
       isCN: Boolean,
+      currentChannel: ref((localStorage.getItem('currentChannel') === "football")?true :false),
+
       activeDate: null,
       currentDate: ref(new Date()),
       daysToShow: ref(7),
@@ -207,7 +210,7 @@ export default {
       match.favourite = !match.favourite;
 
       if (!match.favourite) {
-        await liveStreamSaveBookmark(matchID, 0, this.isCN);
+        await liveStreamSaveBookmark(matchID, this.currentChannel, this.isCN);
       } else {
         await deleteStreamSaveBookmark(matchID, this.isCN);
       }
@@ -215,7 +218,7 @@ export default {
 
     async generateMatchDetailsList(matchdate) {
       this.matchDetails = [];
-      this.getfootballMatchList = await getLiveStreamBookmark(this.isCN);
+      this.getfootballMatchList = await getLiveStreamBookmark(this.isCN, this.currentChannel);
 
       for (let i = 0; i < this.getfootballMatchList.length; i++) {
         if ((this.getfootballMatchList[i]["matchDate"]).replace(/-/g, '') === matchdate || matchdate === "showall") {

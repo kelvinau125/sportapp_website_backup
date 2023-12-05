@@ -5,21 +5,31 @@ import {
 
 import {
     baseUrl,
-    // searchFootballMatchTodayUrl,
-    searchFootballMatchTodayENurl
+    searchFootballMatchTodayUrl,
+    searchFootballMatchTodayENurl,
+    searchBasketballTodayUrl,
+    searchBasketballTodayENurl,
 
 } from '@/utils/apiConfig.js';
 
-export async function searchLiveTeamStream(teamName, searchPages) {
+export async function searchLiveTeamStream(teamName, isCN, isFootBall) {
 
-    const url = baseUrl + searchFootballMatchTodayENurl + 'teamName=' + teamName + '&page=' + searchPages
+    // const url = baseUrl + searchFootballMatchTodayENurl + 'teamName=' + teamName
+    let url;
+
+    (isCN)
+    ? ((isFootBall)
+      ? url = baseUrl + searchFootballMatchTodayUrl + 'teamName=' + teamName
+      : url = baseUrl + searchBasketballTodayUrl + 'teamName=' + teamName)
+    : ((isFootBall)
+      ? url = baseUrl + searchFootballMatchTodayENurl + 'teamName=' + teamName
+      : url = baseUrl + searchBasketballTodayENurl + 'teamName=' + teamName)
+      
     try {
         const response = await getRequestSearchStream(url)
 
         const data = response.data
-        // console.log("NEW FKING DATA" + JSON.stringify(data));
         const code = response.code;
-        // console.log("CODE " + code);
 
         if (code === 0) {
             console.log("Success Get Live Team Data" + data);
@@ -35,8 +45,18 @@ export async function searchLiveTeamStream(teamName, searchPages) {
     }
 }
 
-export async function searchLiveCompetitionStream(competitionName, searchPages) {
-    const url = baseUrl + searchFootballMatchTodayENurl + 'competitionName=' + competitionName + '&page=' + searchPages
+export async function searchLiveCompetitionStream(competitionName, isCN, isFootBall) {
+    // const url = baseUrl + searchFootballMatchTodayENurl + 'competitionName=' + competitionName
+    let url;
+
+    (isCN)
+    ? ((isFootBall)
+      ? url = baseUrl + searchFootballMatchTodayUrl + 'competitionName=' + competitionName
+      : url = baseUrl + searchBasketballTodayUrl + 'competitionName=' + competitionName)
+    : ((isFootBall)
+      ? url = baseUrl + searchFootballMatchTodayENurl + 'competitionName=' + competitionName
+      : url = baseUrl + searchBasketballTodayENurl + 'competitionName=' + competitionName)
+
     try {
         const response = await getRequestSearchStream(url)
 

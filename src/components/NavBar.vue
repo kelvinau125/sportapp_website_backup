@@ -85,9 +85,9 @@
           <img :src="avatar"
             class="max-w-[40px] md:static absolute md:right-0 -right-4 md:top-0 -top-[72px] rounded-full border-2 border-white"
             style=" object-fit: cover;" />
-          <div v-show="showDropdown"
+          <div style="z-index: 1000;" v-show="showDropdown"
             class="md:absolute absolute md:right-0 -right-4 md:top-12 -top-6 bg-gray-900 mt-1 p-1 py-3">
-            <div class="pr-1 pt-1 pb-2 flex flex-col">
+            <div class="pr-1 pt-1 pb-2 flex flex-col" >
               <!-- <button to="/register" class="px-1 hover:text-green-500 text-white">注册</button>
               <button to="/login" class="px-1 hover:text-green-500 text-white">登入</button> -->
               <button v-if="!loggedIn" class="px-1" @click="showRegisterModal">{{ $t("Register") }}</button>

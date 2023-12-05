@@ -109,6 +109,7 @@
 </template>
 
 <script>
+import { ref } from 'vue';
 import { searchLiveTeamStream, searchLiveCompetitionStream } from '@/service/searchLiveStreamProvider.js'
 import BackgroundImage from '@/components/BackGround.vue'
 
@@ -129,16 +130,20 @@ export default {
       filterSearchResultTemp: [],
 
       favoriteList: [],
+
+      // check language and basketball and football swtich
       isCN: Boolean,
+      currentChannel: ref((localStorage.getItem('currentChannel') === "football")?true :false),
 
     };
   },
   mounted() {
-    this.search();
+    this.getFavoriteFromBookmark();
+    // this.search();
     // ------------------------------------------------------------------- Translation Part ------------------------------------------ Remember Change It ----------------------------
     this.isCN = ((this.$i18n.locale === 'ZH') ? true : false)
 
-    this.getFavoriteFromBookmark();
+  
   },
   methods: {
     // async getResult() {
@@ -159,14 +164,13 @@ export default {
 
     // },
     async search() {
-      const searchPages = "1";
-
       if (this.searchQuery === '') {
         console.log('Search is empty');
         this.searchLiveTeamResult = [];
       } else {
-        this.searchLiveTeamResult = await searchLiveTeamStream(this.searchQuery, searchPages)
-        this.searchLiveCompetitionResult = await searchLiveCompetitionStream(this.searchQuery, searchPages)
+        this.filterSearchResult = [];
+        this.searchLiveTeamResult = await searchLiveTeamStream(this.searchQuery, this.isCN, this.currentChannel)
+        this.searchLiveCompetitionResult = await searchLiveCompetitionStream(this.searchQuery, this.isCN, this.currentChannel)
 
         // console.log(' ' + this.searchQuery);
         // console.log("THE LIVE TEAM RESULT" + this.searchLiveTeamResult);
@@ -199,22 +203,22 @@ export default {
             linkAddress: this.filterSearchResultTemp[i]["id"],
           });
         }
-
       }
     },
     async toggleFavorite(match, matchID) {
       match.favorite = !match.favorite;
 
       if (match.favorite) {
-        await liveStreamSaveBookmark(matchID, 0, this.isCN);
+        await liveStreamSaveBookmark(matchID, this.currentChannel, this.isCN);
       } else {
         await deleteStreamSaveBookmark(matchID, this.isCN);
       }
     },
     async getFavoriteFromBookmark() {
-      this.getfootballMatchList = await getLiveStreamBookmark(this.isCN);
+      this.getfootballMatchList = await getLiveStreamBookmark(this.isCN, this.currentChannel);
 
       this.favoriteList = this.getfootballMatchList.map(item => item.id);
+      this.search();
     },
     toAllMatchPage(linkAddress, competitionName, matchDate, matchTimeStr, statusStr, homeTeamName, homeTeamScore, homeTeamLogo, awayTeamName,awayTeamScore, awayTeamLogo) {
       // Push to the Live Page

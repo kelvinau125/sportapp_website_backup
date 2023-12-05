@@ -35,22 +35,23 @@
         <!-- 热门赛程 Contents -->
         <div class="flex justify-between rounded-b-lg bg-white w-full" style=" height: 106px; ">
           <div class="flex flex-col justify-center items-center pb-3 h-full" style="width: 100px; ">
-            <div class="text-base font-semibold h-1/3 pt-2"> {{ match.homeTeamScore }}</div>
+            <div class=" text-base font-semibold h-1/3 pt-2"> {{ match.homeTeamScore }}</div>
             <div class="pt-2 h-1/2">
               <img class="" style="width: 24px; height: 24px;" :src="match.homeTeamIcon" />
             </div>
-            <div class="nameBorder flex justify-center text-center text-xs font-normal text-grayText">
-              <span class=" whitspace-nowrap overflow-hidden text-elleipsis">{{ match.homeTeamName }}</span>
+            <div class=" w-[60px] h-[100%] flex justify-center text-center text-xs font-normal text-grayText">
+              <span class=" whitespace-nowrap overflow-hidden text-elleipsis">{{ match.homeTeamName }}</span>
             </div>
           </div>
           <div class="flex relative flex-col justify-start items-center py-2 ">
             <div v-show="isCN" class="w-[80px] h-1/2 absolute font-medium text-sm pt-3 flex items-center justify-center"
-              :class="{ 'statusStartBorder': match.status === '开', 'statusEndBorder': match.status === '终' }">{{
-                match.status }}</div>
+              :class="{ 'statusStartBorder': match.status === '开', 'statusEndBorder': match.status === match.status }">
+              <span class="whitspace-normal overflow-hidden text-ellipsis">{{ match.status }}</span>
+            </div>
 
-            <div v-show="!isCN" class="w-[80px] h-1/2 absolute font-medium text-sm pt-3 flex items-center justify-center"
+            <div v-show="!isCN" class="w-[80px] h-1/2 absolute font-medium text-xs pt-3 flex items-center justify-center"
               :class="{ 'statusStartBorder': match.status === ('Started' || 'Start'), 'statusEndBorder': match.status === match.status && match.status !== '' }">
-              <span class="whitspace-normal overflow-hidden text-ellipsis">{{match.status}}</span>
+              <span class="whitspace-normal overflow-hidden text-ellipsis">{{ match.status }}</span>
             </div>
             <div class="h-1/2 mt-8">
               <span class="pt-2 text-base font-semibold">VS</span>
@@ -61,10 +62,9 @@
             <div class="pt-2 h-1/2">
               <img class="" style="width: 24px; height: 24px;" :src="match.awayTeamIcon" />
             </div>
-            <div class="nameBorder flex justify-center text-center text-xs font-normal text-grayText">
-              <span class="whitspace-nowrap overflow-hidden text-elleipsis">{{
+            <div class="w-[60px] h-[100%] flex justify-center text-center text-xs font-normal text-grayText">
+              <span class="multiline-ellipsis">{{
                 match.awayTeamName }}</span>
-
             </div>
 
           </div>
@@ -93,8 +93,9 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { format } from 'date-fns';
 
-import { getMatchTodaybyCompName } from '@/service/apiFootBallMatchProvider.js';
-import { getMatchByDate } from '@/service/apiFootBallMatchProvider.js';
+import { getMatchTodaybyCompName, getMatchByDate } from '@/service/apiFootBallMatchProvider.js';
+import { getBasketBallMatchTodaybyCompName, getBasketballMatchByDate } from '@/service/apiBasketBallMatchProvider.js';
+
 import { getLiveStreamBookmark, liveStreamSaveBookmark, deleteStreamSaveBookmark } from '@/service/apiBookmarkProvider.js';
 
 
@@ -102,7 +103,10 @@ export default {
   data() {
     return {
       currentDate: ref(new Date()),
+
+      // check language and basketball and football swtich
       isCN: Boolean,
+      currentChannel: ref((localStorage.getItem('currentChannel') === "football") ? true : false),
     }
   },
 
@@ -155,21 +159,35 @@ export default {
     // this.isCN = false;
 
     const leaguesToFetch = [
+      //football
       "Premier League",
       "UEFA Champions League",
       "Serie A",
       "Bundesliga",
       "Ligue 1",
       "La Liga",
+      //basketball
+      "NBA",
+      "CBA",
+      "EuroLeague",
+      "Liga ACB",
+      "NBL",
     ];
 
     const CNleaguesToFetch = [
+      //football
       "英超",
       "欧冠",
       "意甲",
       "德甲",
       "法甲",
       "西甲",
+      //basketball
+      "美国",
+      "中国",
+      "欧洲",
+      "西班牙",
+      "澳大利亚",
     ];
 
     // this.fetchMatchDetailsForLeagues((this.isCN) ? CNleaguesToFetch : leaguesToFetch);
@@ -181,14 +199,14 @@ export default {
       match.favourite = !match.favourite;
 
       if (match.favourite) {
-        await liveStreamSaveBookmark(matchID, 0, this.isCN);
+        await liveStreamSaveBookmark(matchID, this.currentChannel, this.isCN);
       } else {
         await deleteStreamSaveBookmark(matchID, this.isCN);
       }
     },
 
     async getFavoriteFromBookmark(CNleaguesToFetch, leaguesToFetch) {
-      this.getfootballMatchList = await getLiveStreamBookmark(this.isCN);
+      this.getfootballMatchList = await getLiveStreamBookmark(this.isCN, this.currentChannel);
 
       this.favoriteList = this.getfootballMatchList.map(item => item.id);
 
@@ -200,7 +218,14 @@ export default {
 
       for (let i = 0; i < 4; i++) {
         const leagueName = leagues[i];
-        const matches = await getMatchTodaybyCompName(leagueName, this.isCN);
+        let matches = [];
+
+        (this.currentChannel)
+          //football
+          ? matches = await getMatchTodaybyCompName(leagueName, this.isCN)
+          //basketball
+          : matches = await getBasketBallMatchTodaybyCompName(leagueName, this.isCN);
+
 
         if (matches.length > 0) {
           for (let j = 0; j < Math.min(1, matches.length); j++) {
@@ -235,7 +260,11 @@ export default {
       //   console.log("--------------------")
 
       if (this.matchDetails.length <= 4) {
-        this.getfootballMatchList = await getMatchByDate(format(this.currentDate, 'yyyyMMdd'), this.isCN);
+        (this.currentChannel)
+          //football
+          ? this.getfootballMatchList = await getMatchByDate(format(this.currentDate, 'yyyyMMdd'), this.isCN)
+          //basketball
+          : this.getfootballMatchList = await getBasketballMatchByDate(format(this.currentDate, 'yyyyMMdd'), this.isCN);
 
         console.log(this.getfootballMatchList)
 
@@ -290,7 +319,6 @@ export default {
 .button {
   right: 5px;
   background: none;
-  border: 1px solid red;
   cursor: pointer;
 }
 
@@ -319,5 +347,17 @@ export default {
   padding: 100px;
   border-radius: 30px;
 
+}
+
+.multiline-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.multiline-ellipsis::after {
+  content: '...';
+  display: inline-block;
 }
 </style>
