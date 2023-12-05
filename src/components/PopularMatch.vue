@@ -45,7 +45,7 @@
           </div>
           <div class="flex relative flex-col justify-start items-center py-2 ">
             <div v-show="isCN" class="w-[80px] h-1/2 absolute font-medium text-sm pt-3 flex items-center justify-center"
-              :class="{ 'statusStartBorder': match.status === '开', 'statusEndBorder': match.status === '终' }">
+              :class="{ 'statusStartBorder': match.status === '已', 'statusEndBorder': match.status === match.status }">
               <span class="whitspace-normal overflow-hidden text-ellipsis">{{ match.status }}</span>
             </div>
 
@@ -59,10 +59,10 @@
           </div>
           <div class="flex flex-col justify-center items-center  pb-3 " style="width: 100px; ">
             <div class="text-base font-semibold h-1/3 pt-2">{{ match.awayTeamScore }}</div>
-            <div style="border: 1px solid red" class="pt-2 h-1/2">
+            <div class="pt-2 h-1/2">
               <img class="" style="width: 24px; height: 24px;" :src="match.awayTeamIcon" />
             </div>
-            <div style="border: 1px solid red" class="w-[60px] h-[100%] flex justify-center text-center text-xs font-normal text-grayText">
+            <div class="w-[60px] h-[100%] flex justify-center text-center text-xs font-normal text-grayText">
               <span class="multiline-ellipsis">{{
                 match.awayTeamName }}</span>
             </div>
@@ -103,7 +103,7 @@ export default {
 
       // check language and basketball and football swtich
       isCN: Boolean,
-      currentChannel: ref((localStorage.getItem('currentChannel') === "football")?true :false),
+      currentChannel: ref((localStorage.getItem('currentChannel') === "football") ? true : false),
     }
   },
 
@@ -218,10 +218,10 @@ export default {
         let matches = [];
 
         (this.currentChannel)
-        //football
-        ? matches = await getMatchTodaybyCompName(leagueName, this.isCN)
-        //basketball
-        : matches = await getBasketBallMatchTodaybyCompName(leagueName, this.isCN);
+          //football
+          ? matches = await getMatchTodaybyCompName(leagueName, this.isCN)
+          //basketball
+          : matches = await getBasketBallMatchTodaybyCompName(leagueName, this.isCN);
 
 
         if (matches.length > 0) {
@@ -258,10 +258,10 @@ export default {
 
       if (this.matchDetails.length <= 4) {
         (this.currentChannel)
-        //football
-        ? this.getfootballMatchList = await getMatchByDate(format(this.currentDate, 'yyyyMMdd'), this.isCN)
-        //basketball
-        : this.getfootballMatchList = await getBasketballMatchByDate(format(this.currentDate, 'yyyyMMdd'), this.isCN);
+          //football
+          ? this.getfootballMatchList = await getMatchByDate(format(this.currentDate, 'yyyyMMdd'), this.isCN)
+          //basketball
+          : this.getfootballMatchList = await getBasketballMatchByDate(format(this.currentDate, 'yyyyMMdd'), this.isCN);
 
         console.log(this.getfootballMatchList)
 
@@ -310,14 +310,12 @@ export default {
 .nameBorder {
   width: 70px;
   height: 100%;
-  border: 1px solid red;
 
 }
 
 .button {
   right: 5px;
   background: none;
-  border: 1px solid red;
   cursor: pointer;
 }
 
@@ -350,7 +348,7 @@ export default {
 
 .multiline-ellipsis {
   display: -webkit-box;
-  -webkit-line-clamp: 2; 
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -359,5 +357,4 @@ export default {
   content: '...';
   display: inline-block;
 }
-
 </style>
