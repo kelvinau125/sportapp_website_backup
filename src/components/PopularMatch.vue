@@ -45,7 +45,7 @@
           </div>
           <div class="flex relative flex-col justify-start items-center py-2 ">
             <div v-show="isCN" class="w-[80px] h-1/2 absolute font-medium text-sm pt-3 flex items-center justify-center"
-              :class="{ 'statusStartBorder': match.status === '已', 'statusEndBorder': match.status === match.status }">
+              :class="{ 'statusStartBorder': match.status === '开', 'statusEndBorder': match.status === match.status }">
               <span class="whitspace-normal overflow-hidden text-ellipsis">{{ match.status }}</span>
             </div>
 
