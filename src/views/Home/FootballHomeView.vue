@@ -9,6 +9,7 @@
           <!-- <div>直播窗口内容</div>
             <div>Testing</div> -->
           <video
+            :key="selectedEpic ? selectedEpic.epicMoment : 'default'"
             id="my-player"
             class="video-js vjs-default-skin"
             controls
@@ -17,7 +18,14 @@
             height="505px"
             :poster="selectedLiveStreamImage"
           >
-            <source :src="selectedEpicVideoSource" type="video/mp4" />
+            <source
+              :src="
+                selectedEpic
+                  ? selectedEpic.videoSource
+                  : 'https://vjs.zencdn.net/v/oceans.mp4'
+              "
+              type="video/mp4"
+            />
             <!-- <p class="vjs-no-js"> -->
             <!-- <a href="https://vjs.zencdn.net/v/oceans.mp4">`1`ing URL</a> -->
 
@@ -210,19 +218,17 @@ export default {
       console.log(
         `wow: ${
           this.selectedEpic
-            ? this.selectEpic.videoSource
+            ? this.selectedEpic.videoSource
             : "https://vjs.zencdn.net/v/oceans.mp4"
         }`
       );
       return this.selectedEpic
-        ? this.selectEpic.videoSource
+        ? this.selectedEpic.videoSource
         : "https://vjs.zencdn.net/v/oceans.mp4";
     },
     selectedLiveStreamImage() {
-      console.log("rrrrrrrrrrrrrrr");
-      // console.log(this.selectEpic.imgSource);
       return this.selectedEpic
-        ? this.selectEpic.imgSource
+        ? this.selectedEpic.imgSource
         : "https://fictionhorizon.com/wp-content/uploads/2023/09/GojoStar.jpg";
     },
   },
