@@ -59,13 +59,12 @@
           </div>
           <div class="flex flex-col justify-center items-center  pb-3 " style="width: 100px; ">
             <div class="text-base font-semibold h-1/3 pt-2">{{ match.awayTeamScore }}</div>
-            <div class="pt-2 h-1/2">
+            <div style="border: 1px solid red" class="pt-2 h-1/2">
               <img class="" style="width: 24px; height: 24px;" :src="match.awayTeamIcon" />
             </div>
-            <div class="w-[60px] h-[100%] flex justify-center text-center text-xs font-normal text-grayText">
-              <span class="whitespace-normal overflow-hidden text-elleipsis">{{
+            <div style="border: 1px solid red" class="w-[60px] h-[100%] flex justify-center text-center text-xs font-normal text-grayText">
+              <span class="multiline-ellipsis">{{
                 match.awayTeamName }}</span>
-
             </div>
 
           </div>
@@ -348,4 +347,17 @@ export default {
   border-radius: 30px;
 
 }
+
+.multiline-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.multiline-ellipsis::after {
+  content: '...';
+  display: inline-block;
+}
+
 </style>
