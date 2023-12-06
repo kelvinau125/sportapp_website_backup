@@ -93,5 +93,19 @@
     "Broadcasting" : "我要开播",
 
     "ZH": "中文",
-    "EN": "英文"
+    "EN": "英文",
+
+    "Pause": "暂停",
+    "Foul" : "犯规",
+    "3 Pointer": "3分球得分",
+    "2 Pointer": "2分球得分",
+    "Block": "盖帽",
+    "Steal": "抢断",
+    "Turn Over": "失误",
+    "Field Goal": "投篮",
+    "Rebound": "篮板",
+    "Free Throw": "罚球"
+
+
+
 }

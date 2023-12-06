@@ -93,6 +93,17 @@
     "Broadcasting" : "Start Streaming",
 
     "ZH": "Chinese",
-    "EN": "English"
+    "EN": "English",
+
+    "Pause": "Pause",
+    "Foul" : "Foul",
+    "3 Pointer": "3 Pointer",
+    "2 Pointer": "2 Pointer",
+    "Block": "Block",
+    "Steal": "Steal",
+    "Turn Over": "Turn Over",
+    "Field Goal": "Field Goal",
+    "Rebound": "Rebound",
+    "Free Throw": "Free Throw"
 
 }
