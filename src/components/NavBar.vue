@@ -1,14 +1,15 @@
 <template>
   <div class="bg-navColor  text-white py-1 px-10 shadow md:flex justify-between items-center">
-    <div class="md:pt-1 pt-2 flex items-center cursor-pointer">
+    <div class=" md:pt-1 pt-2 flex items-center cursor-pointer">
       <img class="mr-2" alt="App logo" src="@/assets/topNav/appImage.png">
-
-      <a class="md:text-lg text-base font-semibold " style="color: #33BA53; " href="/"> {{ $t("PandaSport") }}</a>
+      <div class="items-center md:static hidden">
+        <a class="md:text-lg text-base font-semibold md:relative " style="color: #33BA53; " href="/"> {{
+          $t("PandaSport") }}</a>
+      </div>
 
       <div class="md:static relative">
-        <ul style="z-index: 1000;"
-        :class="openNav ? 'block': 'hidden'"
-          class=" md:block md:items-center md:pr-0 pr-2 md:pl-5 pl-5 md:static absolute bg-navColor md:w-auto w-auto md:right-0 right-20 md:top-14 top-14 ">
+        <ul style="z-index: 1000;" :class="openNav ? 'block' : 'hidden'"
+          class=" md:block md:items-center md:pr-0 pr-2 md:pl-5 pl-5 md:static absolute bg-navColor md:w-auto w-auto md:left-0 -left-[90px] md:top-14 top-14 ">
           <li class=" md:inline-flex flex-col ml-4 my-2.5" v-for="link in Links" :key="link.link">
             <router-link :to="link.link"
               class="flex nav-button md:text-base text-sm font-normal hover:text-gray-200 text-white">{{
@@ -19,34 +20,37 @@
       </div>
     </div>
     <div class="md:flex items-center">
-      <div  class="relative">
-        <div @click="MenuOpen()" class="md:static absolute md:hidden md:pl-0 pl-10 md:left-0 left-[110px] md:top-0 -top-[33px]"
+      <div class="relative">
+        <div @click="MenuOpen()"
+          class="md:static absolute md:hidden md:pl-0 pl-10 md:left-0 left-[10px] md:top-0 -top-[37px]"
           style="width: 60px;">
           <img class="cursor-pointer" v-if="openNav" src="@/assets/topNav/x.png">
           <img class="cursor-pointer" v-else src="@/assets/topNav/hamburger.png">
         </div>
       </div>
-      <div class="md:flex relative">
+      <div class="md:flex relative ">
         <div @click="search" class="md:block hidden pt-1.5">
           <img src="@/assets/topNav/search.png" alt="Search Icon" class="absolute left-0.5 w-6 h-6 m-2" />
         </div>
         <div class="md:block hidden pt-1.5">
           <input v-model="searchQuery" @keyup.enter="search" type="text" :placeholder="$t('Search event/team')"
             maxlength="20"
-            class="pl-10 md:w-72 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-10 text-white bg-slate-50" />
+            class="pl-10 lg:w-72 md:w-60 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-10 text-white bg-slate-50" />
         </div>
 
         <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between">
           <div class="md:flex items-center">
-            <div class="dropdown-button language-dropdown " style="width: 100px; padding: 10px;">
-              <button class="language-toggle md:static absolute md:right-0 right-20 md:top-0 -top-3 " @click="toggleDropdownLanguage">
-                {{ $t($i18n.locale)}}
+            <div class="dropdown-button language-dropdown md:pt-2.5 md:pl-2.5 " style="width: 100px; ">
+              <button class="language-toggle md:static absolute md:right-0 right-20 md:top-0 -top-8 "
+                @click="toggleDropdownLanguage">
+                {{ $t($i18n.locale) }}
                 <span> &#9662;</span>
               </button>
-              <div v-show="isDropdownOpenLanguage" class="language-options md:hidden absolute md:right-[210px] right-20 md:top-[100%] top-5">
+              <div v-show="isDropdownOpenLanguage"
+                class="language-options md:hidden absolute md:right-[210px] right-20 md:top-[100%] top-5">
                 <button v-for="locale in $i18n.availableLocales" :key="locale" @click="languageChange(locale)"
                   class="languages">
-                  {{ $t(locale)}}
+                  {{ $t(locale) }}
                 </button>
               </div>
             </div>
@@ -54,7 +58,8 @@
 
 
           <button class="md:flex cursor-pointer text-xl mr-2.5 items-center md:pl-3" @click="toggleDropdown">
-            <img :src="img" class="max-w-[24px] md:static absolute md:right-0 right-10 md:top-0 bottom-9 hover:bg-blue-950"
+            <img :src="img"
+              class="max-w-[24px] md:static absolute md:right-0 right-10 md:top-0 bottom-9 hover:bg-blue-950"
               alt="defaultFootBall Image" />
             <img class="md:block hidden pl-1.5 py-1" src="@/assets/topNav/arrowDown.png" alt="Arrow Down">
             <p>{{ this.currentChannel }}</p>
@@ -80,7 +85,7 @@
             style=" object-fit: cover;" />
           <div style="z-index: 1000;" v-show="showDropdown"
             class="md:absolute absolute md:right-0 -right-4 md:top-12 -top-6 bg-gray-900 mt-1 p-1 py-3">
-            <div class="pr-1 pt-1 pb-2 flex flex-col" >
+            <div class="pr-1 pt-1 pb-2 flex flex-col">
               <!-- <button to="/register" class="px-1 hover:text-green-500 text-white">注册</button>
               <button to="/login" class="px-1 hover:text-green-500 text-white">登入</button> -->
               <button v-if="!loggedIn" class="px-1" @click="showRegisterModal">{{ $t("Register") }}</button>
@@ -198,7 +203,7 @@ export default {
       // Dispatch the action to set the initial channel
       this.switchChannel(this.currentChannel);
     },
-    
+
     basketballchoice() {
       this.selectOption(require('@/assets/topNav/basketball.png'))
       this.switchChannel('basketball')
@@ -352,8 +357,8 @@ export default {
     }
 
     this.currentChannel == "football"
-    ?this.img = require('@/assets/topNav/football.png')
-    :this.img = require('@/assets/topNav/basketball.png')
+      ? this.img = require('@/assets/topNav/football.png')
+      : this.img = require('@/assets/topNav/basketball.png')
   },
 };
 
