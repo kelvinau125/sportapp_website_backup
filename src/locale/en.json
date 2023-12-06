@@ -106,6 +106,17 @@
     "Push streaming code": "Push streaming code",
     "Start browsing": "Start browsing",
     "Live broadcast settings": "Live broadcast settings",
-    "Confirm changes": "Confirm changes"
+    "Confirm changes": "Confirm changes",
+
+    "Pause": "Pause",
+    "Foul" : "Foul",
+    "3 Pointer": "3 Pointer",
+    "2 Pointer": "2 Pointer",
+    "Block": "Block",
+    "Steal": "Steal",
+    "Turn Over": "Turn Over",
+    "Field Goal": "Field Goal",
+    "Rebound": "Rebound",
+    "Free Throw": "Free Throw"
 
 }

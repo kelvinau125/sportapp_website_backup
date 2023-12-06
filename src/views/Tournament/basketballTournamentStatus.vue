@@ -4,11 +4,11 @@
             <div class="flex flex-col justify-center py-4">
                 <!-- ZH Show -->
                 <div class="borderColor mb-3 flex justify-center items-center">
-                    <span class="font-medium md:text-sm text-xs">暂停 {{ teamATotalPause }}</span>
+                    <span class="font-medium md:text-sm text-xs">{{ $t("Pause") }} {{ teamATotalPause }}</span>
                 </div>
                 <!-- ZH Show -->
                 <div class="borderColor flex justify-center items-center">
-                    <span class="font-medium md:text-sm text-xs">犯规 {{ homeNumOfFouls }}</span>
+                    <span class="font-medium md:text-sm text-xs">{{ $t("Foul") }}  {{ homeNumOfFouls }}</span>
 
                 </div>
             </div>
@@ -105,23 +105,23 @@
                 </div>
                 <div class="flex flex-col justify-around items-center  md:w-[180px] w-[100px]">
                     <!-- EN Need Show -->
-                    <div class="font-medium md:text-sm text-xs">3分球得分</div>
+                    <div class="font-medium md:text-sm text-xs">{{$t("3 Pointer")}}</div>
                     <!-- ZH Need Show -->
-                    <div class="font-medium md:text-sm text-xs">2分球得分</div>
+                    <div class="font-medium md:text-sm text-xs">{{$t("2 Pointer")}}</div>
 
                     <!-- EN Need Show -->
-                    <div class="font-medium md:text-sm text-xs">Blocks</div>
-                    <div class="font-medium md:text-sm text-xs">Foul</div>
-                    <div class="font-medium md:text-sm text-xs">Steal</div>
-                    <div class="font-medium md:text-sm text-xs">Turn Over</div>
-                    <div class="font-medium md:text-sm text-xs">Field Goal</div>
-                    <div class="font-medium md:text-sm text-xs">Rebound</div>
+                    <div class="font-medium md:text-sm text-xs">{{$t("Block")}}</div>
+                    <div class="font-medium md:text-sm text-xs">{{$t("Foul")}}</div>
+                    <div class="font-medium md:text-sm text-xs">{{$t("Steal")}}</div>
+                    <div class="font-medium md:text-sm text-xs">{{$t("Turn Over")}}</div>
+                    <div class="font-medium md:text-sm text-xs">{{$t("Field Goal")}} </div>
+                    <div class="font-medium md:text-sm text-xs">{{$t("Rebound")}}</div>
 
                     <!-- ZH and EN need Show -->
                     <div class=" flex justify-start items-center w-full">
                         <div class="font-medium md:text-sm text-xs w-1/3 md:pl-3 pl-1">{{ teamAFreeThrowPercentage + "%" }}
                         </div>
-                        <div class="font-medium md:text-sm text-xs  flex justify-center w-[80px]">罚球</div>
+                        <div class="font-medium md:text-sm text-xs  flex justify-center w-[80px]">{{$t("Free Throw")}}</div>
                         <div class="font-medium md:text-sm text-xs w-1/3 md:pl-6 pl-0"> {{ teamBFreeThrowPercentage + "%" }}
                         </div>
                     </div>
@@ -214,11 +214,11 @@
             <div class="flex flex-col justify-center py-4">
                 <!-- ZH Show -->
                 <div class="borderColor mb-3 flex justify-center items-center">
-                    <span class="font-medium md:text-sm text-xs">暂停 {{ teamBTotalPause }}</span>
+                    <span class="font-medium md:text-sm text-xs">{{ $t("Pause") }} {{ teamBTotalPause }}</span>
                 </div>
                 <!-- ZH Show -->
                 <div class="borderColor flex justify-center items-center">
-                    <span class="font-medium md:text-sm text-xs">犯规 {{ awayNumOfFouls }}</span>
+                    <span class="font-medium md:text-sm text-xs">{{ $t("Foul") }} {{ awayNumOfFouls }}</span>
                 </div>
             </div>
         </div>
