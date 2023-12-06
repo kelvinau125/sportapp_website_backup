@@ -20,7 +20,9 @@ module.exports = {
       },
       fontSize:{
         'headerFont' : '18px',
-        '10px' : '10px' 
+        '10px' : '10px',
+        '8px' : '8px' 
+
       }
 
     },

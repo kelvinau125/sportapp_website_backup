@@ -40,7 +40,7 @@
                 </div>
                 <div class="w-1/2 pl-2">
                     <ButtonPress class="w-full bg-white pl-6 pr-6" style="width: 100%; height: 60px; border-radius: 8px;">
-                        <p class="text-base font-normal" style="color: #333333;">{{ $t("Broadcasting")}}</p>
+                        <p class="text-base font-normal" style="color: #333333;">{{ $t("ContactUs")}}</p>
                     </ButtonPress>
 
                 </div>
@@ -57,8 +57,13 @@
                 </div> -->
             </div>
 
-            <div class="pt-12">
-                <ButtonPress @click="logout" class="w-screen" style="height: 56px;">{{ $t("Logout") }}</ButtonPress>
+            <div class="pt-8">
+                <ButtonPress @click="showStreamDetailModal()" class="w-screen font-bold" style="height: 56px;">{{ $t("Broadcasting") }}</ButtonPress>
+                <div class="flex justify-center" style="padding: 8px" />
+            </div>
+
+            <div>
+                <ButtonPress @click="logout" class="w-screen border-2 bg-transparent border-green-400 font-bold hover:bg-green-300 duration-300" style="height: 56px; color: #16B13B;">{{ $t("Logout") }}</ButtonPress>
                 <div class="flex justify-center" style="padding: 20px" />
             </div>
 
@@ -96,6 +101,7 @@ export default {
         showMyPageModal: Boolean,
         closeMyPageModal: Function,
         showEditProfileModal: Function,
+        showStreamDetailModal: Function,
     },
 
     methods: {

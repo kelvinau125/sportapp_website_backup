@@ -1,6 +1,6 @@
 <template>
   <!-- Main Component -->
-  <div class="flex py-2 md:w-[892px]" >
+  <div class="flex py-2 md:w-[892px]" v-show="showfootballstatus">
     <div  class="md:w-[890px] statusContainer">
       <div class=" flex box" >
         <div class="md:flex items-center">
@@ -20,7 +20,7 @@
         <div class="flex items-center">
           <div class="flex items-center">
             <p class=" font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homePossessionRate + '%' }}</p>
-            <div class="team">
+            <div class="team relative w-[50px] p-[20px]">
               <div class="stat-bar-left totalGrayBar border_leftTB " :style="{ width: 100 + '%' }"></div>
               <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAPossessionRate + '%' }"></div>
             </div>
@@ -29,7 +29,7 @@
             <span class="md:text-sm text-xs font-medium md:px-2.5 px-1">{{ $t("Possession") }}</span>
           </div>
           <div class="flex items-center">
-            <div class="team">
+            <div class="team relative w-[50px] p-[20px]">
               <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
               <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBPossessionRate + '%' }">
               </div>
@@ -59,7 +59,7 @@
           <div class="">
             <div class="flex items-center">
               <span class="font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeAttackNum }}</span>
-              <div class="teamDown">
+              <div class="teamDown relative w-[50px] p-[20px]">
                 <div class="stat-bar-left totalGrayBar border_leftTB" style="width: 100%;"></div>
 
                 <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAAttackNumber + '%' }"></div>
@@ -67,7 +67,7 @@
             </div>
             <div class="flex items-center">
               <span class="font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeAttackDangerNum }}</span>
-              <div class="teamDown">
+              <div class="teamDown relative w-[50px] p-[20px]">
                 <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
                 <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamADangerNum + '%' }"></div>
               </div>
@@ -79,7 +79,7 @@
           </div>
           <div class="">
             <div class="flex items-center">
-              <div class="teamDown">
+              <div class="teamDown relative w-[50px] p-[20px]">
                 <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
 
                 <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBShotPercentage + '%' }">
@@ -88,7 +88,7 @@
               <span class="md:pl-2.5 pl-1 font-medium md:text-sm text-10px">{{ awayAttackNum }}</span>
             </div>
             <div class="flex items-center">
-              <div class="teamDown">
+              <div class="teamDown relative w-[50px] p-[20px]">
                 <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
 
                 <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBDangerNum + '%' }"></div>
@@ -107,7 +107,7 @@
                 <p class="font-medium md:text-sm text-10px md:pr-2 pr-0.5">{{ '(' + homeShootGoalNum + ')' }}</p>
 
               </div>
-              <div class="teamDown">
+              <div class="teamDown relative w-[50px] p-[20px]">
                 <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
                 <div class="stat-bar-left total-shots border_leftTB" :style="{ width: teamAtotalShotPercent + '%' }">
                 </div>
@@ -117,7 +117,7 @@
             </div>
             <div class="flex items-center">
               <span class="font-medium md:text-sm text-10px px-3">{{ homePenaltyNum }}</span>
-              <div class="teamDown">
+              <div class="teamDown relative w-[50px] p-[20px]">
                 <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
                 <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAPenaltyNum + '%' }"></div>
               </div>
@@ -125,14 +125,14 @@
           </div>
           <div class="flex flex-col items-center justify-around">
             <div class="md:flex md:px-1 px-0">
-              <p class="font-medium md:text-sm text-10px ">{{ $t("Shoot") }} </p>
-              <p class="font-medium md:text-sm text-10px ">{{ "(" + $t("Score") + ")" }} </p>
+              <p class="font-medium md:text-sm text-10px ">{{ $t("Shoot") + "(" + $t("Score") + ")"  }} </p>
+              <!-- <p class="font-medium md:text-sm text-10px ">{{ "(" + $t("Score") + ")" }} </p> -->
             </div>
             <p class="font-medium md:text-sm text-10px ">{{ $t("Penalty") }}</p>
           </div>
           <div class="">
             <div class="flex items-center">
-              <div class="teamDown">
+              <div class="teamDown relative w-[50px] p-[20px]">
                 <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
                 <div class="stat-bar-right total-shotsB border_rightTB" :style="{ width: teamBtotalShotPercent + '%' }">
                 </div>
@@ -146,7 +146,7 @@
               </div>
             </div>
             <div class="flex items-center">
-              <div class="teamDown ">
+              <div class="teamDown relative w-[50px] p-[20px] ">
                 <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
 
                 <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBPenaltyNum + '%' }">
@@ -168,51 +168,54 @@ import { getFootballMatchbyId } from '@/service/apiFootBallMatchProvider.js';
 export default {
   props: {
     tournamentID: String,
+    showfootballstatus: Boolean,
   },
 
   async mounted() {
     // --------------------------- call the tournment api --------------------------------------
     console.log(this.tournamentID);
 
-    this.getTournamentDetails = await getFootballMatchbyId(1187648, false);
-    // this.getTournamentDetails = await getFootballMatchbyId(1187648, ((this.$i18n.locale === 'ZH')?true :false));
+    // this.getTournamentDetails = await getFootballMatchbyId(1187648, false);
+    this.getTournamentDetails = await getFootballMatchbyId(this.tournamentID, ((this.$i18n.locale === 'ZH')?true :false));
     console.log(this.getTournamentDetails)
 
-    //homePossessionRate (控球率), awayPossessionRate (控球率)
-    this.homePossessionRate = parseInt(this.getTournamentDetails['homePossessionRate']);
-    this.awayPossessionRate = parseInt(this.getTournamentDetails['awayPossessionRate']);
+    if(this.getTournamentDetails !== null) {
+      //homePossessionRate (控球率), awayPossessionRate (控球率)
+      this.homePossessionRate = parseInt(this.getTournamentDetails['homePossessionRate']);
+      this.awayPossessionRate = parseInt(this.getTournamentDetails['awayPossessionRate']);
 
-    //homeCornerKickNum (角球)，awayCornerKickNum(角球)
-    this.homeCornerKickNum = this.getTournamentDetails['homeCornerKickNum'];
-    this.awayCornerKickNum = this.getTournamentDetails['awayCornerKickNum'];
+      //homeCornerKickNum (角球)，awayCornerKickNum(角球)
+      this.homeCornerKickNum = this.getTournamentDetails['homeCornerKickNum'];
+      this.awayCornerKickNum = this.getTournamentDetails['awayCornerKickNum'];
 
-    //homeRedCardNum (红卡), awayRedCardNum(红卡)
-    this.homeRedCardNum = this.getTournamentDetails['homeRedCardNum'];
-    this.awayRedCardNum = this.getTournamentDetails['awayRedCardNum'];
+      //homeRedCardNum (红卡), awayRedCardNum(红卡)
+      this.homeRedCardNum = this.getTournamentDetails['homeRedCardNum'];
+      this.awayRedCardNum = this.getTournamentDetails['awayRedCardNum'];
 
-    //homeYellowCardNum（黄卡), awayYellowCardNum(黄卡)
-    this.homeYellowCardNum = this.getTournamentDetails['homeYellowCardNum'];
-    this.awayYellowCardNum = this.getTournamentDetails['awayYellowCardNum'];
+      //homeYellowCardNum（黄卡), awayYellowCardNum(黄卡)
+      this.homeYellowCardNum = this.getTournamentDetails['homeYellowCardNum'];
+      this.awayYellowCardNum = this.getTournamentDetails['awayYellowCardNum'];
 
-    //Home Attack Number (进攻)， Away Attack Number (进攻)
-    this.homeAttackNum = this.getTournamentDetails['homeAttackNum'];
-    this.awayAttackNum = this.getTournamentDetails['awayAttackNum'];
+      //Home Attack Number (进攻)， Away Attack Number (进攻)
+      this.homeAttackNum = this.getTournamentDetails['homeAttackNum'];
+      this.awayAttackNum = this.getTournamentDetails['awayAttackNum'];
 
-    //homeAttackDangerNum (危险进攻), awayAttackDangerNum (危险进攻)
-    this.homeAttackDangerNum = this.getTournamentDetails['homeAttackDangerNum'];
-    this.awayAttackDangerNum = this.getTournamentDetails['awayAttackDangerNum'];
+      //homeAttackDangerNum (危险进攻), awayAttackDangerNum (危险进攻)
+      this.homeAttackDangerNum = this.getTournamentDetails['homeAttackDangerNum'];
+      this.awayAttackDangerNum = this.getTournamentDetails['awayAttackDangerNum'];
 
-    //homePenaltyNum (点球)，awayPenaltyNum(点球)
-    this.homePenaltyNum = this.getTournamentDetails['homePenaltyNum'];
-    this.awayPenaltyNum = this.getTournamentDetails['awayPenaltyNum'];
+      //homePenaltyNum (点球)，awayPenaltyNum(点球)
+      this.homePenaltyNum = this.getTournamentDetails['homePenaltyNum'];
+      this.awayPenaltyNum = this.getTournamentDetails['awayPenaltyNum'];
 
-    //homeShootGoalNum (射正), homeBiasNum (射偏) 
-    this.homeShootGoalNum = this.getTournamentDetails['homeShootGoalNum'];
-    this.homeBiasNum = this.getTournamentDetails['homeBiasNum'];
+      //homeShootGoalNum (射正), homeBiasNum (射偏) 
+      this.homeShootGoalNum = this.getTournamentDetails['homeShootGoalNum'];
+      this.homeBiasNum = this.getTournamentDetails['homeBiasNum'];
 
-    //awayShootGoalNum(射正)， awayBiasNum(射偏)
-    this.awayShootGoalNum = this.getTournamentDetails['awayShootGoalNum'];
-    this.awayBiasNum = this.getTournamentDetails['awayBiasNum'];
+      //awayShootGoalNum(射正)， awayBiasNum(射偏)
+      this.awayShootGoalNum = this.getTournamentDetails['awayShootGoalNum'];
+      this.awayBiasNum = this.getTournamentDetails['awayBiasNum'];
+    }
   },
 
   data() {
@@ -511,15 +514,6 @@ export default {
 
 }
 
-.short-bar-right {
-  height: 9px;
-  width: 110px;
-  position: absolute;
-  right: 0;
-  bottom: 8px;
-  margin-bottom: 5px;
-
-}
 
 .left-bar-color {
   background-color: #FDA24C;

@@ -92,7 +92,7 @@ export async function getMatchByDate(date, isCN) {
       if (code === 0) {
         return data;
       }else {
-        console.log(`get footballlineup Unsuccessfully: ${code}`);
+        console.log(`get getMatchByDate Unsuccessfully: ${code}`);
         return [];
       }
   
@@ -120,7 +120,7 @@ export async function getMatchTodaybyCompName(compName, isCN) {
       if (code === 0) {
         return data;
       }else {
-        console.log(`get footballlineup Unsuccessfully: ${code}`);
+        console.log(`get getMatchTodaybyCompName Unsuccessfully: ${code}`);
         return [];
       }
   

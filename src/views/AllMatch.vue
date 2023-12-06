@@ -1,112 +1,117 @@
 <template>
   <BackgroundImage>
-    <div class="schedule_list">
-      <div class="flex justify-between my-5 date-slider" style="width: 892px; height: 46px;">
-        <div class=" flex justify-center mt-1"
-          style="height: 32px; width: 17px; background-color: #808F7E; border-radius: 8px;">
-          <button @click="prevWeek">
-            <img src="@/assets/toLeft.png" alt="Previous Week" class="" />
-          </button>
-        </div>
-        <div @click="selectDate(day)" v-for="day in week" :key="day" class="date-item  px-0.5 rounded-lg"
-          style="width: 119px; height: 35px;">
-          <div :class="{ 'active-date': isActiveDate(day) }"
-            class="flex flex-col hover:bg-hoverGreen items-center rounded-lg h-[45px]">
-            <div class="font-medium text-sm pt-1">{{ formatDay(day) }}</div>
-            <div class="day-of-week font-medium text-xs text-grayText">{{ $t(formatDayOfWeek(day)) }}</div>
+    <div class="scroll-container">
+      <div class="inner-container">
+        <div class="flex justify-between my-5 max-w-[892px] w-[100%] h-[46px] date-slider">
+          <div class=" flex justify-center mt-1"
+            style="height: 32px; width: 17px; background-color: #808F7E; border-radius: 8px;">
+            <button @click="prevWeek">
+              <img src="@/assets/toLeft.png" alt="Previous Week" class="" />
+            </button>
+          </div>
+          <div @click="selectDate(day)" v-for="day in week" :key="day" class="date-item  px-0.5 rounded-lg"
+            style="width: 119px; height: 35px;">
+            <div :class="{ 'active-date': isActiveDate(day) }"
+              class="flex flex-col hover:bg-hoverGreen items-center rounded-lg h-[45px]">
+              <div class="font-medium text-sm pt-1">{{ formatDay(day) }}</div>
+              <div class="day-of-week font-medium text-xs text-grayText">{{ $t(formatDayOfWeek(day)) }}</div>
+            </div>
+          </div>
+          <div class="flex justify-center mt-1"
+            style="height: 32px; width: 17px; background-color: #808F7E;border-radius: 8px;">
+            <button @click="nextWeek">
+              <img class="" src="@/assets/toRight.png" alt="Next Week" />
+            </button>
           </div>
         </div>
-        <div class="flex justify-center mt-1"
-          style="height: 32px; width: 17px; background-color: #808F7E;border-radius: 8px;">
-          <button @click="nextWeek">
-            <img class="" src="@/assets/toRight.png" alt="Next Week" />
-          </button>
-        </div>
-      </div>
-      <div v-if="selectedDate">
-      </div>
-      <div class="schedule_detail" style="width: 892px; height: 108px;">
-        <div class="schedule_detail_box">
-          <ul v-for="match in matchDetails" :key="match.matchDetails">
-            <li @click="toAllMatchPage(
-              match.linkAddress,
-              match.matchType, 
-              match.date, 
-              match.time, 
-              match.statusStr, 
-              match.homeTeamName, 
-              match.homeTeamScore, 
-              match.homeTeamIcon, 
-              match.awayTeamName,
-              match.awayTeamScore, 
-              match.awayTeamIcon
-              )" class="max-w-full h-52 bg-white">
-              <div class="conten_box">
-                <div class="flex justify-between">
-                  <div class="flex items-center justify-start w-[350px]">
-                    <div class="w-6 h-6">
-                      <img src="@/assets/favourite/footIcon.png" />
+        <div class="schedule_detail max-w-[892px] w-[100%]">
+          <div class="schedule_detail_box">
+            <ul class="h-[120px]" v-for="match in matchDetails" :key="match.matchDetails">
+              <li @click="toAllMatchPage(
+                match.linkAddress,
+                match.matchType,
+                match.date,
+                match.time,
+                match.statusStr,
+                match.homeTeamName,
+                match.homeTeamScore,
+                match.homeTeamIcon,
+                match.awayTeamName,
+                match.awayTeamScore,
+                match.awayTeamIcon
+              )" class="max-w-full bg-white">
+                <div class="h-[120px] p-5">
+                  <div class="flex justify-between">
+                    <div class="flex items-center justify-start w-[350px]">
+                      <div class="w-6 h-6">
+                        <img src="@/assets/favourite/footIcon.png" />
+                      </div>
+                      <div class="px-3 flex justify-center ml-2 MatchTypeBorder">
+                        <span class="text-xs font-medium" style="color: #666666;"> {{ match.matchType }} </span>
+                      </div>
                     </div>
-                    <div class="px-3 flex justify-center ml-2 MatchTypeBorder">
-                      <span class="text-xs font-medium" style="color: #666666;"> {{ match.matchType }} </span>
+                    <div>
+                      <button @click.stop="toggleFavorite(match, match.linkAddress)" :class="{ fav: match.favorite }">
+                        <img v-if="!match.favorite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
+                        <img v-else src="@/assets/content/Favourite.png" alt="Favourite" />
+                      </button>
+
+                      <!-- <img src="@/assets/content/Unfavourite.png" /> -->
                     </div>
                   </div>
-                  <div>
-                    <button @click.stop="toggleFavorite(match, match.linkAddress)" :class="{ fav: match.favorite }">
-                      <img v-if="!match.favorite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
-                      <img v-else src="@/assets/content/Favourite.png" alt="Favourite" />
-                    </button>
-
-                    <!-- <img src="@/assets/content/Unfavourite.png" /> -->
+                  <div class="flex justify-start">
+                    <div class="flex items-end">
+                      <div class="pr-2 font-medium text-xs text-grayText">
+                        <span>{{ match.date }}</span>
+                      </div>
+                      <div class="font-semibold text-xs " style="color: #333333;">
+                        <span>{{ match.time }}</span>
+                      </div>
+                    </div>
+                    <div class="flex" style="width: 570px; ">
+                      <div class="flex justify-end items-center w-full">
+                        <div class="w-[160px]  overflow-hidden">
+                          <span class="text-lg font-semibold pr-2 whitespace-nowrap overflow-ellipsis">{{
+                            match.homeTeamName
+                          }}</span>
+                        </div>
+                        <div>
+                          <img :src=match.homeTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
+                        </div>
+                      </div>
+                      <div class="flex flex-col items-center w-[60%]">
+                        <div class="font-semibold text-2xl">
+                          <span>{{ match.homeTeamScore }}</span>
+                          <span class="px-2">-</span>
+                          <span>{{ match.awayTeamScore }}</span>
+                        </div>
+                      </div>
+                      <div class="flex items-center justify-start w-full">
+                        <div>
+                          <img :src=match.awayTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
+                        </div>  
+                        <div class="pl-3">
+                          <span class="text-lg font-semibold">{{ match.awayTeamName }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="relative pt-2">
+                      <p class="absolute bottom-0 -right-[130px]"
+                        :class="{ 'bg-transparent': match.statusStr === ' ', 'statusBorder': match.statusStr !== '' }">{{
+                          match.statusStr }}</p>
+                    </div>
                   </div>
                 </div>
-                <div class="flex justify-start">
-                  <div class="flex items-end pr-5">
-                    <div class="pr-2 font-medium text-xs text-grayText">
-                      <span>{{ match.date }}</span>
-                    </div>
-                    <div class="font-semibold text-xs " style="color: #333333;">
-                      <span>{{ match.time }}</span>
-                    </div>
-                  </div>
-                  <div class="flex" style="width: 570px; ">
-                    <div class="flex justify-end items-center w-full">
-                      <div class="">
-                        <span class="text-lg font-semibold pr-2">{{ match.homeTeamName }}</span>
-                      </div>
-                      <div>
-                        <img :src= match.homeTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
-                      </div>
-                    </div>
-                    <div class="flex flex-col items-center w-1/3">
-                      <div class="font-semibold text-2xl">
-                        <span>{{ match.homeTeamScore }}</span>
-                        <span class="px-2">-</span>
-                        <span>{{ match.awayTeamScore }}</span>
-                      </div>
-                    </div>
-                    <div class="flex items-center justify-start w-full">
-                      <div>
-                        <img :src= match.awayTeamIcon style="width: 40px; height: 40px; border-radius: 20px;" />
-                      </div>
-                      <div class="pl-3">
-                        <span class="text-lg font-semibold">{{ match.awayTeamName }}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="pt-2 pl-24  ">
-                    <!-- <img src="@/assets/favourite/ended.png" /> -->
-                    <p :class="{'bg-transparent': match.statusStr === ' ' , 'statusBorder': match.statusStr !==''}">{{ match.statusStr }}</p>
-                  </div>
-                </div>
-              </div>
 
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-
     </div>
+
+
+
   </BackgroundImage>
 </template>
 
@@ -136,7 +141,7 @@ export default {
     return {
       // check language and basketball and football swtich
       isCN: Boolean,
-      currentChannel: ref((localStorage.getItem('currentChannel') === "football")?true :false),
+      currentChannel: ref((localStorage.getItem('currentChannel') === "football") ? true : false),
       activeDate: null,
 
       currentDate: ref(new Date()),
@@ -176,22 +181,24 @@ export default {
         await deleteStreamSaveBookmark(matchID, this.isCN);
       }
     },
-    toAllMatchPage(linkAddress, competitionName, matchDate, matchTimeStr, statusStr, homeTeamName, homeTeamScore, homeTeamLogo, awayTeamName,awayTeamScore, awayTeamLogo) {
+    toAllMatchPage(linkAddress, competitionName, matchDate, matchTimeStr, statusStr, homeTeamName, homeTeamScore, homeTeamLogo, awayTeamName, awayTeamScore, awayTeamLogo) {
       // Push to the Live Page
-      const routeData = this.$router.resolve({name: 'TournamentDetails', query: {
-        TournamentID: linkAddress,
-        competitionName: competitionName,
-        matchDate: matchDate,
-        matchTimeStr: matchTimeStr,
-        statusStr: statusStr,
-        homeTeamName: homeTeamName,
-        homeTeamScore: homeTeamScore,
-        homeTeamLogo: homeTeamLogo,
-        awayTeamName: awayTeamName,
-        awayTeamScore: awayTeamScore,
-        awayTeamLogo: awayTeamLogo,
-      
-      }});
+      const routeData = this.$router.resolve({
+        name: 'TournamentDetails', query: {
+          TournamentID: linkAddress,
+          competitionName: competitionName,
+          matchDate: matchDate,
+          matchTimeStr: matchTimeStr,
+          statusStr: statusStr,
+          homeTeamName: homeTeamName,
+          homeTeamScore: homeTeamScore,
+          homeTeamLogo: homeTeamLogo,
+          awayTeamName: awayTeamName,
+          awayTeamScore: awayTeamScore,
+          awayTeamLogo: awayTeamLogo,
+
+        }
+      });
       window.open(routeData.href, '_blank');
     },
     formatDay(date) {
@@ -219,10 +226,10 @@ export default {
     async generateMatchDetailsList(matchdate) {
       this.matchDetails = [];
       (this.currentChannel)
-      //football
-      ?this.getMatchList = await getMatchByDate(matchdate, this.isCN)
-      //basketball
-      :this.getMatchList = await getBasketballMatchByDate(matchdate, this.isCN)
+        //football
+        ? this.getMatchList = await getMatchByDate(matchdate, this.isCN)
+        //basketball
+        : this.getMatchList = await getBasketballMatchByDate(matchdate, this.isCN)
 
       for (let i = 0; i < this.getMatchList.length; i++) {
 
@@ -259,6 +266,33 @@ export default {
 </script>
 
 <style scoped>
+.scroll-container {
+  position: absolute;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+
+}
+
+.inner-container {
+  max-width: 892px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 892px) {
+  .inner-container {
+    min-width: 892px;
+  }
+}
+
 .MatchTypeBorder {
   background-color: #F5F5F5;
   border: 1px solid rgba(156, 163, 175, 0.5);

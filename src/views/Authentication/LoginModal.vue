@@ -12,18 +12,18 @@
                     <!-- https://vuejsexamples.com/international-telephone-input-with-vue/ -->
                     <!-- API website for future modify -->
                     <!-- <vue-tel-input v-model="countryCode" v-bind="bindPropsUserInfo" :inputOptions="{ showDialCode: true, tabindex: 0 }" class="mr-2" style="width: 70px; background: white;"/> -->
-                    <vue-tel-input v-model="countryCode" v-bind="bindPropsUserInfo" style="width: 100%; background: white; padding: 5px"/>
+                    <vue-tel-input @keyup.enter="login" v-model="countryCode" v-bind="bindPropsUserInfo" style="width: 100%; background: white; padding: 5px"/>
                     <!-- <input placeholder="请输入手机号码"  type="text" id="phone"  v-model="phoneNumber" required /> -->
                 </div>
 
                 <div class="form-group">
                     <div class="password-container">
-                        <input
-            :placeholder="$t('Please Enter Password')"
-            :type="passwordFieldType"
-                            v-model="password"
-            required
-            />
+                        <input @keyup.enter="login"
+                            :placeholder="$t('Please Enter Password')"
+                            :type="passwordFieldType"
+                                            v-model="password"
+                            required
+                            />
                         <div class="button mr-1.5">
                             <!-- <img :src="passwordVisibility ? '@/assets/hide.png' : '@/assets/hide.png'" /> -->
                             <img v-if="passwordVisibility" src="@/assets/unhide.png" alt="UnHide Password" @click="togglePasswordVisibility" />

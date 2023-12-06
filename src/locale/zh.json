@@ -83,7 +83,7 @@
     "Agreement Privacy Policy": "协议隐私政策",
     "Disclaimer" :"免责声明",
     "Permission details": "权限详情",
-    "Contact us":"联系我们",
+    "ContactUs":"联系我们",
     "All live broadcasts on this site are from the Internet. This site is not engaged in any business. It only provides free live broadcasts for sports enthusiasts. If your rights are infringed, please contact us":"本站所有直播均来自互联网，本站不从事任何经营业务，仅为体育爱好者提供免费赛事直播，如果侵犯了您的权益，请联系我们",
 
     "Popular fixtures": "热门赛程",
@@ -98,14 +98,36 @@
     "Player Name": "球员姓名",
     "Minutes": "时间",
     "Scores": "得分",
-    "Rebound": "篮板",
     "Assist": "助攻",
-    "Field Goal": "投篮",
     "Three Pointer": "三分",
-    "Free Throw": "罚球",
-    "Steal": "抢断",
     "Turnover": "失误",
     "Block Shot": "盖帽",
-    "Foul": "犯规"
+
+    "Start preview": "开播预览",
+    "Live broadcast time": "直播时间",
+    "Start live broadcast": "开始直播",
+    "Start broadcasting": "我要开播",
+    "Title": "标题",
+    "Please enter a title": "请输入标题",
+    "Cover": "封面",
+    "Server Address": "服务器地址",
+    "Push streaming code": "推流码",
+    "Start browsing": "开播浏览",
+    "Live broadcast settings": "直播设置",
+    "Confirm changes": "确定更改",
+
+    "Pause": "暂停",
+    "Foul" : "犯规",
+    "3 Pointer": "3分球得分",
+    "2 Pointer": "2分球得分",
+    "Block": "盖帽",
+    "Steal": "抢断",
+    "Turn Over": "失误",
+    "Field Goal": "投篮",
+    "Rebound": "篮板",
+    "Free Throw": "罚球",
+    "Data analysis": "数据分析"
+
+
 
 }

@@ -4,23 +4,21 @@
   >
     <div class="md:pt-1 pt-2 flex items-center cursor-pointer">
       <img class="mr-2" alt="App logo" src="@/assets/topNav/appImage.png" />
+      <div class="items-center md:block hidden">
+        <a
+          class="md:text-lg text-base font-semibold md:relative"
+          style="color: #33ba53"
+          href="/"
+        >
+          {{ $t("PandaSport") }}</a
+        >
+      </div>
 
-      <a class="md:text-lg text-base font-semibold" style="color: #33ba53" href="/chat">
-        {{ $t("PandaSport") }}</a
-      >
-      <!-- <div class="relative">
-        <div @click="MenuOpen()" class="md:static absolute md:hidden md:pl-0 pl-10 md:left-0 left-20 md:bottom-0 -bottom-[12px]"
-          style="border: 1px solid red; width: 60px;">
-          <img v-if="openNav" src="@/assets/topNav/x.png">
-          <img v-else src="@/assets/topNav/hamburger.png">
-        </div>
-
-      </div> -->
-      <div class="md:static relative">
+      <div class="md:static relative w-[300px]">
         <ul
           style="z-index: 1000"
           :class="openNav ? 'block' : 'hidden'"
-          class="md:block md:items-center md:pr-0 pr-2 md:pl-5 pl-5 md:static absolute bg-navColor md:w-auto w-auto md:right-0 right-20 md:top-14 top-14"
+          class="md:block items-center md:pr-0 pr-2 md:pl-5 pl-5 md:static absolute bg-navColor md:w-auto w-auto md:left-0 -left-[90px] md:top-14 top-14"
         >
           <li
             class="md:inline-flex flex-col ml-4 my-2.5"
@@ -29,7 +27,7 @@
           >
             <router-link
               :to="link.link"
-              class="nav-button md:text-base text-sm font-normal hover:text-gray-200 text-white"
+              class="flex nav-button md:text-base text-sm font-normal hover:text-gray-200 text-white"
               >{{ $t(link.name) }}</router-link
             >
           </li>
@@ -40,7 +38,7 @@
       <div class="relative">
         <div
           @click="MenuOpen()"
-          class="md:static absolute md:hidden md:pl-0 pl-10 md:left-0 left-[110px] md:top-0 -top-[35px]"
+          class="md:static absolute md:hidden md:pl-0 pl-10 md:left-0 left-[10px] md:top-0 -top-[37px]"
           style="width: 60px"
         >
           <img class="cursor-pointer" v-if="openNav" src="@/assets/topNav/x.png" />
@@ -48,35 +46,41 @@
         </div>
       </div>
       <div class="md:flex relative">
-        <div @click="search" class="md:block hidden">
+        <div @click="search" class="md:block hidden pt-1.5">
           <img
             src="@/assets/topNav/search.png"
             alt="Search Icon"
             class="absolute left-0.5 w-6 h-6 m-2"
           />
         </div>
-        <div class="md:block hidden">
+        <div class="md:block hidden pt-1.5">
           <input
             v-model="searchQuery"
             @keyup.enter="search"
             type="text"
             :placeholder="$t('Search event/team')"
             maxlength="20"
-            class="pl-10 md:w-72 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-10 text-white bg-slate-50"
+            class="pl-10 lg:w-72 md:w-60 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-10 text-white bg-slate-50"
           />
         </div>
 
         <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between">
           <div class="md:flex items-center">
             <div
-              class="dropdown-button language-dropdown"
-              style="width: 100px; padding: 10px"
+              class="dropdown-button language-dropdown md:pt-2.5 md:pl-2.5"
+              style="width: 100px"
             >
-              <button class="language-toggle" @click="toggleDropdownLanguage">
+              <button
+                class="language-toggle md:static absolute md:right-10 right-20 md:top-0 -top-8"
+                @click="toggleDropdownLanguage"
+              >
                 {{ $t($i18n.locale) }}
                 <span> &#9662;</span>
               </button>
-              <div v-show="isDropdownOpenLanguage" class="language-options">
+              <div
+                v-show="isDropdownOpenLanguage"
+                class="language-options md:hidden absolute md:right-[140px] right-[90px] md:top-[100%] top-0"
+              >
                 <button
                   v-for="locale in $i18n.availableLocales"
                   :key="locale"
@@ -90,7 +94,7 @@
           </div>
 
           <button
-            class="md:flex cursor-pointer text-xl mr-2.5 items-center md:pl-3"
+            class="pt-1 md:flex cursor-pointer text-xl mr-2.5 items-center md:pl-3"
             @click="toggleDropdown"
           >
             <img
@@ -103,10 +107,11 @@
               src="@/assets/topNav/arrowDown.png"
               alt="Arrow Down"
             />
-            <p>{{ this.currentChannel }}</p>
+            <!-- <p>{{ this.currentChannel }}</p> -->
           </button>
 
           <div
+            style="z-index: 1000"
             class="dropdown-content md:hidden absolute md:right-6 right-8 md:top-10 top-0"
             :class="{ 'show-dropdown': isDropdownOpen }"
           >
@@ -145,6 +150,15 @@
               </button>
               <button v-if="loggedIn" @click="logout" class="block text-white">
                 {{ $t("Logout") }}
+              </button>
+
+              <!-- editstream -->
+              <button
+                v-if="loggedIn"
+                @click="showEditStreamDetailModal()"
+                class="block text-white"
+              >
+                EditStream
               </button>
             </div>
           </div>
@@ -193,10 +207,12 @@
       :showMyPageModal="isMyPageModalVisible"
       :closeMyPageModal="closeMyPageModal"
       :showEditProfileModal="showEditProfileModal"
+      :showStreamDetailModal="showStreamDetailModal"
     />
 
     <EditProfile
       :showEditProfileModal="isEditProfileModalVisible"
+      :closeEditProfileModal="closeEditProfileModal"
       :gobackmypage="gobackmypage"
       :showOTPModal="showOTPModal"
       :showEditNicknameModal="showEditNicknameModal"
@@ -206,6 +222,27 @@
       :showEditNicknameModal="isEditNicknameModalVisible"
       :closeEditNicknameModal="closeEditNicknameModal"
       :showEditProfileModal="showEditProfileModal"
+    />
+
+    <StreamDetailModal
+      :showStreamDetailModal="isStreamDetailModalVisible"
+      :closeStreamDetailModal="closeStreamDetailModal"
+      :showStreamPreviewModal="showStreamPreviewModal"
+      :gobackmypage="gobackmypage"
+      @stream-details-ready="handleStreamDetailsReady"
+    />
+
+    <StreamPreviewModal
+      :showStreamPreviewModal="isStreamPreviewModalVisible"
+      :closeStreamPreviewModal="closeStreamPreviewModal"
+      :gobackStreamDetail="gobackStreamDetail"
+      :streamDetailsData="streamDetailsData"
+    />
+
+    <!-- edit stream  -->
+    <EditStreamDetailModal
+      :showEditStreamDetailModal="isEditStreamDetailsModalVisible"
+      :closeEditStreamDetailModal="closeEditStreamDetailModal"
     />
   </div>
 </template>
@@ -228,6 +265,11 @@ import EditPassword from "@/views/MyProfile/EditPassword.vue";
 import MyPage from "@/views/MyProfile/MyPage.vue";
 import EditProfile from "@/views/MyProfile/EditProfile.vue";
 import EditNicknameModal from "@/views/MyProfile/EditUserNickname.vue";
+import StreamDetailModal from "@/views/Stream/StreamDetail.vue";
+import StreamPreviewModal from "@/views/Stream/StreamPreview.vue";
+
+//editstream
+import EditStreamDetailModal from "@/views/Stream/EditStreamDetail.vue";
 
 export default {
   components: {
@@ -239,6 +281,11 @@ export default {
     MyPage,
     EditProfile,
     EditNicknameModal,
+    StreamDetailModal,
+    StreamPreviewModal,
+
+    //editstream
+    EditStreamDetailModal,
   },
 
   computed: {
@@ -272,8 +319,14 @@ export default {
       isMyPageModalVisible: ref(false),
       isEditProfileModalVisible: ref(false),
       isEditNicknameModalVisible: ref(false),
+      isStreamDetailModalVisible: ref(false),
+      isStreamPreviewModalVisible: ref(false),
       openNav: ref(false),
       isDropdownOpenLanguage: ref(false),
+      streamDetailsData: {},
+
+      // edit stream
+      isEditStreamDetailsModalVisible: ref(false),
     };
   },
 
@@ -396,9 +449,14 @@ export default {
       this.isEditProfileModalVisible = true;
     },
 
+    closeEditProfileModal() {
+      this.isEditProfileModalVisible = false;
+    },
+
     gobackmypage() {
       this.isMyPageModalVisible = true;
       this.isEditProfileModalVisible = false;
+      this.isStreamDetailModalVisible = false;
     },
 
     // Edit Nickname Modal
@@ -409,6 +467,35 @@ export default {
 
     closeEditNicknameModal() {
       this.isEditNicknameModalVisible = false;
+    },
+
+    // Stream Detail Modal
+    showStreamDetailModal() {
+      this.isStreamDetailModalVisible = true;
+      this.isMyPageModalVisible = false;
+    },
+
+    closeStreamDetailModal() {
+      this.isStreamDetailModalVisible = false;
+    },
+
+    handleStreamDetailsReady(data) {
+      this.streamDetailsData = data;
+    },
+
+    // Stream Preview Modal
+    showStreamPreviewModal() {
+      this.isStreamPreviewModalVisible = true;
+      this.isStreamDetailModalVisible = false;
+    },
+
+    closeStreamPreviewModal() {
+      this.isStreamPreviewModalVisible = false;
+    },
+
+    gobackStreamDetail() {
+      this.isStreamPreviewModalVisible = false;
+      this.isStreamDetailModalVisible = true;
     },
 
     toggleDropdownLanguage() {
@@ -423,6 +510,15 @@ export default {
       // Save the selected language to localStorage
       localStorage.setItem("locale", locale);
       window.location.reload();
+    },
+
+    // edit stream
+    showEditStreamDetailModal() {
+      this.isEditStreamDetailsModalVisible = true;
+    },
+
+    closeEditStreamDetailModal() {
+      this.isEditStreamDetailsModalVisible = false;
     },
   },
 
@@ -448,16 +544,37 @@ export default {
 </script>
 
 <style scoped>
-.nav-container {
-  width: 892px;
-  height: 56px;
+@media (min-width: 300px) {
+  .menu-list {
+    display: static;
+    position: absolute;
+  }
 }
 
-.live-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin-bottom: 5px;
+@media (min-width: 500px) {
+  .menu-list {
+    display: static;
+  }
+}
+
+@media (min-width: 640px) {
+  .menu-list {
+    display: block;
+    position: absolute;
+  }
+}
+
+@media (min-width: 760px) {
+  .menu-list {
+    display: block;
+    position: static;
+  }
+}
+
+@media (min-width: 1024px) {
+  .menu-list {
+    display: static;
+  }
 }
 
 .nav-button {
@@ -510,7 +627,6 @@ export default {
   text-overflow: ellipsis;
 }
 
-/* Style the dropdown options */
 .dropdown-content .dropdown-button {
   display: block;
   padding: 8px;
@@ -520,7 +636,6 @@ export default {
   text-overflow: ellipsis;
 }
 
-/* Change color on hover */
 .dropdown-content .dropdown-button:hover {
   background-color: #ddd;
   width: 40px;
@@ -549,8 +664,8 @@ a.router-link-exact-active {
 
 .language-options {
   position: absolute;
-  top: 100%;
-  z-index: 1;
+  /* top: 100%; */
+  z-index: 1000;
   display: flex;
   flex-direction: column;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
