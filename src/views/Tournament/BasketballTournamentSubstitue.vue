@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="box" v-show="showbasketballsubstitue">
     <vue-scrolling-table
       class="scrolling w2 freezeFirstColumn"
       ref="scrollingTable"
@@ -55,6 +55,7 @@ export default {
     awayTeamName: String,
     homeTeamLogo: String,
     awayTeamLogo: String,
+    showbasketballsubstitue: Boolean,
   },
   data() {
     return {

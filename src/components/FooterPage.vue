@@ -10,7 +10,7 @@
         <span>|</span>
         <p class="text-10px md:text-xs font-normal px-1">{{ $t("Permission details") }}</p>
         <span>|</span>
-        <p class="text-10px md:text-xs font-normal px-1">{{ $t("Contact us") }}</p>
+        <p class="text-10px md:text-xs font-normal px-1">{{ $t("ContactUs") }}</p>
         <span>|</span>
       </div>
       <div  class="w-full flex justify-center text-10px md:text-xs font-normal text-grayText">

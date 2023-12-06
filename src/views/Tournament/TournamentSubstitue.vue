@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-start ">
+    <div class="flex justify-start" v-show="showfootballsubstitue">
         <div class="flex pb-10 rounded-lg" style=" width: 343px; height: auto;">
             <div class="w-1/2 rounded-lg">
                 <div class="flex items-center h-8 rounded-lg bg-white">
@@ -57,6 +57,7 @@ export default {
         awayTeamName: String,
         homeTeamLogo: String,
         awayTeamLogo: String,
+        showfootballsubstitue: Boolean,
     },
 
     data() {
@@ -67,15 +68,15 @@ export default {
         }
     },
     created() {
-        this.getResult()
+        console.log()
 
     },
     methods: {
         async getResult() {
-            // this.getTournamentLineup = await getFootballLineup(this.tournamentID, (this.$i18n.locale === 'ZH')?true :false);
+            this.getTournamentLineup = await getFootballLineup(this.tournamentID, (this.$i18n.locale === 'ZH')?true :false);
 
             // this.getTournamentLineup = await getFootballLineup(5, true);
-            this.getTournamentLineup = await getFootballLineup(1000, false);
+            // this.getTournamentLineup = await getFootballLineup(1000, false);
 
             // console.log("HALLO" + this.getTournamentLineup)
 

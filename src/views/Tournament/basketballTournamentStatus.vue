@@ -1,13 +1,13 @@
 <template>
-    <div class="flex justify-center ">
+    <div class="flex justify-center" v-show="showbasketballstatus">
         <div class=" w-[890px] flex justify-between">
             <div class="flex flex-col justify-center py-4">
                 <!-- ZH Show -->
-                <div class="borderColor mb-3 flex justify-center items-center">
+                <div class="borderColor mb-3 flex justify-center items-center" v-show="isCN">
                     <span class="font-medium md:text-sm text-xs">{{ $t("Pause") }} {{ teamATotalPause }}</span>
                 </div>
                 <!-- ZH Show -->
-                <div class="borderColor flex justify-center items-center">
+                <div class="borderColor flex justify-center items-center" v-show="isCN">
                     <span class="font-medium md:text-sm text-xs">{{ $t("Foul") }}  {{ homeNumOfFouls }}</span>
 
                 </div>
@@ -24,7 +24,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center" v-show="isCN">
                         <p class=" w-[30px] font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeTwoGoal }}</p>
                         <div class="team relative w-[50px] p-[20px] bottom-1">
                             <div class=" stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
@@ -33,7 +33,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center" v-show="!isCN">
                         <p class=" w-[30px] font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeBlocks }}</p>
                         <div class="team relative w-[50px] p-[20px] bottom-1">
                             <div class=" stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center" v-show="!isCN">
                         <p class=" w-[30px] font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeNumOfFouls }}</p>
                         <div class="team relative w-[50px] p-[20px] bottom-1">
                             <div class=" stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
@@ -53,7 +53,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center" v-show="!isCN">
                         <p class=" w-[30px] font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeSteals }}</p>
                         <div class="team relative w-[50px] p-[20px] bottom-1">
                             <div class=" stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
@@ -63,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center" v-show="!isCN">
                         <p class=" w-[30px] font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeTurnOvers }}</p>
                         <div class="team relative w-[50px] p-[20px] bottom-1">
                             <div class=" stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center" v-show="!isCN">
                         <p class=" w-[30px] font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeFieldGoal }}</p>
                         <div class="team relative w-[50px] p-[20px] bottom-1">
                             <div class=" stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center" v-show="!isCN">
                         <p class=" w-[30px] font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeRebounds }}</p>
                         <div class="team relative w-[50px] p-[20px] bottom-1">
                             <div class=" stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
@@ -104,26 +104,32 @@
                     </div>
                 </div>
                 <div class="flex flex-col justify-around items-center  md:w-[180px] w-[100px]">
-                    <!-- EN Need Show -->
+                    <!-- ZH & EN Need Show -->
                     <div class="font-medium md:text-sm text-xs">{{$t("3 Pointer")}}</div>
                     <!-- ZH Need Show -->
-                    <div class="font-medium md:text-sm text-xs">{{$t("2 Pointer")}}</div>
+                    <div class="font-medium md:text-sm text-xs" v-show="isCN">{{$t("2 Pointer")}}</div>
 
                     <!-- EN Need Show -->
-                    <div class="font-medium md:text-sm text-xs">{{$t("Block")}}</div>
-                    <div class="font-medium md:text-sm text-xs">{{$t("Foul")}}</div>
-                    <div class="font-medium md:text-sm text-xs">{{$t("Steal")}}</div>
-                    <div class="font-medium md:text-sm text-xs">{{$t("Turn Over")}}</div>
-                    <div class="font-medium md:text-sm text-xs">{{$t("Field Goal")}} </div>
-                    <div class="font-medium md:text-sm text-xs">{{$t("Rebound")}}</div>
+                    <div class="font-medium md:text-sm text-xs" v-show="!isCN">{{$t("Block")}}</div>
+                    <div class="font-medium md:text-sm text-xs" v-show="!isCN">{{$t("Foul")}}</div>
+                    <div class="font-medium md:text-sm text-xs" v-show="!isCN">{{$t("Steal")}}</div>
+                    <div class="font-medium md:text-sm text-xs" v-show="!isCN">{{$t("Turn Over")}}</div>
+                    <div class="font-medium md:text-sm text-xs" v-show="!isCN">{{$t("Field Goal")}} </div>
+                    <div class="font-medium md:text-sm text-xs" v-show="!isCN">{{$t("Rebound")}}</div>
 
                     <!-- ZH and EN need Show -->
-                    <div class=" flex justify-start items-center w-full">
+                    <div class=" flex justify-start items-center w-full" v-show="isCN">
                         <div class="font-medium md:text-sm text-xs w-1/3 md:pl-3 pl-1">{{ teamAFreeThrowPercentage + "%" }}
                         </div>
                         <div class="font-medium md:text-sm text-xs  flex justify-center w-[80px]">{{$t("Free Throw")}}</div>
                         <div class="font-medium md:text-sm text-xs w-1/3 md:pl-6 pl-0"> {{ teamBFreeThrowPercentage + "%" }}
                         </div>
+                    </div>
+
+                    <div class=" flex justify-start items-center w-full" v-show="!isCN">
+                        <div class="font-medium md:text-sm text-xs w-1/3 md:pl-3 pl-1"></div>
+                        <div class="font-medium md:text-sm text-xs flex justify-center w-[100px]">{{$t("Free Throw")}}</div>
+                        <div class="font-medium md:text-sm text-xs w-1/3 md:pl-6 pl-0"></div>
                     </div>
 
                 </div>
@@ -137,7 +143,7 @@
                         </div>
                         <p class="w-[30px] font-medium md:text-sm text-10px pl-3 pr-1">{{ awayThreeGoal }}</p>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center" v-show="isCN">
                         <div class="bottom-1 team relative w-[50px] p-[20px]">
                             <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
                             <div class="stat-bar-right right-bar-color border_rightTB"
@@ -146,7 +152,7 @@
                         </div>
                         <p class="w-[30px] font-medium md:text-sm text-10px pl-3 pr-1">{{ awayTwoGoal }}</p>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center" v-show="!isCN">
                         <div class="bottom-1 team relative w-[50px] p-[20px]">
                             <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
                             <div class="stat-bar-right right-bar-color border_rightTB"
@@ -155,7 +161,7 @@
                         </div>
                         <p class="w-[30px] font-medium md:text-sm text-10px pl-3 pr-1">{{ awayBlocks }}</p>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center" v-show="!isCN">
                         <div class="bottom-1 team relative w-[50px] p-[20px]">
                             <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
                             <div class="stat-bar-right right-bar-color border_rightTB"
@@ -164,7 +170,7 @@
                         </div>
                         <p class="w-[30px] font-medium md:text-sm text-10px pl-3 pr-1">{{ awayNumOfFouls }}</p>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center" v-show="!isCN">
                         <div class="bottom-1 team relative w-[50px] p-[20px]">
                             <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
                             <div class="stat-bar-right right-bar-color border_rightTB"
@@ -173,7 +179,7 @@
                         </div>
                         <p class="w-[30px] font-medium md:text-sm text-10px pl-3 pr-1">{{ awaySteals }}</p>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center" v-show="!isCN">
                         <div class="bottom-1 team relative w-[50px] p-[20px]">
                             <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
                             <div class="stat-bar-right right-bar-color border_rightTB"
@@ -182,7 +188,7 @@
                         </div>
                         <p class="w-[30px] font-medium md:text-sm text-10px pl-3 pr-1">{{ awayTurnOvers }}</p>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center" v-show="!isCN">
                         <div class="bottom-1 team relative w-[50px] p-[20px]">
                             <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
                             <div class="stat-bar-right right-bar-color border_rightTB"
@@ -191,7 +197,7 @@
                         </div>
                         <p class="w-[30px] font-medium md:text-sm text-10px pl-3 pr-1">{{ awayFieldGoal }}</p>
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center" v-show="!isCN">
                         <div class="bottom-1 team relative w-[50px] p-[20px]">
                             <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
                             <div class="stat-bar-right right-bar-color border_rightTB"
@@ -204,7 +210,7 @@
                         <div class="bottom-1 team relative w-[50px] p-[20px]">
                             <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
                             <div class="stat-bar-right right-bar-color border_rightTB"
-                                :style="{ width: teamBFreeThrowPercentage + '%' }">
+                                :style="{ width: teamBFreeThrowPercentage + '%' }" >
                             </div>
                         </div>
                         <p class="w-[30px] font-medium md:text-sm text-10px pl-3 pr-1">{{ teamBFreeThrow }}</p>
@@ -213,11 +219,11 @@
             </div>
             <div class="flex flex-col justify-center py-4">
                 <!-- ZH Show -->
-                <div class="borderColor mb-3 flex justify-center items-center">
+                <div class="borderColor mb-3 flex justify-center items-center" v-show="isCN">
                     <span class="font-medium md:text-sm text-xs">{{ $t("Pause") }} {{ teamBTotalPause }}</span>
                 </div>
                 <!-- ZH Show -->
-                <div class="borderColor flex justify-center items-center">
+                <div class="borderColor flex justify-center items-center" v-show="isCN">
                     <span class="font-medium md:text-sm text-xs">{{ $t("Foul") }} {{ awayNumOfFouls }}</span>
                 </div>
             </div>
@@ -226,55 +232,122 @@
 </template>
 
 <script>
-export default {
+// import to run the login function
+import { getBasketBallMatchbyId } from '@/service/apiBasketBallMatchProvider.js';
 
-    data() {
-        return {
+export default {
+    props: {
+        tournamentID: String,
+        showbasketballstatus: Boolean,
+    },
+
+    async mounted() {
+        // --------------------------- call the tournment api --------------------------------------
+        // console.log(this.tournamentID);
+
+        // this.getTournamentDetails = await getBasketBallMatchbyId(1, true);
+        this.getTournamentDetails = await getBasketBallMatchbyId(this.tournamentID, this.isCN);
+        // console.log(this.tournamentID)
+
+        if(this.getTournamentDetails !== null) {
             // hthreeGoal (3分球得分) athreeGoal (3分球得分)
-            homeThreeGoal: 1,
-            awayThreeGoal: 3,
+            this.homeThreeGoal= (this.isCN) ?this.getTournamentDetails['hthreeGoal'] :this.getTournamentDetails['hthreePointGoals'];
+            this.awayThreeGoal= (this.isCN) ?this.getTournamentDetails['athreeGoal'] :this.getTournamentDetails['athreePointGoals'];
 
             // htwoGoal (2分球得分) , atwoGoal (2分球得分)
-            homeTwoGoal: 4,
-            awayTwoGoal: 1,
+            this.homeTwoGoal= this.getTournamentDetails['htwoGoal'];
+            this.awayTwoGoal= this.getTournamentDetails['atwoGoal'];
 
-            //  hfreeThrow (罚球) afreeThrow (罚球)
-            homeFreeThrow: 14,
-            awayFreeThrow: 11,
+            //  hfreeThrows (罚球) afreeThrows (罚球)
+            this.homeFreeThrow= (this.isCN) ?this.getTournamentDetails['hfreeThrow'] :this.getTournamentDetails['hfreeThrows'];
+            this.awayFreeThrow= (this.isCN) ?this.getTournamentDetails['afreeThrow'] :this.getTournamentDetails['afreeThrows'];
 
             //  hfreeThrow (罚球率) afreeThrow (罚球率)
-            homeFreeThrowPercentage: 6,
-            awayFreeThrowPercentage: 4,
+            this.homeFreeThrowPercentage= (this.isCN) ?this.getTournamentDetails['hfreeThrow'] :this.getTournamentDetails['hfreeThrows'];
+            this.awayFreeThrowPercentage= (this.isCN) ?this.getTournamentDetails['afreeThrow'] :this.getTournamentDetails['afreeThrows'];
 
             //htotalPause (暂停) atotalPause (暂停)
-            homeTotalPause: 1,
-            awayTotalPause: 3,
+            this.homeTotalPause= this.getTournamentDetails['htotalPause'];
+            this.awayTotalPause= this.getTournamentDetails['atotalPause'];
 
             //hnumOfFouls (犯规) anumOfFouls (犯规)
-            homeNumOfFouls: 7,
-            awayNumOfFouls: 4,
+            this.homeNumOfFouls= (this.isCN) ?this.getTournamentDetails['hnumOfFouls'] :this.getTournamentDetails['hpersonalFouls'];
+            this.awayNumOfFouls= (this.isCN) ?this.getTournamentDetails['anumOfFouls'] :this.getTournamentDetails['apersonalFouls'];
 
             //EN Need Data
 
             //hblocks (Block) ablocks (Block)
-            homeBlocks: 3,
-            awayBlocks: 5,
+            this.homeBlocks= this.getTournamentDetails['hblocks'];
+            this.awayBlocks= this.getTournamentDetails['ablocks'];
 
             // hsteals (Steal) asteals (Steal)
-            homeSteals: 5,
-            awaySteals: 5,
+            this.homeSteals= this.getTournamentDetails['hsteals'];
+            this.awaySteals= this.getTournamentDetails['asteals'];
 
             // hturnOvers (Turn Over) aturnOvers (Turn Over)
-            homeTurnOvers: 17,
-            awayTurnOvers: 15,
+            this.homeTurnOvers= this.getTournamentDetails['hturnOvers'];
+            this.awayTurnOvers= this.getTournamentDetails['aturnOvers'];
 
             // hfieldGoals (Field Goal) afieldGoals (Field Goal)
-            homeFieldGoal: 44,
-            awayFieldGoal: 32,
+            this.homeFieldGoal= this.getTournamentDetails['hfieldGoals'];
+            this.awayFieldGoal= this.getTournamentDetails['afieldGoals'];
 
             //hrebounds (Rebound) arebounds (Rebound)
-            homeRebounds: 39,
-            awayRebound: 30,
+            this.homeRebounds= this.getTournamentDetails['hrebounds'];
+            this.awayRebound= this.getTournamentDetails['arebounds'];
+        }
+    },
+
+
+    data() {
+        return {
+            isCN: (this.$i18n.locale === 'ZH')?true :false,
+
+            // hthreeGoal (3分球得分) athreeGoal (3分球得分)
+            homeThreeGoal: 0,
+            awayThreeGoal: 0,
+
+            // htwoGoal (2分球得分) , atwoGoal (2分球得分)
+            homeTwoGoal: 0,
+            awayTwoGoal: 0,
+
+            //  hfreeThrow (罚球) afreeThrow (罚球)
+            homeFreeThrow: 0,
+            awayFreeThrow: 0,
+
+            //  hfreeThrows (罚球) afreeThrows (罚球)
+            homeFreeThrowPercentage: 0,
+            awayFreeThrowPercentage: 0,
+
+            //htotalPause (暂停) atotalPause (暂停)
+            homeTotalPause: 0,
+            awayTotalPause: 0,
+
+            //hnumOfFouls (犯规) anumOfFouls (犯规)
+            homeNumOfFouls: 0,
+            awayNumOfFouls: 0,
+
+            //EN Need Data
+
+            //hblocks (Block) ablocks (Block)
+            homeBlocks: 0,
+            awayBlocks: 0,
+
+            // hsteals (Steal) asteals (Steal)
+            homeSteals: 0,
+            awaySteals: 0,
+
+            // hturnOvers (Turn Over) aturnOvers (Turn Over)
+            homeTurnOvers: 0,
+            awayTurnOvers: 0,
+
+            // hfieldGoals (Field Goal) afieldGoals (Field Goal)
+            homeFieldGoal: 0,
+            awayFieldGoal: 0,
+
+            //hrebounds (Rebound) arebounds (Rebound)
+            homeRebounds: 0,
+            awayRebound: 0,
         }
     },
     computed: {

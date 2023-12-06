@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center">
-    <div class="w-[892px] tournament_window">
+    <div :class="{ 'w-[892px] tournament_window': currentChannel, 'w-[892px] tournament_basketball_window': !currentChannel }">
       <div class="content_s">
         <div class="flex flex-col items-center">
           <span class="font-semibold text-lg text-white">{{ this.competitionName }}</span>
@@ -107,8 +107,12 @@
         class="pt-5"
         :tournamentID="this.TournamentID"
         :homeFormation="homeFormation"
+        :showfootballstatus="currentChannel"
       />
-      <BasketballTournamentStatus/>
+      
+      <BasketballTournamentStatus
+      :tournamentID="this.TournamentID"
+      :showbasketballstatus="!currentChannel"/>
     </div>
   </div>
 
@@ -152,25 +156,27 @@
     </div>
   </div>
 
-  <div class="flex justify-center pb-10">
-    <div class="w-[892px]">
-      <h2 class="text-headerFont font-headerWeight">{{ $t("Line Up") }}</h2>
-      <!-- <div class="pt-3">
-        <LineUp :tournamentID="this.TournamentID" :homeTeamLogo="this.homeTeamLogo" :awayTeamLogo="this.awayTeamLogo" />
-      </div> -->
+  <div v-show="currentChannel">
+    <div class="flex justify-center pb-10">
+      <div class="w-[892px]">
+        <h2 class="text-headerFont font-headerWeight">{{ $t("Line Up") }}</h2>
+        <!-- <div class="pt-3">
+          <LineUp :tournamentID="this.TournamentID" :homeTeamLogo="this.homeTeamLogo" :awayTeamLogo="this.awayTeamLogo" />
+        </div> -->
+      </div>
     </div>
-  </div>
-  <div class="flex justify-center pb-10">
-    <div class="w-[892px]">
-      <LineUp
-        :tournamentID="this.TournamentID"
-        :homeTeamLogo="this.homeTeamLogo"
-        :awayTeamLogo="this.awayTeamLogo"
-      />
+    <div class="flex justify-center pb-10">
+      <div class="w-[892px]">
+        <LineUp
+          :tournamentID="this.TournamentID"
+          :homeTeamLogo="this.homeTeamLogo"
+          :awayTeamLogo="this.awayTeamLogo"
+        />
+      </div>
     </div>
   </div>
 
-  <div class="flex justify-center pb-10">
+  <div class="flex justify-center pb-10" v-show="currentChannel">
     <div class="w-[892px]">
       <h2 class="text-headerFont font-headerWeight">{{ $t("Substitute") }}</h2>
       <div class="pt-3">
@@ -179,42 +185,54 @@
           :awayTeamName="this.awayTeamName"
           :homeTeamLogo="this.homeTeamLogo"
           :awayTeamLogo="this.awayTeamLogo"
+          :showfootballsubstitue="currentChannel"
         />
       </div>
     </div>
   </div>
 
-  <div class="flex flex-col pb-5 team_lineup" style="background-color: white">
-    <div class="pt-3">
-      <BasketballTournament
-        :tournamentID="1"
-        :awayTeamName="this.awayTeamName"
-        :homeTeamName="this.homeTeamName"
-        :is-home-team="true"
-      ></BasketballTournament>
+  <div class="flex justify-center pb-10" v-show="!currentChannel">
+    <div class="w-[892px]">
+      <h2 class="text-headerFont font-headerWeight pb-3">{{ $t("Data analysis") }}</h2>
+    <div class="flex flex-col pb-5 team_lineup" style="background-color: white">
+      <div class="pt-3">
+        <BasketballTournamentSubstitue
+          :tournamentID="1"
+          :awayTeamName="this.awayTeamName"
+          :homeTeamName="this.homeTeamName"
+          :is-home-team="true"
+          :home-team-logo="this.homeTeamLogo"
+          :away-team-logo="this.awayTeamLogo"
+          :showbasketballsubstitue="!currentChannel"
+        ></BasketballTournamentSubstitue>
+      </div>
     </div>
-  </div>
 
-  <div class="flex flex-col team_lineup pb-5" style="background-color: white">
-    <div class="pt-3">
-      <BasketballTournament
-        :tournamentID="1"
-        :awayTeamName="this.awayTeamName"
-        :homeTeamName="this.homeTeamName"
-        :is-home-team="false"
-        :home-team-logo="this.homeTeamLogo"
-        :away-team-logo="this.awayTeamLogo"
-      ></BasketballTournament>
+    <div class="flex flex-col team_lineup pb-5" style="background-color: white">
+      <div class="pt-3">
+        <BasketballTournamentSubstitue
+          :tournamentID="1"
+          :awayTeamName="this.awayTeamName"
+          :homeTeamName="this.homeTeamName"
+          :is-home-team="false"
+          :home-team-logo="this.homeTeamLogo"
+          :away-team-logo="this.awayTeamLogo"
+          :showbasketballsubstitue="!currentChannel"
+        ></BasketballTournamentSubstitue>
+      </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { ref } from 'vue'
+
 import LiveList from "@/components/ListOfLive.vue";
 import LineUp from "@/views/Tournament/tournamentLineUp.vue";
 import TournamentStatus from "@/views/Tournament/tournamentStatus.vue";
 import TournamentSubstitue from "./TournamentSubstitue.vue";
-import BasketballTournament from "@/components/BasketballTournament.vue";
+import BasketballTournamentSubstitue from "@/views/Tournament/BasketballTournamentSubstitue.vue";
 import BasketballTournamentStatus from "@/views/Tournament/basketballTournamentStatus.vue"
 
 export default {
@@ -223,11 +241,13 @@ export default {
     LineUp,
     TournamentStatus,
     TournamentSubstitue,
-    BasketballTournament,
+    BasketballTournamentSubstitue,
     BasketballTournamentStatus,
   },
   data() {
     return {
+      currentChannel: ref((localStorage.getItem('currentChannel') === "football") ? true : false),
+
       liveAddress: [
         { liveAddress: this.$t("Broadcast address"), addressLink: "/" },
         { liveAddress: this.$t("Broadcast address"), addressLink: "/live" },
@@ -319,6 +339,19 @@ export default {
   background-position: center;
   position: relative;
 }
+
+.tournament_basketball_window {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  width: 892px;
+  height: 200px;
+  margin-top: 10px;
+  background-image: url("@/assets/tournament/basketballBackground.png");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
 
 .content_s {
   padding: 15px;

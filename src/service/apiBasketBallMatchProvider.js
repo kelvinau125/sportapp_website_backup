@@ -36,7 +36,7 @@ export async function getBasketBallMatchbyId(matchId, isCN) {
       if (code === 0) {
         return data;
       }else {
-        console.log(`get getFootballMatchbyId Unsuccessfully: ${code}`);
+        console.log(`get getBasketBallMatchbyId Unsuccessfully: ${code}`);
         return [];
       }
   
@@ -47,7 +47,7 @@ export async function getBasketBallMatchbyId(matchId, isCN) {
   }
   
 
-// getFootballLineup
+// getBasketballLineup
 export async function getBasketballLineUp(matchId, isCN) {
     let url = "";
 
@@ -57,7 +57,7 @@ export async function getBasketballLineUp(matchId, isCN) {
   
     try {
       const response = await getRequest(url);
-      console.log(`check url: ${url}`);
+      // console.log(`check url: ${url}`);
   
       const code = response.code;
       const data = response.data;
