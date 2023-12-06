@@ -47,6 +47,12 @@
                 </div>
             </div>
 
+            <!-- Warning message -->
+            <div v-if="warningMessage" class="warning-message">
+                {{ warningMessage }}
+            </div>
+
+
             <div class="pt-8">
                 <ButtonPress @click="createStream()" class="w-screen font-bold" style="height: 56px;">开播浏览</ButtonPress>
                 <div class="flex justify-center" style="padding: 8px" />
@@ -65,8 +71,6 @@ import Clipboard from 'clipboard';
 
 import { getPushStreamUrl} from '@/service/apiStreamProvider.js';
 
-import { updateStreamCover } from '@/service/apiStreamProvider.js';
-
 export default {
     components: {
         ButtonPress,
@@ -81,6 +85,8 @@ export default {
             code: ref(""),
             host: ref(""),
             time: ref(""),
+            file: ref(),
+            warningMessage: '',
         }
     },
 
@@ -101,15 +107,14 @@ export default {
 
     methods: {
         handleImageUpload(event) {
-            const file = event.target.files[0];
-             updateStreamCover(file);
+            this.file = event.target.files[0];
 
-            if (file) {
+            if (this.file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
                 this.imageUrl = e.target.result;
                 };
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(this.file);
             }
         },
         removeImage() {
@@ -147,9 +152,25 @@ export default {
             clipboard.onClick({ currentTarget: document.querySelector('.text-gray-400') });
         },
         createStream(){
+            // validate empty value
+            if ( (
+                this.title === null || this.title === undefined || this.title.trim() === ''
+            )) {
+                this.warningMessage = this.$t("Title cannot be empty");
+                return;
+            }
+
+            if ( (
+                this.imageUrl === null || this.imageUrl === undefined || this.imageUrl.trim() === ''
+            )) {
+                this.warningMessage = this.$t("Image cannot be empty");
+                return;
+            }
+
+
             this.showStreamPreviewModal()
 
-            // updateStreamCover(this.file);
+            this.warningMessage= ''
 
             // Emit an event to notify the parent component
             this.$emit('stream-details-ready', {
@@ -158,6 +179,7 @@ export default {
                 code: this.code,
                 host: this.host,
                 time: this.time,
+                file: this.file
             });
 
         }
@@ -229,5 +251,11 @@ label {
     border: none;
     cursor: pointer;
 }
+
+.warning-message {
+    color: red;
+    margin-bottom: 10px;
+}
+
 
 </style>

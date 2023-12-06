@@ -11,6 +11,9 @@ import {
     uploadStreamFileUrl
     } from '@/utils/apiConfig.js';
 
+// get user cookie / set cookie
+import VueCookies from 'vue-cookies';
+
 // liveStreamSaveBookmark
 export async function getPushStreamUrl() {
 
@@ -37,14 +40,14 @@ export async function getPushStreamUrl() {
 
 // getLiveStreamBookmark
 export async function createStream(time, host, code, cover, title) {
+
+    // get user token
+    const userid = VueCookies.get('phoneNumber')
  
-    const url = baseUrl + createStreamUrl
+    const url = baseUrl + (createStreamUrl.replace("{userId}", userid))
 
     // pushImageToServer;
     const isFinished = await updateStreamCover(cover);
-
-    console.log("------------------------")
-    console.log(isFinished)
 
     const apiDetails = {
         createTime: time,
@@ -53,7 +56,7 @@ export async function createStream(time, host, code, cover, title) {
         cover: isFinished,
         title: title
     };    
-  
+
     try {
       const response = await postRequest(url, apiDetails);
   
@@ -77,7 +80,6 @@ export async function updateStreamCover(file) {
   
     const url = baseUrl + uploadStreamFileUrl;
   
-    console.log(url);
     console.log(file);
   
     try {

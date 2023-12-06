@@ -19,11 +19,11 @@
                 <div class="form-group">
                     <div class="password-container">
                         <input
-            :placeholder="$t('Please Enter Password')"
-            :type="passwordFieldType"
-                            v-model="password"
-            required
-            />
+                            :placeholder="$t('Please Enter Password')"
+                            :type="passwordFieldType"
+                                            v-model="password"
+                            required
+                            />
                         <div class="button mr-1.5">
                             <!-- <img :src="passwordVisibility ? '@/assets/hide.png' : '@/assets/hide.png'" /> -->
                             <img v-if="passwordVisibility" src="@/assets/unhide.png" alt="UnHide Password" @click="togglePasswordVisibility" />

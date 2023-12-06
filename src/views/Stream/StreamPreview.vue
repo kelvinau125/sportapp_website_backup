@@ -51,8 +51,7 @@ import VueCookies from 'vue-cookies';
 // import the remove cookie function
 import { removeCookie } from '@/service/cookie';
 
-// import { createStream } from '@/service/apiStreamProvider.js';
-import { updateStreamCover } from '@/service/apiStreamProvider.js';
+import { createStream } from '@/service/apiStreamProvider.js';
 
 export default {
     components: {
@@ -82,16 +81,12 @@ export default {
             window.location.reload();
         },
         async startStream(){
-            // const result = await createStream(this.streamDetailsData.time, this.streamDetailsData.host, this.streamDetailsData.code, this.streamDetailsData.imageUrl, this.streamDetailsData.title);
-            
-            const result = await updateStreamCover(this.streamDetailsData.imageUrl);
-
-            console.log(result)
+            const result = await createStream(this.streamDetailsData.time, this.streamDetailsData.host, this.streamDetailsData.code, this.streamDetailsData.file, this.streamDetailsData.title);
 
             if (result) {
                 // close the modal and refresh the page
-                // this.closeStreamPreviewModal();
-                // window.location.reload();
+                this.closeStreamPreviewModal();
+                window.location.reload();
             } else {
                 console.log("error to create stream")
             }
