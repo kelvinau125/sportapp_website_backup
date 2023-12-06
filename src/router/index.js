@@ -7,8 +7,14 @@ import AllMatch from '@/views/AllMatch.vue'
 import TournamentDetails from '@/views/Tournament/TournamentDetails.vue'
 import NotFound from '@/components/NotFound.vue'
 import ResultPage from '@/components/SearchResult.vue'
+import AvLiveChat from '@/components/AvLiveChat.vue'
 
 const routes = [
+  {
+    path: '/chat',
+    name: 'AvLiveChat',
+    component: AvLiveChat
+  },
 
   {
     path: '/',
