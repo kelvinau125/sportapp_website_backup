@@ -62,7 +62,7 @@
               class="max-w-[24px] md:static absolute md:right-0 right-10 md:top-0 bottom-9 hover:bg-blue-950"
               alt="defaultFootBall Image" />
             <img class="md:block hidden pl-1.5 py-1" src="@/assets/topNav/arrowDown.png" alt="Arrow Down">
-            <p>{{ this.currentChannel }}</p>
+            <!-- <p>{{ this.currentChannel }}</p> -->
           </button>
 
           <div style="z-index: 1000;" class="dropdown-content md:hidden absolute md:right-6 right-8 md:top-10 top-0"
