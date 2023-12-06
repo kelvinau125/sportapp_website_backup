@@ -1,211 +1,72 @@
 <template>
-  <div class="flex justify-center ">
-    <div class=" w-[890px] flex justify-between">
-      <div class="flex flex-col justify-center py-4">
-        <!-- ZH Show -->
-        <div class="borderColor mb-3 flex justify-center items-center">
-          <span class="font-medium md:text-sm text-xs">暂停 {{ teamATotalPause }}</span>
+  <div class="scroll-container">
+    <div class="inner-container ">
+      <div class="max-w-[1519px]  flex justify-between pt-1.5">
+        <div class="max-w-[1037px] w-full  h-[586px]  ">
+          <div @click="toLiveStream" class="relative  rounded-lg">
+            <div class="">
+              <img class="w-full h-full" src="@/assets/live/liveStreamBackground.png" alt="Image" />
+            </div>
+            <div class="w-full flex titleBox items-center pt-4 pl-2 pb-2">
+              <div class="pr-1 pl-3 z-10 pb-1.5">
+                <img src="@/assets/live/defaultStreamerIcon.png" alt="Image" />
+              </div>
+              <div class=" flex flex-col pl-1 z-10 items-start pb-1.5">
+                <div class="text-white font-normal md:text-sm text-xs"> 直播标题 </div>
+                <div class="md:text-10px text-8px font-bold text-white opacity-60">主播昵称</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <!-- ZH Show -->
-        <div class="borderColor flex justify-center items-center">
-          <span class="font-medium md:text-sm text-xs">犯规 {{ homeNumOfFouls }}</span>
+        <div class="max-w-[463px] w-full border-2">聊天窗口</div>
 
-        </div>
       </div>
-      <div class="flex">
-        <div class="  flex flex-col justify-around">
-          <div class="flex justify-center items-center">
-            <p class=" w-[30px] font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeThreeGoal }}</p>
-            <div class="team relative w-[50px] p-[20px] bottom-1">
-              <div class=" stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
-              <!-- TEAMaRATE -->
-              <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAThreeGoal + '%' }">
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center">
-            <p class=" w-[30px] font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeTwoGoal }}</p>
-            <div class="team relative w-[50px] p-[20px] bottom-1">
-              <div class=" stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
-              <!-- TEAMaRATE -->
-              <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamATwoGoal + '%' }">
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center">
-            <p class=" w-[30px] font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeBlocks }}</p>
-            <div class="team relative w-[50px] p-[20px] bottom-1">
-              <div class=" stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
-              <!-- TEAMaRATE -->
-              <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamATotalBlocks + '%' }">
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center">
-            <p class=" w-[30px] font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeNumOfFouls }}</p>
-            <div class="team relative w-[50px] p-[20px] bottom-1">
-              <div class=" stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
-              <!-- TEAMaRATE -->
-              <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamATotalFouls + '%' }">
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center">
-            <p class=" w-[30px] font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeSteals }}</p>
-            <div class="team relative w-[50px] p-[20px] bottom-1">
-              <div class=" stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
-              <!-- TEAMaRATE -->
-              <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamATotalSteal + '%' }">
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center">
-            <p class=" w-[30px] font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeTurnOvers }}</p>
-            <div class="team relative w-[50px] p-[20px] bottom-1">
-              <div class=" stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
-              <!-- TEAMaRATE -->
-              <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamATotalTurnOver + '%' }">
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center">
-            <p class=" w-[30px] font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeFieldGoal }}</p>
-            <div class="team relative w-[50px] p-[20px] bottom-1">
-              <div class=" stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
-              <!-- TEAMaRATE -->
-              <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAFieldGoal + '%' }">
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center">
-            <p class=" w-[30px] font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeRebounds }}</p>
-            <div class="team relative w-[50px] p-[20px] bottom-1">
-              <div class=" stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
-              <!-- TEAMaRATE -->
-              <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamARebounds + '%' }">
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center">
-            <p class=" w-[30px] font-medium md:text-sm text-10px md:pr-2 pr-1">{{ teamAFreeThrow }}</p>
-            <div class="team relative w-[50px] p-[20px] bottom-1">
-              <div class=" stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
-              <!-- TEAMaRATE -->
-              <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAFreeThrowPercentage + '%' }">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="flex flex-col justify-around items-center  md:w-[180px] border-2 w-[100px]">
-          <!-- EN Need Show -->
-          <div class="font-medium md:text-sm text-xs">3分球得分</div>
-          <!-- ZH Need Show -->
-          <div class="font-medium md:text-sm text-xs">2分球得分</div>
 
-          <!-- EN Need Show -->
-          <div class="font-medium md:text-sm text-xs">Blocks</div>
-          <div class="font-medium md:text-sm text-xs">Foul</div>
-          <div class="font-medium md:text-sm text-xs">Steal</div>
-          <div class="font-medium md:text-sm text-xs">Turn Over</div>
-          <div class="font-medium md:text-sm text-xs">Field Goal</div>
-          <div class="font-medium md:text-sm text-xs">Rebound</div>
-
-          <!-- ZH and EN need Show -->
-          <div class=" flex justify-start items-center w-full">
-            <div class="font-medium md:text-sm text-xs w-1/3 md:pl-3 pl-1">{{ teamAFreeThrowPercentage + "%" }}</div>
-            <div class="font-medium md:text-sm text-xs  flex justify-center w-[80px]">罚球</div>
-            <div class="font-medium md:text-sm text-xs w-1/3 md:pl-6 pl-0"> {{ teamBFreeThrowPercentage + "%" }}</div>
-          </div>
-
-        </div>
-        <div class="flex flex-col justify-around items">
-          <div class="flex items-center">
-            <div class="bottom-1 team relative w-[50px] p-[20px]">
-              <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
-              <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBThreeGoal + '%' }">
-              </div>
-            </div>
-            <p class="w-[30px] font-medium md:text-sm text-10px pl-3 pr-1">{{ awayThreeGoal }}</p>
-          </div>
-          <div class="flex items-center">
-            <div class="bottom-1 team relative w-[50px] p-[20px]">
-              <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
-              <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBTwoGoal + '%' }">
-              </div>
-            </div>
-            <p class="w-[30px] font-medium md:text-sm text-10px pl-3 pr-1">{{ awayTwoGoal }}</p>
-          </div>
-          <div class="flex items-center">
-            <div class="bottom-1 team relative w-[50px] p-[20px]">
-              <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
-              <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBTotalBlocks + '%' }">
-              </div>
-            </div>
-            <p class="w-[30px] font-medium md:text-sm text-10px pl-3 pr-1">{{ awayBlocks }}</p>
-          </div>
-          <div class="flex items-center">
-            <div class="bottom-1 team relative w-[50px] p-[20px]">
-              <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
-              <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBTotalFouls + '%' }">
-              </div>
-            </div>
-            <p class="w-[30px] font-medium md:text-sm text-10px pl-3 pr-1">{{ awayNumOfFouls }}</p>
-          </div>
-          <div class="flex items-center">
-            <div class="bottom-1 team relative w-[50px] p-[20px]">
-              <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
-              <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBTotalSteal + '%' }">
-              </div>
-            </div>
-            <p class="w-[30px] font-medium md:text-sm text-10px pl-3 pr-1">{{ awaySteals }}</p>
-          </div>
-          <div class="flex items-center">
-            <div class="bottom-1 team relative w-[50px] p-[20px]">
-              <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
-              <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBTotalTurnOver + '%' }">
-              </div>
-            </div>
-            <p class="w-[30px] font-medium md:text-sm text-10px pl-3 pr-1">{{ awayTurnOvers }}</p>
-          </div>
-          <div class="flex items-center">
-            <div class="bottom-1 team relative w-[50px] p-[20px]">
-              <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
-              <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBFieldGoal + '%' }">
-              </div>
-            </div>
-            <p class="w-[30px] font-medium md:text-sm text-10px pl-3 pr-1">{{ awayFieldGoal }}</p>
-          </div>
-          <div class="flex items-center">
-            <div class="bottom-1 team relative w-[50px] p-[20px]">
-              <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
-              <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBRebounds + '%' }">
-              </div>
-            </div>
-            <p class="w-[30px] font-medium md:text-sm text-10px pl-3 pr-1">{{ awayRebound }}</p>
-          </div>
-          <div class="flex items-center">
-            <div class="bottom-1 team relative w-[50px] p-[20px]">
-              <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
-              <div class="stat-bar-right right-bar-color border_rightTB"
-                :style="{ width: teamBFreeThrowPercentage + '%' }">
-              </div>
-            </div>
-            <p class="w-[30px] font-medium md:text-sm text-10px pl-3 pr-1">{{ teamBFreeThrow }}</p>
-          </div>
-        </div>
-      </div>
-      <div class="flex flex-col justify-center py-4">
-        <!-- ZH Show -->
-        <div class="borderColor mb-3 flex justify-center items-center">
-          <span class="font-medium md:text-sm text-xs">暂停 {{ teamBTotalPause }}</span>
-        </div>
-        <!-- ZH Show -->
-        <div class="borderColor flex justify-center items-center">
-          <span class="font-medium md:text-sm text-xs">犯规 {{ awayNumOfFouls }}</span>
-        </div>
-      </div>
     </div>
   </div>
+  <div class="flex justify-center">
+    <div class="flex flex-col max-w-[1519px] w-full">
+      <span class="text-lg font-semibold pl-7 pt-3 pb-1">其他直播推荐</span>
+      <main class="live_wrapper border-2">
+        <div class="card-container flex justify-start pb-12">
+          <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4"
+            v-for="(livedata, index) in liveData.slice(0, 10)" :key="index">
+
+            <div @click="toLiveStream" class="card-body relative">
+              <img class="rounded-lg" :src="require(`@/assets/live/${livedata.image}.png`)" alt="Image" />
+              <!-- <img src="@/assets/live/LiveImage.png" class="" /> -->
+              <div class="gradient_bottom w-full flex absolute bottom-0 items-center p-1 pb-2">
+                <div class="pr-1 pl-1 z-10 w-10">
+                  <img :src="require(`@/assets/live/${livedata.streamerIcon}.png`)" alt="Image" />
+                  <!-- <img src="@/assets/live/defaultStreamerIcon.png" /> -->
+                </div>
+                <div class="flex flex-col pl-1 z-10 items-start">
+                  <div class="text-white font-medium text-sm">{{ livedata.liveTitle }}</div>
+                  <div class="text-10px font-medium text-white opacity-60">{{ livedata.streamerName }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+
+
+  <!-- <div class="flex justify-center">
+    <div class="max-w-[1519px] w-[100%] h-[587px] flex justify-between border-2 border-red-500">
+      <div class="max-w-[1037px] w-[100%] border-2 border-green-500">A</div>
+      <div class="chatContainer border-2"></div>
+    </div>
+  </div> -->
+
+
+
+
+
+
+
 
 
   <!-- {{ defendPlayerIndexInt }}
@@ -320,6 +181,20 @@ export default {
       FirstPlayerIndex: 0,
       SSFirstPlayerIndex: 0,
       teamTotal: 10,
+
+      liveData: [
+        { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
+        { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
+        { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
+        { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
+
+        { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+        { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+        { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+        { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+        { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+        { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+      ],
 
       homePlayer: [
         //FIRST, CAPTAIN, SHIRT NUMBER, POSITION, PLAYERNAME
@@ -651,152 +526,60 @@ export default {
 </script>
 
 <style scoped>
-@media (min-width: 300px) {
-  .team {
-    position: relative;
-    width: 70px;
-    padding: 20px;
-  }
-
-  .teamDown {
-    position: relative;
-    width: 50px;
-    padding: 20px;
-
-  }
-
-  .statusContainer {
-    width: 384px;
-  }
-
-  .box {
-    display: flex;
-    justify-content: flex-start;
-  }
-  
-  .borderColor {
-    width: 44px;
-    height: 32px;
-    background-color: #D7DDD7;
-    border-radius: 19px;
-  }
+.live_wrapper {
+  width: 100%;
+  max-width: 1519px;
+  margin: 0px auto;
 }
 
-@media (min-width: 500px) {
-  .team {
-    position: relative;
-    width: 100px;
-    padding: 20px;
-  }
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  row-gap: 50px;
+}
 
-  .teamDown {
-    position: relative;
-    width: 80px;
-    padding: 20px;
-
-  }
-
-  .statusContainer {
-    width: 615px;
-  }
-
-  .box {
-    display: flex;
-    justify-content: center;
-  }
-
-  .borderColor {
-    width: 64px;
-    height: 32px;
-    background-color: #D7DDD7;
-    border-radius: 19px;
-  }
+.card {
+  display: inline-block;
+  width: 287px;
+  height: 162px;
+  margin-bottom: -35px;
 
 }
 
-@media (min-width: 640px) {
-  .team {
-    position: relative;
-    width: 230px;
-    padding: 20px;
-  }
-
-  .teamDown {
-    position: relative;
-    width: 120px;
-    padding: 20px;
-
-  }
-
-  .statusContainer {
-    width: 100%;
-  }
-
-  .box {
-    display: flex;
-    justify-content: center;
-  }
-
-  .borderColor {
-    width: 84px;
-    height: 32px;
-    background-color: #D7DDD7;
-    border-radius: 19px;
-  }
-
+.card-body {
+  text-align: center;
+  height: 161px;
+  width: 100%;
+  cursor: pointer;
+  border: 100px;
 
 }
 
-.border_leftTB {
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
+.card-body img {
+  width: 100%;
 }
 
-.border_rightTB {
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-.totalGrayBar {
-  background-color: #D7DDD7;
-  /* Color for combined total shots */
-}
-
-/* .team {
-    position: relative;
-    width: 150px;
-    padding: 20px;
-  } */
-
-.stat-bar-right {
-  height: 9px;
-  width: 230px;
+/* .gradient_bottom::before {
+  content: '';
   position: absolute;
-  left: 0;
-  bottom: 8px;
-  margin-bottom: 5px;
-}
-
-/* 左边的Bar */
-.stat-bar-left {
-  height: 9px;
-  width: 230px;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
+} */
+.titleBox {
   position: absolute;
-  right: 0;
-  /* bottom: 8px;
-  margin-bottom: 5px; */
-
+  top: 0;
 }
 
-
-.left-bar-color {
-  background-color: #FDA24C;
+.card-body {
+  text-align: center;
+  height: 161px;
+  width: 100%;
+  cursor: pointer;
+  position: relative;
 }
-
-.right-bar-color {
-  background-color: #33BA53;
-}
-
 
 
 .backgroundImg {
@@ -812,26 +595,29 @@ export default {
 }
 
 .scroll-container {
-  position: absolute;
+  /* position: absolute; */
   width: 100%;
   overflow-x: auto;
-  overflow-y: visible;
+
 }
 
 .inner-container {
-  border: 2px solid red;
-  max-width: 892px;
+  max-width: 1519px;
   width: 100%;
+  height: 600px;
   box-sizing: border-box;
   text-align: center;
-  padding: 20px;
+  /* padding: 20px; */
   margin: 0 auto;
-  /* Center the inner container */
 }
 
-@media (max-width: 892px) {
-  .backgroundImg .inner-container {
-    min-width: 892px;
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 1519px) {
+  .inner-container {
+    min-width: 1519px;
     /* Set a minimum width to stop shrinking */
   }
 }

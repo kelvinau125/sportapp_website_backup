@@ -2,14 +2,14 @@
   <div class="bg-navColor  text-white py-1 px-10 shadow md:flex justify-between items-center">
     <div class=" md:pt-1 pt-2 flex items-center cursor-pointer">
       <img class="mr-2" alt="App logo" src="@/assets/topNav/appImage.png">
-      <div class="items-center md:static hidden">
+      <div class="items-center md:block hidden">
         <a class="md:text-lg text-base font-semibold md:relative " style="color: #33BA53; " href="/"> {{
           $t("PandaSport") }}</a>
       </div>
 
-      <div class="md:static relative">
+      <div class="md:static relative  w-[300px]">
         <ul style="z-index: 1000;" :class="openNav ? 'block' : 'hidden'"
-          class=" md:block md:items-center md:pr-0 pr-2 md:pl-5 pl-5 md:static absolute bg-navColor md:w-auto w-auto md:left-0 -left-[90px] md:top-14 top-14 ">
+          class="  md:block items-center md:pr-0 pr-2 md:pl-5 pl-5 md:static absolute bg-navColor md:w-auto w-auto md:left-0 -left-[90px] md:top-14 top-14 ">
           <li class=" md:inline-flex flex-col ml-4 my-2.5" v-for="link in Links" :key="link.link">
             <router-link :to="link.link"
               class="flex nav-button md:text-base text-sm font-normal hover:text-gray-200 text-white">{{
@@ -57,9 +57,9 @@
           </div>
 
 
-          <button class="md:flex cursor-pointer text-xl mr-2.5 items-center md:pl-3" @click="toggleDropdown">
+          <button class="pt-1 md:flex cursor-pointer text-xl mr-2.5 items-center md:pl-3" @click="toggleDropdown">
             <img :src="img"
-              class="max-w-[24px] md:static absolute md:right-0 right-10 md:top-0 bottom-9 hover:bg-blue-950"
+              class="max-w-[24px] md:static absolute md:right-0 right-10 md:top-0  bottom-9 hover:bg-blue-950"
               alt="defaultFootBall Image" />
             <img class="md:block hidden pl-1.5 py-1" src="@/assets/topNav/arrowDown.png" alt="Arrow Down">
             <!-- <p>{{ this.currentChannel }}</p> -->
@@ -104,71 +104,43 @@
   </div>
   <div class="md:flex items-center pl-1">
     <!-- login modal -->
-    <LoginModal 
-    :showModal="isLoginModalVisible" 
-    :closeModal="closeLoginModal" 
-    :showRegisterModal="showRegisterModal"
-    :showForgotPasswordModal="showForgotPasswordModal" />
+    <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal" :showRegisterModal="showRegisterModal"
+      :showForgotPasswordModal="showForgotPasswordModal" />
 
     <!-- register modal -->
-    <RegisterModal 
-    :showRegModal="isResgitserModalVisible" 
-    :closeRegModal="closeRegisterModal"
-    :showLoginModal="showLoginModal" 
-    :showOTPModal="showOTPModal" />
+    <RegisterModal :showRegModal="isResgitserModalVisible" :closeRegModal="closeRegisterModal"
+      :showLoginModal="showLoginModal" :showOTPModal="showOTPModal" />
 
-    <OTPModal 
-    :showOTPModal="isOTPModalVisible" 
-    :closeOTPModal="closeOTPModal" 
-    :showLoginModal="showLoginModal"
-    :showEditPasswordModal="showEditPasswordModal" />
+    <OTPModal :showOTPModal="isOTPModalVisible" :closeOTPModal="closeOTPModal" :showLoginModal="showLoginModal"
+      :showEditPasswordModal="showEditPasswordModal" />
 
-    <ForgotPasswordModal 
-    :showForgotPasswordModal="isForgotPasswordModalVisible"
-    :closeForgotPasswordModal="closeForgotPasswordModal" 
-    :showLoginModal="showLoginModal"
-    :showOTPModal="showOTPModal" />
+    <ForgotPasswordModal :showForgotPasswordModal="isForgotPasswordModalVisible"
+      :closeForgotPasswordModal="closeForgotPasswordModal" :showLoginModal="showLoginModal"
+      :showOTPModal="showOTPModal" />
 
-    <EditPassword 
-    :showEditPasswordModal="isEditPasswordModalVisible" 
-    :closeEditPasswordModal="closeEditPasswordModal"
-    :showLoginModal="showLoginModal" />
+    <EditPassword :showEditPasswordModal="isEditPasswordModalVisible" :closeEditPasswordModal="closeEditPasswordModal"
+      :showLoginModal="showLoginModal" />
 
-    <MyPage 
-    :showMyPageModal="isMyPageModalVisible" 
-    :closeMyPageModal="closeMyPageModal"
-    :showEditProfileModal="showEditProfileModal"
-    :showStreamDetailModal="showStreamDetailModal" />
+    <MyPage :showMyPageModal="isMyPageModalVisible" :closeMyPageModal="closeMyPageModal"
+      :showEditProfileModal="showEditProfileModal" :showStreamDetailModal="showStreamDetailModal" />
 
-    <EditProfile 
-    :showEditProfileModal="isEditProfileModalVisible" 
-    :closeEditProfileModal="closeEditProfileModal"
-    :gobackmypage="gobackmypage"
-    :showOTPModal="showOTPModal" 
-    :showEditNicknameModal="showEditNicknameModal" />
+    <EditProfile :showEditProfileModal="isEditProfileModalVisible" :closeEditProfileModal="closeEditProfileModal"
+      :gobackmypage="gobackmypage" :showOTPModal="showOTPModal" :showEditNicknameModal="showEditNicknameModal" />
 
-    <EditNicknameModal 
-    :showEditNicknameModal="isEditNicknameModalVisible"
-    :closeEditNicknameModal="closeEditNicknameModal" 
-    :showEditProfileModal="showEditProfileModal" />
+    <EditNicknameModal :showEditNicknameModal="isEditNicknameModalVisible"
+      :closeEditNicknameModal="closeEditNicknameModal" :showEditProfileModal="showEditProfileModal" />
 
-    <StreamDetailModal 
-    :showStreamDetailModal="isStreamDetailModalVisible"
-    :closeStreamDetailModal="closeStreamDetailModal"
-    :showStreamPreviewModal="showStreamPreviewModal"
-    :gobackmypage="gobackmypage"
-    @stream-details-ready="handleStreamDetailsReady"/>
+    <StreamDetailModal :showStreamDetailModal="isStreamDetailModalVisible"
+      :closeStreamDetailModal="closeStreamDetailModal" :showStreamPreviewModal="showStreamPreviewModal"
+      :gobackmypage="gobackmypage" @stream-details-ready="handleStreamDetailsReady" />
 
-    <StreamPreviewModal 
-    :showStreamPreviewModal="isStreamPreviewModalVisible"
-    :closeStreamPreviewModal="closeStreamPreviewModal" 
-    :gobackStreamDetail="gobackStreamDetail"
-    :streamDetailsData="streamDetailsData"/>
+    <StreamPreviewModal :showStreamPreviewModal="isStreamPreviewModalVisible"
+      :closeStreamPreviewModal="closeStreamPreviewModal" :gobackStreamDetail="gobackStreamDetail"
+      :streamDetailsData="streamDetailsData" />
 
     <!-- edit stream  -->
-    <EditStreamDetailModal 
-    :showEditStreamDetailModal="isEditStreamDetailsModalVisible"
-    :closeEditStreamDetailModal="closeEditStreamDetailModal" />
+    <EditStreamDetailModal :showEditStreamDetailModal="isEditStreamDetailsModalVisible"
+      :closeEditStreamDetailModal="closeEditStreamDetailModal" />
 
   </div>
 </template>
@@ -404,7 +376,7 @@ export default {
     },
 
     handleStreamDetailsReady(data) {
-        this.streamDetailsData = data;
+      this.streamDetailsData = data;
     },
 
     // Stream Preview Modal
@@ -471,16 +443,40 @@ export default {
 
 
 <style scoped>
-.nav-container {
-  width: 892px;
-  height: 56px;
+@media (min-width: 300px) {
+  .menu-list {
+    display : static;
+    position: absolute;
+  }
 }
 
-.live-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin-bottom: 5px;
+@media (min-width: 500px) {
+  .menu-list {
+    display : static;
+  }
+}
+
+@media (min-width: 640px) {
+  .menu-list {
+    display : block;
+    position: absolute;
+  }
+}
+
+@media (min-width: 760px) {
+  .menu-list {
+    display : block;
+    position: static;
+
+  }
+
+}
+
+@media (min-width: 1024px) {
+  .menu-list {
+    display : static;
+  }
+
 }
 
 .nav-button {
