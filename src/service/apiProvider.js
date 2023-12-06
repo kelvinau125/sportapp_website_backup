@@ -309,9 +309,11 @@ export async function updateProfilePic(file) {
 export async function pushImageToServer(usertToken, imageToken) {
   const url = baseUrl + updateHeadUrl + usertToken;
 
-  const imageTokenUrl =
-    "https://live-stream-1321239144.cos.ap-singapore.myqcloud.com/head/" +
-    imageToken;
+  // const imageTokenUrl =
+  //   "https://live-stream-1321239144.cos.ap-singapore.myqcloud.com/head/" +
+  //   imageToken;
+
+  const imageTokenUrl = imageToken;
 
   const apiDetails = {
     head: imageTokenUrl,

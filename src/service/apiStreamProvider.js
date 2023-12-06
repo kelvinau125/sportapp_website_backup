@@ -40,11 +40,17 @@ export async function createStream(time, host, code, cover, title) {
  
     const url = baseUrl + createStreamUrl
 
+    // pushImageToServer;
+    const isFinished = await updateStreamCover(cover);
+
+    console.log("------------------------")
+    console.log(isFinished)
+
     const apiDetails = {
         createTime: time,
         pushHost: host,
         pushCode: code,
-        cover: cover,
+        cover: isFinished,
         title: title
     };    
   
@@ -52,18 +58,17 @@ export async function createStream(time, host, code, cover, title) {
       const response = await postRequest(url, apiDetails);
   
       const code = response.code;
-      const data = response.data;
   
       if (code === 0) {
-        return data;
+        return true;
       }else {
         console.log(`get createStream Unsuccessfully: ${code}`);
-        return [];
+        return false;
       }
   
     } catch (e) {
       console.log(`Unsuccessful in provider: ${e}`);
-      return [];
+      return false;
     }
   }
 
@@ -72,6 +77,7 @@ export async function updateStreamCover(file) {
   
     const url = baseUrl + uploadStreamFileUrl;
   
+    console.log(url);
     console.log(file);
   
     try {

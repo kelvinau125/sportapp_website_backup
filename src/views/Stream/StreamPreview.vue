@@ -11,16 +11,16 @@
 
                 <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4">
                     <div @click="toLiveStream" class="card-body relative">
-                    <div class="">
-                        <img class="" src="@/assets/live/LiveImage.png" alt="Image" />
+                    <div class="w-full h-full border-2">
+                        <img class="w-full h-full border-2" :src= streamDetailsData.imageUrl alt="Image" />
                     </div>
                     <div class="gradient_bottom w-full flex absolute bottom-0 items-center p-1 pb-2">
                         <div class="pr-1 pl-1 z-10 w-10 pb-1.5">
-                        <img src="@/assets/ProfilePicture.png" alt="Image" />
+                        <img :src= avatar class="rounded-full border-2 border-white" alt="Image" style="border-radius:20px "/>
                         </div>
                         <div class="flex flex-col pl-1 z-10 items-start pb-1.5">
-                        <div class="text-white font-normal text-sm">hello</div>
-                        <div class="text-10px font-bold text-white opacity-60">limin</div>
+                        <div class="text-white font-normal text-sm">{{ streamDetailsData.title }}</div>
+                        <div class="text-10px font-bold text-white opacity-60">{{ nickname }}</div>
                         </div>
                     </div>
                     </div>
@@ -28,12 +28,12 @@
                 
                 <div class="flex flex-col items-start pt-5 pl-10">
                     <p class="text-lg font-normal mt-2">直播时间</p>
-                    <p class="text-gray-400 text-sm font-normal mt-2 h-16 break-all text-left">2023年12月4日 上午10:50</p>
+                    <p class="text-gray-400 text-sm font-normal mt-2 h-16 break-all text-left">{{ streamDetailsData.time }}</p>
                 </div>
             </div>
 
             <div class="pt-8">
-                <ButtonPress @click="showStreamDetailModal()" class="w-screen font-bold" style="height: 56px;">开始直播</ButtonPress>
+                <ButtonPress @click="startStream()" class="w-screen font-bold" style="height: 56px;">开始直播</ButtonPress>
                 <div class="flex justify-center" style="padding: 8px" />
             </div>
         </div>
@@ -50,6 +50,9 @@ import VueCookies from 'vue-cookies';
 
 // import the remove cookie function
 import { removeCookie } from '@/service/cookie';
+
+// import { createStream } from '@/service/apiStreamProvider.js';
+import { updateStreamCover } from '@/service/apiStreamProvider.js';
 
 export default {
     components: {
@@ -70,14 +73,30 @@ export default {
         showStreamPreviewModal : Boolean,
         closeStreamPreviewModal: Function,
         gobackStreamDetail: Function,
+        streamDetailsData: Object,
     },
 
     methods: {
         logout() {
             removeCookie();
             window.location.reload();
+        },
+        async startStream(){
+            // const result = await createStream(this.streamDetailsData.time, this.streamDetailsData.host, this.streamDetailsData.code, this.streamDetailsData.imageUrl, this.streamDetailsData.title);
+            
+            const result = await updateStreamCover(this.streamDetailsData.imageUrl);
+
+            console.log(result)
+
+            if (result) {
+                // close the modal and refresh the page
+                // this.closeStreamPreviewModal();
+                // window.location.reload();
+            } else {
+                console.log("error to create stream")
+            }
         }
-    }
+    },
 
 }
 </script>

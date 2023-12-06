@@ -65,6 +65,8 @@ import Clipboard from 'clipboard';
 
 import { getPushStreamUrl} from '@/service/apiStreamProvider.js';
 
+import { updateStreamCover } from '@/service/apiStreamProvider.js';
+
 export default {
     components: {
         ButtonPress,
@@ -100,6 +102,8 @@ export default {
     methods: {
         handleImageUpload(event) {
             const file = event.target.files[0];
+             updateStreamCover(file);
+
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
@@ -144,11 +148,17 @@ export default {
         },
         createStream(){
             this.showStreamPreviewModal()
-            console.log(this.title)
-            console.log(this.imageUrl)
-            console.log(this.code)
-            console.log(this.host)
-            console.log(this.time)
+
+            // updateStreamCover(this.file);
+
+            // Emit an event to notify the parent component
+            this.$emit('stream-details-ready', {
+                title: this.title,
+                imageUrl: this.imageUrl,
+                code: this.code,
+                host: this.host,
+                time: this.time,
+            });
 
         }
     }

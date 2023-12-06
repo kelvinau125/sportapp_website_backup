@@ -155,12 +155,14 @@
     :showStreamDetailModal="isStreamDetailModalVisible"
     :closeStreamDetailModal="closeStreamDetailModal"
     :showStreamPreviewModal="showStreamPreviewModal"
-    :gobackmypage="gobackmypage"/>
+    :gobackmypage="gobackmypage"
+    @stream-details-ready="handleStreamDetailsReady"/>
 
     <StreamPreviewModal 
     :showStreamPreviewModal="isStreamPreviewModalVisible"
     :closeStreamPreviewModal="closeStreamPreviewModal" 
-    :gobackStreamDetail="gobackStreamDetail"/>
+    :gobackStreamDetail="gobackStreamDetail"
+    :streamDetailsData="streamDetailsData"/>
 
   </div>
 </template>
@@ -235,6 +237,7 @@ export default {
       isStreamPreviewModalVisible: ref(false),
       openNav: ref(false),
       isDropdownOpenLanguage: ref(false),
+      streamDetailsData: {},
     };
   },
 
@@ -383,6 +386,10 @@ export default {
 
     closeStreamDetailModal() {
       this.isStreamDetailModalVisible = false;
+    },
+
+    handleStreamDetailsReady(data) {
+        this.streamDetailsData = data;
     },
 
     // Stream Preview Modal
