@@ -108,6 +108,7 @@
         :tournamentID="this.TournamentID"
         :homeFormation="homeFormation"
       />
+      <BasketballTournamentStatus/>
     </div>
   </div>
 
@@ -151,37 +152,6 @@
     </div>
   </div>
 
-  <!-- <div style="border: 1px solid red" class="flex flex-col pt-8">
-    <h2 class="text-headerFont font-headerWeight">{{ $t("Live") }}</h2>
-    <div>
-      <div class="flex pt-3 items-center">
-        <img src="@/assets//tournament/streamIcon.png" />
-        <span class="pl-2 font-normal text-sm">{{ $t("Anchor of this event") }}</span>
-      </div>
-      <div class="py-3">
-        <LiveList />
-      </div>
-
-
-    </div>
-    <div class="">
-      <div class="flex items-center">
-        <img src="@/assets//tournament/streamIcon.png" />
-        <span class="pl-2 font-normal text-sm">{{ $t("Live match") }}</span>
-      </div>
-      <div class="pb-2">
-        <div class="flex justify-start px-2 ">
-          <router-link :to="address.addressLink" v-for="address in liveAddress" :key="address.liveAddress">
-            <div class="flex items-center py-3">
-              <div class="live_border">
-                <p class="px-4 py-2 font-medium text-sm">{{ address.liveAddress }}</p>
-              </div>
-            </div>
-          </router-link>
-        </div>
-      </div>
-    </div>
-  </div> -->
   <div class="flex justify-center pb-10">
     <div class="w-[892px]">
       <h2 class="text-headerFont font-headerWeight">{{ $t("Line Up") }}</h2>
@@ -245,6 +215,7 @@ import LineUp from "@/views/Tournament/tournamentLineUp.vue";
 import TournamentStatus from "@/views/Tournament/tournamentStatus.vue";
 import TournamentSubstitue from "./TournamentSubstitue.vue";
 import BasketballTournament from "@/components/BasketballTournament.vue";
+import BasketballTournamentStatus from "@/views/Tournament/basketballTournamentStatus.vue"
 
 export default {
   components: {
@@ -253,6 +224,7 @@ export default {
     TournamentStatus,
     TournamentSubstitue,
     BasketballTournament,
+    BasketballTournamentStatus,
   },
   data() {
     return {

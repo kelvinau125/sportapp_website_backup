@@ -41,13 +41,13 @@
         <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between">
           <div class="md:flex items-center">
             <div class="dropdown-button language-dropdown md:pt-2.5 md:pl-2.5 " style="width: 100px; ">
-              <button class="language-toggle md:static absolute md:right-0 right-20 md:top-0 -top-8 "
+              <button class="language-toggle md:static absolute md:right-10 right-20 md:top-0 -top-8 "
                 @click="toggleDropdownLanguage">
                 {{ $t($i18n.locale) }}
                 <span> &#9662;</span>
               </button>
               <div v-show="isDropdownOpenLanguage"
-                class="language-options md:hidden absolute md:right-[210px] right-20 md:top-[100%] top-5">
+                class="language-options md:hidden absolute md:right-[140px] right-[90px] md:top-[100%] top-0">
                 <button v-for="locale in $i18n.availableLocales" :key="locale" @click="languageChange(locale)"
                   class="languages">
                   {{ $t(locale) }}
