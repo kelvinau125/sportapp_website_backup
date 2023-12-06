@@ -88,6 +88,7 @@
     <div class="w-full md:w-[892px] flex flex-col">
       <h2 class="pt-6 text-headerFont font-headerWeight">{{ $t("Tournament Status") }}</h2>
       <TournamentStatus class="pt-5" :tournamentID="this.TournamentID" :homeFormation="homeFormation" />
+      <BasketballTournamentStatus/>
     </div>
   </div>
 
@@ -188,6 +189,7 @@ import LiveList from '@/components/ListOfLive.vue'
 import LineUp from '@/views/Tournament/tournamentLineUp.vue'
 import TournamentStatus from '@/views/Tournament/tournamentStatus.vue'
 import TournamentSubstitue from './TournamentSubstitue.vue';
+import BasketballTournamentStatus from '@/views/Tournament/basketballTournamentStatus.vue'
 
 export default {
   components: {
@@ -195,6 +197,7 @@ export default {
     LineUp,
     TournamentStatus,
     TournamentSubstitue,
+    BasketballTournamentStatus,
   },
   data() {
     return {
