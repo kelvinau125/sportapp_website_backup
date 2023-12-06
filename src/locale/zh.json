@@ -93,6 +93,7 @@
     "Broadcasting" : "我要开播",
 
     "ZH": "中文",
+    "EN": "英文",
 
     "Player Name": "球员姓名",
     "Minutes": "时间",
@@ -101,8 +102,6 @@
     "Three Pointer": "三分",
     "Turnover": "失误",
     "Block Shot": "盖帽",
-
-    "EN": "英文",
 
     "Start preview": "开播预览",
     "Live broadcast time": "直播时间",
