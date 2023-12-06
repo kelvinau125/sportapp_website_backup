@@ -94,6 +94,9 @@
               <button v-if="!loggedIn" class="px-1" @click="showLoginModal">{{ $t("Login") }}</button>
               <button v-if="loggedIn" class="px-1" @click="showMyPageModal">{{ $t("MyPage") }}</button>
               <button v-if="loggedIn" @click="logout" class="block text-white">{{ $t("Logout") }}</button>
+
+              <!-- editstream -->
+              <button v-if="loggedIn" @click="showEditStreamDetailModal()" class="block text-white">EditStream</button>
             </div>
           </div>
         </div>
@@ -164,6 +167,11 @@
     :gobackStreamDetail="gobackStreamDetail"
     :streamDetailsData="streamDetailsData"/>
 
+    <!-- edit stream  -->
+    <EditStreamDetailModal 
+    :showEditStreamDetailModal="isEditStreamDetailsModalVisible"
+    :closeEditStreamDetailModal="closeEditStreamDetailModal" />
+
   </div>
 </template>
 
@@ -188,6 +196,9 @@ import EditNicknameModal from '@/views/MyProfile/EditUserNickname.vue';
 import StreamDetailModal from '@/views/Stream/StreamDetail.vue';
 import StreamPreviewModal from '@/views/Stream/StreamPreview.vue';
 
+//editstream
+import EditStreamDetailModal from '@/views/Stream/EditStreamDetail.vue';
+
 export default {
   components: {
     LoginModal,
@@ -200,6 +211,9 @@ export default {
     EditNicknameModal,
     StreamDetailModal,
     StreamPreviewModal,
+
+    //editstream
+    EditStreamDetailModal
   },
 
   computed: {
@@ -238,6 +252,9 @@ export default {
       openNav: ref(false),
       isDropdownOpenLanguage: ref(false),
       streamDetailsData: {},
+
+      // edit stream
+      isEditStreamDetailsModalVisible: ref(false),
     };
   },
 
@@ -420,6 +437,17 @@ export default {
       localStorage.setItem('locale', locale);
       window.location.reload();
     },
+
+
+    // edit stream
+    showEditStreamDetailModal() {
+      this.isEditStreamDetailsModalVisible = true;
+    },
+
+    closeEditStreamDetailModal() {
+      this.isEditStreamDetailsModalVisible = false;
+    },
+
   },
 
   mounted() {
