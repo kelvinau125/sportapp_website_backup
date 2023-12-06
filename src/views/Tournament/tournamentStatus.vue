@@ -20,7 +20,7 @@
         <div class="flex items-center">
           <div class="flex items-center">
             <p class=" font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homePossessionRate + '%' }}</p>
-            <div class="team">
+            <div class="team relative w-[50px] p-[20px]">
               <div class="stat-bar-left totalGrayBar border_leftTB " :style="{ width: 100 + '%' }"></div>
               <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAPossessionRate + '%' }"></div>
             </div>
@@ -29,7 +29,7 @@
             <span class="md:text-sm text-xs font-medium md:px-2.5 px-1">{{ $t("Possession") }}</span>
           </div>
           <div class="flex items-center">
-            <div class="team">
+            <div class="team relative w-[50px] p-[20px]">
               <div class="stat-bar-right totalGrayBar border_rightTB " style="width: 100%;"></div>
               <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBPossessionRate + '%' }">
               </div>
@@ -59,7 +59,7 @@
           <div class="">
             <div class="flex items-center">
               <span class="font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeAttackNum }}</span>
-              <div class="teamDown">
+              <div class="teamDown relative w-[50px] p-[20px]">
                 <div class="stat-bar-left totalGrayBar border_leftTB" style="width: 100%;"></div>
 
                 <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAAttackNumber + '%' }"></div>
@@ -67,7 +67,7 @@
             </div>
             <div class="flex items-center">
               <span class="font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeAttackDangerNum }}</span>
-              <div class="teamDown">
+              <div class="teamDown relative w-[50px] p-[20px]">
                 <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
                 <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamADangerNum + '%' }"></div>
               </div>
@@ -79,7 +79,7 @@
           </div>
           <div class="">
             <div class="flex items-center">
-              <div class="teamDown">
+              <div class="teamDown relative w-[50px] p-[20px]">
                 <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
 
                 <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBShotPercentage + '%' }">
@@ -88,7 +88,7 @@
               <span class="md:pl-2.5 pl-1 font-medium md:text-sm text-10px">{{ awayAttackNum }}</span>
             </div>
             <div class="flex items-center">
-              <div class="teamDown">
+              <div class="teamDown relative w-[50px] p-[20px]">
                 <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
 
                 <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBDangerNum + '%' }"></div>
@@ -107,7 +107,7 @@
                 <p class="font-medium md:text-sm text-10px md:pr-2 pr-0.5">{{ '(' + homeShootGoalNum + ')' }}</p>
 
               </div>
-              <div class="teamDown">
+              <div class="teamDown relative w-[50px] p-[20px]">
                 <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
                 <div class="stat-bar-left total-shots border_leftTB" :style="{ width: teamAtotalShotPercent + '%' }">
                 </div>
@@ -117,7 +117,7 @@
             </div>
             <div class="flex items-center">
               <span class="font-medium md:text-sm text-10px px-3">{{ homePenaltyNum }}</span>
-              <div class="teamDown">
+              <div class="teamDown relative w-[50px] p-[20px]">
                 <div class="stat-bar-left totalGrayBar border_leftTB " style="width: 100% "></div>
                 <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAPenaltyNum + '%' }"></div>
               </div>
@@ -132,7 +132,7 @@
           </div>
           <div class="">
             <div class="flex items-center">
-              <div class="teamDown">
+              <div class="teamDown relative w-[50px] p-[20px]">
                 <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
                 <div class="stat-bar-right total-shotsB border_rightTB" :style="{ width: teamBtotalShotPercent + '%' }">
                 </div>
@@ -146,7 +146,7 @@
               </div>
             </div>
             <div class="flex items-center">
-              <div class="teamDown ">
+              <div class="teamDown relative w-[50px] p-[20px] ">
                 <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%;"></div>
 
                 <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBPenaltyNum + '%' }">
