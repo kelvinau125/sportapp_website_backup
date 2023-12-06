@@ -81,6 +81,8 @@
         <span class="pt-4 text-center text-xs font-medium text-white">{{ $t("All fixtures") }}</span>
       </div>
     </div>
+
+   
   </div>
 </template>
 
@@ -93,6 +95,7 @@ import { getMatchTodaybyCompName, getMatchByDate } from '@/service/apiFootBallMa
 import { getBasketBallMatchTodaybyCompName, getBasketballMatchByDate } from '@/service/apiBasketBallMatchProvider.js';
 
 import { getLiveStreamBookmark, liveStreamSaveBookmark, deleteStreamSaveBookmark } from '@/service/apiBookmarkProvider.js';
+
 
 export default {
   data() {

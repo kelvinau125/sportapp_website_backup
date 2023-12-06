@@ -95,6 +95,14 @@
     "ZH": "Chinese",
     "EN": "English",
 
+    "Player Name": "Player Name",
+    "Minutes": "Time",
+    "Scores": "Score",
+    "Assist": "Assist",
+    "Three Pointer": "Three Pointer",
+    "Turnover": "Turnover",
+    "Block Shot": "Block Shot",
+
     "Start preview": "Start preview",
     "Live broadcast time": "Live broadcast time",
     "Start live broadcast": "Start live broadcast",

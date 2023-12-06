@@ -65,6 +65,7 @@ export async function getFootballLineup(matchId, isCN) {
         return data;
       }else {
         console.log(`get footballlineup Unsuccessfully: ${code}`);
+        
         return [];
       }
   

@@ -246,6 +246,7 @@ export default {
       this.homeMatchLineUpList = this.getTournamentLineup['homeMatchLineUpList'];
       this.awayMatchLineList = this.getTournamentLineup['awayMatchLineList'];
 
+
       this.generateLists();
       if (this.homeMatchLineUpList !== null) {
         let lineupList = [...this.homeMatchLineUpList];
