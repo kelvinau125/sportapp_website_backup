@@ -7,15 +7,15 @@
             <ReverseButton @click="gobackmypage"> </ReverseButton>
             <!-- Above -->
             <div>
-                <h2 class="text-xl font-bold" style="padding: 20px">我要开播</h2>
+                <h2 class="text-xl font-bold" style="padding: 20px">{{ $t("Start broadcasting") }}</h2>
 
                 <div class="form-group flex">
-                    <p class="text-lg font-normal mt-2 w-16 flex items-start">标题</p>
-                    <input placeholder="请输入标题"  type="text" v-model="title" required />
+                    <p class="text-lg font-normal mt-2 w-16 flex items-start">{{ $t("Title") }}</p>
+                    <input :placeholder="$t('Please enter a title')" type="text" v-model="title" required />
                 </div>
 
                 <div class="flex">
-                    <p class="text-lg font-normal mt-2 w-14 flex items-start">封面</p>
+                    <p class="text-lg font-normal mt-2 w-14 flex items-start">{{ $t("Cover") }}</p>
 
                     <div class="flex flex-col items-start">
                         <label class="bg-white rounded flex items-center justify-center cursor-pointer" style="width: 117px; height: 67px; border: 1px solid #ccc;">
@@ -31,7 +31,7 @@
 
                 <div class="flex flex-col items-start pt-5">
                     <div class="flex items-center">
-                        <p class="text-lg font-normal mt-2">服务器地址</p>
+                        <p class="text-lg font-normal mt-2">{{ $t("Server Address") }}</p>
                         <img src="@/assets/copy.png" class="ml-2 mt-2 cursor-pointer" style="width: 20px; height: 20px;" @click="copyToClipboard(true)"/>
                     </div>
                     <p class="text-gray-400 text-sm font-normal mt-2 cursor-pointer" @click="copyToClipboard(true)">{{ this.host }}</p>
@@ -40,7 +40,7 @@
                 
                 <div class="flex flex-col items-start pt-5">
                     <div class="flex items-center">
-                        <p class="text-lg font-normal mt-2">推流码</p>
+                        <p class="text-lg font-normal mt-2">{{ $t("Push streaming code") }}</p>
                         <img src="@/assets/copy.png" class="ml-2 mt-2 cursor-pointer" style="width: 20px; height: 20px;"  @click="copyToClipboard(false)" />
                     </div>
                     <p class="text-gray-400 text-sm font-normal mt-2 h-16 break-all text-left cursor-pointer" @click="copyToClipboard(false)">{{ this.code }}</p>
@@ -54,7 +54,7 @@
 
 
             <div class="pt-8">
-                <ButtonPress @click="createStream()" class="w-screen font-bold" style="height: 56px;">开播浏览</ButtonPress>
+                <ButtonPress @click="createStream()" class="w-screen font-bold" style="height: 56px;">{{ $t("Start browsing") }}</ButtonPress>
                 <div class="flex justify-center" style="padding: 8px" />
             </div>
         </div>

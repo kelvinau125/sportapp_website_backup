@@ -7,7 +7,7 @@
             <ReverseButton @click="gobackStreamDetail"> </ReverseButton>
             <!-- Above -->
             <div>
-                <h2 class="text-xl font-bold" style="padding: 20px">开播预览</h2>
+                <h2 class="text-xl font-bold" style="padding: 20px">{{ $t("Start preview") }}</h2>
 
                 <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4">
                     <div @click="toLiveStream" class="card-body relative">
@@ -27,13 +27,13 @@
                 </div>
                 
                 <div class="flex flex-col items-start pt-5 pl-10">
-                    <p class="text-lg font-normal mt-2">直播时间</p>
+                    <p class="text-lg font-normal mt-2">{{ $t("Live broadcast time") }}</p>
                     <p class="text-gray-400 text-sm font-normal mt-2 h-16 break-all text-left">{{ streamDetailsData.time }}</p>
                 </div>
             </div>
 
             <div class="pt-8">
-                <ButtonPress @click="startStream()" class="w-screen font-bold" style="height: 56px;">开始直播</ButtonPress>
+                <ButtonPress @click="startStream()" class="w-screen font-bold" style="height: 56px;">{{ $t("Start live broadcast") }}</ButtonPress>
                 <div class="flex justify-center" style="padding: 8px" />
             </div>
         </div>

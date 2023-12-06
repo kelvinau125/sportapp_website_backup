@@ -93,5 +93,18 @@
     "Broadcasting" : "我要开播",
 
     "ZH": "中文",
-    "EN": "英文"
+    "EN": "英文",
+
+    "Start preview": "开播预览",
+    "Live broadcast time": "直播时间",
+    "Start live broadcast": "开始直播",
+    "Start broadcasting": "我要开播",
+    "Title": "标题",
+    "Please enter a title": "请输入标题",
+    "Cover": "封面",
+    "Server Address": "服务器地址",
+    "Push streaming code": "推流码",
+    "Start browsing": "开播浏览",
+    "Live broadcast settings": "直播设置",
+    "Confirm changes": "确定更改"
 }

@@ -63,7 +63,7 @@
             </div>
 
             <div>
-                <ButtonPress @click="logout" class="w-screen border-2 bg-transparent border-green-400 text-green-300 font-bold hover:bg-green-300 duration-300" style="height: 56px">{{ $t("Logout") }}</ButtonPress>
+                <ButtonPress @click="logout" class="w-screen border-2 bg-transparent border-green-400 text-green-400 font-bold hover:bg-green-300 duration-300" style="height: 56px">{{ $t("Logout") }}</ButtonPress>
                 <div class="flex justify-center" style="padding: 20px" />
             </div>
 
