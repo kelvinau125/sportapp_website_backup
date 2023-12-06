@@ -92,6 +92,9 @@
               <button v-if="!loggedIn" class="px-1" @click="showLoginModal">{{ $t("Login") }}</button>
               <button v-if="loggedIn" class="px-1" @click="showMyPageModal">{{ $t("MyPage") }}</button>
               <button v-if="loggedIn" @click="logout" class="block text-white">{{ $t("Logout") }}</button>
+
+              <!-- editstream -->
+              <button v-if="loggedIn" @click="showEditStreamDetailModal()" class="block text-white">EditStream</button>
             </div>
           </div>
         </div>
@@ -101,31 +104,72 @@
   </div>
   <div class="md:flex items-center pl-1">
     <!-- login modal -->
-    <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal" :showRegisterModal="showRegisterModal"
-      :showForgotPasswordModal="showForgotPasswordModal" />
+    <LoginModal 
+    :showModal="isLoginModalVisible" 
+    :closeModal="closeLoginModal" 
+    :showRegisterModal="showRegisterModal"
+    :showForgotPasswordModal="showForgotPasswordModal" />
 
     <!-- register modal -->
-    <RegisterModal :showRegModal="isResgitserModalVisible" :closeRegModal="closeRegisterModal"
-      :showLoginModal="showLoginModal" :showOTPModal="showOTPModal" />
+    <RegisterModal 
+    :showRegModal="isResgitserModalVisible" 
+    :closeRegModal="closeRegisterModal"
+    :showLoginModal="showLoginModal" 
+    :showOTPModal="showOTPModal" />
 
-    <OTPModal :showOTPModal="isOTPModalVisible" :closeOTPModal="closeOTPModal" :showLoginModal="showLoginModal"
-      :showEditPasswordModal="showEditPasswordModal" />
+    <OTPModal 
+    :showOTPModal="isOTPModalVisible" 
+    :closeOTPModal="closeOTPModal" 
+    :showLoginModal="showLoginModal"
+    :showEditPasswordModal="showEditPasswordModal" />
 
-    <ForgotPasswordModal :showForgotPasswordModal="isForgotPasswordModalVisible"
-      :closeForgotPasswordModal="closeForgotPasswordModal" :showLoginModal="showLoginModal"
-      :showOTPModal="showOTPModal" />
+    <ForgotPasswordModal 
+    :showForgotPasswordModal="isForgotPasswordModalVisible"
+    :closeForgotPasswordModal="closeForgotPasswordModal" 
+    :showLoginModal="showLoginModal"
+    :showOTPModal="showOTPModal" />
 
-    <EditPassword :showEditPasswordModal="isEditPasswordModalVisible" :closeEditPasswordModal="closeEditPasswordModal"
-      :showLoginModal="showLoginModal" />
+    <EditPassword 
+    :showEditPasswordModal="isEditPasswordModalVisible" 
+    :closeEditPasswordModal="closeEditPasswordModal"
+    :showLoginModal="showLoginModal" />
 
-    <MyPage :showMyPageModal="isMyPageModalVisible" :closeMyPageModal="closeMyPageModal"
-      :showEditProfileModal="showEditProfileModal" />
+    <MyPage 
+    :showMyPageModal="isMyPageModalVisible" 
+    :closeMyPageModal="closeMyPageModal"
+    :showEditProfileModal="showEditProfileModal"
+    :showStreamDetailModal="showStreamDetailModal" />
 
-    <EditProfile :showEditProfileModal="isEditProfileModalVisible" :gobackmypage="gobackmypage"
-      :showOTPModal="showOTPModal" :showEditNicknameModal="showEditNicknameModal" />
+    <EditProfile 
+    :showEditProfileModal="isEditProfileModalVisible" 
+    :closeEditProfileModal="closeEditProfileModal"
+    :gobackmypage="gobackmypage"
+    :showOTPModal="showOTPModal" 
+    :showEditNicknameModal="showEditNicknameModal" />
 
-    <EditNicknameModal :showEditNicknameModal="isEditNicknameModalVisible"
-      :closeEditNicknameModal="closeEditNicknameModal" :showEditProfileModal="showEditProfileModal" />
+    <EditNicknameModal 
+    :showEditNicknameModal="isEditNicknameModalVisible"
+    :closeEditNicknameModal="closeEditNicknameModal" 
+    :showEditProfileModal="showEditProfileModal" />
+
+    <StreamDetailModal 
+    :showStreamDetailModal="isStreamDetailModalVisible"
+    :closeStreamDetailModal="closeStreamDetailModal"
+    :showStreamPreviewModal="showStreamPreviewModal"
+    :gobackmypage="gobackmypage"
+    @stream-details-ready="handleStreamDetailsReady"/>
+
+    <StreamPreviewModal 
+    :showStreamPreviewModal="isStreamPreviewModalVisible"
+    :closeStreamPreviewModal="closeStreamPreviewModal" 
+    :gobackStreamDetail="gobackStreamDetail"
+    :streamDetailsData="streamDetailsData"/>
+
+    <!-- edit stream  -->
+    <EditStreamDetailModal 
+    :showEditStreamDetailModal="isEditStreamDetailsModalVisible"
+    :closeEditStreamDetailModal="closeEditStreamDetailModal" />
+
   </div>
 </template>
 
@@ -147,6 +191,11 @@ import EditPassword from '@/views/MyProfile/EditPassword.vue';
 import MyPage from '@/views/MyProfile/MyPage.vue';
 import EditProfile from '@/views/MyProfile/EditProfile.vue';
 import EditNicknameModal from '@/views/MyProfile/EditUserNickname.vue';
+import StreamDetailModal from '@/views/Stream/StreamDetail.vue';
+import StreamPreviewModal from '@/views/Stream/StreamPreview.vue';
+
+//editstream
+import EditStreamDetailModal from '@/views/Stream/EditStreamDetail.vue';
 
 export default {
   components: {
@@ -158,6 +207,11 @@ export default {
     MyPage,
     EditProfile,
     EditNicknameModal,
+    StreamDetailModal,
+    StreamPreviewModal,
+
+    //editstream
+    EditStreamDetailModal
   },
 
   computed: {
@@ -191,8 +245,14 @@ export default {
       isMyPageModalVisible: ref(false),
       isEditProfileModalVisible: ref(false),
       isEditNicknameModalVisible: ref(false),
-      openNav: ref(true),
+      isStreamDetailModalVisible: ref(false),
+      isStreamPreviewModalVisible: ref(false),
+      openNav: ref(false),
       isDropdownOpenLanguage: ref(false),
+      streamDetailsData: {},
+
+      // edit stream
+      isEditStreamDetailsModalVisible: ref(false),
     };
   },
 
@@ -313,9 +373,14 @@ export default {
       this.isEditProfileModalVisible = true;
     },
 
+    closeEditProfileModal() {
+      this.isEditProfileModalVisible = false;
+    },
+
     gobackmypage() {
       this.isMyPageModalVisible = true;
       this.isEditProfileModalVisible = false;
+      this.isStreamDetailModalVisible = false;
     },
 
     // Edit Nickname Modal
@@ -326,6 +391,35 @@ export default {
 
     closeEditNicknameModal() {
       this.isEditNicknameModalVisible = false;
+    },
+
+    // Stream Detail Modal
+    showStreamDetailModal() {
+      this.isStreamDetailModalVisible = true;
+      this.isMyPageModalVisible = false;
+    },
+
+    closeStreamDetailModal() {
+      this.isStreamDetailModalVisible = false;
+    },
+
+    handleStreamDetailsReady(data) {
+        this.streamDetailsData = data;
+    },
+
+    // Stream Preview Modal
+    showStreamPreviewModal() {
+      this.isStreamPreviewModalVisible = true;
+      this.isStreamDetailModalVisible = false;
+    },
+
+    closeStreamPreviewModal() {
+      this.isStreamPreviewModalVisible = false;
+    },
+
+    gobackStreamDetail() {
+      this.isStreamPreviewModalVisible = false;
+      this.isStreamDetailModalVisible = true;
     },
 
     toggleDropdownLanguage() {
@@ -341,6 +435,17 @@ export default {
       localStorage.setItem('locale', locale);
       window.location.reload();
     },
+
+
+    // edit stream
+    showEditStreamDetailModal() {
+      this.isEditStreamDetailsModalVisible = true;
+    },
+
+    closeEditStreamDetailModal() {
+      this.isEditStreamDetailsModalVisible = false;
+    },
+
   },
 
   mounted() {

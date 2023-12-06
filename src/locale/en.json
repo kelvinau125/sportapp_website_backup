@@ -93,6 +93,19 @@
     "Broadcasting" : "Start Streaming",
 
     "ZH": "Chinese",
-    "EN": "English"
+    "EN": "English",
+
+    "Start preview": "Start preview",
+    "Live broadcast time": "Live broadcast time",
+    "Start live broadcast": "Start live broadcast",
+    "Start broadcasting": "Start broadcasting",
+    "Title": "Title",
+    "Please enter a title": "Please enter a title",
+    "Cover": "Cover",
+    "Server Address": "Server Address",
+    "Push streaming code": "Push streaming code",
+    "Start browsing": "Start browsing",
+    "Live broadcast settings": "Live broadcast settings",
+    "Confirm changes": "Confirm changes"
 
 }
