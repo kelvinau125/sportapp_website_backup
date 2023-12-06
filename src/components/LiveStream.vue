@@ -4,7 +4,7 @@
         <div class="inner-container ">
             <div class="max-w-[1519px]  flex justify-between pt-1.5">
                 <div class="max-w-[1037px] w-full  h-[586px]  ">
-                    <div @click="toLiveStream" class="relative  rounded-lg">
+                    <div class="relative rounded-lg">
                         <div class="">
                             <img class="w-full h-full" src="@/assets/live/liveStreamBackground.png" alt="Image" />
                         </div>
@@ -15,6 +15,14 @@
                             <div class=" flex flex-col pl-1 z-10 items-start pb-1.5">
                                 <div class="text-white font-normal md:text-sm text-xs"> 直播标题 </div>
                                 <div class="md:text-10px text-8px font-bold text-white opacity-60">主播昵称</div>
+                            </div>
+                            <div class="pr-1 pl-10 z-10 pb-1.5">
+                                <ButtonPress @click="HALO" class="rounded-[30px]" style="background-color: #16B13B;">
+                                    <div class="flex ">
+                                        <img src="@/assets/live/liveSetting.png" />
+                                        <div class="pl-1.5 font-normal text-base text-white"> {{ $t("Live broadcast settings") }}</div>
+                                    </div>
+                                </ButtonPress>
                             </div>
                         </div>
                     </div>
@@ -103,67 +111,76 @@
     </div> -->
 </template>
 
-<script setup>
-import { useRouter } from 'vue-router'
+<script >
+// import { useRouter } from 'vue-router'
+import ButtonPress from '@/components/ButtonPress.vue';
 
+export default {
+    components: {
+        ButtonPress
+    },
+    methods: {
+        toLiveStream() {
+            // Navigating
+            // Push to the Live Page
+            this.$router.push({ name: 'home' });
+        },
+    },
+    data() {
+        return {
+            liveData: [
+                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
+                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
+                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
+                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
 
-const router = useRouter();
+                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+            ],
+        };
+    },
+};
 
-const toLiveStream = () => {
-    //Navigating
-    //Push to the Live Page
-    router.push({ name: 'LiveStream' })
-}
-
-const liveData = [
-    { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
-    { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
-    { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
-    { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
-
-    { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-    { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-    { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-    { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-    { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-    { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-]
 
 </script>
 
 <style scoped>
 .live_wrapper {
-  width: 100%;
-  max-width: 1519px;
-  margin: 0px auto;
+    width: 100%;
+    max-width: 1519px;
+    margin: 0px auto;
 }
 
 .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-  row-gap: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    row-gap: 50px;
 }
 
 .card {
-  display: inline-block;
-  width: 287px;
-  height: 162px;
-  margin-bottom: -35px;
+    display: inline-block;
+    width: 287px;
+    height: 162px;
+    margin-bottom: -35px;
 
 }
 
 .card-body {
-  text-align: center;
-  height: 161px;
-  width: 100%;
-  cursor: pointer;
-  border: 100px;
+    text-align: center;
+    height: 161px;
+    width: 100%;
+    cursor: pointer;
+    border: 100px;
 
 }
 
 .card-body img {
-  width: 100%;
+    width: 100%;
 }
 
 /* .gradient_bottom::before {
@@ -175,16 +192,16 @@ const liveData = [
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
 } */
 .titleBox {
-  position: absolute;
-  top: 0;
+    position: absolute;
+    top: 0;
 }
 
 .card-body {
-  text-align: center;
-  height: 161px;
-  width: 100%;
-  cursor: pointer;
-  position: relative;
+    text-align: center;
+    height: 161px;
+    width: 100%;
+    cursor: pointer;
+    position: relative;
 }
 
 .card-body img {
@@ -220,30 +237,30 @@ const liveData = [
 }
 
 .scroll-container {
-  /* position: absolute; */
-  width: 100%;
-  overflow-x: auto;
+    /* position: absolute; */
+    width: 100%;
+    overflow-x: auto;
 
 }
 
 .inner-container {
-  max-width: 1519px;
-  width: 100%;
-  height: 600px;
-  box-sizing: border-box;
-  text-align: center;
-  /* padding: 20px; */
-  margin: 0 auto;
+    max-width: 1519px;
+    width: 100%;
+    height: 600px;
+    box-sizing: border-box;
+    text-align: center;
+    /* padding: 20px; */
+    margin: 0 auto;
 }
 
 .scroll-container::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 @media (max-width: 1519px) {
-  .inner-container {
-    min-width: 1519px;
-    /* Set a minimum width to stop shrinking */
-  }
+    .inner-container {
+        min-width: 1519px;
+        /* Set a minimum width to stop shrinking */
+    }
 }
 </style>
