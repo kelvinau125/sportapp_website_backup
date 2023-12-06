@@ -9,6 +9,7 @@
           <!-- <div>直播窗口内容</div>
             <div>Testing</div> -->
           <video
+            ref="videoPlayer"
             :key="selectedEpic ? selectedEpic.epicMoment : 'default'"
             id="my-player"
             class="video-js vjs-default-skin"
@@ -17,7 +18,17 @@
             width="892px"
             height="505px"
             :poster="selectedLiveStreamImage"
+            style="cursor: pointer"
           >
+            <!-- <source
+              :src="
+                selectedEpic
+                  ? selectedEpic.videoSource
+                  : 'https://vjs.zencdn.net/v/oceans.mp4'
+              "
+              type="video/mp4"
+            /> -->
+
             <source
               :src="
                 selectedEpic
@@ -43,7 +54,11 @@
                 :key="epic.epicMoment"
                 @click="selectEpic(epic)"
               >
-                <img :src="require(`@/assets/main/${epic.image}.png`)" alt="Epic Image" />
+                <img
+                  :src="require(`@/assets/main/${epic.image}.png`)"
+                  alt="Epic Image"
+                  style="cursor: pointer"
+                />
               </div>
             </div>
           </div>
@@ -215,13 +230,8 @@ export default {
   },
   computed: {
     selectedEpicVideoSource() {
-      console.log(
-        `wow: ${
-          this.selectedEpic
-            ? this.selectedEpic.videoSource
-            : "https://vjs.zencdn.net/v/oceans.mp4"
-        }`
-      );
+      console.log("eeeeeeeeeeeeeeeeeeeeeeee");
+      console.log(this.selectedEpic.videoSource);
       return this.selectedEpic
         ? this.selectedEpic.videoSource
         : "https://vjs.zencdn.net/v/oceans.mp4";
@@ -234,16 +244,23 @@ export default {
   },
   methods: {
     selectEpic(epic) {
-      console.log("??????????????????????????");
-      console.log((this.selectedEpic = epic));
-      console.log(this.selectedEpic.imgSource);
       this.selectedEpic = epic;
+      this.$refs.videoPlayer.src = "";
+      this.$nextTick(() => {
+        this.$refs.videoPlayer.src = this.selectedEpic
+          ? this.selectedEpic.videoSource
+          : "https://vjs.zencdn.net/v/oceans.mp4";
+      });
     },
   },
 };
 </script>
 
 <style scoped>
+video:hover {
+  cursor: pointer;
+}
+
 .containerWidth {
   width: 892px;
   border: 1px solid red;
