@@ -28,6 +28,7 @@
   </BackgroundImage>
 </template>
 <script>
+import { ref } from 'vue'
 import PopularMatch from '@/components/PopularMatch.vue'
 import BackgroundImage from '@/components/BackGround.vue'
 
@@ -41,7 +42,9 @@ export default {
   },
   data() {
     return {
-        liveData: [],
+      currentChannel: ref((localStorage.getItem('currentChannel') === "football") ? 0 : 1),
+
+      liveData: [],
       // liveData: [
       //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
       //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
@@ -80,15 +83,12 @@ export default {
 
       this.getLiveList = await getAllStreamDetails();
 
-      console.log()
-      console.log(this.getLiveList)
-
       for (let i = 0; i < this.getLiveList.length; i++) {
         // Pass userId to getUserInfo and get user details
         const userInfo = await getUserInfo(this.getLiveList[i]["userId"]);
 
         // Check if sportType is 0 (football)
-        if (this.getLiveList[i]["sportType"] == 0) {
+        if (this.getLiveList[i]["sportType"] == this.currentChannel) {
   
           this.liveData.push({
             liveID: this.getLiveList[i]["id"],

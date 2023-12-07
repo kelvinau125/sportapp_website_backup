@@ -219,7 +219,7 @@ export default {
                 const userInfo = await getUserInfo(this.getLiveList[i]["userId"]);
 
                 // Check if sportType is 0 (football)
-                if (this.getLiveList[i]["sportType"] == 0) {
+                if (this.getLiveList[i]["sportType"] == this.currentChannel) {
         
                 this.liveData.push({
                     liveID: this.getLiveList[i]["id"],
@@ -242,6 +242,8 @@ export default {
         return {
             // edit stream
             isEditStreamDetailsModalVisible: ref(false),
+
+            currentChannel: ref((localStorage.getItem('currentChannel') === "football") ? 0 : 1),
 
             LiveID: this.$route.query.LiveID,
             liveData: [],
