@@ -29,25 +29,27 @@
         </div>
       </div>
       <div class="md:flex relative ">
-        <div @click="search" class="md:block hidden pt-1.5">
+        <div @click="search" class="md:block hidden pt-2.5">
           <img src="@/assets/topNav/search.png" alt="Search Icon" class="absolute left-0.5 w-6 h-6 m-2" />
         </div>
-        <div class="md:block hidden pt-1.5">
+        <div class="md:block hidden pt-2.5">
           <input v-model="searchQuery" @keyup.enter="search" type="text" :placeholder="$t('Search event/team')"
             maxlength="20"
             class="pl-10 lg:w-72 md:w-60 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-10 text-white bg-slate-50" />
         </div>
 
-        <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between">
+        <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between  pb-1.5">
           <div class="md:flex items-center">
             <div class="dropdown-button language-dropdown md:pt-2.5 md:pl-2.5 " style="width: 100px; ">
-              <button class="language-toggle md:static absolute md:right-10 right-20 md:top-0 -top-8 "
+              <button class="language-toggle md:static absolute md:right-10 right-20 md:top-0 -top-8 pl-5 "
                 @click="toggleDropdownLanguage">
-                {{ $t($i18n.locale) }}
-                <span> &#9662;</span>
+                <div class="pb-2.5">
+                  <span class="">{{ $t($i18n.locale) }} </span>
+                  <span> &#9662;</span>
+                </div>
               </button>
               <div v-show="isDropdownOpenLanguage"
-                class="language-options md:hidden absolute md:right-[140px] right-[90px] md:top-[100%] top-0">
+                class=" language-options md:hidden absolute md:right-[120px] right-[90px] md:top-[100%] top-0">
                 <button v-for="locale in $i18n.availableLocales" :key="locale" @click="languageChange(locale)"
                   class="languages">
                   {{ $t(locale) }}
@@ -57,7 +59,7 @@
           </div>
 
 
-          <button class="pt-1 md:flex cursor-pointer text-xl mr-2.5 items-center md:pl-3" @click="toggleDropdown">
+          <button class="pt-0 md:flex cursor-pointer text-xl mr-2.5 items-center md:pl-3" @click="toggleDropdown">
             <img :src="img"
               class="max-w-[24px] md:static absolute md:right-0 right-10 md:top-0  bottom-9 hover:bg-blue-950"
               alt="defaultFootBall Image" />
@@ -78,14 +80,14 @@
 
         </div>
       </div>
-      <div class=" md:flex relative items-center pl-1">
+      <div class=" md:flex relative items-center pl-1 ">
         <div @click="toggleDropdownProfile" class="">
           <img :src="avatar"
             class="max-w-[40px] md:static absolute md:right-0 -right-4 md:top-0 -top-[72px] rounded-full border-2 border-white"
             style=" object-fit: cover;" />
           <div style="z-index: 1000;" v-show="showDropdown"
             class="md:absolute absolute md:right-0 -right-4 md:top-12 -top-6 bg-gray-900 mt-1 p-1 py-3">
-            <div class="pr-1 pt-1 pb-2 flex flex-col">
+            <div class="pr-1 pt-1 pb-2 flex flex-col w-[100px]">
               <!-- <button to="/register" class="px-1 hover:text-green-500 text-white">注册</button>
               <button to="/login" class="px-1 hover:text-green-500 text-white">登入</button> -->
               <button v-if="!loggedIn" class="px-1" @click="showRegisterModal">{{ $t("Register") }}</button>
@@ -197,7 +199,7 @@ export default {
       // img: ref(require('@/assets/topNav/football.png')),
       img: "",
       isDropdownOpen: ref(false),
-      showDropdown: ref(false),
+      showDropdown: ref(true),
       loggedIn: ref(false),
       isLoginModalVisible: ref(false),
       isResgitserModalVisible: ref(false),
@@ -422,27 +424,27 @@ export default {
 <style scoped>
 @media (min-width: 300px) {
   .menu-list {
-    display : static;
+    display: static;
     position: absolute;
   }
 }
 
 @media (min-width: 500px) {
   .menu-list {
-    display : static;
+    display: static;
   }
 }
 
 @media (min-width: 640px) {
   .menu-list {
-    display : block;
+    display: block;
     position: absolute;
   }
 }
 
 @media (min-width: 760px) {
   .menu-list {
-    display : block;
+    display: block;
     position: static;
 
   }
@@ -451,7 +453,7 @@ export default {
 
 @media (min-width: 1024px) {
   .menu-list {
-    display : static;
+    display: static;
   }
 
 }
