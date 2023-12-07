@@ -32,7 +32,6 @@ import { ref } from 'vue'
 import PopularMatch from '@/components/PopularMatch.vue'
 import BackgroundImage from '@/components/BackGround.vue'
 
-import { getUserInfo } from '@/service/apiProvider.js';
 import { getAllStreamDetails } from '@/service/apiStreamProvider.js';
 
 export default {
@@ -84,9 +83,6 @@ export default {
       this.getLiveList = await getAllStreamDetails();
 
       for (let i = 0; i < this.getLiveList.length; i++) {
-        // Pass userId to getUserInfo and get user details
-        const userInfo = await getUserInfo(this.getLiveList[i]["userId"]);
-
         // Check if sportType is 0 (football)
         if (this.getLiveList[i]["sportType"] == this.currentChannel) {
   
@@ -94,8 +90,8 @@ export default {
             liveID: this.getLiveList[i]["id"],
             image: this.getLiveList[i]["cover"],
             liveTitle: this.getLiveList[i]["title"],
-            streamerName: userInfo.nickName,
-            streamerIcon: userInfo.head,
+            streamerName: this.getLiveList[i]["nickName"],
+            streamerIcon: this.getLiveList[i]["avatar"],
           });
         }
       }

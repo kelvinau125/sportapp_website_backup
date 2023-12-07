@@ -39,7 +39,7 @@
                     <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4"
                         v-for="(livedata, index) in liveData.slice(0, 10)" :key="index">
 
-                        <div @click="toLiveStream" class="card-body relative">
+                        <div @click="toLiveStream(livedata.liveID)" class="card-body relative">
                             <img class="rounded-lg w-full h-full" :src= livedata.image alt="Image" />
                             <div class="gradient_bottom w-full flex absolute bottom-3 items-center p-1 pb-2">
                                 <div class="pr-1 pl-1 z-10 w-10">
@@ -182,7 +182,6 @@ import ButtonPress from '@/components/ButtonPress.vue';
 import EditStreamDetailModal from '@/views/Stream/EditStreamDetail.vue';
 
 // api
-import { getUserInfo } from '@/service/apiProvider.js';
 import { getAllStreamDetails } from '@/service/apiStreamProvider.js';
 
 export default {
@@ -192,10 +191,17 @@ export default {
     },
 
     methods: {
-        toLiveStream() {
+        toLiveStream(liveID) {
             // Navigating
             // Push to the Live Page
-            this.$router.push({ name: 'home' });
+            // this.$router.push({ name: 'LiveStream' });
+            const routeData = this.$router.resolve({
+                name: 'LiveStream',
+                query: {
+                    LiveID: liveID,
+                }
+            });
+            window.location.href = routeData.href;
         },
         // edit stream
         showEditStreamDetailModal() {
@@ -215,9 +221,6 @@ export default {
             console.log(this.getLiveList)
 
             for (let i = 0; i < this.getLiveList.length; i++) {
-                // Pass userId to getUserInfo and get user details
-                const userInfo = await getUserInfo(this.getLiveList[i]["userId"]);
-
                 // Check if sportType is 0 (football)
                 if (this.getLiveList[i]["sportType"] == this.currentChannel) {
         
@@ -225,8 +228,8 @@ export default {
                     liveID: this.getLiveList[i]["id"],
                     image: this.getLiveList[i]["cover"],
                     liveTitle: this.getLiveList[i]["title"],
-                    streamerName: userInfo.nickName,
-                    streamerIcon: userInfo.head,
+                    streamerName: this.getLiveList[i]["nickName"],
+                    streamerIcon: this.getLiveList[i]["avatar"],
                 });
                 }
             }
