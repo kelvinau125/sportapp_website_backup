@@ -90,15 +90,15 @@ export default {
             time: ref(""),
             file: ref(),
             warningMessage: '',
-
-            //stream id editt here--------------------------
-            streamid: "8",
+            
+            streamid: this.LiveID,
         }
     },
 
     props: {
         showEditStreamDetailModal : Boolean,
         closeEditStreamDetailModal: Function,
+        LiveID: String,
     },
 
     async mounted() {

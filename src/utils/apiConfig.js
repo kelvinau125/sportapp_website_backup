@@ -366,6 +366,8 @@ export const getStreamDetails = '/';
 
 export const editStreamDetails = '/';
 
+export const getAllStreamDetails = '/list';
+
 export const pushStreamUrl = streamBaseUrl + pushStream; //push stream
 
 export const createStreamUrl = streamBaseUrl + createStream; //create live stream
@@ -373,5 +375,8 @@ export const createStreamUrl = streamBaseUrl + createStream; //create live strea
 export const getStreamDetailsUrl = streamBaseUrl + getStreamDetails; //get stream details
 
 export const editStreamDetailsUrl = streamBaseUrl + editStreamDetails; //edit stream details
+
+export const getAllStreamDetailsUrl = streamBaseUrl + getAllStreamDetails; //edit stream details
+
 
 
