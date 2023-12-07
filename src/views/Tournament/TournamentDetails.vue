@@ -1,6 +1,7 @@
 <template>
   <div class="flex justify-center">
-    <div :class="{ 'w-[892px] tournament_window': currentChannel, 'w-[892px] tournament_basketball_window': !currentChannel }">
+    <div
+      :class="{ 'w-[892px] tournament_window': currentChannel, 'w-[892px] tournament_basketball_window': !currentChannel }">
       <div class="content_s">
         <div class="flex flex-col items-center">
           <span class="font-semibold text-lg text-white">{{ this.competitionName }}</span>
@@ -17,21 +18,14 @@
       <div class="flex justify-start relative top-[35px] items-center">
         <div class="absolute left-[20px] homeTeamPos sm:left-[300px]" style="">
           <div class="mt-10 h-30 w-28 flex flex-col items-center">
-            <img
-              class="pb-3"
-              :src="this.homeTeamLogo"
-              style="height: 46px; width: 46px"
-            />
+            <img class="pb-3" :src="this.homeTeamLogo" style="height: 46px; width: 46px" />
             <p
-              class="text-sm font-normal flex justify-center text-white w-28 h-16 whitespace-normal overflow-hidden text-ellipsis"
-            >
+              class="text-sm font-normal flex justify-center text-white w-28 h-16 whitespace-normal overflow-hidden text-ellipsis">
               {{ this.homeTeamName }}
             </p>
           </div>
         </div>
-        <div
-          class="absolute left-[155px] scorePosition text-white flex w-24 justify-between pt-10"
-        >
+        <div class="absolute left-[155px] scorePosition text-white flex w-24 justify-between pt-10">
           <span class="md:text-3xl text-2xl md:pl-0 pl-4 font-semibold">{{
             this.homeTeamScore
           }}</span>
@@ -42,14 +36,9 @@
         </div>
         <div class="absolute left-[270px] awayTeamPosition" style="">
           <div class="mt-10 h-30 w-28 flex flex-col items-center">
-            <img
-              class="pb-3"
-              :src="this.awayTeamLogo"
-              style="height: 46px; width: 46px"
-            />
+            <img class="pb-3" :src="this.awayTeamLogo" style="height: 46px; width: 46px" />
             <p
-              class="text-sm font-normal flex justify-center text-white w-28 h-16 whitespace-normal overflow-hidden text-ellipsis"
-            >
+              class="text-sm font-normal flex justify-center text-white w-28 h-16 whitespace-normal overflow-hidden text-ellipsis">
               {{ this.awayTeamName }}
             </p>
           </div>
@@ -103,16 +92,10 @@
       <h2 class="pt-6 text-headerFont font-headerWeight">
         {{ $t("Tournament Status") }}
       </h2>
-      <TournamentStatus
-        class="pt-5"
-        :tournamentID="this.TournamentID"
-        :homeFormation="homeFormation"
-        :showfootballstatus="currentChannel"
-      />
-      
-      <BasketballTournamentStatus
-      :tournamentID="this.TournamentID"
-      :showbasketballstatus="!currentChannel"/>
+      <TournamentStatus class="pt-5" :tournamentID="this.TournamentID" :homeFormation="homeFormation"
+        :showfootballstatus="currentChannel" />
+
+      <BasketballTournamentStatus :tournamentID="this.TournamentID" :showbasketballstatus="!currentChannel" />
     </div>
   </div>
 
@@ -138,11 +121,7 @@
       </div>
       <div class="pb-2">
         <div class="flex flex-wrap justify-start px-2">
-          <router-link
-            :to="address.addressLink"
-            v-for="address in liveAddress"
-            :key="address.liveAddress"
-          >
+          <router-link :to="address.addressLink" v-for="address in liveAddress" :key="address.liveAddress">
             <div class="flex items-center py-3">
               <div class="live_border">
                 <p class="px-4 py-2 font-medium md:text-sm text-xs">
@@ -156,37 +135,35 @@
     </div>
   </div>
 
-  <div v-show="currentChannel">
-    <div class="flex justify-center pb-10">
-      <div class="w-[892px]">
-        <h2 class="text-headerFont font-headerWeight">{{ $t("Line Up") }}</h2>
-        <!-- <div class="pt-3">
+  <div class="scroll-container">
+    <div class="inner-container">
+      <div v-show="currentChannel">
+        <div class="flex justify-center pb-10">
+          <div class="w-[892px]">
+            <h2 class="text-headerFont font-headerWeight">{{ $t("Line Up") }}</h2>
+            <!-- <div class="pt-3">
           <LineUp :tournamentID="this.TournamentID" :homeTeamLogo="this.homeTeamLogo" :awayTeamLogo="this.awayTeamLogo" />
         </div> -->
+          </div>
+        </div>
+        <div class="flex justify-center pb-10">
+          <div class="w-[892px]">
+            <LineUp :tournamentID="this.TournamentID" :homeTeamLogo="this.homeTeamLogo"
+              :awayTeamLogo="this.awayTeamLogo" />
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="flex justify-center pb-10">
-      <div class="w-[892px]">
-        <LineUp
-          :tournamentID="this.TournamentID"
-          :homeTeamLogo="this.homeTeamLogo"
-          :awayTeamLogo="this.awayTeamLogo"
-        />
-      </div>
+
     </div>
   </div>
+
 
   <div class="flex justify-center pb-10" v-show="currentChannel">
     <div class="w-[892px]">
       <h2 class="text-headerFont font-headerWeight">{{ $t("Substitute") }}</h2>
       <div class="pt-3">
-        <TournamentSubstitue
-          :homeTeamName="this.homeTeamName"
-          :awayTeamName="this.awayTeamName"
-          :homeTeamLogo="this.homeTeamLogo"
-          :awayTeamLogo="this.awayTeamLogo"
-          :showfootballsubstitue="currentChannel"
-        />
+        <TournamentSubstitue :homeTeamName="this.homeTeamName" :awayTeamName="this.awayTeamName"
+          :homeTeamLogo="this.homeTeamLogo" :awayTeamLogo="this.awayTeamLogo" :showfootballsubstitue="currentChannel" />
       </div>
     </div>
   </div>
@@ -194,32 +171,22 @@
   <div class="flex justify-center pb-10" v-show="!currentChannel">
     <div class="w-[892px]">
       <h2 class="text-headerFont font-headerWeight pb-3">{{ $t("Data analysis") }}</h2>
-    <div class="flex flex-col pb-5 team_lineup" style="background-color: white">
-      <div class="pt-3">
-        <BasketballTournamentSubstitue
-          :tournamentID="1"
-          :awayTeamName="this.awayTeamName"
-          :homeTeamName="this.homeTeamName"
-          :is-home-team="true"
-          :home-team-logo="this.homeTeamLogo"
-          :away-team-logo="this.awayTeamLogo"
-          :showbasketballsubstitue="!currentChannel"
-        ></BasketballTournamentSubstitue>
+      <div class="flex flex-col pb-5 team_lineup" style="background-color: white">
+        <div class="pt-3">
+          <BasketballTournamentSubstitue :tournamentID="1" :awayTeamName="this.awayTeamName"
+            :homeTeamName="this.homeTeamName" :is-home-team="true" :home-team-logo="this.homeTeamLogo"
+            :away-team-logo="this.awayTeamLogo" :showbasketballsubstitue="!currentChannel">
+          </BasketballTournamentSubstitue>
+        </div>
       </div>
-    </div>
 
-    <div class="flex flex-col team_lineup pb-5" style="background-color: white">
-      <div class="pt-3">
-        <BasketballTournamentSubstitue
-          :tournamentID="1"
-          :awayTeamName="this.awayTeamName"
-          :homeTeamName="this.homeTeamName"
-          :is-home-team="false"
-          :home-team-logo="this.homeTeamLogo"
-          :away-team-logo="this.awayTeamLogo"
-          :showbasketballsubstitue="!currentChannel"
-        ></BasketballTournamentSubstitue>
-      </div>
+      <div class="flex flex-col team_lineup pb-5" style="background-color: white">
+        <div class="pt-3">
+          <BasketballTournamentSubstitue :tournamentID="1" :awayTeamName="this.awayTeamName"
+            :homeTeamName="this.homeTeamName" :is-home-team="false" :home-team-logo="this.homeTeamLogo"
+            :away-team-logo="this.awayTeamLogo" :showbasketballsubstitue="!currentChannel">
+          </BasketballTournamentSubstitue>
+        </div>
       </div>
     </div>
   </div>
@@ -272,6 +239,35 @@ export default {
 </script>
 
 <style scoped>
+.scroll-container {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+
+}
+
+.inner-container {
+  max-width: 892px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: start;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 892px) {
+  .inner-container {
+    min-width: 892px;
+    /* Set a minimum width to stop shrinking */
+  }
+}
+
+
+
 @media (min-width: 300px) {
   .liveContainer {
     width: 280px;

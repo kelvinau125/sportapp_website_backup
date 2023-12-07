@@ -4,7 +4,7 @@
       <PopularMatch />
     </div>
     <main class="wrapper pt-6 pb-12">
-      <div class="card-container flex justify-start w-ful">
+      <div class="card-container flex justify-start w-full">
         <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4" v-for="livedata in liveData"
           :key="livedata.liveData">
 
