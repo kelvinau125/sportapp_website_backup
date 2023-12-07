@@ -8,12 +8,12 @@
                         <img class="w-full h-full" src="@/assets/live/liveStreamBackground.png" alt="Image" />
                     </div>
                     <div class="w-full flex headerBox items-center md:pt-4 pt-3 md:pl-2 pb-2">
-                        <div class="pr-1 pl-3 z-10 pb-1.5 md:block hidden ">
-                            <img src="@/assets/live/defaultStreamerIcon.png" alt="Image" />
+                        <div class="pr-1 pl-1 z-10 w-[50px]">
+                            <img :src= this.StreamIcon alt="Image" />
                         </div>
                         <div class=" flex flex-col md:pl-1 pl-5 z-10 items-start md:pb-1.5 pb-3">
-                            <div class="text-white font-normal md:text-sm text-10px"> 直播标题 </div>
-                            <div class="md:text-10px text-8px font-bold text-white opacity-60">主播昵称</div>
+                            <div class="text-white font-normal md:text-sm text-10px"> {{ this.LiveTitle }} </div>
+                            <div class="md:text-10px text-8px font-bold text-white opacity-60">{{ this.StreamName }}</div>
                         </div>
                         <div class="pr-1 pl-5 z-10 pb-1.5">
                             <ButtonPress @click="showEditStreamDetailModal()" class="rounded-[30px] md:static relative -top-1"
@@ -73,7 +73,7 @@ import ButtonPress from '@/components/ButtonPress.vue';
 import EditStreamDetailModal from '@/views/Stream/EditStreamDetail.vue';
 
 // api
-import { getAllStreamDetails } from '@/service/apiStreamProvider.js';
+import { getAllStreamDetails, getStreamDetails } from '@/service/apiStreamProvider.js';
 
 export default {
     components: {
@@ -108,9 +108,6 @@ export default {
 
             this.getLiveList = await getAllStreamDetails();
 
-            console.log()
-            console.log(this.getLiveList)
-
             for (let i = 0; i < this.getLiveList.length; i++) {
                 // Check if sportType is 0 (football)
                 if (this.getLiveList[i]["sportType"] == this.currentChannel) {
@@ -126,10 +123,18 @@ export default {
             }
         },
 
+        async displayLive(liveID) {
+            this.getLiveDetails = await getStreamDetails(liveID);
+
+            this.LiveTitle = this.getLiveDetails["title"]
+            this.StreamIcon = this.getLiveDetails["avatar"]
+            this.StreamName = this.getLiveDetails["nickName"]
+        },
     },
     
     mounted() {
         this.generateLiveList()
+        this.displayLive(this.LiveID)
     },
 
     data() {
@@ -140,6 +145,9 @@ export default {
             currentChannel: ref((localStorage.getItem('currentChannel') === "football") ? 0 : 1),
 
             LiveID: this.$route.query.LiveID,
+            LiveTitle: ref(""),
+            StreamIcon: "@/assets/avatar_default",
+            StreamName: ref(""),
             liveData: [],
 
             // liveData: [

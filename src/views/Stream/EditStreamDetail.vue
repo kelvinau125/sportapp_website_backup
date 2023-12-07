@@ -186,7 +186,7 @@ export default {
             if (result) {
                 // close the modal and refresh the page
                 this.closeEditStreamDetailModal();
-                // window.location.reload();
+                window.location.reload();
             } else {
                 console.log("error to create stream")
             }
