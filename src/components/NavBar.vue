@@ -199,7 +199,7 @@ export default {
       // img: ref(require('@/assets/topNav/football.png')),
       img: "",
       isDropdownOpen: ref(false),
-      showDropdown: ref(true),
+      showDropdown: ref(false),
       loggedIn: ref(false),
       isLoginModalVisible: ref(false),
       isResgitserModalVisible: ref(false),
