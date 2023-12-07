@@ -43,7 +43,7 @@
             <div class="dropdown-button language-dropdown md:pt-2.5 md:pl-2.5 " style="width: 100px; ">
               <button class="language-toggle md:static absolute md:right-10 right-20 md:top-0 -top-8 pl-5 "
                 @click="toggleDropdownLanguage">
-                <div class="pb-2.5">
+                <div class="flex pb-2.5">
                   <span class="">{{ $t($i18n.locale) }} </span>
                   <span> &#9662;</span>
                 </div>
@@ -87,7 +87,7 @@
             style=" object-fit: cover;" />
           <div style="z-index: 1000;" v-show="showDropdown"
             class="md:absolute absolute md:right-0 -right-4 md:top-12 -top-6 bg-gray-900 mt-1 p-1 py-3">
-            <div class="pr-1 pt-1 pb-2 flex flex-col w-[100px]">
+            <div class="pr-1 pt-1 pb-2 flex flex-col w-[80px]">
               <!-- <button to="/register" class="px-1 hover:text-green-500 text-white">注册</button>
               <button to="/login" class="px-1 hover:text-green-500 text-white">登入</button> -->
               <button v-if="!loggedIn" class="px-1" @click="showRegisterModal">{{ $t("Register") }}</button>

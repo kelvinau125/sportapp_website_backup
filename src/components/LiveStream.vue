@@ -1,25 +1,27 @@
 
 <template>
     <div class="flex justify-center">
-        <div class="max-w-[1519px]  md:flex justify-between pt-1.5">
+        <div class="max-w-[1519px] border-2  md:flex justify-between pt-1.5">
             <div class="live-container  ">
-                <div  class="relative  rounded-lg">
+                <div class="relative  rounded-lg">
                     <div class="">
                         <img class="w-full h-full" src="@/assets/live/liveStreamBackground.png" alt="Image" />
                     </div>
-                    <div class="w-full flex titleBox items-center md:pt-4 pt-3 md:pl-2 pb-2">
-                        <div class="pr-1 pl-3 z-10 pb-1.5">
+                    <div class="w-full flex headerBox items-center md:pt-4 pt-3 md:pl-2 pb-2">
+                        <div class="pr-1 pl-3 z-10 pb-1.5 md:block hidden ">
                             <img src="@/assets/live/defaultStreamerIcon.png" alt="Image" />
                         </div>
-                        <div class=" flex flex-col md:pl-1 pl-0 z-10 items-start pb-1.5">
-                            <div class="text-white font-normal md:text-sm text-xs"> 直播标题 </div>
+                        <div class=" flex flex-col md:pl-1 pl-5 z-10 items-start md:pb-1.5 pb-3">
+                            <div class="text-white font-normal md:text-sm text-10px"> 直播标题 </div>
                             <div class="md:text-10px text-8px font-bold text-white opacity-60">主播昵称</div>
                         </div>
                         <div class="pr-1 pl-5 z-10 pb-1.5">
-                            <ButtonPress @click="showEditStreamDetailModal()" class="rounded-[30px]" style="background-color: #16B13B;">
+                            <ButtonPress @click="showEditStreamDetailModal()" class="rounded-[30px] md:static relative -top-1"
+                                style="background-color: #16B13B;">
                                 <div class="flex">
-                                    <img src="@/assets/live/liveSetting.png" />
-                                    <div class="pl-1.5 font-normal text-base text-white"> {{ $t("Live broadcastsettings") }}
+                                    <img class="live-image" src="@/assets/live/liveSetting.png" />
+                                    <div class="pl-1.5 font-normal md:text-base text-sm text-white md:block hidden"> {{ $t("Live broadcast settings")
+                                    }}
                                     </div>
                                 </div>
                             </ButtonPress>
@@ -28,12 +30,12 @@
 
                 </div>
             </div>
-            <div class="chat-container w-full h-[380px] ml-2  border-2">聊天窗口</div>
+            <div class="chat-container ml-2  border-2">聊天窗口</div>
         </div>
     </div>
     <div class="flex justify-center">
         <div class="flex flex-col max-w-[1519px] w-full">
-            <span class="text-lg font-semibold md:pl-12 pl-5 pt-3 pb-1">其他直播推荐</span>
+            <span class="text-lg font-semibold md:pl-12 pl-5 pt-3 pb-1">{{ $t("Other Live Recommend") }}</span>
             <main class="live_wrapper md:p-2 p-0 ">
                 <div class="card-container flex justify-start pb-12">
                     <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4"
@@ -41,13 +43,13 @@
 
                         <div @click="toLiveStream" class="card-body relative">
                             <img class="rounded-lg" :src="require(`@/assets/live/${livedata.image}.png`)" alt="Image" />
-                            <div class="gradient_bottom w-full flex absolute bottom-3 items-center p-1 pb-2">
-                                <div class="pr-1 pl-1 z-10 w-10">
+                            <div class="gradient_bottom w-full flex titleBox relative bottom-[45px] items-center p-1 pb-2">
+                                <div class="pr-1 ml-3 z-10 contentImage hidden">
                                     <img :src="require(`@/assets/live/${livedata.streamerIcon}.png`)" alt="Image" />
                                 </div>
                                 <div class="flex flex-col pl-1 z-10 items-start">
-                                    <div class="text-white font-medium text-sm">{{ livedata.liveTitle }}</div>
-                                    <div class="text-10px font-medium text-white opacity-60">{{ livedata.streamerName }}
+                                    <div class="text-white font-medium md:text-sm text-10px">{{ livedata.liveTitle }}</div>
+                                    <div class="md:text-10px text-8px font-medium text-white opacity-60">{{ livedata.streamerName }}
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +60,7 @@
         </div>
     </div>
     <EditStreamDetailModal :showEditStreamDetailModal="isEditStreamDetailsModalVisible"
-      :closeEditStreamDetailModal="closeEditStreamDetailModal" />
+        :closeEditStreamDetailModal="closeEditStreamDetailModal" />
 
     <!-- <div class="scroll-container">
         <div class="inner-container border-2 border-green-500 ">
@@ -192,11 +194,11 @@ export default {
         },
         // edit stream
         showEditStreamDetailModal() {
-        this.isEditStreamDetailsModalVisible = true;
+            this.isEditStreamDetailsModalVisible = true;
         },
 
         closeEditStreamDetailModal() {
-        this.isEditStreamDetailsModalVisible = false;
+            this.isEditStreamDetailsModalVisible = false;
         },
     },
     data() {
@@ -229,7 +231,39 @@ export default {
     .chat-container {
         width: 100%;
         height: 380px;
+    }
 
+    .card {
+        display: inline-block;
+        width: 175px;
+        height: 162px;
+    }
+
+    .titleBox {
+        position: absolute;
+        bottom: 20px;
+    }
+
+    .contentImage {
+        display: block;
+        width: 30px;
+    }
+
+    .gradient_bottom::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        z-index: 1;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+        background-size: cover;
+        border-radius: 8px;
+    }
+
+    .live-image{
+        display: block;
+        width: 22px;
     }
 }
 
@@ -238,6 +272,40 @@ export default {
         width: 100%;
         height: 380px;
 
+    }
+
+    .card {
+        display: inline-block;
+        width: 230px;
+        height: 162px;
+
+    }
+
+    .titleBox {
+        position: absolute;
+        bottom: 20px;
+    }
+
+    .contentImage {
+        display: block;
+        width: 35px;
+    }
+
+    .gradient_bottom::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        z-index: 1;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+        background-size: cover;
+        border-radius: 8px;
+    }
+
+    .live-image{
+        display: block;
+        width: 22px;
     }
 }
 
@@ -253,6 +321,40 @@ export default {
         width: auto;
         height: 380px;
 
+
+    }
+    .card {
+        display: inline-block;
+        width: 287px;
+        height: 162px;
+
+    }
+
+    .titleBox {
+        position: absolute;
+        bottom: 20px;
+    }
+
+    .contentImage {
+        display: block;
+        width: 38px;
+    }
+
+    .gradient_bottom::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        z-index: 1;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+        background-size: cover;
+        border-radius: 8px;
+    }
+
+    .live-image{
+        display: block;
+        width: 24px;
     }
 }
 
@@ -260,15 +362,10 @@ export default {
     .live-container {
         max-width: 1037px;
         width: 100%;
-        height: 586px;
-        /* box-sizing: border-box;
-    text-align: center;
-    margin: 0 auto; */
-
     }
 
     .chat-container {
-        max-width: 350px;
+        max-width: 240px;
         width: 100%;
         max-height: 586px;
         height: 100%;
@@ -281,7 +378,6 @@ export default {
     .live-container {
         max-width: 1100px;
         width: 100%;
-        height: 586px;
 
     }
 
@@ -299,7 +395,6 @@ export default {
     .live-container {
         max-width: 1519px;
         width: 100%;
-        height: 586px;
 
 
     }
@@ -340,7 +435,7 @@ export default {
     width: 100%;
 }
 
-.titleBox {
+.headerBox {
     position: absolute;
     top: 0;
 }
@@ -355,13 +450,6 @@ export default {
 
 .card-body img {
     width: 100%;
-}
-
-.live-stream {
-    border-radius: 8px;
-    /* height: 50vh; */
-    margin-top: 10px;
-    /* margin-left: 150px; */
 }
 
 

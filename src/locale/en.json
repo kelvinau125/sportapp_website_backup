@@ -113,7 +113,7 @@
     "Server Address": "Server Address",
     "Push streaming code": "Push streaming code",
     "Start browsing": "Start browsing",
-    "Live broadcast settings": "Live broadcast settings",
+    "Live broadcast settings": "Live settings",
     "Confirm changes": "Confirm changes",
     "Basketball": "Basketball",
     "Football": "Football",
@@ -130,6 +130,7 @@
     "Field Goal": "Field Goal",
     "Rebound": "Rebound",
     "Free Throw": "Free Throw",
-    "Data analysis": "Data analysis"
+    "Data analysis": "Data analysis",
 
+    "Other Live Recommend": "Other Live Recommend"
 }
