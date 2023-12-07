@@ -59,7 +59,38 @@ export default {
       // Navigating
       // Push to the Live Page
       this.$router.push({ name: 'LiveStream' });
-    }
+    },
+    // async generateLiveList() {
+    //   this.matchDetails = [];
+    //   (this.currentChannel)
+    //     //football
+    //     ? this.getMatchList = await getMatchByDate(matchdate, this.isCN)
+    //     //basketball
+    //     : this.getMatchList = await getBasketballMatchByDate(matchdate, this.isCN)
+
+    //   for (let i = 0; i < this.getMatchList.length; i++) {
+
+    //     const matchId = this.getMatchList[i]["id"];
+    //     // Check if the match ID is in the list of favorite IDs
+    //     const isFavorite = this.favoriteList.includes(matchId);
+
+    //     this.matchDetails.push({
+    //       matchType: this.getMatchList[i]["competitionName"],
+    //       date: this.getMatchList[i]["matchDate"],
+    //       time: this.getMatchList[i]["matchTimeStr"],
+    //       homeTeamName: this.getMatchList[i]["homeTeamName"],
+    //       homeTeamIcon: this.getMatchList[i]["homeTeamLogo"],
+    //       homeTeamScore: this.getMatchList[i]["homeTeamScore"],
+    //       awayTeamName: this.getMatchList[i]["awayTeamName"],
+    //       awayTeamIcon: this.getMatchList[i]["awayTeamLogo"],
+    //       awayTeamScore: this.getMatchList[i]["awayTeamScore"],
+    //       overTime: "null",
+    //       favorite: isFavorite,
+    //       statusStr: this.getMatchList[i]["statusStr"],
+    //       linkAddress: this.getMatchList[i]["id"],
+    //     });
+    //   }
+    // },
   }
 }
 </script>

@@ -81,7 +81,7 @@ export default {
             window.location.reload();
         },
         async startStream(){
-            const result = await createStream(this.streamDetailsData.time, this.streamDetailsData.host, this.streamDetailsData.code, this.streamDetailsData.file, this.streamDetailsData.title);
+            const result = await createStream(this.streamDetailsData.selectedSport,this.streamDetailsData.time, this.streamDetailsData.host, this.streamDetailsData.code, this.streamDetailsData.file, this.streamDetailsData.title);
 
             if (result) {
                 // close the modal and refresh the page
