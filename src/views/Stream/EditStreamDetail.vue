@@ -92,7 +92,7 @@ export default {
             warningMessage: '',
 
             //stream id editt here--------------------------
-            streamid: "7",
+            streamid: "8",
         }
     },
 
@@ -110,8 +110,6 @@ export default {
         this.host = getDetail["pushHost"]
         this.code = getDetail["pushCode"]
         this.date = getDetail["liveDate"]
-
-        console.log(getDetail["sportType"])
     },
 
     methods: {
@@ -176,6 +174,10 @@ export default {
                 return;
             }
 
+            if(this.file == null) {
+                this.warningMessage = this.$t("Make sure title and picture have changed");
+                return;
+            }
 
             this.warningMessage= ''
 
