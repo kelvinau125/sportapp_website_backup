@@ -1,5 +1,28 @@
 <template>
-  <div class="scroll-container">
+  <div class="flex justify-center">
+    <div class="max-w-[1519px]  md:flex justify-between pt-1.5">
+      <div class="live-container  ">
+        <div @click="toLiveStream" class="relative  rounded-lg">
+          <div class="">
+            <img class="w-full h-full" src="@/assets/live/liveStreamBackground.png" alt="Image" />
+          </div>
+          <div class="w-full flex titleBox items-center md:pt-4 pt-3 md:pl-2 pb-2">
+            <div class="pr-1 pl-3 z-10 pb-1.5">
+              <img src="@/assets/live/defaultStreamerIcon.png" alt="Image" />
+            </div>
+            <div class=" flex flex-col md:pl-1 pl-0 z-10 items-start pb-1.5">
+              <div class="text-white font-normal md:text-sm text-xs"> 直播标题 </div>
+              <div class="md:text-10px text-8px font-bold text-white opacity-60">主播昵称</div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="chat-container w-full h-[380px] ml-2  border-2">聊天窗口</div>
+    </div>
+  </div>
+
+  <!-- <div class="scroll-container">
     <div class="inner-container ">
       <div class="max-w-[1519px]  flex justify-between pt-1.5">
         <div class="max-w-[1037px] w-full  h-[586px]  ">
@@ -23,22 +46,20 @@
       </div>
 
     </div>
-  </div>
+  </div> -->
   <div class="flex justify-center">
     <div class="flex flex-col max-w-[1519px] w-full">
-      <span class="text-lg font-semibold pl-7 pt-3 pb-1">其他直播推荐</span>
-      <main class="live_wrapper border-2">
+      <span class="text-lg font-semibold md:pl-28 pl-5 pt-3 pb-1">其他直播推荐</span>
+      <main class="live_wrapper md:p-10 p-0 ">
         <div class="card-container flex justify-start pb-12">
           <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4"
             v-for="(livedata, index) in liveData.slice(0, 10)" :key="index">
 
             <div @click="toLiveStream" class="card-body relative">
               <img class="rounded-lg" :src="require(`@/assets/live/${livedata.image}.png`)" alt="Image" />
-              <!-- <img src="@/assets/live/LiveImage.png" class="" /> -->
-              <div class="gradient_bottom w-full flex absolute bottom-0 items-center p-1 pb-2">
+              <div class="gradient_bottom w-full flex absolute bottom-3 items-center p-1 pb-2">
                 <div class="pr-1 pl-1 z-10 w-10">
                   <img :src="require(`@/assets/live/${livedata.streamerIcon}.png`)" alt="Image" />
-                  <!-- <img src="@/assets/live/defaultStreamerIcon.png" /> -->
                 </div>
                 <div class="flex flex-col pl-1 z-10 items-start">
                   <div class="text-white font-medium text-sm">{{ livedata.liveTitle }}</div>
@@ -526,7 +547,96 @@ export default {
 </script>
 
 <style scoped>
-.live_wrapper {
+@media (min-width: 300px) {
+  .chat-container {
+    width: 100%;
+    height: 380px;
+
+  }
+}
+
+@media (min-width: 500px) {
+  .chat-container {
+    width: 100%;
+    height: 380px;
+
+  }
+}
+
+@media (min-width: 640px) {
+  .live-container {
+    max-width: 1037px;
+    width: 100%;
+    height: auto;
+
+  }
+
+  .chat-container {
+    width: auto;
+    height: 380px;
+
+  }
+}
+
+@media (min-width: 768px) {
+  .live-container {
+    max-width: 1037px;
+    width: 100%;
+    height: 586px;
+    /* box-sizing: border-box;
+    text-align: center;
+    margin: 0 auto; */
+
+  }
+
+  .chat-container {
+    max-width: 350px;
+    width: 100%;
+    max-height: 586px;
+    height: 100%;
+
+  }
+
+}
+
+@media (min-width: 1300px) {
+  .live-container {
+    max-width: 1100px;
+    width: 100%;
+    height: 586px;
+
+  }
+
+  .chat-container {
+    max-width: 363px;
+    width: 100%;
+    max-height: 586px;
+    height: 100%;
+
+  }
+
+}
+
+@media (min-width: 1500px) {
+  .live-container {
+    max-width: 1519px;
+    width: 100%;
+    height: 586px;
+
+
+  }
+
+}
+
+/* @media (max-width: 1519px) {
+  .live-container{
+    min-width: 1519px;
+
+  }
+
+} */
+
+ .live_wrapper {
   width: 100%;
   max-width: 1519px;
   margin: 0px auto;
@@ -541,7 +651,7 @@ export default {
 
 .card {
   display: inline-block;
-  width: 287px;
+  width: 270px;
   height: 162px;
   margin-bottom: -35px;
 
@@ -618,7 +728,6 @@ export default {
 @media (max-width: 1519px) {
   .inner-container {
     min-width: 1519px;
-    /* Set a minimum width to stop shrinking */
   }
 }
 </style>
