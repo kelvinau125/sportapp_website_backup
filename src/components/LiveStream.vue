@@ -33,8 +33,8 @@
     </div>
     <div class="flex justify-center">
         <div class="flex flex-col max-w-[1519px] w-full">
-            <span class="text-lg font-semibold md:pl-28 pl-5 pt-3 pb-1">其他直播推荐</span>
-            <main class="live_wrapper md:p-10 p-0 ">
+            <span class="text-lg font-semibold md:pl-12 pl-5 pt-3 pb-1">其他直播推荐</span>
+            <main class="live_wrapper md:p-2 p-0 ">
                 <div class="card-container flex justify-start pb-12">
                     <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4"
                         v-for="(livedata, index) in liveData.slice(0, 10)" :key="index">
