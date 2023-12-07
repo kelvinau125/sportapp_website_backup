@@ -11,7 +11,7 @@
         <ul style="z-index: 1000;" :class="openNav ? 'block' : 'hidden'"
           class="  md:block items-center md:pr-0 pr-2 md:pl-5 pl-5 md:static absolute bg-navColor md:w-auto w-auto md:left-0 -left-[90px] md:top-14 top-14 ">
           <li class=" md:inline-flex flex-col ml-4 my-2.5" v-for="link in Links" :key="link.link">
-            <router-link :to="link.link"
+            <router-link :to="link.link" @click="checkUserAndNavigate(link.link)"
               class="flex nav-button md:text-base text-sm font-normal hover:text-gray-200 text-white">{{
                 $t(link.name)
               }}</router-link>
@@ -218,6 +218,17 @@ export default {
   },
 
   methods: {
+    checkUserAndNavigate(route) {
+      const userToken = VueCookies.get('userToken');
+
+      if (!userToken) {
+        this.showLoginModal()
+      } else {
+        // User is logged in, navigate to the selected route
+        this.$router.push(route);
+      }
+    },
+
     ...mapActions(['switchChannel']),
 
     created() {
@@ -228,12 +239,21 @@ export default {
     basketballchoice() {
       this.selectOption(require('@/assets/topNav/basketball.png'))
       this.switchChannel('basketball')
-      window.location.reload()
+      if (this.$route.path === "/") {
+        window.location.reload();
+      } else {
+        this.$router.push("/");
+      }
+
     },
     footballchoice() {
       this.selectOption(require('@/assets/topNav/football.png'))
       this.switchChannel('football')
-      window.location.reload()
+      if (this.$route.path === "/") {
+        window.location.reload();
+      } else {
+        this.$router.push("/");
+      }
 
     },
     //Search Functions
@@ -274,6 +294,7 @@ export default {
       removeCookie();
       this.$router.push('/');
       this.loggedIn = false;
+      window.location.reload();
     },
     showLoginModal() {
       this.isEditPasswordModalVisible = false;

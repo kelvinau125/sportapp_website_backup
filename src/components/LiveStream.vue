@@ -45,7 +45,7 @@
                             <img class="rounded-lg border-2 w-full h-full" :src= livedata.image alt="Image" />
                             <div class="gradient_bottom w-full flex absolute bottom-3 items-center p-1 pb-2">
                                 <div class="pr-1 pl-1 z-10 w-10">
-                                    <img :src= livedata.streamerIcon alt="Image" />
+                                    <img class="rounded-full" :src= livedata.streamerIcon alt="Image" />
                                 </div>
                                 <div class="flex flex-col pl-1 z-10 items-start">
                                     <div class="text-white font-medium md:text-sm text-10px">{{ livedata.liveTitle }}</div>
