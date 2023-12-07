@@ -10,11 +10,11 @@
 
           <div @click="toLiveStream(livedata.liveID)" class="card-body relative">
             <div class="w-full h-full ">
-              <img class="w-full h-full " :src= livedata.image alt="Image" />
+              <img class="w-full h-full " :src=livedata.image alt="Image" />
             </div>
             <div class="gradient_bottom   w-full flex titleBox relative bottom-[50px] items-center p-1 pb-2">
               <div class="pr-1 pl-1 z-10 contentImage hidden md:pb-1.5">
-                <img :src= livedata.streamerIcon alt="Image" />
+                <img class="rounded-full " :src=livedata.streamerIcon alt="Image" />
               </div>
               <div class="flex flex-col pl-1 z-10 items-start md:pb-1.5">
                 <div class="text-white font-medium md:text-sm text-10px">{{ livedata.liveTitle }}</div>
@@ -26,22 +26,28 @@
       </div>
     </main>
   </BackgroundImage>
+  <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal"/>
 </template>
 <script>
 import { ref } from 'vue'
 import PopularMatch from '@/components/PopularMatch.vue'
 import BackgroundImage from '@/components/BackGround.vue'
+import VueCookies from 'vue-cookies';
 
 import { getAllStreamDetails } from '@/service/apiStreamProvider.js';
+
+import LoginModal from '@/views/Authentication/LoginModal.vue';
 
 export default {
   components: {
     PopularMatch,
-    BackgroundImage
+    BackgroundImage,
+    LoginModal
   },
   data() {
     return {
       currentChannel: ref((localStorage.getItem('currentChannel') === "football") ? 0 : 1),
+      isLoginModalVisible: ref(false),
 
       liveData: [],
       // liveData: [
@@ -65,16 +71,31 @@ export default {
   },
 
   methods: {
+    showLoginModal() {
+      this.isLoginModalVisible = true;
+    },
+    closeLoginModal() {
+      this.isLoginModalVisible = false;
+    },
+    
+
     toLiveStream(liveID) {
-      // Navigating
       // Push to the Live Page
       // this.$router.push({ name: 'LiveStream' });
-      const routeData = this.$router.resolve({
-        name: 'LiveStream', query: {
-          LiveID: liveID,
-        }
-      });
-      window.open(routeData.href, '_blank');
+      const userToken = VueCookies.get('userToken');
+
+      if (!userToken) {
+        this.showLoginModal()
+      } else {
+        const routeData = this.$router.resolve({
+          name: 'LiveStream', query: {
+            LiveID: liveID,
+          }
+        });
+        window.open(routeData.href, '_blank');
+
+      }
+
     },
 
     async generateLiveList() {
@@ -85,7 +106,7 @@ export default {
       for (let i = 0; i < this.getLiveList.length; i++) {
         // Check if sportType is 0 (football)
         if (this.getLiveList[i]["sportType"] == this.currentChannel) {
-  
+
           this.liveData.push({
             liveID: this.getLiveList[i]["id"],
             image: this.getLiveList[i]["cover"],

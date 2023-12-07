@@ -9,7 +9,7 @@
                     </div>
                     <div class="w-full flex headerBox items-center md:pt-4 pt-3 md:pl-2 pb-2">
                         <div class="pr-1 pl-1 z-10 w-[50px]">
-                            <img :src= this.StreamIcon alt="Image" />
+                            <img class="rounded-full" :src= this.StreamIcon alt="Image" />
                         </div>
                         <div class=" flex flex-col md:pl-1 pl-5 z-10 items-start md:pb-1.5 pb-3">
                             <div class="text-white font-normal md:text-sm text-10px"> {{ this.LiveTitle }} </div>
@@ -45,7 +45,7 @@
                             <img class="rounded-lg border-2 w-full h-full" :src= livedata.image alt="Image" />
                             <div class="gradient_bottom w-full flex absolute bottom-3 items-center p-1 pb-2">
                                 <div class="pr-1 pl-1 z-10 w-10">
-                                    <img :src= livedata.streamerIcon alt="Image" />
+                                    <img class="rounded-full" :src= livedata.streamerIcon alt="Image" />
                                 </div>
                                 <div class="flex flex-col pl-1 z-10 items-start">
                                     <div class="text-white font-medium md:text-sm text-10px">{{ livedata.liveTitle }}</div>
