@@ -26,6 +26,11 @@
                         </label>
                     </div>
                 </div>
+
+                <div class="flex pt-5">
+                    <p class="text-lg font-normal mt-2 w-16 flex items-start">{{ $t("Category") }}</p>
+                    <input class="ml-4" v-model="category" disabled required />
+                </div>
                 
 
                 <div class="flex flex-col items-start pt-5">
@@ -77,6 +82,7 @@ export default {
 
     data() {
         return {
+            category: ref(""),
             title: ref(""),
             imageUrl: null,
             code: ref(""),
@@ -98,11 +104,14 @@ export default {
     async mounted() {
         const getDetail = await getStreamDetails(this.streamid)
 
+        this.category = (getDetail["sportType"] === "0" ? this.$t("Football") : this.$t("Basketball"))
         this.imageUrl = getDetail["cover"]
         this.title = getDetail["title"]
         this.host = getDetail["pushHost"]
         this.code = getDetail["pushCode"]
         this.date = getDetail["liveDate"]
+
+        console.log(getDetail["sportType"])
     },
 
     methods: {
