@@ -9,8 +9,8 @@ import {
     searchFootballMatchTodayENurl,
     searchBasketballTodayUrl,
     searchBasketballTodayENurl,
-    getFootballLiveAddressUrl,
-    getBasketballLiveAddressUrl,
+    // getFootballLiveAddressUrl,
+    // getBasketballLiveAddressUrl,
 
 } from '@/utils/apiConfig.js';
 
