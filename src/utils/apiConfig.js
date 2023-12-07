@@ -253,8 +253,7 @@ export const liveStreamCollectionBaseEngUrl = '/api/v1/en/collections';
 
 export const getAllStreamCollectionEngListFootball = '/football/list';
 
-export const getAllStreamCollectionEngListBasketball =
- '/basketball/list';
+export const getAllStreamCollectionEngListBasketball = '/basketball/list';
 
 export const getFootballEngMatch = '/football/{matchId}';
 

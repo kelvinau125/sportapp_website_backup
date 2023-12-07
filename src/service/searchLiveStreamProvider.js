@@ -9,6 +9,8 @@ import {
     searchFootballMatchTodayENurl,
     searchBasketballTodayUrl,
     searchBasketballTodayENurl,
+    getFootballLiveAddressUrl,
+    getBasketballLiveAddressUrl,
 
 } from '@/utils/apiConfig.js';
 
@@ -76,3 +78,30 @@ export async function searchLiveCompetitionStream(competitionName, isCN, isFootB
         return [];
     }
 }
+
+// export async function searchLiveAddress(homeName, awayName, isCN, isFootBall) {
+//     // const url = baseUrl + searchFootballMatchTodayENurl + 'competitionName=' + competitionName
+//     let url;
+
+//     (isFootBall)
+//       ? url = baseUrl + getFootballLiveAddressUrl + 'competitionName=' + homeName
+//       : url = baseUrl + getBasketballLiveAddressUrl + 'competitionName=' + awayName
+
+//     try {
+//         const response = await getRequestSearchStream(url)
+
+//         const data = response.data
+//         const code = response.code;
+
+//         if (code === 0) {
+//             return data;
+
+//         } else {
+//             console.log(`Unsuccessfully searchLiveAddress: ${code}`);
+//             return [];
+//         }
+//     } catch (e) {
+//         console.log(`Unsuccessful in provider: ${e}`);
+//         return [];
+//     }
+// }
