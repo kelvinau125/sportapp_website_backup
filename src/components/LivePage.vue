@@ -14,7 +14,7 @@
             </div>
             <div class="gradient_bottom w-full flex titleBox relative bottom-[30px] items-center p-1 pb-2">
               <div class="pr-1 pl-1 z-10 contentImage hidden md:pb-1.5">
-                <img :src="require(`@/assets/live/${livedata.streamerIcon}.png`)" alt="Image" />
+                <img :src=livedata.streamerIcon alt="Image" />
               </div>
               <div class="flex flex-col pl-1 z-10 items-start md:pb-1.5">
                 <div class="text-white font-medium md:text-sm text-10px">{{ livedata.liveTitle }}</div>
