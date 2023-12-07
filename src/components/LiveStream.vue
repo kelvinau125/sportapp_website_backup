@@ -3,7 +3,7 @@
     <div class="flex justify-center">
         <div class="max-w-[1519px]  md:flex justify-between pt-1.5">
             <div class="live-container  ">
-                <div @click="toLiveStream" class="relative  rounded-lg">
+                <div  class="relative  rounded-lg">
                     <div class="">
                         <img class="w-full h-full" src="@/assets/live/liveStreamBackground.png" alt="Image" />
                     </div>
@@ -16,7 +16,7 @@
                             <div class="md:text-10px text-8px font-bold text-white opacity-60">主播昵称</div>
                         </div>
                         <div class="pr-1 pl-5 z-10 pb-1.5">
-                            <ButtonPress @click="HALO" class="rounded-[30px]" style="background-color: #16B13B;">
+                            <ButtonPress @click="showEditStreamDetailModal()" class="rounded-[30px]" style="background-color: #16B13B;">
                                 <div class="flex">
                                     <img src="@/assets/live/liveSetting.png" />
                                     <div class="pl-1.5 font-normal text-base text-white"> {{ $t("Live broadcastsettings") }}
@@ -57,6 +57,9 @@
             </main>
         </div>
     </div>
+    <EditStreamDetailModal :showEditStreamDetailModal="isEditStreamDetailsModalVisible"
+      :closeEditStreamDetailModal="closeEditStreamDetailModal" />
+
     <!-- <div class="scroll-container">
         <div class="inner-container border-2 border-green-500 ">
             <div class=" border-2 border-red-200 max-w-[1519px]  flex justify-between pt-1.5">
@@ -117,11 +120,9 @@
         </div>
     </div>
 
-    <EditStreamDetailModal :showEditStreamDetailModal="isEditStreamDetailsModalVisible"
-      :closeEditStreamDetailModal="closeEditStreamDetailModal" />
 
 
-    <!-- <div class="flex justify-center">
+     <div class="flex justify-center">
         <div class="max-w-[1519px] w-[100%] h-[587px] flex justify-between border-2 border-red-500">
             <div class="w-[1037px] border-2 border-green-500">A</div>
             <div class="w-[463px] border-2">B</div>
