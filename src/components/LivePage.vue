@@ -12,7 +12,7 @@
             <div class="w-full h-full ">
               <img class="w-full h-full " :src= livedata.image alt="Image" />
             </div>
-            <div class="gradient_bottom w-full flex titleBox relative bottom-[30px] items-center p-1 pb-2">
+            <div class="gradient_bottom   w-full flex titleBox relative bottom-[50px] items-center p-1 pb-2">
               <div class="pr-1 pl-1 z-10 contentImage hidden md:pb-1.5">
                 <img :src=livedata.streamerIcon alt="Image" />
               </div>
@@ -113,7 +113,7 @@ export default {
 
   .titleBox {
     position: absolute;
-    bottom: 60px;
+    bottom: 0;
   }
 
   .contentImage {
@@ -144,7 +144,7 @@ export default {
 
   .titleBox {
     position: absolute;
-    bottom: 30px;
+    bottom: 0;
   }
 
   .contentImage {
@@ -158,6 +158,7 @@ export default {
     width: 100%;
     height: 100%;
     left: 0;
+    bottom: 1;
     z-index: 1;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
     background-size: cover;
@@ -233,6 +234,7 @@ export default {
   width: 100%;
   height: 100%;
   left: 0;
+  bottom: 0;
   z-index: 1;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
   background-size: cover;
