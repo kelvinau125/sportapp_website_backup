@@ -199,7 +199,7 @@ export default {
       // img: ref(require('@/assets/topNav/football.png')),
       img: "",
       isDropdownOpen: ref(false),
-      showDropdown: ref(true),
+      showDropdown: ref(false),
       loggedIn: ref(false),
       isLoginModalVisible: ref(false),
       isResgitserModalVisible: ref(false),
@@ -253,6 +253,8 @@ export default {
     },
     toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen;
+      this.showDropdown = false
+      this.isDropdownOpenLanguage = false
     },
     selectOption(image) {
       this.img = image;
@@ -260,6 +262,8 @@ export default {
     },
     toggleDropdownProfile() {
       this.showDropdown = !this.showDropdown;
+      this.isDropdownOpen = false
+      this.isDropdownOpenLanguage = false
     },
     logout() {
       removeCookie();
@@ -385,6 +389,8 @@ export default {
 
     toggleDropdownLanguage() {
       this.isDropdownOpenLanguage = !this.isDropdownOpenLanguage;
+      this.isDropdownOpen = false
+      this.showDropdown = false
     },
 
     languageChange(locale) {
