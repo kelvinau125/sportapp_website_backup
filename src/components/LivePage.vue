@@ -12,13 +12,13 @@
             <div class="w-full h-full ">
               <img class="w-full h-full " :src= livedata.image alt="Image" />
             </div>
-            <div class="gradient_bottom w-full flex titleBox items-center p-1 pb-2">
-              <div class="pr-1 pl-1 z-10 contentImage pb-1.5">
-                <img :src= livedata.streamerIcon alt="Image" />
+            <div class="gradient_bottom w-full flex titleBox relative bottom-[30px] items-center p-1 pb-2">
+              <div class="pr-1 pl-1 z-10 contentImage hidden md:pb-1.5">
+                <img :src="require(`@/assets/live/${livedata.streamerIcon}.png`)" alt="Image" />
               </div>
-              <div class="flex flex-col pl-1 z-10 items-start pb-1.5">
-                <div class="text-white font-normal md:text-sm text-10px">{{ livedata.liveTitle }}</div>
-                <div class="md:text-10px text-8px font-bold text-white opacity-60">{{ livedata.streamerName }}</div>
+              <div class="flex flex-col pl-1 z-10 items-start md:pb-1.5">
+                <div class="text-white font-medium md:text-sm text-10px">{{ livedata.liveTitle }}</div>
+                <div class="md:text-10px text-8px font-medium text-white opacity-60">{{ livedata.streamerName }}</div>
               </div>
             </div>
           </div>
@@ -106,36 +106,6 @@ export default {
 </script>
 
 
-<!-- <script setup>
-import PopularMatch from '@/components/PopularMatch.vue'
-import BackgroundImage from '@/components/BackGround.vue'
-import { useRouter } from 'vue-router'
-
-const liveData = [
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-]
-
-
-const router = useRouter();
-
-const toLiveStream = () => {
-  //Navigating
-  //Push to the Live Page
-  router.push({ name: 'LiveStream' })
-}
-
-</script> -->
 
 <style scoped>
 @media (min-width: 300px) {
@@ -150,8 +120,21 @@ const toLiveStream = () => {
     bottom: 60px;
   }
 
-  .contentImage{
+  .contentImage {
+    display: block;
     width: 30px;
+  }
+
+  .gradient_bottom::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    background-size: cover;
+    border-radius: 8px;
   }
 }
 
@@ -168,8 +151,21 @@ const toLiveStream = () => {
     bottom: 30px;
   }
 
-  .contentImage{
+  .contentImage {
+    display: block;
     width: 35px;
+  }
+
+  .gradient_bottom::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    background-size: cover;
+    border-radius: 8px;
   }
 }
 
@@ -184,6 +180,23 @@ const toLiveStream = () => {
   .titleBox {
     position: absolute;
     bottom: 0;
+  }
+
+  .contentImage {
+    display: block;
+    width: 38px;
+  }
+
+  .gradient_bottom::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    background-size: cover;
+    border-radius: 8px;
   }
 }
 
