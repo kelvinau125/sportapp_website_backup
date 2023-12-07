@@ -8,13 +8,13 @@
         <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4" v-for="livedata in liveData"
           :key="livedata.liveData">
 
-          <div @click="toLiveStream" class="card-body relative">
-            <div class="">
-              <img class="" :src="require(`@/assets/live/${livedata.image}.png`)" alt="Image" />
+          <div @click="toLiveStream(livedata.liveID)" class="card-body relative">
+            <div class="w-full h-full ">
+              <img class="w-full h-full " :src= livedata.image alt="Image" />
             </div>
             <div class="gradient_bottom w-full flex titleBox items-center p-1 pb-2">
               <div class="pr-1 pl-1 z-10 contentImage pb-1.5">
-                <img :src="require(`@/assets/live/${livedata.streamerIcon}.png`)" alt="Image" />
+                <img :src= livedata.streamerIcon alt="Image" />
               </div>
               <div class="flex flex-col pl-1 z-10 items-start pb-1.5">
                 <div class="text-white font-normal md:text-sm text-10px">{{ livedata.liveTitle }}</div>
@@ -31,6 +31,9 @@
 import PopularMatch from '@/components/PopularMatch.vue'
 import BackgroundImage from '@/components/BackGround.vue'
 
+import { getUserInfo } from '@/service/apiProvider.js';
+import { getAllStreamDetails } from '@/service/apiStreamProvider.js';
+
 export default {
   components: {
     PopularMatch,
@@ -38,59 +41,66 @@ export default {
   },
   data() {
     return {
-      liveData: [
-        { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-        { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-        { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-        { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-        { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-        { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-        { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-        { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-        { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-        { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-        { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-        { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-      ]
+        liveData: [],
+      // liveData: [
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      // ]
     };
   },
+  mounted() {
+    this.generateLiveList();
+  },
+
   methods: {
-    toLiveStream() {
+    toLiveStream(liveID) {
       // Navigating
       // Push to the Live Page
-      this.$router.push({ name: 'LiveStream' });
+      // this.$router.push({ name: 'LiveStream' });
+      const routeData = this.$router.resolve({
+        name: 'LiveStream', query: {
+          LiveID: liveID,
+        }
+      });
+      window.open(routeData.href, '_blank');
     },
-    // async generateLiveList() {
-    //   this.matchDetails = [];
-    //   (this.currentChannel)
-    //     //football
-    //     ? this.getMatchList = await getMatchByDate(matchdate, this.isCN)
-    //     //basketball
-    //     : this.getMatchList = await getBasketballMatchByDate(matchdate, this.isCN)
 
-    //   for (let i = 0; i < this.getMatchList.length; i++) {
+    async generateLiveList() {
+      this.liveData = [];
 
-    //     const matchId = this.getMatchList[i]["id"];
-    //     // Check if the match ID is in the list of favorite IDs
-    //     const isFavorite = this.favoriteList.includes(matchId);
+      this.getLiveList = await getAllStreamDetails();
 
-    //     this.matchDetails.push({
-    //       matchType: this.getMatchList[i]["competitionName"],
-    //       date: this.getMatchList[i]["matchDate"],
-    //       time: this.getMatchList[i]["matchTimeStr"],
-    //       homeTeamName: this.getMatchList[i]["homeTeamName"],
-    //       homeTeamIcon: this.getMatchList[i]["homeTeamLogo"],
-    //       homeTeamScore: this.getMatchList[i]["homeTeamScore"],
-    //       awayTeamName: this.getMatchList[i]["awayTeamName"],
-    //       awayTeamIcon: this.getMatchList[i]["awayTeamLogo"],
-    //       awayTeamScore: this.getMatchList[i]["awayTeamScore"],
-    //       overTime: "null",
-    //       favorite: isFavorite,
-    //       statusStr: this.getMatchList[i]["statusStr"],
-    //       linkAddress: this.getMatchList[i]["id"],
-    //     });
-    //   }
-    // },
+      console.log()
+      console.log(this.getLiveList)
+
+      for (let i = 0; i < this.getLiveList.length; i++) {
+        // Pass userId to getUserInfo and get user details
+        const userInfo = await getUserInfo(this.getLiveList[i]["userId"]);
+
+        // Check if sportType is 0 (football)
+        if (this.getLiveList[i]["sportType"] == 0) {
+  
+          this.liveData.push({
+            liveID: this.getLiveList[i]["id"],
+            image: this.getLiveList[i]["cover"],
+            liveTitle: this.getLiveList[i]["title"],
+            streamerName: userInfo.nickName,
+            streamerIcon: userInfo.head,
+          });
+        }
+      }
+    },
+
   }
 }
 </script>

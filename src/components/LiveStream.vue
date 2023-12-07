@@ -40,10 +40,10 @@
                         v-for="(livedata, index) in liveData.slice(0, 10)" :key="index">
 
                         <div @click="toLiveStream" class="card-body relative">
-                            <img class="rounded-lg" :src="require(`@/assets/live/${livedata.image}.png`)" alt="Image" />
+                            <img class="rounded-lg w-full h-full" :src= livedata.image alt="Image" />
                             <div class="gradient_bottom w-full flex absolute bottom-3 items-center p-1 pb-2">
                                 <div class="pr-1 pl-1 z-10 w-10">
-                                    <img :src="require(`@/assets/live/${livedata.streamerIcon}.png`)" alt="Image" />
+                                    <img :src= livedata.streamerIcon alt="Image" />
                                 </div>
                                 <div class="flex flex-col pl-1 z-10 items-start">
                                     <div class="text-white font-medium text-sm">{{ livedata.liveTitle }}</div>
@@ -57,8 +57,10 @@
             </main>
         </div>
     </div>
-    <EditStreamDetailModal :showEditStreamDetailModal="isEditStreamDetailsModalVisible"
-      :closeEditStreamDetailModal="closeEditStreamDetailModal" />
+    <EditStreamDetailModal 
+    :showEditStreamDetailModal="isEditStreamDetailsModalVisible"
+    :closeEditStreamDetailModal="closeEditStreamDetailModal"
+    :LiveID="this.LiveID" />
 
     <!-- <div class="scroll-container">
         <div class="inner-container border-2 border-green-500 ">
@@ -179,11 +181,16 @@ import { ref } from 'vue';
 import ButtonPress from '@/components/ButtonPress.vue';
 import EditStreamDetailModal from '@/views/Stream/EditStreamDetail.vue';
 
+// api
+import { getUserInfo } from '@/service/apiProvider.js';
+import { getAllStreamDetails } from '@/service/apiStreamProvider.js';
+
 export default {
     components: {
         ButtonPress,
         EditStreamDetailModal,
     },
+
     methods: {
         toLiveStream() {
             // Navigating
@@ -198,25 +205,60 @@ export default {
         closeEditStreamDetailModal() {
         this.isEditStreamDetailsModalVisible = false;
         },
+
+        async generateLiveList() {
+            this.liveData = [];
+
+            this.getLiveList = await getAllStreamDetails();
+
+            console.log()
+            console.log(this.getLiveList)
+
+            for (let i = 0; i < this.getLiveList.length; i++) {
+                // Pass userId to getUserInfo and get user details
+                const userInfo = await getUserInfo(this.getLiveList[i]["userId"]);
+
+                // Check if sportType is 0 (football)
+                if (this.getLiveList[i]["sportType"] == 0) {
+        
+                this.liveData.push({
+                    liveID: this.getLiveList[i]["id"],
+                    image: this.getLiveList[i]["cover"],
+                    liveTitle: this.getLiveList[i]["title"],
+                    streamerName: userInfo.nickName,
+                    streamerIcon: userInfo.head,
+                });
+                }
+            }
+        },
+
     },
+    
+    mounted() {
+        this.generateLiveList()
+    },
+
     data() {
         return {
             // edit stream
             isEditStreamDetailsModalVisible: ref(false),
 
-            liveData: [
-                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
-                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
-                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
-                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
+            LiveID: this.$route.query.LiveID,
+            liveData: [],
 
-                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-                { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-            ],
+            // liveData: [
+            //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
+            //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
+            //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
+            //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
+
+            //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+            //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+            //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+            //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+            //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+            //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
+            // ],
         };
     },
 };
