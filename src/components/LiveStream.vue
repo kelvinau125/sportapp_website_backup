@@ -17,7 +17,7 @@
                                 <div class="md:text-10px text-8px font-bold text-white opacity-60">主播昵称</div>
                             </div>
                             <div class="pr-1 pl-10 z-10 pb-1.5">
-                                <ButtonPress @click="HALO" class="rounded-[30px]" style="background-color: #16B13B;">
+                                <ButtonPress @click="showEditStreamDetailModal()" class="rounded-[30px]" style="background-color: #16B13B;">
                                     <div class="flex ">
                                         <img src="@/assets/live/liveSetting.png" />
                                         <div class="pl-1.5 font-normal text-base text-white"> {{ $t("Live broadcast settings") }}</div>
@@ -61,6 +61,11 @@
             </main>
         </div>
     </div>
+
+    <EditStreamDetailModal :showEditStreamDetailModal="isEditStreamDetailsModalVisible"
+      :closeEditStreamDetailModal="closeEditStreamDetailModal" />
+
+
     <!-- <div class="flex justify-center">
         <div class="max-w-[1519px] w-[100%] h-[587px] flex justify-between border-2 border-red-500">
             <div class="w-[1037px] border-2 border-green-500">A</div>
@@ -113,11 +118,15 @@
 
 <script >
 // import { useRouter } from 'vue-router'
+
+import { ref } from 'vue';
 import ButtonPress from '@/components/ButtonPress.vue';
+import EditStreamDetailModal from '@/views/Stream/EditStreamDetail.vue';
 
 export default {
     components: {
-        ButtonPress
+        ButtonPress,
+        EditStreamDetailModal,
     },
     methods: {
         toLiveStream() {
@@ -125,9 +134,20 @@ export default {
             // Push to the Live Page
             this.$router.push({ name: 'home' });
         },
+        // edit stream
+        showEditStreamDetailModal() {
+        this.isEditStreamDetailsModalVisible = true;
+        },
+
+        closeEditStreamDetailModal() {
+        this.isEditStreamDetailsModalVisible = false;
+        },
     },
     data() {
         return {
+            // edit stream
+            isEditStreamDetailsModalVisible: ref(false),
+
             liveData: [
                 { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
                 { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },

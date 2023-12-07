@@ -42,7 +42,7 @@ export async function getPushStreamUrl() {
   }
 
 // getLiveStreamBookmark
-export async function createStream(time, host, code, cover, title) {
+export async function createStream(category, time, host, code, cover, title) {
 
     // get user token
     const userid = VueCookies.get('phoneNumber')
@@ -53,6 +53,7 @@ export async function createStream(time, host, code, cover, title) {
     const isFinished = await updateStreamCover(cover);
 
     const apiDetails = {
+        sportType:category,
         createTime: time,
         pushHost: host,
         pushCode: code,
