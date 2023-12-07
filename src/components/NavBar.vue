@@ -250,6 +250,9 @@ export default {
     },
     MenuOpen() {
       this.openNav = !this.openNav;
+      this.isDropdownOpen = false
+      this.showDropdown = false
+      this.isDropdownOpenLanguage = false
     },
     toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen;
@@ -259,6 +262,8 @@ export default {
     selectOption(image) {
       this.img = image;
       this.isDropdownOpen = false;
+      this.showDropdown = false
+      this.isDropdownOpenLanguage = false
     },
     toggleDropdownProfile() {
       this.showDropdown = !this.showDropdown;
