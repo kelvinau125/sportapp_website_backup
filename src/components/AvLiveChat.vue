@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div style="height: 100vh; width: 100vw">
     <TencentCloudChat :tim="tim"></TencentCloudChat>
   </div>
@@ -61,4 +61,4 @@ export default {
   methods: {},
 };
 </script>
-@/tencent/lib-generate-test-usersig-es.min
+@/tencent/lib-generate-test-usersig-es.min -->

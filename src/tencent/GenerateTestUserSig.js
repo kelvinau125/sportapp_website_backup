@@ -86,8 +86,6 @@ const SECRETKEY = '05a26268b99ece6f3c9b00549dafcbabf2e76b7df1d6b0fae9d8513c6efee
 function genTestUserSig(userID) {
   const generator = new LibGenerateTestUserSig(SDKAppID, SECRETKEY, EXPIRETIME);
   const userSig = generator.genTestUserSig(userID);
-  console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-  console.log(userSig);
 
   return { SDKAppID, userSig };
 }

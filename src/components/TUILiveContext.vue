@@ -1,12 +1,12 @@
-<template>
+<!-- <template>
   <TUILiveContext.Provider :value="contextValue">
-    <!-- Your Vue components here, wrapped within TUILiveContext.Provider -->
+    Your Vue components here, wrapped within TUILiveContext.Provider
     <slot> </slot>
   </TUILiveContext.Provider>
 </template>
 
 <script>
-import { ref, provide, inject } from "vue";
+import { ref, provide } from "vue";
 
 export const TUILiveContext = Symbol("TUILiveContext");
 
@@ -19,7 +19,9 @@ export default {
 
     provide(TUILiveContext, contextValue);
 
-    return () => <>{slots.default && slots.default()}</>;
+    return () => {
+      slots.default && slots.default();
+    };
   },
 };
-</script>
+</script> -->

@@ -1,6 +1,7 @@
 // store/index.js
 
 import { createStore } from 'vuex'
+import { reactive } from 'vue'
 
 export default createStore({
   state: {
@@ -10,6 +11,8 @@ export default createStore({
     userId: null,
     status: false,
     currentChannel: localStorage.getItem('currentChannel') || 'football',
+    timInstance: null
+
   },
   mutations: {
     setUserData(state, { nickName, phoneNumber, password, userId }) {
@@ -38,6 +41,15 @@ export default createStore({
       state.currentChannel = channel;
       localStorage.setItem('currentChannel', channel);
     },
+    setAVChatRoom(state, timInstance){
+      state.timInstance = timInstance;  
+      const reactiveObject = reactive(this.timInstance);
+      localStorage.setItem('AVChatRoom', JSON.stringify(reactiveObject));
+      
+    },
+    clearAVChatRoom(state){
+      state.timInstance = null;
+    }
   },
   actions: {
     register({ commit }, { nickName, phoneNumber, password, userId }) {
@@ -61,6 +73,13 @@ export default createStore({
     switchChannel({ commit }, channel) {
       commit('setCurrentChannel', channel);
     },
+    AVChatRoomLogin({commit},timInstance) {
+      commit('setAVChatRoom',timInstance);
+      console.log("avchat done");
+    },
+    AVChatRoomLogout({commit}) {
+      commit('clearAVChatRoom');
+    }
   },
   getters: {
     isLoggedIn: state => !!state.userId,
@@ -69,5 +88,6 @@ export default createStore({
     password: state => state.password,
     status: state => state.status,
     getCurrentChannel: state => state.currentChannel,
+    timInstance: state => state.timInstance,
   }
 })

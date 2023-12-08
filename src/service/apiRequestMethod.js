@@ -19,7 +19,7 @@ export async function postRequest(url, body) {
       headers: header,
     });
 
-    console.log(response);
+    // console.log(response);
 
     if (response.status === 200) {
       return response.data;
@@ -35,7 +35,7 @@ export async function postRequest(url, body) {
     try {
       const response = await axios.get(url);
   
-      console.log(response);
+      // console.log(response);
   
       if (response.status === 200) {
         return response.data;
@@ -53,7 +53,7 @@ export async function postRequest(url, body) {
         headers: headerBookmark,
       });
   
-      console.log(response);
+      // console.log(response);
   
       if (response.status === 200) {
         return response.data;
@@ -71,7 +71,7 @@ export async function postRequest(url, body) {
         headers: headerBookmark,
       });
   
-      console.log(response);
+      // console.log(response);
   
       if (response.status === 200) {
         return response.data;
@@ -89,7 +89,7 @@ export async function postRequest(url, body) {
         headers: headerBookmark,
       });
   
-      console.log(response);
+      // console.log(response);
   
       if (response.status === 200) {
         return response.data;
@@ -107,7 +107,7 @@ export async function patchRequest(url, body) {
       headers: header,
     });
 
-    console.log(response);
+    // console.log(response);
 
     if (response.status === 200) {
       return response.data;
@@ -130,7 +130,7 @@ export async function postFileRequest(file, url) {
       },
     });
 
-    console.log(response);
+    // console.log(response);
 
     if (response.status === 200) {
       return response.data;
@@ -146,7 +146,7 @@ export async function getRequestSearchStream(url) {
   try {
     const response = await axios.get(url);
     
-    console.log(response);
+    // console.log(response);
 
     if (response.status === 200) {
       // const jsonData = response.data;

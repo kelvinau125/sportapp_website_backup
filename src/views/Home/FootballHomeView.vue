@@ -165,7 +165,6 @@
     </div>
   </div> -->
   <div>
-    
     <FooterBar />
   </div>
 </template>
@@ -176,14 +175,27 @@ import FooterBar from "@/components/FooterPage.vue";
 import BackgroundImage from "@/components/BackGround.vue";
 import { ref } from "vue";
 
+import TIMUploadPlugin from "tim-upload-plugin";
+import genTestUserSig from "@/tencent/GenerateTestUserSig.js";
+import TIM from "tim-js-sdk/tim-js-friendship.js";
+import { mapActions } from "vuex";
+
 export default {
   components: {
     PopularMatch,
     FooterBar,
     BackgroundImage,
   },
+  mounted() {
+    this.toSetLogLevel();
+    this.toRegisterPlugin();
+  },
   data() {
     return {
+      timInstance: TIM.create({
+        SDKAppID: 20004801,
+        userSig: new genTestUserSig("60127659785").userSig,
+      }),
       streamer: [
         { name: "主播名称", image: "defaultProfile", no: "1234" },
         { name: "主播名称", image: "defaultProfile", no: "1234" },
@@ -231,7 +243,6 @@ export default {
   },
   computed: {
     selectedEpicVideoSource() {
-      console.log("eeeeeeeeeeeeeeeeeeeeeeee");
       console.log(this.selectedEpic.videoSource);
       return this.selectedEpic
         ? this.selectedEpic.videoSource
@@ -244,6 +255,8 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["AVChatRoomLogin"]),
+
     selectEpic(epic) {
       this.selectedEpic = epic;
       this.$refs.videoPlayer.src = "";
@@ -252,6 +265,17 @@ export default {
           ? this.selectedEpic.videoSource
           : "https://vjs.zencdn.net/v/oceans.mp4";
       });
+    },
+    toSetLogLevel() {
+      this.timInstance.setLogLevel(4);
+    },
+
+    toRegisterPlugin() {
+      this.timInstance?.registerPlugin({
+        "tim-upload-plugin": TIMUploadPlugin,
+      });
+
+      this.$store.dispatch("AVChatRoomLogin", { timInstance: this.timInstance });
     },
   },
 };
