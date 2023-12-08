@@ -122,7 +122,7 @@
       <div class="pb-2">
         <div class="flex flex-wrap justify-start px-2">
           <router-link :to="address.addressLink" v-for="address in liveAddress" :key="address.liveAddress">
-            <div class="flex items-center py-3">
+            <div class="flex items-center px-1 py-3">
               <div class="live_border">
                 <p class="px-4 py-2 font-medium md:text-sm text-xs">
                   {{ address.liveAddress }}
@@ -202,6 +202,8 @@ import TournamentSubstitue from "./TournamentSubstitue.vue";
 import BasketballTournamentSubstitue from "@/views/Tournament/BasketballTournamentSubstitue.vue";
 import BasketballTournamentStatus from "@/views/Tournament/basketballTournamentStatus.vue"
 
+import { searchLiveAddress } from '@/service/searchLiveStreamProvider.js';
+
 export default {
   components: {
     LiveList,
@@ -214,12 +216,13 @@ export default {
   data() {
     return {
       currentChannel: ref((localStorage.getItem('currentChannel') === "football") ? true : false),
+      isCN: ((this.$i18n.locale === 'ZH') ? true : false),
 
       liveAddress: [
-        { liveAddress: this.$t("Broadcast address"), addressLink: "/" },
-        { liveAddress: this.$t("Broadcast address"), addressLink: "/live" },
-        { liveAddress: this.$t("Broadcast address"), addressLink: "/" },
-        { liveAddress: this.$t("Broadcast address"), addressLink: "/" },
+        // { liveAddress: this.$t("Broadcast address"), addressLink: "/" },
+        // { liveAddress: this.$t("Broadcast address"), addressLink: "/live" },
+        // { liveAddress: this.$t("Broadcast address"), addressLink: "/" },
+        // { liveAddress: this.$t("Broadcast address"), addressLink: "/" },
       ],
 
       TournamentID: this.$route.query.TournamentID,
@@ -233,8 +236,52 @@ export default {
       awayTeamName: this.$route.query.awayTeamName,
       awayTeamScore: this.$route.query.awayTeamScore,
       awayTeamLogo: this.$route.query.awayTeamLogo,
+
+      // TournamentID: "1000",
+      // homeTeamName: "kelvin 1",
+      // awayTeamName: "phillip 1",
+
+      liveAdressName: [
+        "直播地址 - 标清",
+        "直播地址 -  华语",
+        "直播地址 - 英文",
+      ],
     };
   },
+
+  mounted() {
+    this.generateLiveAddress()
+  },
+
+  methods: {
+    async generateLiveAddress() {
+      this.liveAddress = [];
+      
+      (this.isCN)
+      ? this.getLiveAddress = await searchLiveAddress("", "", this.TournamentID, this.isCN,  this.currentChannel) 
+      : this.getLiveAddress = await searchLiveAddress(this.homeTeamName, this.awayTeamName, "", this.isCN,  this.currentChannel)
+
+      if (this.getLiveAddress != "null" && this.getLiveAddress !== null){
+        if (this.isCN){
+          for (let i = 0; i < 3; i++) {
+            this.liveAddress.push({
+              liveAddress: this.liveAdressName[i],
+              addressLink: this.getLiveAddress["pushUrl" + (i + 1)],
+            });
+          }
+        }
+        else{
+          this.liveAddress.push ({
+            liveAddress: "Live broadcast address",
+            addressLink: this.getLiveAddress,
+          })
+        }
+      }
+      else{
+        this.liveAddress = []
+      }
+    },
+  }
 };
 </script>
 

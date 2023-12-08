@@ -1,4 +1,5 @@
 import {
+    getRequest,
     getRequestSearchStream
 } from '@/service/apiRequestMethod';
 
@@ -9,8 +10,10 @@ import {
     searchFootballMatchTodayENurl,
     searchBasketballTodayUrl,
     searchBasketballTodayENurl,
-    // getFootballLiveAddressUrl,
-    // getBasketballLiveAddressUrl,
+    getFootballLiveAddressUrl,
+    getBasketballLiveAddressUrl,
+    getBasketballLiveAddressENUrl,
+    getFootballLiveAddressENUrl,
 
 } from '@/utils/apiConfig.js';
 
@@ -79,29 +82,37 @@ export async function searchLiveCompetitionStream(competitionName, isCN, isFootB
     }
 }
 
-// export async function searchLiveAddress(homeName, awayName, isCN, isFootBall) {
-//     // const url = baseUrl + searchFootballMatchTodayENurl + 'competitionName=' + competitionName
-//     let url;
+export async function searchLiveAddress(homeName, awayName, mathcId, isCN, isFootBall) {
+    // const url = baseUrl + searchFootballMatchTodayENurl + 'competitionName=' + competitionName
+    let url;
 
-//     (isFootBall)
-//       ? url = baseUrl + getFootballLiveAddressUrl + 'competitionName=' + homeName
-//       : url = baseUrl + getBasketballLiveAddressUrl + 'competitionName=' + awayName
+    (isCN)
+    ? ((isFootBall)
+      ? url = baseUrl + getFootballLiveAddressUrl + mathcId
+      : url = baseUrl + getBasketballLiveAddressUrl + mathcId)
+    : ((isFootBall)
+      ? url = baseUrl + getFootballLiveAddressENUrl + '?homeTeamName=' + homeName + '&awayTeamName=' + awayName
+      : url = baseUrl + getBasketballLiveAddressENUrl + '?homeTeamName=' + homeName + '&awayTeamName=' + awayName)
 
-//     try {
-//         const response = await getRequestSearchStream(url)
+    console.log(url)
 
-//         const data = response.data
-//         const code = response.code;
+    try {
+        const response = await getRequest(url)
 
-//         if (code === 0) {
-//             return data;
+        const data = response.data
+        const code = response.code;
 
-//         } else {
-//             console.log(`Unsuccessfully searchLiveAddress: ${code}`);
-//             return [];
-//         }
-//     } catch (e) {
-//         console.log(`Unsuccessful in provider: ${e}`);
-//         return [];
-//     }
-// }
+        console.log("hahahahahahahaha",data)
+
+        if (code === 0) {
+            return data;
+
+        } else {
+            console.log(`Unsuccessfully searchLiveAddress: ${code}`);
+            return "null";
+        }
+    } catch (e) {
+        console.log(`Unsuccessful in provider: ${e}`);
+        return "null";
+    }
+}

@@ -116,6 +116,19 @@ export const getBasketballLineUpENurl =
 export const getBasketballMatchLiveDataENurl =
     basketballBaseUrl + EN + getBasketballMatchLiveData;
 
+// Football & Basketball EN - live address
+
+export const LiveAddressBaseENUrl = '/api/v1/live-address';
+
+export const FootballLiveAddress = '/football';
+
+export const BasketballLiveAddress = '/basketball';
+
+export const getFootballLiveAddressENUrl =
+LiveAddressBaseENUrl + FootballLiveAddress;
+
+export const getBasketballLiveAddressENUrl =
+LiveAddressBaseENUrl + BasketballLiveAddress;
 
 //Football CN----------------------------------------------------------------------------------------------//
 export const footballBaseUrl = '/api/v1/footballs';
@@ -128,7 +141,7 @@ export const searchFootballMatchToday = '/match/now-list?';
 
 export const getFootballMatchById = '/match/livedata/';
 
-export const getFootballLiveAddress = '/address/';
+export const getFootballLiveAddress = '/match/address/';
 
 export const getStartFootballMatch = '/match/list-start?';
 
