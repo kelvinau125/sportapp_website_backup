@@ -12,13 +12,13 @@
                 <div @click="test" class="">
                   <img class="w-full " :src= livedata.image alt="Image" style="height: 92px;" />
                 </div>
-                <div class="bg-white flex items-center " style="height: 30px;">
+                <div class="bg-white  flex items-center " style="height: 30px;">
                   <div class="pr-1 pl-1 pt-1">
                     <img class="rounded-full w-[25px] h-[25px]" :src= livedata.streamerIcon alt="Image" />
                   </div>
-                  <div class="flex flex-col pl-1 items-start">
+                  <div class="flex flex-col h-[31px]  pl-1 items-start ">
                     <div class="text-black md:text-xs text-10px font-medium">{{ livedata.liveTitle }}</div>
-                    <div class="font-medium text-grayText md:text-10px text-8px" >{{ livedata.streamerName }}</div>
+                    <div class="font-medium text-grayText md:text-10px text-8px w-[112px] whitespace-nowrap overflow-hidden text-ellipsis" >{{ livedata.streamerName }}</div>
                   </div>
                 </div>
               </div>

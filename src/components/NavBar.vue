@@ -426,7 +426,11 @@ export default {
 
       // Save the selected language to localStorage
       localStorage.setItem('locale', locale);
-      window.location.reload();
+      if (this.$route.path === "/") {
+        window.location.reload();
+      } else {
+        this.$router.push("/");
+      }
     },
 
   },
