@@ -167,8 +167,8 @@
       </div>
     </div>
   </div>
-  <div class="flex justify-center pb-10">
-    <div class="border-2 max-w-[892px] w-full">
+  <div class="flex justify-center pb-10" v-show="!currentChannel">
+    <div class="max-w-[892px] w-full">
       <h2 class="text-headerFont font-headerWeight pb-3">{{ $t("Data analysis") }}</h2>
       <div class="flex flex-col pb-5 team_lineup " style="background-color: white">
         <div class="pt-3 ">
