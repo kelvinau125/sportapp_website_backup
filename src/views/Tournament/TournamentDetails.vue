@@ -105,7 +105,7 @@
       <div>
         <div class="flex pt-3 items-center">
           <img src="@/assets//tournament/streamIcon.png" />
-          <span class="pl-2 font-normal text-sm">{{ $t("Anchor of this event") }}</span>
+          <span class="pl-2 font-normal md:text-sm text-xs">{{ $t("Anchor of this event") }}</span>
         </div>
       </div>
     </div>
@@ -117,7 +117,7 @@
     <div class="w-[892px]">
       <div class="flex items-center">
         <img src="@/assets//tournament/streamIcon.png" />
-        <span class="pl-2 font-normal text-sm">{{ $t("Live match") }}</span>
+        <span class="pl-2 font-normal md:text-sm text-xs">{{ $t("Live match") }}</span>
       </div>
       <div class="pb-2">
         <div class="flex flex-wrap justify-start px-2">
@@ -167,9 +167,30 @@
       </div>
     </div>
   </div>
+  <div class="flex justify-center pb-10">
+    <div class="border-2 max-w-[892px] w-full">
+      <h2 class="text-headerFont font-headerWeight pb-3">{{ $t("Data analysis") }}</h2>
+      <div class="flex flex-col pb-5 team_lineup " style="background-color: white">
+        <div class="pt-3 ">
+          <BasketballTournamentSubstitue :tournamentID="1" :awayTeamName="this.awayTeamName"
+            :homeTeamName="this.homeTeamName" :is-home-team="true" :home-team-logo="this.homeTeamLogo"
+            :away-team-logo="this.awayTeamLogo" :showbasketballsubstitue="!currentChannel">
+          </BasketballTournamentSubstitue>
+        </div>
+      </div>
+      <div class="flex flex-col team_lineup pb-5" style="background-color: white">
+        <div class="pt-3">
+          <BasketballTournamentSubstitue :tournamentID="1" :awayTeamName="this.awayTeamName"
+            :homeTeamName="this.homeTeamName" :is-home-team="false" :home-team-logo="this.homeTeamLogo"
+            :away-team-logo="this.awayTeamLogo" :showbasketballsubstitue="!currentChannel">
+          </BasketballTournamentSubstitue>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <div class="flex justify-center pb-10" v-show="!currentChannel">
-    <div class="w-[892px]">
+  <!-- <div class="flex justify-center pb-10" v-show="!currentChannel">
+    <div class="max-w-[892px] w-full">
       <h2 class="text-headerFont font-headerWeight pb-3">{{ $t("Data analysis") }}</h2>
       <div class="flex flex-col pb-5 team_lineup" style="background-color: white">
         <div class="pt-3">
@@ -189,7 +210,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -361,7 +382,8 @@ export default {
 }
 
 .team_lineup {
-  width: 850px;
+  max-width: 892px;
+  width: 100%;
   margin: auto;
   position: relative;
 }
