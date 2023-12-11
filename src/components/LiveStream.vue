@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-center">
-        <div class="max-w-[1519px] border-2  md:flex justify-between pt-1.5">
+        <div class="max-w-[1519px]   md:flex justify-between pt-1.5">
             <div class="live-container  ">
                 <div class="relative  rounded-lg">
                     <div class="">
@@ -8,18 +8,19 @@
                     </div>
                     <div class="w-full flex headerBox items-center md:pt-4 pt-3 md:pl-2 pb-2">
                         <div class="pr-1 pl-1 z-10 w-[50px]">
-                            <img class="rounded-full" :src= this.StreamIcon alt="Image" />
+                            <img class="rounded-full" :src=this.StreamIcon alt="Image" />
                         </div>
                         <div class=" flex flex-col md:pl-1 pl-5 z-10 items-start md:pb-1.5 pb-3">
                             <div class="text-white font-normal md:text-sm text-10px"> {{ this.LiveTitle }} </div>
                             <div class="md:text-10px text-8px font-bold text-white opacity-60">{{ this.StreamName }}</div>
                         </div>
                         <div class="pr-1 pl-5 z-10 pb-1.5">
-                            <ButtonPress @click="showEditStreamDetailModal()" class="rounded-[30px] md:static relative -top-1"
-                                style="background-color: #16B13B;">
+                            <ButtonPress @click="showEditStreamDetailModal()"
+                                class="rounded-[30px] md:static relative -top-1" style="background-color: #16B13B;">
                                 <div class="flex">
                                     <img class="live-image" src="@/assets/live/liveSetting.png" />
-                                    <div class="pl-1.5 font-normal md:text-base text-sm text-white md:block hidden"> {{ $t("Live broadcast settings")
+                                    <div class="pl-1.5 font-normal md:text-base text-sm text-white md:block hidden"> {{
+                                        $t("Live broadcast settings")
                                     }}
                                     </div>
                                 </div>
@@ -29,7 +30,39 @@
 
                 </div>
             </div>
-            <div class="chat-container ml-2  border-2">聊天窗口</div>
+            <div class="chat-container border-2 border-white rounded-lg ml-2 relative  ">
+                <div class="flex pb-4 p-3">
+                    <div class="pr-2">
+                        <img class="w-[30px]" src="@/assets/ProfilePicture.png" />
+                    </div>
+                    <div class="flex flex-col chat_border">
+                        <div class="text-xs font-medium" style="color: #666666;">ZHENAYUUUUUUUUUUUU</div>
+                        <div class="text-sm font-medium" style="color: #333333;">Halo World</div>
+                    </div>
+                </div>
+                <div class=" flex pb-4 p-3">
+                    <div class="pr-2">
+                        <img class="w-[30px]" src="@/assets/ProfilePicture.png" />
+                    </div>
+                    <div class="flex flex-col chat_border">
+                        <div class="text-xs font-medium" style="color: #666666;">俐敏俐敏俐敏俐敏</div>
+                        <div class="text-sm font-medium" style="color: #333333;">俐敏 你好</div>
+                    </div>
+                </div>
+
+                <div class="absolute bottom-0 flex pb-3">
+                    <!-- Enter to send message... -->
+                    <div class="pr-4">
+                        <input class="w-[300px] pl-3 rounded-[24.46px] h-[44px] font-normal text-xs" placeholder="输入内容"
+                            type="text" />
+                    </div>
+                    <div class="mt-1">
+                        <button>
+                            <img class="w-[36px] h-[36px]" src="@/assets/live/chatSend.png" />
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="flex justify-center">
@@ -41,14 +74,15 @@
                         v-for="(livedata, index) in liveData.slice(0, 10)" :key="index">
 
                         <div @click="toLiveStream(livedata.liveID)" class="card-body relative">
-                            <img class="rounded-lg border-2 w-full h-full" :src= livedata.image alt="Image" />
+                            <img class="rounded-lg border-2 w-full h-full" :src=livedata.image alt="Image" />
                             <div class="gradient_bottom w-full flex absolute bottom-3 items-center p-1 pb-2">
                                 <div class="pr-1 pl-1 z-10 w-10">
-                                    <img class="rounded-full" :src= livedata.streamerIcon alt="Image" />
+                                    <img class="rounded-full" :src=livedata.streamerIcon alt="Image" />
                                 </div>
                                 <div class="flex flex-col pl-1 z-10 items-start">
                                     <div class="text-white font-medium md:text-sm text-10px">{{ livedata.liveTitle }}</div>
-                                    <div class="md:text-10px text-8px font-medium text-white opacity-60">{{ livedata.streamerName }}
+                                    <div class="md:text-10px text-8px font-medium text-white opacity-60">{{
+                                        livedata.streamerName }}
                                     </div>
                                 </div>
                             </div>
@@ -58,10 +92,8 @@
             </main>
         </div>
     </div>
-    <EditStreamDetailModal 
-    :showEditStreamDetailModal="isEditStreamDetailsModalVisible"
-    :closeEditStreamDetailModal="closeEditStreamDetailModal"
-    :LiveID="this.LiveID" />
+    <EditStreamDetailModal :showEditStreamDetailModal="isEditStreamDetailsModalVisible"
+        :closeEditStreamDetailModal="closeEditStreamDetailModal" :LiveID="this.LiveID" />
 </template>
 
 <script >
@@ -110,14 +142,14 @@ export default {
             for (let i = 0; i < this.getLiveList.length; i++) {
                 // Check if sportType is 0 (football)
                 if (this.getLiveList[i]["sportType"] == this.currentChannel) {
-        
-                this.liveData.push({
-                    liveID: this.getLiveList[i]["id"],
-                    image: this.getLiveList[i]["cover"],
-                    liveTitle: this.getLiveList[i]["title"],
-                    streamerName: this.getLiveList[i]["nickName"],
-                    streamerIcon: this.getLiveList[i]["avatar"],
-                });
+
+                    this.liveData.push({
+                        liveID: this.getLiveList[i]["id"],
+                        image: this.getLiveList[i]["cover"],
+                        liveTitle: this.getLiveList[i]["title"],
+                        streamerName: this.getLiveList[i]["nickName"],
+                        streamerIcon: this.getLiveList[i]["avatar"],
+                    });
                 }
             }
         },
@@ -130,7 +162,7 @@ export default {
             this.StreamName = this.getLiveDetails["nickName"]
         },
     },
-    
+
     mounted() {
         this.generateLiveList()
         this.displayLive(this.LiveID)
@@ -204,7 +236,7 @@ export default {
         border-radius: 8px;
     }
 
-    .live-image{
+    .live-image {
         display: block;
         width: 22px;
     }
@@ -246,7 +278,7 @@ export default {
         border-radius: 8px;
     }
 
-    .live-image{
+    .live-image {
         display: block;
         width: 22px;
     }
@@ -266,6 +298,7 @@ export default {
 
 
     }
+
     .card {
         display: inline-block;
         width: 287px;
@@ -295,7 +328,7 @@ export default {
         border-radius: 8px;
     }
 
-    .live-image{
+    .live-image {
         display: block;
         width: 24px;
     }
@@ -451,5 +484,11 @@ export default {
     .inner-container {
         min-width: 1519px;
     }
+}
+
+.chat_border {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 10px;
 }
 </style>
