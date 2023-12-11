@@ -42,29 +42,8 @@
         </div>
       </div>
       <div class="chat-container border-2 border-white rounded-lg ml-2 relative">
-        <!-- <div class="flex pb-4 p-3">
-          <div class="pr-2">
-            <img class="w-[30px]" src="@/assets/ProfilePicture.png" />
-          </div>
-          <div class="flex flex-col chat_border">
-            <div class="text-xs font-medium" style="color: #666666">
-              ZHENAYUUUUUUUUUUUU
-            </div>
-            <div class="text-sm font-medium" style="color: #333333">Halo World</div>
-          </div>
-        </div>
-        <div class="flex pb-4 p-3">
-          <div class="pr-2">
-            <img class="w-[30px]" src="@/assets/ProfilePicture.png" />
-          </div>
-          <div class="flex flex-col chat_border">
-            <div class="text-xs font-medium" style="color: #666666">俐敏俐敏俐敏俐敏</div>
-            <div class="text-sm font-medium" style="color: #333333">
-              俐敏 你好 hahahahahahaha
-            </div>
-          </div>
-        </div> -->
-        <div v-for="message in this.chatsend" :key="message" class="flex pb-4 p-3">
+        
+        <div v-for="(message, index) in this.chatsend" :key="index" class="flex pb-4 p-3">
           <div class="pr-2">
             <img class="w-[30px]" src="@/assets/ProfilePicture.png" />
           </div>
@@ -73,7 +52,7 @@
               {{ this.chatsender }}
             </div>
             <div class="text-sm font-medium" style="color: #333333">
-              {{ this.chatsend }}
+              {{ message }}
             </div>
           </div>
         </div>
@@ -276,7 +255,8 @@ export default {
         this.timInstance
           .sendMessage(msg)
           .then((imResponse) => {
-            this.chatsend = imResponse.data.message.payload.text;
+            const array = imResponse.data.message.payload.text;
+            this.chatsend.push(array);
             this.chatsender = imResponse.data.message.nick;
             console.log("haha", imResponse.data.message.nick);
           })
