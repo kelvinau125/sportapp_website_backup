@@ -42,7 +42,7 @@
         </div>
       </div>
       <div class="chat-container border-2 border-white rounded-lg ml-2 relative">
-        <div class="flex pb-4 p-3">
+        <!-- <div class="flex pb-4 p-3">
           <div class="pr-2">
             <img class="w-[30px]" src="@/assets/ProfilePicture.png" />
           </div>
@@ -59,7 +59,22 @@
           </div>
           <div class="flex flex-col chat_border">
             <div class="text-xs font-medium" style="color: #666666">俐敏俐敏俐敏俐敏</div>
-            <div class="text-sm font-medium" style="color: #333333">俐敏 你好</div>
+            <div class="text-sm font-medium" style="color: #333333">
+              俐敏 你好 hahahahahahaha
+            </div>
+          </div>
+        </div> -->
+        <div v-for="message in this.chatsend" :key="message" class="flex pb-4 p-3">
+          <div class="pr-2">
+            <img class="w-[30px]" src="@/assets/ProfilePicture.png" />
+          </div>
+          <div class="flex flex-col chat_border">
+            <div class="text-xs font-medium" style="color: #666666">
+              {{ this.chatsender }}
+            </div>
+            <div class="text-sm font-medium" style="color: #333333">
+              {{ this.chatsend }}
+            </div>
           </div>
         </div>
 
@@ -68,12 +83,13 @@
           <div class="pr-4">
             <input
               class="w-[300px] pl-3 rounded-[24.46px] h-[44px] font-normal text-xs"
+              v-model="messageInput"
               placeholder="输入内容"
               type="text"
             />
           </div>
           <div class="mt-1">
-            <button>
+            <button @click="toSendMessage">
               <img class="w-[36px] h-[36px]" src="@/assets/live/chatSend.png" />
             </button>
           </div>
@@ -139,32 +155,33 @@ import TIM from "tim-js-sdk/tim-js-friendship.js";
 import genTestUserSig from "@/tencent/GenerateTestUserSig.js";
 import TencentCloudChat from "@tencentcloud/chat";
 import VueCookies from "vue-cookies";
+import TIMUploadPlugin from "tim-upload-plugin";
 
 // api
 import { getAllStreamDetails, getStreamDetails } from "@/service/apiStreamProvider.js";
-import { mapGetters } from "vuex";
+
+// import { mapActions } from "vuex";
 
 export default {
   components: {
     ButtonPress,
     EditStreamDetailModal,
   },
-  props: {
-    TimInstance: Function,
-  },
 
   methods: {
+    // ...mapActions(["clearAVChatRoom"]),
     toLiveStream(liveID) {
-      // Navigating
-      // Push to the Live Page
-      // this.$router.push({ name: 'LiveStream' });
-      const routeData = this.$router.resolve({
-        name: "LiveStream",
-        query: {
-          LiveID: liveID,
-        },
-      });
-      window.location.href = routeData.href;
+      console.log(liveID);
+      // // Navigating
+      // // Push to the Live Page
+      // // this.$router.push({ name: 'LiveStream' });
+      // const routeData = this.$router.resolve({
+      //   name: "LiveStream",
+      //   query: {
+      //     LiveID: liveID,
+      //   },
+      // });
+      // window.location.href = routeData.href;
     },
     // edit stream
     showEditStreamDetailModal() {
@@ -203,8 +220,21 @@ export default {
     },
 
     //tencent setup
+
+    toSetLogLevel() {
+      this.timInstance.setLogLevel(4);
+    },
+
+    toRegisterPlugin() {
+      this.timInstance?.registerPlugin({
+        "tim-upload-plugin": TIMUploadPlugin,
+      });
+
+      // this.$store.dispatch("AVChatRoomLogin", { timInstance: this.timInstance });
+    },
+
     toLogin() {
-      this.getTimInstance.timInstance
+      this.timInstance
         .login({
           userID: this.phonenumber,
           userSig: new genTestUserSig(this.phonenumber).userSig,
@@ -218,7 +248,7 @@ export default {
     },
 
     toJoinGroup() {
-      this.getTimInstance.timInstance
+      this.timInstance
         .joinGroup({
           groupID: this.groupID,
           type: TIM.TYPES.GRP_AVCHATROOM,
@@ -233,7 +263,8 @@ export default {
     },
 
     toSendMessage() {
-      const msg = this.getTimInstance.timInstance.createTextMessage({
+      console.log(this.messageInput);
+      const msg = this.timInstance.createTextMessage({
         to: this.groupID,
         conversationType: TIM.TYPES.CONV_GROUP,
         payload: {
@@ -242,10 +273,12 @@ export default {
         needReadReceipt: false,
       });
       console.log(
-        this.getTimInstance
+        this.timInstance
           .sendMessage(msg)
           .then((imResponse) => {
-            console.log("haha", imResponse);
+            this.chatsend = imResponse.data.message.payload.text;
+            this.chatsender = imResponse.data.message.nick;
+            console.log("haha", imResponse.data.message.nick);
           })
           .catch((imError) => {
             console.warn("fuck", imError);
@@ -254,11 +287,11 @@ export default {
     },
 
     toGetMessageList() {
-      let promise = this.getTimInstance.timInstance.getMessageList({
+      let promise = this.timInstance.getMessageList({
         conversationID: `GROUP${this.groupID}`,
       });
       promise.then(function (response) {
-        console.log(response.data.messageList);
+        console.log("response sending:", response.data.messageList);
       });
     },
 
@@ -290,38 +323,29 @@ export default {
       });
     },
   },
-  computed: {
-    // getTimInstance() {
-    //   console.log("check", this.$store.getters.timInstance);
-    //   return this.$store.getters.timInstance;
-    // },
-
-    ...mapGetters({
-      getTimInstance: "timInstance",
-    }),
-  },
-
   mounted() {
-    console.log(this.getTimInstance);
-    console.log("timInstance:", this.getTimInstance);
     this.toLogin();
     this.toJoinGroup();
     console.log(
-      this.getTimInstance.timInstance.on(
-        TencentCloudChat.EVENT.MESSAGE_RECEIVED,
-        this.onMessageReceived
-      )
+      this.timInstance.on(TencentCloudChat.EVENT.MESSAGE_RECEIVED, this.onMessageReceived)
     );
+    // this.toGetMessageList();
   },
 
   data() {
     return {
+      timInstance: TIM.create({
+        SDKAppID: 20004801,
+        userSig: new genTestUserSig(this.phonenumber).userSig,
+      }),
       //get user information for the chat room
       nickname: VueCookies.get("username"),
       phonenumber: VueCookies.get("phoneNumber"),
 
       //variable to store info related to AVChat room
       groupID: "wtf",
+      chatsend: [],
+      chatsender: "",
 
       // edit stream
       isEditStreamDetailsModalVisible: ref(false),
