@@ -257,7 +257,8 @@ export default {
           .then((imResponse) => {
             const array = imResponse.data.message.payload.text;
             this.chatsend.push(array);
-            this.chatsender = imResponse.data.message.nick;
+            const sender = imResponse.data.message.nick;
+            this.chatsender.push(sender);
             console.log("haha", imResponse.data.message.nick);
           })
           .catch((imError) => {
@@ -278,7 +279,8 @@ export default {
     onMessageReceived(event) {
       this.messageList = event.data;
       console.log("huh", this.messageList);
-      this.messageList.forEach((message) => {
+      this.chatsend.push(this.messageList);
+      this.messageList.forEach((message) => { 
         if (message.type === TencentCloudChat.TYPES.MSG_TEXT) {
           // Handle text message
         } else if (message.type === TencentCloudChat.TYPES.MSG_IMAGE) {
