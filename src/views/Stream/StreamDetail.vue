@@ -27,8 +27,15 @@
                         </label>
                     </div>
                 </div>
-                
 
+                <div class="flex pt-5">
+                    <p class="text-lg font-normal mt-2 mb-2 flex items-start">{{ $t("Category") }}</p>
+                    <select v-model="selectedSport" class="ml-5" required style="border: 1px solid #ccc;width: 117px;">
+                        <option value="0">{{ $t("Football") }}</option>
+                        <option value="1">{{ $t("Basketball") }}</option>
+                    </select>
+                </div>
+                    
                 <div class="flex flex-col items-start pt-5">
                     <div class="flex items-center">
                         <p class="text-lg font-normal mt-2">{{ $t("Server Address") }}</p>
@@ -87,6 +94,7 @@ export default {
             time: ref(""),
             file: ref(),
             warningMessage: '',
+            selectedSport: ref((localStorage.getItem('currentChannel') === "football") ? "0" : "1"),
         }
     },
 
@@ -174,6 +182,7 @@ export default {
 
             // Emit an event to notify the parent component
             this.$emit('stream-details-ready', {
+                selectedSport: this.selectedSport,
                 title: this.title,
                 imageUrl: this.imageUrl,
                 code: this.code,
@@ -181,7 +190,6 @@ export default {
                 time: this.time,
                 file: this.file
             });
-
         }
     }
 

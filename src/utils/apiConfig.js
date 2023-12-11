@@ -116,6 +116,19 @@ export const getBasketballLineUpENurl =
 export const getBasketballMatchLiveDataENurl =
     basketballBaseUrl + EN + getBasketballMatchLiveData;
 
+// Football & Basketball EN - live address
+
+export const LiveAddressBaseENUrl = '/api/v1/live-address';
+
+export const FootballLiveAddress = '/football';
+
+export const BasketballLiveAddress = '/basketball';
+
+export const getFootballLiveAddressENUrl =
+LiveAddressBaseENUrl + FootballLiveAddress;
+
+export const getBasketballLiveAddressENUrl =
+LiveAddressBaseENUrl + BasketballLiveAddress;
 
 //Football CN----------------------------------------------------------------------------------------------//
 export const footballBaseUrl = '/api/v1/footballs';
@@ -128,7 +141,7 @@ export const searchFootballMatchToday = '/match/now-list?';
 
 export const getFootballMatchById = '/match/livedata/';
 
-export const getFootballLiveAddress = '/address/';
+export const getFootballLiveAddress = '/match/address/';
 
 export const getStartFootballMatch = '/match/list-start?';
 
@@ -253,8 +266,7 @@ export const liveStreamCollectionBaseEngUrl = '/api/v1/en/collections';
 
 export const getAllStreamCollectionEngListFootball = '/football/list';
 
-export const getAllStreamCollectionEngListBasketball =
- '/basketball/list';
+export const getAllStreamCollectionEngListBasketball = '/basketball/list';
 
 export const getFootballEngMatch = '/football/{matchId}';
 
@@ -366,6 +378,8 @@ export const getStreamDetails = '/';
 
 export const editStreamDetails = '/';
 
+export const getAllStreamDetails = '/list';
+
 export const pushStreamUrl = streamBaseUrl + pushStream; //push stream
 
 export const createStreamUrl = streamBaseUrl + createStream; //create live stream
@@ -373,5 +387,8 @@ export const createStreamUrl = streamBaseUrl + createStream; //create live strea
 export const getStreamDetailsUrl = streamBaseUrl + getStreamDetails; //get stream details
 
 export const editStreamDetailsUrl = streamBaseUrl + editStreamDetails; //edit stream details
+
+export const getAllStreamDetailsUrl = streamBaseUrl + getAllStreamDetails; //edit stream details
+
 
 

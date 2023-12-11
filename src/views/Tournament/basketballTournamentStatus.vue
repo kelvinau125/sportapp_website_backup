@@ -1,18 +1,18 @@
 <template>
     <div class="flex justify-center" v-show="showbasketballstatus">
-        <div class=" w-[890px] flex justify-between">
-            <div class="flex flex-col justify-center py-4">
+        <div class=" w-[890px] md:flex justify-between">
+            <div class="flex md:flex-col justify-center py-4"  >
                 <!-- ZH Show -->
-                <div class="borderColor mb-3 flex justify-center items-center" v-show="isCN">
+                <div style="background-color: #D7DDD7; border-radius: 19px; width: 64px; height: 32px;" class="borderColor mb-3 flex justify-center items-center md:mr-0 -mr-5" v-show="isCN">
                     <span class="font-medium md:text-sm text-xs">{{ $t("Pause") }} {{ teamATotalPause }}</span>
                 </div>
                 <!-- ZH Show -->
-                <div class="borderColor flex justify-center items-center" v-show="isCN">
+                <div style="background-color: #D7DDD7; border-radius: 19px; width: 64px; height: 32px;" class="borderColor flex justify-center items-center md:ml-0 ml-6" v-show="isCN">
                     <span class="font-medium md:text-sm text-xs">{{ $t("Foul") }}  {{ homeNumOfFouls }}</span>
 
                 </div>
             </div>
-            <div class="flex">
+            <div class="flex justify-center">
                 <div class="  flex flex-col justify-around">
                     <div class="flex justify-center items-center">
                         <p class=" w-[30px] font-medium md:text-sm text-10px md:pr-2 pr-1">{{ homeThreeGoal }}</p>
@@ -217,13 +217,13 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col justify-center py-4">
+            <div class="flex md:flex-col justify-center py-4">
                 <!-- ZH Show -->
-                <div class="borderColor mb-3 flex justify-center items-center" v-show="isCN">
+                <div style="background-color: #D7DDD7; border-radius: 19px; width: 64px; height: 32px;" class="borderColor mb-3 flex justify-center items-center md:mr-0 -mr-5" v-show="isCN">
                     <span class="font-medium md:text-sm text-xs">{{ $t("Pause") }} {{ teamBTotalPause }}</span>
                 </div>
                 <!-- ZH Show -->
-                <div class="borderColor flex justify-center items-center" v-show="isCN">
+                <div style="background-color: #D7DDD7; border-radius: 19px; width: 64px; height: 32px;" class="borderColor flex justify-center items-center md:ml-0 ml-6" v-show="isCN">
                     <span class="font-medium md:text-sm text-xs">{{ $t("Foul") }} {{ awayNumOfFouls }}</span>
                 </div>
             </div>
@@ -573,7 +573,7 @@ export default {
   }
   
   .borderColor {
-    width: 44px;
+    width: 84px;
     height: 32px;
     background-color: #D7DDD7;
     border-radius: 19px;
@@ -604,7 +604,7 @@ export default {
   }
 
   .borderColor {
-    width: 64px;
+    width: 84px;
     height: 32px;
     background-color: #D7DDD7;
     border-radius: 19px;

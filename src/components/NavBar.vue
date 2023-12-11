@@ -14,22 +14,14 @@
         >
       </div>
 
-      <div class="md:static relative w-[300px]">
-        <ul
-          style="z-index: 1000"
-          :class="openNav ? 'block' : 'hidden'"
-          class="md:block items-center md:pr-0 pr-2 md:pl-5 pl-5 md:static absolute bg-navColor md:w-auto w-auto md:left-0 -left-[90px] md:top-14 top-14"
-        >
-          <li
-            class="md:inline-flex flex-col ml-4 my-2.5"
-            v-for="link in Links"
-            :key="link.link"
-          >
-            <router-link
-              :to="link.link"
-              class="flex nav-button md:text-base text-sm font-normal hover:text-gray-200 text-white"
-              >{{ $t(link.name) }}</router-link
-            >
+      <div class="md:static relative  w-[300px]">
+        <ul style="z-index: 1000;" :class="openNav ? 'block' : 'hidden'"
+          class="  md:block items-center md:pr-0 pr-2 md:pl-5 pl-5 md:static absolute bg-navColor md:w-auto w-auto md:left-0 -left-[90px] md:top-14 top-14 ">
+          <li class=" md:inline-flex flex-col ml-4 my-2.5" v-for="link in Links" :key="link.link">
+            <router-link :to="link.link" @click="checkUserAndNavigate(link.link)"
+              class="flex nav-button md:text-base text-sm font-normal hover:text-gray-200 text-white">{{
+                $t(link.name)
+              }}</router-link>
           </li>
         </ul>
       </div>
@@ -45,68 +37,43 @@
           <img class="cursor-pointer" v-else src="@/assets/topNav/hamburger.png" />
         </div>
       </div>
-      <div class="md:flex relative">
-        <div @click="search" class="md:block hidden pt-1.5">
-          <img
-            src="@/assets/topNav/search.png"
-            alt="Search Icon"
-            class="absolute left-0.5 w-6 h-6 m-2"
-          />
+      <div class="md:flex relative ">
+        <div @click="search" class="md:block hidden pt-2.5">
+          <img src="@/assets/topNav/search.png" alt="Search Icon" class="absolute left-0.5 w-6 h-6 m-2" />
         </div>
-        <div class="md:block hidden pt-1.5">
-          <input
-            v-model="searchQuery"
-            @keyup.enter="search"
-            type="text"
-            :placeholder="$t('Search event/team')"
+        <div class="md:block hidden pt-2.5">
+          <input v-model="searchQuery" @keyup.enter="search" type="text" :placeholder="$t('Search event/team')"
             maxlength="20"
             class="pl-10 lg:w-72 md:w-60 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-10 text-white bg-slate-50"
           />
         </div>
 
-        <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between">
+        <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between  pb-1.5">
           <div class="md:flex items-center">
-            <div
-              class="dropdown-button language-dropdown md:pt-2.5 md:pl-2.5"
-              style="width: 100px"
-            >
-              <button
-                class="language-toggle md:static absolute md:right-10 right-20 md:top-0 -top-8"
-                @click="toggleDropdownLanguage"
-              >
-                {{ $t($i18n.locale) }}
-                <span> &#9662;</span>
+            <div class="dropdown-button language-dropdown md:pt-2.5 md:pl-2.5 " style="width: 100px; ">
+              <button class="language-toggle md:static absolute md:right-10 right-20 md:top-0 -top-8 pl-5 "
+                @click="toggleDropdownLanguage">
+                <div class="flex pb-2.5">
+                  <span class="">{{ $t($i18n.locale) }} </span>
+                  <span> &#9662;</span>
+                </div>
               </button>
-              <div
-                v-show="isDropdownOpenLanguage"
-                class="language-options md:hidden absolute md:right-[140px] right-[90px] md:top-[100%] top-0"
-              >
-                <button
-                  v-for="locale in $i18n.availableLocales"
-                  :key="locale"
-                  @click="languageChange(locale)"
-                  class="languages"
-                >
+              <div v-show="isDropdownOpenLanguage"
+                class=" language-options md:hidden absolute md:right-[120px] right-[90px] md:top-[100%] top-0">
+                <button v-for="locale in $i18n.availableLocales" :key="locale" @click="languageChange(locale)"
+                  class="languages">
                   {{ $t(locale) }}
                 </button>
               </div>
             </div>
           </div>
 
-          <button
-            class="pt-1 md:flex cursor-pointer text-xl mr-2.5 items-center md:pl-3"
-            @click="toggleDropdown"
-          >
-            <img
-              :src="img"
-              class="max-w-[24px] md:static absolute md:right-0 right-10 md:top-0 bottom-9 hover:bg-blue-950"
-              alt="defaultFootBall Image"
-            />
-            <img
-              class="md:block hidden pl-1.5 py-1"
-              src="@/assets/topNav/arrowDown.png"
-              alt="Arrow Down"
-            />
+
+          <button class="pt-0 md:flex cursor-pointer text-xl mr-2.5 items-center md:pl-3" @click="toggleDropdown">
+            <img :src="img"
+              class="max-w-[24px] md:static absolute md:right-0 right-10 md:top-0  bottom-9 hover:bg-blue-950"
+              alt="defaultFootBall Image" />
+            <img class="md:block hidden pl-1.5 py-1" src="@/assets/topNav/arrowDown.png" alt="Arrow Down">
             <!-- <p>{{ this.currentChannel }}</p> -->
           </button>
 
@@ -124,42 +91,21 @@
           </div>
         </div>
       </div>
-      <div class="md:flex relative items-center pl-1">
+      <div class=" md:flex relative items-center pl-1 ">
         <div @click="toggleDropdownProfile" class="">
           <img
             :src="avatar"
             class="max-w-[40px] md:static absolute md:right-0 -right-4 md:top-0 -top-[72px] rounded-full border-2 border-white"
-            style="object-fit: cover"
-          />
-          <div
-            style="z-index: 1000"
-            v-show="showDropdown"
-            class="md:absolute absolute md:right-0 -right-4 md:top-12 -top-6 bg-gray-900 mt-1 p-1 py-3"
-          >
-            <div class="pr-1 pt-1 pb-2 flex flex-col">
+            style=" object-fit: cover;" />
+          <div style="z-index: 1000;" v-show="showDropdown"
+            class="md:absolute absolute md:right-0 -right-4 md:top-12 -top-6 bg-gray-900 mt-1 p-1 py-3">
+            <div class="pr-1 pt-1 pb-2 flex flex-col w-[80px]">
               <!-- <button to="/register" class="px-1 hover:text-green-500 text-white">注册</button>
               <button to="/login" class="px-1 hover:text-green-500 text-white">登入</button> -->
-              <button v-if="!loggedIn" class="px-1" @click="showRegisterModal">
-                {{ $t("Register") }}
-              </button>
-              <button v-if="!loggedIn" class="px-1" @click="showLoginModal">
-                {{ $t("Login") }}
-              </button>
-              <button v-if="loggedIn" class="px-1" @click="showMyPageModal">
-                {{ $t("MyPage") }}
-              </button>
-              <button v-if="loggedIn" @click="logout" class="block text-white">
-                {{ $t("Logout") }}
-              </button>
-
-              <!-- editstream -->
-              <button
-                v-if="loggedIn"
-                @click="showEditStreamDetailModal()"
-                class="block text-white"
-              >
-                EditStream
-              </button>
+              <button v-if="!loggedIn" class="px-1" @click="showRegisterModal">{{ $t("Register") }}</button>
+              <button v-if="!loggedIn" class="px-1" @click="showLoginModal">{{ $t("Login") }}</button>
+              <button v-if="loggedIn" class="px-1" @click="showMyPageModal">{{ $t("MyPage") }}</button>
+              <button v-if="loggedIn" @click="logout" class="block text-white">{{ $t("Logout") }}</button>
             </div>
           </div>
         </div>
@@ -239,11 +185,6 @@
       :streamDetailsData="streamDetailsData"
     />
 
-    <!-- edit stream  -->
-    <EditStreamDetailModal
-      :showEditStreamDetailModal="isEditStreamDetailsModalVisible"
-      :closeEditStreamDetailModal="closeEditStreamDetailModal"
-    />
   </div>
 </template>
 
@@ -268,8 +209,7 @@ import EditNicknameModal from "@/views/MyProfile/EditUserNickname.vue";
 import StreamDetailModal from "@/views/Stream/StreamDetail.vue";
 import StreamPreviewModal from "@/views/Stream/StreamPreview.vue";
 
-//editstream
-import EditStreamDetailModal from "@/views/Stream/EditStreamDetail.vue";
+
 
 export default {
   components: {
@@ -284,8 +224,6 @@ export default {
     StreamDetailModal,
     StreamPreviewModal,
 
-    //editstream
-    EditStreamDetailModal,
   },
 
   computed: {
@@ -324,14 +262,22 @@ export default {
       openNav: ref(false),
       isDropdownOpenLanguage: ref(false),
       streamDetailsData: {},
-
-      // edit stream
-      isEditStreamDetailsModalVisible: ref(false),
     };
   },
 
   methods: {
-    ...mapActions(["switchChannel"]),
+    checkUserAndNavigate(route) {
+      const userToken = VueCookies.get('userToken');
+
+      if (!userToken) {
+        this.showLoginModal()
+      } else {
+        // User is logged in, navigate to the selected route
+        this.$router.push(route);
+      }
+    },
+
+    ...mapActions(['switchChannel']),
 
     created() {
       // Dispatch the action to set the initial channel
@@ -339,14 +285,24 @@ export default {
     },
 
     basketballchoice() {
-      this.selectOption(require("@/assets/topNav/basketball.png"));
-      this.switchChannel("basketball");
-      window.location.reload();
+      this.selectOption(require('@/assets/topNav/basketball.png'))
+      this.switchChannel('basketball')
+      if (this.$route.path === "/") {
+        window.location.reload();
+      } else {
+        this.$router.push("/");
+      }
+
     },
     footballchoice() {
-      this.selectOption(require("@/assets/topNav/football.png"));
-      this.switchChannel("football");
-      window.location.reload();
+      this.selectOption(require('@/assets/topNav/football.png'))
+      this.switchChannel('football')
+      if (this.$route.path === "/") {
+        window.location.reload();
+      } else {
+        this.$router.push("/");
+      }
+
     },
     //Search Functions
     search() {
@@ -365,21 +321,31 @@ export default {
     },
     MenuOpen() {
       this.openNav = !this.openNav;
+      this.isDropdownOpen = false
+      this.showDropdown = false
+      this.isDropdownOpenLanguage = false
     },
     toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen;
+      this.showDropdown = false
+      this.isDropdownOpenLanguage = false
     },
     selectOption(image) {
       this.img = image;
       this.isDropdownOpen = false;
+      this.showDropdown = false
+      this.isDropdownOpenLanguage = false
     },
     toggleDropdownProfile() {
       this.showDropdown = !this.showDropdown;
+      this.isDropdownOpen = false
+      this.isDropdownOpenLanguage = false
     },
     logout() {
       removeCookie();
       this.$router.push("/");
       this.loggedIn = false;
+      window.location.reload();
     },
     showLoginModal() {
       this.isEditPasswordModalVisible = false;
@@ -500,6 +466,8 @@ export default {
 
     toggleDropdownLanguage() {
       this.isDropdownOpenLanguage = !this.isDropdownOpenLanguage;
+      this.isDropdownOpen = false
+      this.showDropdown = false
     },
 
     languageChange(locale) {
@@ -508,17 +476,12 @@ export default {
       console.log("let me see see: " + locale);
 
       // Save the selected language to localStorage
-      localStorage.setItem("locale", locale);
-      window.location.reload();
-    },
-
-    // edit stream
-    showEditStreamDetailModal() {
-      this.isEditStreamDetailsModalVisible = true;
-    },
-
-    closeEditStreamDetailModal() {
-      this.isEditStreamDetailsModalVisible = false;
+      localStorage.setItem('locale', locale);
+      if (this.$route.path === "/") {
+        window.location.reload();
+      } else {
+        this.$router.push("/");
+      }
     },
   },
 

@@ -1,38 +1,34 @@
 <template>
+  <!-- <div class="flex justify-center border-2">
+    <div class="w-[892px]">
+      HALO
+    </div>
+  </div> -->
+
   <div class="box" v-show="showbasketballsubstitue">
-    <vue-scrolling-table
-      class="scrolling w2 freezeFirstColumn"
-      ref="scrollingTable"
-      :scroll-vertical="state.scrollVertical"
-      :scroll-horizontal="state.scrollHorizontal"
-    >
+    <vue-scrolling-table class="scrolling w2 freezeFirstColumn" ref="scrollingTable"
+      :scroll-vertical="state.scrollVertical" :scroll-horizontal="state.scrollHorizontal">
       <template #thead>
-        <tr>
-          <th style="justify-content: center">
-            <img :src="isHomeTeam ? homeTeamLogo : awayTeamLogo" />
+        <tr class="flex items-center">
+          <th > 
+            <img class="w-[20px] h-[20px] ml-1 mt-1" :src="isHomeTeam ? homeTeamLogo : awayTeamLogo" />
           </th>
-          <th style="height: 25px; width: 100px" :colspan="6">
-            {{ isHomeTeam ? homeTeamName : awayTeamName }}
+          <th  style="height: 25px; width: 100px" :colspan="6">
+            <span style="font-size: 12px; color: #666666; font-weight: 400;" > {{ isHomeTeam ? homeTeamName : awayTeamName }} </span>
           </th>
         </tr>
         <tr></tr>
         <tr>
-          <th
-            v-for="(col, index) in useColumns"
-            :key="col.id"
-            :class="{ double: isGrey(index) }"
-          >
-            {{ $t(col.title) }}
+          <th v-for="(col, index) in useColumns" :key="col.id" :class="{ double: isGrey(index) }" class="">
+            <span style="color: #666666; font-size: 10px; font-weight: 400;">{{ $t(col.title) }}</span>
           </th>
         </tr>
       </template>
       <template #tbody>
-        <tr
-          v-for="(item, index) in items"
-          :key="item.id"
-          :class="{ single: isGrey(index) }"
-        >
-          <td v-for="col in useColumns" :key="col.id">{{ item[col.id] }}</td>
+        <tr v-for="(item, index) in items" :key="item.id" :class="{ single: isGrey(index) }">
+          <td v-for="col in useColumns" :key="col.id">
+            <span style="color: #666666; font-size: 10px; font-weight: 400;">{{ item[col.id] }} </span>
+          </td>
         </tr>
       </template>
     </vue-scrolling-table>
@@ -218,11 +214,12 @@ export default {
 .box {
   clear: both;
   padding: 0;
-  min-height: height;
+  min-height: 244px;
   margin-left: auto;
   margin-right: auto;
   overflow: hidden;
-  width: 800px;
+  max-width: 892px;
+  width: 100%;
 }
 
 .scrolling .w2 {

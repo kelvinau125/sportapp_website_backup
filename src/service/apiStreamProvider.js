@@ -12,6 +12,7 @@ import {
     uploadStreamFileUrl,
     getStreamDetailsUrl,
     editStreamDetailsUrl,
+    getAllStreamDetailsUrl,
     } from '@/utils/apiConfig.js';
 
 // get user cookie / set cookie
@@ -42,7 +43,7 @@ export async function getPushStreamUrl() {
   }
 
 // getLiveStreamBookmark
-export async function createStream(time, host, code, cover, title) {
+export async function createStream(category, time, host, code, cover, title) {
 
     // get user token
     const userid = VueCookies.get('phoneNumber')
@@ -53,6 +54,7 @@ export async function createStream(time, host, code, cover, title) {
     const isFinished = await updateStreamCover(cover);
 
     const apiDetails = {
+        sportType:category,
         createTime: time,
         pushHost: host,
         pushCode: code,
@@ -154,6 +156,30 @@ export async function editStreamDetails(streamID, title, file) {
   } catch (e) {
     console.log(`Unsuccessful in provider: ${e}`);
     return false;
+  }
+}
+
+// get all stream details
+export async function getAllStreamDetails() {
+
+  const url = baseUrl + getAllStreamDetailsUrl
+
+  try {
+    const response = await getRequest(url);
+
+    const code = response.code;
+    const data = response.data;
+
+    if (code === 0) {
+      return data;
+    }else {
+      console.log(`get getAllStreamDetails Unsuccessfully: ${code}`);
+      return [];
+    }
+
+  } catch (e) {
+    console.log(`Unsuccessful in provider: ${e}`);
+    return [];
   }
 }
 

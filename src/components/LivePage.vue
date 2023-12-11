@@ -4,34 +4,21 @@
       <PopularMatch />
     </div>
     <main class="wrapper pt-6 pb-12">
-      <div class="card-container flex justify-start w-ful">
-        <div
-          class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4"
-          v-for="livedata in liveData"
-          :key="livedata.liveData"
-        >
-          <div @click="toLiveStream" class="card-body relative">
-            <div class="">
-              <img
-                class=""
-                :src="require(`@/assets/live/${livedata.image}.png`)"
-                alt="Image"
-              />
+      <div class="card-container flex justify-start w-full">
+        <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4" v-for="livedata in liveData"
+          :key="livedata.liveData">
+
+          <div @click="toLiveStream(livedata.liveID)" class="card-body relative">
+            <div class="w-full h-full ">
+              <img class="w-full h-full " :src=livedata.image alt="Image" />
             </div>
-            <div class="gradient_bottom w-full flex titleBox items-center p-1 pb-2">
-              <div class="pr-1 pl-1 z-10 contentImage pb-1.5">
-                <img
-                  :src="require(`@/assets/live/${livedata.streamerIcon}.png`)"
-                  alt="Image"
-                />
+            <div class="gradient_bottom   w-full flex titleBox relative bottom-[50px] items-center p-1 pb-2">
+              <div class="pr-1 pl-1 z-10 contentImage hidden md:pb-1.5">
+                <img class="rounded-full " :src=livedata.streamerIcon alt="Image" />
               </div>
-              <div class="flex flex-col pl-1 z-10 items-start pb-1.5">
-                <div class="text-white font-normal md:text-sm text-10px">
-                  {{ livedata.liveTitle }}
-                </div>
-                <div class="md:text-10px text-8px font-bold text-white opacity-60">
-                  {{ livedata.streamerName }}
-                </div>
+              <div class="flex flex-col pl-1 z-10 items-start md:pb-1.5">
+                <div class="text-white font-medium md:text-sm text-10px">{{ livedata.liveTitle }}</div>
+                <div class="md:text-10px text-8px font-medium text-white opacity-60">{{ livedata.streamerName }}</div>
               </div>
             </div>
           </div>
@@ -39,136 +26,103 @@
       </div>
     </main>
   </BackgroundImage>
+  <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal"/>
 </template>
 <script>
-import PopularMatch from "@/components/PopularMatch.vue";
-import BackgroundImage from "@/components/BackGround.vue";
+import { ref } from 'vue'
+import PopularMatch from '@/components/PopularMatch.vue'
+import BackgroundImage from '@/components/BackGround.vue'
+import VueCookies from 'vue-cookies';
+
+import { getAllStreamDetails } from '@/service/apiStreamProvider.js';
+
+import LoginModal from '@/views/Authentication/LoginModal.vue';
 
 export default {
   components: {
     PopularMatch,
     BackgroundImage,
-    // TencentCloudChat,
+    LoginModal
   },
   data() {
     return {
-      liveData: [
-        {
-          image: "LiveImage",
-          liveTitle: "直播标题",
-          streamerName: "主播昵称",
-          streamerIcon: "defaultStreamerIcon",
-        },
-        {
-          image: "LiveImage",
-          liveTitle: "直播标题",
-          streamerName: "主播昵称",
-          streamerIcon: "defaultStreamerIcon",
-        },
-        {
-          image: "LiveImage",
-          liveTitle: "直播标题",
-          streamerName: "主播昵称",
-          streamerIcon: "defaultStreamerIcon",
-        },
-        {
-          image: "LiveImage",
-          liveTitle: "直播标题",
-          streamerName: "主播昵称",
-          streamerIcon: "defaultStreamerIcon",
-        },
-        {
-          image: "LiveImage",
-          liveTitle: "直播标题",
-          streamerName: "主播昵称",
-          streamerIcon: "defaultStreamerIcon",
-        },
-        {
-          image: "LiveImage",
-          liveTitle: "直播标题",
-          streamerName: "主播昵称",
-          streamerIcon: "defaultStreamerIcon",
-        },
-        {
-          image: "LiveImage",
-          liveTitle: "直播标题",
-          streamerName: "主播昵称",
-          streamerIcon: "defaultStreamerIcon",
-        },
-        {
-          image: "LiveImage",
-          liveTitle: "直播标题",
-          streamerName: "主播昵称",
-          streamerIcon: "defaultStreamerIcon",
-        },
-        {
-          image: "LiveImage",
-          liveTitle: "直播标题",
-          streamerName: "主播昵称",
-          streamerIcon: "defaultStreamerIcon",
-        },
-        {
-          image: "LiveImage",
-          liveTitle: "直播标题",
-          streamerName: "主播昵称",
-          streamerIcon: "defaultStreamerIcon",
-        },
-        {
-          image: "LiveImage",
-          liveTitle: "直播标题",
-          streamerName: "主播昵称",
-          streamerIcon: "defaultStreamerIcon",
-        },
-        {
-          image: "LiveImage",
-          liveTitle: "直播标题",
-          streamerName: "主播昵称",
-          streamerIcon: "defaultStreamerIcon",
-        },
-      ],
+      currentChannel: ref((localStorage.getItem('currentChannel') === "football") ? 0 : 1),
+      isLoginModalVisible: ref(false),
+
+      liveData: [],
+      // liveData: [
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
+      // ]
     };
   },
-  methods: {
-    toLiveStream() {
-      // Navigating
-      // Push to the Live Page
-      this.$router.push({ name: "LiveStream" });
-    },
+  mounted() {
+    this.generateLiveList();
   },
-  setup() {},
-};
+
+  methods: {
+    showLoginModal() {
+      this.isLoginModalVisible = true;
+    },
+    closeLoginModal() {
+      this.isLoginModalVisible = false;
+    },
+    
+
+    toLiveStream(liveID) {
+      // Push to the Live Page
+      // this.$router.push({ name: 'LiveStream' });
+      const userToken = VueCookies.get('userToken');
+
+      if (!userToken) {
+        this.showLoginModal()
+      } else {
+        const routeData = this.$router.resolve({
+          name: 'LiveStream', query: {
+            LiveID: liveID,
+          }
+        });
+        window.open(routeData.href, '_blank');
+
+      }
+
+    },
+
+    async generateLiveList() {
+      this.liveData = [];
+
+      this.getLiveList = await getAllStreamDetails();
+
+      for (let i = 0; i < this.getLiveList.length; i++) {
+        // Check if sportType is 0 (football)
+        if (this.getLiveList[i]["sportType"] == this.currentChannel) {
+
+          this.liveData.push({
+            liveID: this.getLiveList[i]["id"],
+            image: this.getLiveList[i]["cover"],
+            liveTitle: this.getLiveList[i]["title"],
+            streamerName: this.getLiveList[i]["nickName"],
+            streamerIcon: this.getLiveList[i]["avatar"],
+          });
+        }
+      }
+    },
+
+  }
+}
 </script>
 
-<!-- <script setup>
-import PopularMatch from '@/components/PopularMatch.vue'
-import BackgroundImage from '@/components/BackGround.vue'
-import { useRouter } from 'vue-router'
 
-const liveData = [
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-  { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-]
-
-
-const router = useRouter();
-
-const toLiveStream = () => {
-  //Navigating
-  //Push to the Live Page
-  router.push({ name: 'LiveStream' })
-}
-
-</script> -->
 
 <style scoped>
 @media (min-width: 300px) {
@@ -180,11 +134,24 @@ const toLiveStream = () => {
 
   .titleBox {
     position: absolute;
-    bottom: 60px;
+    bottom: 0;
   }
 
   .contentImage {
+    display: block;
     width: 30px;
+  }
+
+  .gradient_bottom::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    background-size: cover;
+    border-radius: 8px;
   }
 }
 
@@ -197,11 +164,25 @@ const toLiveStream = () => {
 
   .titleBox {
     position: absolute;
-    bottom: 30px;
+    bottom: 0;
   }
 
   .contentImage {
+    display: block;
     width: 35px;
+  }
+
+  .gradient_bottom::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    bottom: 1;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    background-size: cover;
+    border-radius: 8px;
   }
 }
 
@@ -216,7 +197,25 @@ const toLiveStream = () => {
     position: absolute;
     bottom: 0;
   }
+
+  .contentImage {
+    display: block;
+    width: 38px;
+  }
+
+  .gradient_bottom::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    background-size: cover;
+    border-radius: 8px;
+  }
 }
+
 
 .wrapper {
   width: 100%;
@@ -251,6 +250,7 @@ const toLiveStream = () => {
   width: 100%;
   height: 100%;
   left: 0;
+  bottom: 0;
   z-index: 1;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
   background-size: cover;

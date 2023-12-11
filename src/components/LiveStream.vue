@@ -196,12 +196,18 @@
 
 <script>
 // import { useRouter } from 'vue-router'
+
+import { ref } from 'vue';
 import ButtonPress from "@/components/ButtonPress.vue";
 import TIM from "tim-js-sdk/tim-js-friendship.js";
 // import TIMUploadPlugin from "tim-upload-plugin";
 import genTestUserSig from "@/tencent/GenerateTestUserSig.js";
 import TencentCloudChat from "@tencentcloud/chat";
 import VueCookies from "vue-cookies";
+import EditStreamDetailModal from '@/views/Stream/EditStreamDetail.vue';
+
+// api
+import { getAllStreamDetails, getStreamDetails } from '@/service/apiStreamProvider.js';
 
 export default {
   components: {

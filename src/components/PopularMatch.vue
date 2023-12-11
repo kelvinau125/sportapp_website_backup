@@ -1,4 +1,6 @@
 <template>
+  <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal" />
+
   <!-- Overflow Setting -->
   <div class="flex gap-1 flex-wrap">
     <div class="" v-for="match in matchDetails" :key="match.matchDetails">
@@ -81,14 +83,11 @@
         <span class="pt-4 text-center text-xs font-medium text-white">{{ $t("All fixtures") }}</span>
       </div>
     </div>
-
-   
   </div>
 </template>
 
 <script>
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
 import { format } from 'date-fns';
 
 import { getMatchTodaybyCompName, getMatchByDate } from '@/service/apiFootBallMatchProvider.js';
@@ -96,11 +95,19 @@ import { getBasketBallMatchTodaybyCompName, getBasketballMatchByDate } from '@/s
 
 import { getLiveStreamBookmark, liveStreamSaveBookmark, deleteStreamSaveBookmark } from '@/service/apiBookmarkProvider.js';
 
+import LoginModal from '@/views/Authentication/LoginModal.vue';
+import VueCookies from 'vue-cookies';
 
 export default {
+  components: {
+    LoginModal
+  },
   data() {
     return {
       currentDate: ref(new Date()),
+      matchDetails: ref([]),
+      isLoginModalVisible: ref(false),
+
 
       // check language and basketball and football swtich
       isCN: Boolean,
@@ -108,48 +115,6 @@ export default {
     }
   },
 
-  setup() {
-    const router = useRouter();
-
-    const navigateTo = (linkAddress, competitionName, matchDate, matchTimeStr, statusStr, homeTeamName, homeTeamScore, homeTeamLogo, awayTeamName, awayTeamScore, awayTeamLogo) => {
-      // Navigating to the specified page
-      // router.push({ path: linkAddress });
-      const routeData = router.resolve({
-        name: 'TournamentDetails', query: {
-          TournamentID: linkAddress,
-          competitionName: competitionName,
-          matchDate: matchDate,
-          matchTimeStr: matchTimeStr,
-          statusStr: statusStr,
-          homeTeamName: homeTeamName,
-          homeTeamScore: homeTeamScore,
-          homeTeamLogo: homeTeamLogo,
-          awayTeamName: awayTeamName,
-          awayTeamScore: awayTeamScore,
-          awayTeamLogo: awayTeamLogo,
-        }
-      });
-      window.open(routeData.href, '_blank');
-    };
-    const toAllMatchPage = () => {
-      // Navigating
-      router.push({ name: 'AllMatch' });
-    };
-
-    const matchDetails = ref([]);
-    // const matchDetails = ref([
-    //   { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/', status: '开' },
-    //   { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/live', status: '开' },
-    //   { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/', status: '开' },
-    //   { matchType: '欧冠', date: '10月08日', time: '13:14', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favourite: false, linkAddress: '/', status: '终' },
-    // ]);
-
-    return {
-      toAllMatchPage,
-      matchDetails,
-      navigateTo,
-    };
-  },
 
   mounted() {
     // ------------------------------------------------------------------- Translation Part ------------------------------------------ Remember Change It ----------------------------
@@ -193,14 +158,68 @@ export default {
   },
 
   methods: {
-    async toggleFavorite(match, matchID) {
-      match.favourite = !match.favourite;
+    showLoginModal() {
+      this.isLoginModalVisible = true;
+    },
+    closeLoginModal() {
+      this.isLoginModalVisible = false;
+    },
 
-      if (match.favourite) {
-        await liveStreamSaveBookmark(matchID, this.currentChannel, this.isCN);
+    navigateTo(linkAddress, competitionName, matchDate, matchTimeStr, statusStr, homeTeamName, homeTeamScore, homeTeamLogo, awayTeamName, awayTeamScore, awayTeamLogo) {
+      // Navigating to the specified page
+      // router.push({ path: linkAddress });
+      const userToken = VueCookies.get('userToken');
+
+      const routeData = this.$router.resolve({
+        name: 'TournamentDetails', query: {
+          TournamentID: linkAddress,
+          competitionName: competitionName,
+          matchDate: matchDate,
+          matchTimeStr: matchTimeStr,
+          statusStr: statusStr,
+          homeTeamName: homeTeamName,
+          homeTeamScore: homeTeamScore,
+          homeTeamLogo: homeTeamLogo,
+          awayTeamName: awayTeamName,
+          awayTeamScore: awayTeamScore,
+          awayTeamLogo: awayTeamLogo,
+        }
+      });
+      if (!userToken) {
+        this.showLoginModal()
       } else {
-        await deleteStreamSaveBookmark(matchID, this.isCN);
+        window.open(routeData.href, '_blank');
+
       }
+
+    },
+    toAllMatchPage() {
+      const userToken = VueCookies.get('userToken');
+      if (!userToken) {
+        this.showLoginModal()
+      } else {
+        // Navigating
+        this.$router.push({ name: 'AllMatch' });
+
+      }
+
+    },
+    async toggleFavorite(match, matchID) {
+      const userToken = VueCookies.get('userToken');
+
+      if (!userToken) {
+        this.showLoginModal()
+      } else {
+        match.favourite = !match.favourite;
+
+        if (match.favourite) {
+          await liveStreamSaveBookmark(matchID, this.currentChannel, this.isCN);
+        } else {
+          await deleteStreamSaveBookmark(matchID, this.isCN);
+        }
+      }
+
+
     },
 
     async getFavoriteFromBookmark(CNleaguesToFetch, leaguesToFetch) {

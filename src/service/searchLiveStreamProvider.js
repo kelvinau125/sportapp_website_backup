@@ -1,4 +1,5 @@
 import {
+    getRequest,
     getRequestSearchStream
 } from '@/service/apiRequestMethod';
 
@@ -9,6 +10,10 @@ import {
     searchFootballMatchTodayENurl,
     searchBasketballTodayUrl,
     searchBasketballTodayENurl,
+    getFootballLiveAddressUrl,
+    getBasketballLiveAddressUrl,
+    getBasketballLiveAddressENUrl,
+    getFootballLiveAddressENUrl,
 
 } from '@/utils/apiConfig.js';
 
@@ -74,5 +79,40 @@ export async function searchLiveCompetitionStream(competitionName, isCN, isFootB
     } catch (e) {
         console.log(`Unsuccessful in provider: ${e}`);
         return [];
+    }
+}
+
+export async function searchLiveAddress(homeName, awayName, mathcId, isCN, isFootBall) {
+    // const url = baseUrl + searchFootballMatchTodayENurl + 'competitionName=' + competitionName
+    let url;
+
+    (isCN)
+    ? ((isFootBall)
+      ? url = baseUrl + getFootballLiveAddressUrl + mathcId
+      : url = baseUrl + getBasketballLiveAddressUrl + mathcId)
+    : ((isFootBall)
+      ? url = baseUrl + getFootballLiveAddressENUrl + '?homeTeamName=' + homeName + '&awayTeamName=' + awayName
+      : url = baseUrl + getBasketballLiveAddressENUrl + '?homeTeamName=' + homeName + '&awayTeamName=' + awayName)
+
+    console.log(url)
+
+    try {
+        const response = await getRequest(url)
+
+        const data = response.data
+        const code = response.code;
+
+        console.log("hahahahahahahaha",data)
+
+        if (code === 0) {
+            return data;
+
+        } else {
+            console.log(`Unsuccessfully searchLiveAddress: ${code}`);
+            return "null";
+        }
+    } catch (e) {
+        console.log(`Unsuccessful in provider: ${e}`);
+        return "null";
     }
 }
