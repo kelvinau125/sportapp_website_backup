@@ -55,7 +55,7 @@
                 @click="selectEpic(epic)"
               >
                 <img
-                  :src="require(`@/assets/main/${epic.image}.png`)"
+                  :src= epic.image
                   alt="Epic Image"
                   style="cursor: pointer"
                 />
@@ -176,6 +176,8 @@ import FooterBar from "@/components/FooterPage.vue";
 import BackgroundImage from "@/components/BackGround.vue";
 import { ref } from "vue";
 
+import { getAllStreamDetails } from '@/service/apiStreamProvider.js';
+
 export default {
   components: {
     PopularMatch,
@@ -193,35 +195,35 @@ export default {
         { name: "主播名称", image: "defaultProfile", no: "520" },
       ],
       epicMoment: [
-        {
-          image: "moment5",
-          videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
-          imgSource:
-            "https://butwhytho.net/wp-content/uploads/2023/09/Gojo-Jujutsu-Kaisen-But-Why-Tho-2.jpg",
-        },
-        {
-          image: "moment5",
-          videoSource: "https://vjs.zencdn.net/v/ocean.mp4",
-          imgSource:
-            "https://i.pinimg.com/736x/d0/52/3d/d0523d4bb70c40d66f7cc6b3d3af2648.jpg",
-        },
-        {
-          image: "moment5",
-          videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
-          imgSource:
-            "https://thumb.viva.id/intipseleb/663x372/2023/08/25/64e814afeea6f-trailer-shibuya-incident-jujutsu-kaisen.jpg",
-        },
-        {
-          image: "moment5",
-          videoSource: "https://vjs.zencdn.net/v/ocean.mp4",
-          imgSource: "https://fictionhorizon.com/wp-content/uploads/2023/09/GojoStar.jpg",
-        },
-        {
-          image: "moment5",
-          videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
-          imgSource:
-            "https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2023/02/gojo-satoru-cosplay.jpg",
-        },
+        // {
+        //   image: "moment5",
+        //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
+        //   imgSource:
+        //     "https://butwhytho.net/wp-content/uploads/2023/09/Gojo-Jujutsu-Kaisen-But-Why-Tho-2.jpg",
+        // },
+        // {
+        //   image: "moment5",
+        //   videoSource: "https://vjs.zencdn.net/v/ocean.mp4",
+        //   imgSource:
+        //     "https://i.pinimg.com/736x/d0/52/3d/d0523d4bb70c40d66f7cc6b3d3af2648.jpg",
+        // },
+        // {
+        //   image: "moment5",
+        //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
+        //   imgSource:
+        //     "https://thumb.viva.id/intipseleb/663x372/2023/08/25/64e814afeea6f-trailer-shibuya-incident-jujutsu-kaisen.jpg",
+        // },
+        // {
+        //   image: "moment5",
+        //   videoSource: "https://vjs.zencdn.net/v/ocean.mp4",
+        //   imgSource: "https://fictionhorizon.com/wp-content/uploads/2023/09/GojoStar.jpg",
+        // },
+        // {
+        //   image: "moment5",
+        //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
+        //   imgSource:
+        //     "https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2023/02/gojo-satoru-cosplay.jpg",
+        // },
       ],
       selectedEpic: null,
       currentChannel: ref(
@@ -243,6 +245,11 @@ export default {
         : "https://fictionhorizon.com/wp-content/uploads/2023/09/GojoStar.jpg";
     },
   },
+
+  mounted() {
+    this.generateLiveStreamList()
+  },
+
   methods: {
     selectEpic(epic) {
       this.selectedEpic = epic;
@@ -252,6 +259,47 @@ export default {
           ? this.selectedEpic.videoSource
           : "https://vjs.zencdn.net/v/oceans.mp4";
       });
+    },
+
+    async generateLiveStreamList() {
+      this.epicMoment = [];
+
+      for (let i = 0; i < 6; i++) {
+        this.getLiveList = await getAllStreamDetails()
+
+        if (this.getLiveList.length > 0) {
+           for (let j = 0; j < Math.min(1, this.getLiveList.length); j++) {
+            // Check if sportType is 0 (football)
+            if (this.getLiveList[i]["sportType"] == ((this.currentChannel) ? 0 : 1) && this.getLiveList[i]["isPopular"] == 1) {
+              this.epicMoment.push({
+                image: this.getLiveList[i]["cover"],
+                videoSource: "rtmp://" + this.getLiveList[i]["pushHost"] + "/" + this.getLiveList[i]["pushCode"],
+                imgSource: this.getLiveList[i]["cover"],
+              });
+            }
+          }
+        } 
+      }
+
+      if (this.epicMoment.length <= 6) {
+        this.getLiveList = await getAllStreamDetails()
+
+        if (this.getLiveList.length > 0) {
+          for (let i = this.epicMoment.length; i < 6; i++) {
+            // Check if sportType is 0 (football)
+            if (this.getLiveList[i]["sportType"] == ((this.currentChannel) ? 0 : 1) && this.getLiveList[i]["isPopular"] == 0 ) {
+              this.epicMoment.push({
+                image: this.getLiveList[i]["cover"],
+                videoSource: "rtmp://" + this.getLiveList[i]["pushHost"] + "/" + this.getLiveList[i]["pushCode"],
+                imgSource: this.getLiveList[i]["cover"],
+              });
+            }
+          }
+        } 
+      }
+
+      // console.log("----------------------------------------------")
+      // console.log(this.epicMoment)
     },
   },
 };
