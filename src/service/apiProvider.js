@@ -18,7 +18,9 @@ import {
   uploadFileUrl,
   updateHeadUrl,
   updateforgotPasswordurl
- } from '@/utils/apiConfig.js';
+} from '@/utils/apiConfig.js';
+
+import createStore from '@/store/index.js';
 
 // get user cookie / set cookie
 import VueCookies from 'vue-cookies';
@@ -245,7 +247,9 @@ export async function ForgotPassword(phoneNumber, password) {
 // Update User Nickname
 export async function UpdateUserNickname(nickname) {
   // get user token
-  const userToken = VueCookies.get('userToken')
+  const userToken = VueCookies.get('userToken');
+
+  // const userPhoneNumber = VueCookies.get('phoneNumber');
 
   const url = baseUrl + updateNickNameUrl + userToken + "/" + nickname;
 
@@ -253,12 +257,34 @@ export async function UpdateUserNickname(nickname) {
 
   const apiDetails = {};
 
+  const getTimInstance = createStore.getters.timInstance;
+
   try {
     const response = await patchRequest(url, apiDetails);
+    console.log("check user new nick: ", nickname);
 
     const code = response.code;
 
+
+
     if (code === 0) {
+      //update info to tencent database
+      getTimInstance.timInstance.updateMyProfile({
+        nick: nickname
+      }).then((response) => {
+        //   getTimInstance.timInstance.login({
+        //   userID: "60127659785",
+        //   userSig: new genTestUserSig("60127659785").userSig,
+        // }).then((response)=>{
+        //   console.log("check login again", response);
+        // }).catch((l)=>{
+        //   console.log("error", l);
+        // })
+        console.log("success", response);
+      }).catch((error) => {
+        console.log("error", error);
+      })
+
       return true;
     } else {
       console.log(`nickname Unsuccessfully upload to database: ${code}`);
@@ -315,6 +341,9 @@ export async function pushImageToServer(usertToken, imageToken) {
 
   const imageTokenUrl = imageToken;
 
+  console.log("check image: ", imageTokenUrl);
+  const getTimInstance = createStore.getters.timInstance;
+
   const apiDetails = {
     head: imageTokenUrl,
   };
@@ -326,6 +355,14 @@ export async function pushImageToServer(usertToken, imageToken) {
 
     if (code === 0) {
       setImageCookie(imageTokenUrl);
+      getTimInstance.timInstance.updateMyProfile({
+        avatar: imageToken
+      }).then((response) => {
+        console.warn("success", response);
+      }).catch((error) => {
+        console.warn("error", error);
+      })
+
       return true;
     } else {
       console.log(`picture Unsuccessfully upload to database: ${code}`);

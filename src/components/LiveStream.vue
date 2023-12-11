@@ -51,15 +51,52 @@
         </div>
         <div class="max-w-[463px] w-full border-2">
           聊天窗口
-          <input v-model="messageInput" placeholder="Type your message" />
+          <!-- <input v-model="messageInput" placeholder="Type your message" />
           <button @click="toSendMessage">Send</button>
 
-          <div>
-            <Text>{{ this.messageList }}</Text>
-          </div>
-
           <tui-live-context-provider :value="liveContextValue" :class="className">
-          </tui-live-context-provider>
+          </tui-live-context-provider> -->
+
+          <div class="chat-container border-2 border-white rounded-lg ml-2 relative">
+            <div class="flex pb-4 p-3">
+              <div class="pr-2">
+                <img class="w-[30px]" src="@/assets/avatar_default.jpg" />
+              </div>
+              <div class="flex flex-col chat_border">
+                <div class="text-xs font-medium" style="color: #666666">
+                  ZHENAYUUUUUUUUUUUU
+                </div>
+                <div class="text-sm font-medium" style="color: #333333">Halo World</div>
+              </div>
+            </div>
+            <div class="flex pb-4 p-3">
+              <div class="pr-2">
+                <img class="w-[30px]" src="@/assets/avatar_default.jpg" />
+              </div>
+              <div class="flex flex-col chat_border">
+                <div class="text-xs font-medium" style="color: #666666">
+                  俐敏俐敏俐敏俐敏
+                </div>
+                <div class="text-sm font-medium" style="color: #333333">俐敏 你好</div>
+              </div>
+            </div>
+
+            <div class="absolute bottom-0 flex pb-3">
+              <!-- Enter to send message... -->
+              <div class="pr-4">
+                <input
+                  class="w-[300px] pl-3 rounded-[24.46px] h-[44px] font-normal text-xs"
+                  placeholder="输入内容"
+                  type="text"
+                />
+              </div>
+              <div class="mt-1">
+                <button>
+                  <img class="w-[36px] h-[36px]" src="@/assets/live/chatSend.png" />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
         <slot></slot>
       </div>
@@ -164,6 +201,7 @@ import TIM from "tim-js-sdk/tim-js-friendship.js";
 // import TIMUploadPlugin from "tim-upload-plugin";
 import genTestUserSig from "@/tencent/GenerateTestUserSig.js";
 import TencentCloudChat from "@tencentcloud/chat";
+import VueCookies from "vue-cookies";
 
 export default {
   components: {
@@ -184,8 +222,8 @@ export default {
     toLogin() {
       this.getTimInstance.timInstance
         .login({
-          userID: "60127659785",
-          userSig: new genTestUserSig("60127659785").userSig,
+          userID: this.phonenumber,
+          userSig: new genTestUserSig(this.phonenumber).userSig,
         })
         .then((response) => {
           console.log("logined", response);
@@ -198,7 +236,7 @@ export default {
     toJoinGroup() {
       this.getTimInstance.timInstance
         .joinGroup({
-          groupID: "wtf",
+          groupID: this.groupID,
           type: TIM.TYPES.GRP_AVCHATROOM,
           applyMessage: "HUHHH",
         })
@@ -212,7 +250,7 @@ export default {
 
     toSendMessage() {
       const msg = this.getTimInstance.timInstance.createTextMessage({
-        to: "wtf",
+        to: this.groupID,
         conversationType: TIM.TYPES.CONV_GROUP,
         payload: {
           text: this.messageInput,
@@ -233,7 +271,7 @@ export default {
 
     toGetMessageList() {
       let promise = this.getTimInstance.timInstance.getMessageList({
-        conversationID: "GROUPwtf",
+        conversationID: `GROUP${this.groupID}`,
       });
       promise.then(function (response) {
         console.log(response.data.messageList);
@@ -277,13 +315,7 @@ export default {
     },
   },
   mounted() {
-    // this.toSetLogLevel();
-    // this.toRegisterPlugin();
-    // this.timInstance.on(TencentCloudChat.EVENT.SDK_READY, this.toLogin);
-    console.log("??");
-    // console.log(this.getTimInstance.target);
     console.log(this.getTimInstance);
-    // console.log("timInstance:", Vue.toRaw(this.getTimInstance.timInstance));
     console.log("timInstance:", this.getTimInstance.timInstance);
     this.toLogin();
     this.toJoinGroup();
@@ -293,13 +325,21 @@ export default {
         this.onMessageReceived
       )
     );
-    // this.toGetMessageList();
   },
 
   data() {
     return {
+      //get user information for the chat room
+      nickname: VueCookies.get("username"),
+      phonenumber: VueCookies.get("phoneNumber"),
+
+      //get message input in chat room
       messageList: "",
       messageInput: "",
+
+      //variable to store info related to AVChat room
+      groupID: "wtf",
+
       liveData: [
         {
           image: "LiveImage",
@@ -365,140 +405,160 @@ export default {
       ],
     };
   },
-  //   setup() {
-  // const playerRef = ref(null);
-  // const { url: contextUrl } = TUILiveContext("TUILiveHeader");
-
-  // const tim = ref(null);
-  // const sendMessage = ref(null);
-
-  // const init = async () => {
-  //   return new Promise((resolve) => {
-  //     const timInstance = TIM.create({
-  //       SDKAppID: 20004801,
-  //       userSig: new genTestUserSig("60127659785").userSig,
-  //     });
-
-  //     timInstance.setLogLevel(4);
-
-  //     timInstance?.registerPlugin({
-  //       "tim-upload-plugin": TIMUploadPlugin,
-  //     });
-
-  //     timInstance.login({
-  //       userID: "60127659785",
-  //       userSig: new genTestUserSig("60127659785").userSig,
-  //     });
-
-  // timInstance.createGroup({
-  //   groupID: "wtf",
-  //   name: "Tsk tsk",
-  //   type: TIM.TYPES.GRP_AVCHATROOM,
-  //   joinOption: TIM.TYPES.INVITE_OPTIONS_FREE_ACCESS,
-  // });
-  // timInstance;
-
-  // timInstance.joinGroup({
-  //   groupID: "wtf",
-  //   type: TIM.TYPES.GRP_AVCHATROOM,
-  //   applyMessage: "HUHHH",
-  // });
-
-  // timInstance.getGroupMemberList({
-  //   groupID: "wtf",
-  // });
-
-  // console.log(
-  //   timInstance.getGroupMemberList({
-  //     groupID: "wtf",
-  //   })
-  // );
-
-  // const msg = timInstance.createTextMessage({
-  //   to: "wtf",
-  //   conversationType: TIM.TYPES.CONV_GROUP,
-  //   payload: {
-  //     text: "WTFFF",
-  //   },
-  //   needReadReceipt: false,
-  // });
-
-  // console.log(
-  //   timInstance.getGroupProfile({
-  //     groupID: "wtf",
-  //   })
-  // );
-
-  // timInstance.getGroupProfile({
-  //   groupID: "wtf",
-  // });
-
-  // timInstance
-  //   .sendMessage(msg)
-  //   .then((imResponse) => {
-  //     console.log("haha", imResponse);
-  //   })
-  //   .catch((imError) => {
-  //     console.warn("fuck", imError);
-  //   });
-  // timInstance.logout();
-
-  //     resolve(timInstance);
-  //   });
 };
-
-// const onReady = () => {
-//   //   tim.value.createGroup({
-//   //     groupID: "@TGS#aCXDLWE5CR",
-//   //     name: "Tsk tsk",
-//   //     type: TIM.TYPES.GRP_AVCHATROOM,
-//   //     joinOption: TIM.TYPES.INVITE_OPTIONS_FREE_ACCESS,
-//   //   });
-
-//   tim.value.joinGroup({
-//     groupID: "wtf",
-//     type: TIM.TYPES.GRP_AVCHATROOM,
-//   });
-
-//   tim.value.login({
-//     userID: "60127659785",
-//     userSig: new genTestUserSig("60127659785").userSig,
-//   });
-
-//   //   const message = tim.value.createTextMessage({
-//   //     to: "@TGS#aCXDLWE5CR",
-//   //     conversationType: TIM.TYPES.CONV_GROUP,
-//   //     payload: {
-//   //       text: "Try",
-//   //     },
-//   //   });
-//   //   tim.value.sendMessage(message);
-
-//   //   console.log(`sha bi: ${tim.value.sendMessage(message)}`);
-
-//   //   console.log("aaaaaaaaaa");
-//   //   console.log(message);
-// };
-
-// tim;
-
-// onMounted(async () => {
-//   const userSigInfo = new genTestUserSig(
-//     "05a26268b99ece6f3c9b00549dafcbabf2e76b7df1d6b0fae9d8513c6efeeac3"
-//   );
-//   genTestUserSig.SDKAppID = userSigInfo.SDKAppID;
-//   tim.value = await init();
-//   tim.value.on(TIM.EVENT.SDK_READY, onReady);
-// });
-
-// return {
-//   tim,
-// };
-//   },
-// };
 </script>
 
 <style scoped>
+@media (min-width: 300px) {
+  .chat-container {
+    width: 100%;
+    height: 380px;
+  }
+
+  .card {
+    display: inline-block;
+    width: 175px;
+    height: 162px;
+  }
+
+  .titleBox {
+    position: absolute;
+    bottom: 20px;
+  }
+
+  .contentImage {
+    display: block;
+    width: 30px;
+  }
+
+  .gradient_bottom:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    background-size: cover;
+    border-radius: 8px;
+  }
+
+  .live-image {
+    display: block;
+    width: 22px;
+  }
+}
+
+@media (min-width: 500px) {
+  .chat-container {
+    width: 100%;
+    height: 380px;
+  }
+
+  .card {
+    display: inline-block;
+    width: 230px;
+    height: 162px;
+  }
+
+  .titleBox {
+    position: absolute;
+    bottom: 20px;
+  }
+
+  .contentImage {
+    display: block;
+    width: 35px;
+  }
+
+  .gradient_bottom:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    background-size: cover;
+    border-radius: 8px;
+  }
+
+  .live-image {
+    display: block;
+    width: 22px;
+  }
+}
+
+@media (min-width: 640px) {
+  .live-container {
+    max-width: 1037px;
+    width: 100%;
+    height: auto;
+  }
+
+  .chat-container {
+    width: auto;
+    height: 380px;
+  }
+
+  .card {
+    display: inline-block;
+    width: 287px;
+    height: 162px;
+  }
+
+  .titleBox {
+    position: absolute;
+    bottom: 20px;
+  }
+
+  .contentImage {
+    display: block;
+    width: 38px;
+  }
+
+  .gradient_bottom:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    background-size: cover;
+    border-radius: 8px;
+  }
+
+  .live-image {
+    display: block;
+    width: 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  .chat-container {
+    max-width: 240px;
+    width: 100%;
+    max-height: 586px;
+    height: 100%;
+  }
+}
+
+@media (min-width: 1300px) {
+  .chat-container {
+    max-width: 363px;
+    width: 100%;
+    max-height: 586px;
+    height: 100%;
+  }
+}
+
+.chat_border {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 10px;
+}
+
 .live_wrapper {
   width: 100%;
   max-width: 1519px;
