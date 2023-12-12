@@ -16,6 +16,10 @@ export function setImageCookie(avatar) {
   VueCookies.set('avatar', avatar, '7d');
 }
 
+export function setRoleCookie(role){
+  VueCookies.set('role', role, '7d');
+}
+
 
 export function removeCookie() {
     VueCookies.remove('userToken');

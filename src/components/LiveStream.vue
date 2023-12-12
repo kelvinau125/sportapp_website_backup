@@ -42,6 +42,40 @@
           </div>
         </div>
       </div>
+      <!-- <div class="chat-container border-2 border-white rounded-lg ml-2 relative  ">
+                <div class="flex pb-4 p-3">
+                    <div class="pr-2">
+                        <img class="w-[30px]" src="@/assets/ProfilePicture.png" />
+                    </div>
+                    <div class="flex flex-col chat_border">
+                        <div class="text-xs font-medium" style="color: #666666;">ZHENAYUUUUUUUUUUUU</div>
+                        <div class="text-sm font-medium" style="color: #333333;">Halo World</div>
+                    </div>
+                </div>
+                <div class=" flex pb-4 p-3">
+                    <div class="pr-2">
+                        <img class="w-[30px]" src="@/assets/ProfilePicture.png" />
+                    </div>
+                    <div class="flex flex-col chat_border">
+                        <div class="text-xs font-medium" style="color: #666666;">俐敏俐敏俐敏俐敏</div>
+                        <div class="text-sm font-medium" style="color: #333333;">俐敏 你好</div>
+                    </div>
+                </div>
+
+                <div class="absolute bottom-0 flex pb-3">
+                    Enter to send message...
+                    <div class="pr-4">
+                        <input class="w-[300px] pl-3 rounded-[24.46px] h-[44px] font-normal text-xs" placeholder="输入内容"
+                            type="text" />
+                    </div>
+                    <div class="mt-1">
+                        <button>
+                            <img class="w-[36px] h-[36px]" src="@/assets/live/chatSend.png" />
+                        </button>
+                    </div>
+                </div>
+            </div>-->
+
       <div class="chat-box border-2 border-white rounded-lg ml-2 flex flex-col">
         <div class="chat-container overflow-y-auto h-[300px]">
           <div
@@ -87,8 +121,7 @@
       </div>
     </div>
   </div>
-
-  <div class="flex justify-center">
+  <div class="flex justify-center" v-show="!isStreamer">
     <div class="flex flex-col max-w-[1519px] w-full">
       <span class="text-lg font-semibold md:pl-12 pl-5 pt-3 pb-1">{{
         $t("Other Live Recommend")
@@ -141,55 +174,145 @@ import { ref } from "vue";
 import ButtonPress from "@/components/ButtonPress.vue";
 import EditStreamDetailModal from "@/views/Stream/EditStreamDetail.vue";
 
-//tencent api
+// api
+import { getAllStreamDetails, getStreamDetails } from "@/service/apiStreamProvider.js";
+
+// tencent api
 import TIM from "tim-js-sdk/tim-js-friendship.js";
 import genTestUserSig from "@/tencent/GenerateTestUserSig.js";
 import TencentCloudChat from "@tencentcloud/chat";
 import VueCookies from "vue-cookies";
 import TIMUploadPlugin from "tim-upload-plugin";
 
-import { mapActions } from "vuex";
-
-// api
-import { getAllStreamDetails, getStreamDetails } from "@/service/apiStreamProvider.js";
-
-// import { mapActions } from "vuex";
-
 export default {
   components: {
     ButtonPress,
     EditStreamDetailModal,
   },
-  computed: {
-    getUserRole() {
-      //link this one to the cookies or store to get user role
-      return "0";
-    },
-  },
 
   methods: {
-    ...mapActions(["registerDone"]),
-    // ...mapActions(["clearAVChatRoom"]),
+    toSetLogLevel() {
+      this.timInstance.setLogLevel(4);
+    },
 
-    toggleUserRole() {
-      if (this.getUserRole === "0") {
-        this.isStreamer = false;
-      } else {
-        this.isStreamer = true;
+    toRegisterPlugin() {
+      this.timInstance?.registerPlugin({
+        "tim-upload-plugin": TIMUploadPlugin,
+      });
+    },
+
+    toLogin() {
+      this.timInstance
+        .login({
+          userID: this.phonenumber,
+          userSig: new genTestUserSig(this.phonenumber).userSig,
+        })
+        .then((response) => {
+          console.log("logined", response);
+        })
+        .catch((error) => {
+          console.warn("error", error);
+        });
+    },
+
+    toJoinGroup() {
+      this.timInstance
+        .joinGroup({
+          groupID: this.groupID,
+          type: TIM.TYPES.GRP_AVCHATROOM,
+          applyMessage: "HUHHH",
+        })
+        .then((response) => {
+          console.log("joined", response);
+        })
+        .catch((error) => {
+          console.warn("error", error);
+        });
+    },
+
+    toSendMessage() {
+      console.log("input:", this.messageInput);
+
+      if (this.messageInput !== "" || this.messageInput.trim() !== "") {
+        const msg = this.timInstance.createTextMessage({
+          to: this.groupID,
+          conversationType: TIM.TYPES.CONV_GROUP,
+          payload: {
+            text: this.messageInput,
+          },
+          needReadReceipt: false,
+        });
+        console.log(
+          this.timInstance
+            .sendMessage(msg)
+            .then((imResponse) => {
+              const array = imResponse.data.message.payload.text;
+              this.chatsend.push(array);
+              const sender = imResponse.data.message.nick;
+              this.chatsender.push(sender);
+              const avatar = imResponse.data.message.avatar;
+              this.chatsenderPic.push(avatar);
+            })
+            .catch((imError) => {
+              console.warn("Error:", imError);
+            })
+        );
+        this.messageInput = "";
       }
     },
+
+    toGetMessageList() {
+      let promise = this.timInstance.getMessageList({
+        conversationID: `GROUP${this.groupID}`,
+      });
+      promise.then(function (response) {
+        console.log("response sending:", response.data.messageList);
+      });
+    },
+
+    onMessageReceived(event) {
+      this.messageList = event.data[0].payload.text;
+      const sender = event.data[0].nick;
+      this.chatsend.push(this.messageList);
+      this.chatsender.push(sender);
+      const avatar = event.data[0].avatar;
+      this.chatsenderPic.push(avatar);
+      this.messageList.forEach((message) => {
+        if (message.type === TencentCloudChat.TYPES.MSG_TEXT) {
+          // Handle text message
+        } else if (message.type === TencentCloudChat.TYPES.MSG_IMAGE) {
+          // Handle image message
+        } else if (message.type === TencentCloudChat.TYPES.MSG_SOUND) {
+          // Handle audio message
+        } else if (message.type === TencentCloudChat.TYPES.MSG_VIDEO) {
+          // Handle video message
+        } else if (message.type === TencentCloudChat.TYPES.MSG_FILE) {
+          // Handle file message
+        } else if (message.type === TencentCloudChat.TYPES.MSG_CUSTOM) {
+          // Handle custom message
+        } else if (message.type === TencentCloudChat.TYPES.MSG_MERGER) {
+          // Handle merger message
+        } else if (message.type === TencentCloudChat.TYPES.MSG_LOCATION) {
+          // Handle location message
+        } else if (message.type === TencentCloudChat.TYPES.MSG_GRP_TIP) {
+          // Handle group tip message
+        } else if (message.type === TencentCloudChat.TYPES.MSG_GRP_SYS_NOTICE) {
+          // Handle group system notice message
+        }
+      });
+    },
+
     toLiveStream(liveID) {
-      console.log(liveID);
-      // // Navigating
-      // // Push to the Live Page
-      // // this.$router.push({ name: 'LiveStream' });
-      // const routeData = this.$router.resolve({
-      //   name: "LiveStream",
-      //   query: {
-      //     LiveID: liveID,
-      //   },
-      // });
-      // window.location.href = routeData.href;
+      // Navigating
+      // Push to the Live Page
+      // this.$router.push({ name: 'LiveStream' });
+      const routeData = this.$router.resolve({
+        name: "LiveStream",
+        query: {
+          LiveID: liveID,
+        },
+      });
+      window.location.href = routeData.href;
     },
     // edit stream
     showEditStreamDetailModal() {
@@ -227,187 +350,26 @@ export default {
       this.StreamName = this.getLiveDetails["nickName"];
     },
 
-    //tencent setup
-
-    toSetLogLevel() {
-      this.timInstance.setLogLevel(4);
-    },
-
-    toRegisterPlugin() {
-      this.timInstance?.registerPlugin({
-        "tim-upload-plugin": TIMUploadPlugin,
-      });
-
-      // this.$store.dispatch("AVChatRoomLogin", { timInstance: this.timInstance });
-    },
-
-    toLogin() {
-      this.timInstance
-        .login({
-          userID: this.phonenumber,
-          userSig: new genTestUserSig(this.phonenumber).userSig,
-        })
-        .then((response) => {
-          console.log("logined", response);
-        })
-        .catch((error) => {
-          console.warn("error", error);
-        });
-    },
-
-    toJoinGroup() {
-      this.timInstance
-        .joinGroup({
-          groupID: this.groupID,
-          type: TIM.TYPES.GRP_AVCHATROOM,
-          applyMessage: "HUHHH",
-        })
-        .then((response) => {
-          console.log("joined", response);
-        })
-        .catch((error) => {
-          console.warn("error", error);
-        });
-    },
-
-    toSendMessage() {
-      console.log(this.messageInput);
-      const msg = this.timInstance.createTextMessage({
-        to: this.groupID,
-        conversationType: TIM.TYPES.CONV_GROUP,
-        payload: {
-          text: this.messageInput,
-        },
-        needReadReceipt: false,
-      });
-      console.log(
-        this.timInstance
-          .sendMessage(msg)
-          .then((imResponse) => {
-            const array = imResponse.data.message.payload.text;
-            this.chatsend.push(array);
-            const sender = imResponse.data.message.nick;
-            this.chatsender.push(sender);
-            const avatar = imResponse.data.message.avatar;
-            this.chatsenderPic.push(avatar);
-            console.log("hahahaha", this.chatsenderPic[0]);
-            console.log("haha", imResponse.data.message.avatar);
-          })
-          .catch((imError) => {
-            console.warn("fuck", imError);
-          })
-      );
-      this.messageInput = "";
-    },
-    // toSendMessage() {
-    //     console.log(this.messageInput);
-    //     const msg = this.timInstance.createTextMessage({
-    //         to: this.groupID,
-    //         conversationType: TIM.TYPES.CONV_GROUP,
-    //         payload: {
-    //             text: this.messageInput,
-    //         },
-    //         needReadReceipt: false,
-    //     });
-    //     console.log(
-    //         this.timInstance
-    //             .sendMessage(msg)
-    //             .then((imResponse) => {
-    //                 const array = imResponse.data.message.payload.text;
-    //                 this.chatsend.push(array);
-    //                 const sender = imResponse.data.message.nick;
-    //                 this.chatsender.push(sender);
-    //                 console.log("haha", imResponse.data.message.nick);
-    //             })
-    //             .catch((imError) => {
-    //                 console.warn("fuck", imError);
-    //             })
-    //     );
-    // },
-
-    toGetMessageList() {
-      let promise = this.timInstance.getMessageList({
-        conversationID: `GROUP${this.groupID}`,
-      });
-      promise.then(function (response) {
-        console.log("response sending:", response.data.messageList);
-      });
-    },
-
-    onMessageReceived(event) {
-      this.messageList = event.data[0].payload.text;
-      const sender = event.data[0].nick;
-      console.log("huh", event.data[0].avatar);
-      this.chatsend.push(this.messageList);
-      this.chatsender.push(sender);
-      const avatar = event.data[0].avatar;
-      this.chatsenderPic.push(avatar);
-      this.messageList.forEach((message) => {
-        if (message.type === TencentCloudChat.TYPES.MSG_TEXT) {
-          // Handle text message
-        } else if (message.type === TencentCloudChat.TYPES.MSG_IMAGE) {
-          // Handle image message
-        } else if (message.type === TencentCloudChat.TYPES.MSG_SOUND) {
-          // Handle audio message
-        } else if (message.type === TencentCloudChat.TYPES.MSG_VIDEO) {
-          // Handle video message
-        } else if (message.type === TencentCloudChat.TYPES.MSG_FILE) {
-          // Handle file message
-        } else if (message.type === TencentCloudChat.TYPES.MSG_CUSTOM) {
-          // Handle custom message
-        } else if (message.type === TencentCloudChat.TYPES.MSG_MERGER) {
-          // Handle merger message
-        } else if (message.type === TencentCloudChat.TYPES.MSG_LOCATION) {
-          // Handle location message
-        } else if (message.type === TencentCloudChat.TYPES.MSG_GRP_TIP) {
-          // Handle group tip message
-        } else if (message.type === TencentCloudChat.TYPES.MSG_GRP_SYS_NOTICE) {
-          // Handle group system notice message
-        }
-      });
+    toggleIsStreamer() {
+      const role = VueCookies.get("role");
+      console.log("role:", role);
+      if (role == "1") {
+        this.isStreamer = true;
+      } else {
+        this.isStreamer = false;
+      }
     },
   },
+
   mounted() {
-    this.toggleUserRole();
+    this.toggleIsStreamer();
     this.toLogin();
     this.toJoinGroup();
     console.log(
       this.timInstance.on(TencentCloudChat.EVENT.MESSAGE_RECEIVED, this.onMessageReceived)
     );
-    console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=");
-    console.log(VueCookies.get("role"));
-    console.log(this.getUserRole);
-    // this.toGetMessageList();
-  },
-  onMessageReceived(event) {
-    this.messageList = event.data[0].payload.text;
-    const sender = event.data[0].nick;
-    console.log("huh", event);
-    this.chatsend.push(this.messageList);
-    this.chatsender.push(sender);
-    this.messageList.forEach((message) => {
-      if (message.type === TencentCloudChat.TYPES.MSG_TEXT) {
-        // Handle text message
-      } else if (message.type === TencentCloudChat.TYPES.MSG_IMAGE) {
-        // Handle image message
-      } else if (message.type === TencentCloudChat.TYPES.MSG_SOUND) {
-        // Handle audio message
-      } else if (message.type === TencentCloudChat.TYPES.MSG_VIDEO) {
-        // Handle video message
-      } else if (message.type === TencentCloudChat.TYPES.MSG_FILE) {
-        // Handle file message
-      } else if (message.type === TencentCloudChat.TYPES.MSG_CUSTOM) {
-        // Handle custom message
-      } else if (message.type === TencentCloudChat.TYPES.MSG_MERGER) {
-        // Handle merger message
-      } else if (message.type === TencentCloudChat.TYPES.MSG_LOCATION) {
-        // Handle location message
-      } else if (message.type === TencentCloudChat.TYPES.MSG_GRP_TIP) {
-        // Handle group tip message
-      } else if (message.type === TencentCloudChat.TYPES.MSG_GRP_SYS_NOTICE) {
-        // Handle group system notice message
-      }
-    });
+    this.generateLiveList();
+    this.displayLive(this.LiveID);
   },
 
   data() {
@@ -416,6 +378,10 @@ export default {
         SDKAppID: 20004801,
         userSig: new genTestUserSig(this.phonenumber).userSig,
       }),
+
+      //streamer and basic user
+      isStreamer: false,
+
       //get user information for the chat room
       nickname: VueCookies.get("username"),
       phonenumber: VueCookies.get("phoneNumber"),
@@ -425,7 +391,6 @@ export default {
       chatsend: [],
       chatsender: [],
       chatsenderPic: [],
-      isStreamer: false,
 
       // edit stream
       isEditStreamDetailsModalVisible: ref(false),

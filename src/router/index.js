@@ -54,6 +54,7 @@ const routes = [
     name: 'LiveStream',
     component: () => import('@/views/LiveStream/LiveStreamView.vue')
   },
+  
   {
     path: '/test',
     name: 'testTest',

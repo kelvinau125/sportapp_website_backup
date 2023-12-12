@@ -136,7 +136,7 @@
     </div>
   </div>
   <div class="py-3 flex justify-center">
-    <LiveList class="" />
+    <LiveList />
   </div>
   <div class="flex justify-center">
     <div class="w-[892px]">
@@ -146,8 +146,8 @@
       </div>
       <div class="pb-2">
         <div class="flex flex-wrap justify-start px-2">
-          <router-link
-            :to="address.addressLink"
+          <div
+            @click="toLiveStream(address.addressLink)"
             v-for="address in liveAddress"
             :key="address.liveAddress"
           >
@@ -158,7 +158,7 @@
                 </p>
               </div>
             </div>
-          </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -320,6 +320,15 @@ export default {
   },
 
   methods: {
+    toLiveStream(liveID) {
+      const routeData = this.$router.resolve({
+        name: "LiveStream",
+        query: {
+          LiveID: liveID,
+        },
+      });
+      window.location.href = routeData.href;
+    },
     async generateLiveAddress() {
       this.liveAddress = [];
 
@@ -356,6 +365,7 @@ export default {
       } else {
         this.liveAddress = [];
       }
+      console.log("???", this.liveAddress);
     },
   },
 };
