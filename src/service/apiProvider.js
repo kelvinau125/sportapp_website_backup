@@ -1,5 +1,12 @@
 import CryptoJS from 'crypto-js';
 
+// //tencent api
+// import TIM from "tim-js-sdk/tim-js-friendship.js";
+// import genTestUserSig from "@/tencent/GenerateTestUserSig.js";
+// import TencentCloudChat from "@tencentcloud/chat";
+// import TIMUploadPlugin from "tim-upload-plugin";
+
+
 import {
   postRequest,
   getRequest,
@@ -24,6 +31,8 @@ import {
 // get user cookie / set cookie
 import VueCookies from 'vue-cookies';
 import { setCookie, setNicknameCookie, setImageCookie } from '@/service/cookie';
+
+// import createStore from '@/store/index.js';
 
 
 // User Login
@@ -245,6 +254,13 @@ export async function ForgotPassword(phoneNumber, password) {
 
 // Update User Nickname
 export async function UpdateUserNickname(nickname) {
+
+  // //tencent api
+  // toSetLogLevel();
+  // toRegisterPlugin();
+  // let timInstance = toCreateSDK();
+  // console.log('blabla',timInstance.promise);
+
   // get user token
   const userToken = VueCookies.get('userToken')
 
@@ -260,6 +276,8 @@ export async function UpdateUserNickname(nickname) {
     const code = response.code;
 
     if (code === 0) {
+
+
       return true;
     } else {
       console.log(`nickname Unsuccessfully upload to database: ${code}`);
