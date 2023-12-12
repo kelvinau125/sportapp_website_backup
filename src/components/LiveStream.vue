@@ -27,6 +27,7 @@
                 @click="showEditStreamDetailModal()"
                 class="rounded-[30px] md:static relative -top-1"
                 style="background-color: #16b13b"
+                v-show="isStreamer"
               >
                 <div class="flex">
                   <img class="live-image" src="@/assets/live/liveSetting.png" />
@@ -120,7 +121,7 @@
       </div>
     </div>
   </div>
-  <div class="flex justify-center">
+  <div class="flex justify-center" v-show="isStreamer">
     <div class="flex flex-col max-w-[1519px] w-full">
       <span class="text-lg font-semibold md:pl-12 pl-5 pt-3 pb-1">{{
         $t("Other Live Recommend")
@@ -251,43 +252,14 @@ export default {
               this.chatsender.push(sender);
               const avatar = imResponse.data.message.avatar;
               this.chatsenderPic.push(avatar);
-              console.log("hahahaha", this.chatsenderPic[0]);
-              console.log("haha", imResponse.data.message.avatar);
             })
             .catch((imError) => {
-              console.warn("fuck", imError);
+              console.warn("Error:", imError);
             })
         );
         this.messageInput = "";
-      } else {
-        console.log("what");
       }
     },
-    // toSendMessage() {
-    //     console.log(this.messageInput);
-    //     const msg = this.timInstance.createTextMessage({
-    //         to: this.groupID,
-    //         conversationType: TIM.TYPES.CONV_GROUP,
-    //         payload: {
-    //             text: this.messageInput,
-    //         },
-    //         needReadReceipt: false,
-    //     });
-    //     console.log(
-    //         this.timInstance
-    //             .sendMessage(msg)
-    //             .then((imResponse) => {
-    //                 const array = imResponse.data.message.payload.text;
-    //                 this.chatsend.push(array);
-    //                 const sender = imResponse.data.message.nick;
-    //                 this.chatsender.push(sender);
-    //                 console.log("haha", imResponse.data.message.nick);
-    //             })
-    //             .catch((imError) => {
-    //                 console.warn("fuck", imError);
-    //             })
-    //     );
-    // },
 
     toGetMessageList() {
       let promise = this.timInstance.getMessageList({
@@ -301,7 +273,6 @@ export default {
     onMessageReceived(event) {
       this.messageList = event.data[0].payload.text;
       const sender = event.data[0].nick;
-      console.log("huh", event.data[0].avatar);
       this.chatsend.push(this.messageList);
       this.chatsender.push(sender);
       const avatar = event.data[0].avatar;
@@ -378,9 +349,20 @@ export default {
       this.StreamIcon = this.getLiveDetails["avatar"];
       this.StreamName = this.getLiveDetails["nickName"];
     },
+
+    toggleIsStreamer() {
+      const role = VueCookies.get("role");
+      console.log("role:", role);
+      if (role == "0") {
+        this.isStreamer = true;
+      } else {
+        this.isStreamer = false;
+      }
+    },
   },
 
   mounted() {
+    this.toggleIsStreamer();
     this.toLogin();
     this.toJoinGroup();
     console.log(
@@ -396,6 +378,9 @@ export default {
         SDKAppID: 20004801,
         userSig: new genTestUserSig(this.phonenumber).userSig,
       }),
+
+      //streamer and basic user
+      isStreamer: false,
 
       //get user information for the chat room
       nickname: VueCookies.get("username"),

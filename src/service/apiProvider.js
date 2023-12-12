@@ -54,8 +54,11 @@ export async function loginUser(phoneNumber, password) {
       const mobile = data.mobile;
       const avatar = data.head;
       const username = data.username;
+      const role = data.role;
 
-      setCookie(token, mobile, avatar, username);
+      setCookie(token, mobile, avatar, username, role);
+
+      console.log("user logined: ",response);
 
       if (data !== '') {
         return true;
