@@ -42,17 +42,21 @@
         </div>
       </div>
       <div class="chat-container border-2 border-white rounded-lg ml-2 relative">
-        
         <div v-for="(message, index) in this.chatsend" :key="index" class="flex pb-4 p-3">
-          <div class="pr-2">
-            <img class="w-[30px]" src="@/assets/ProfilePicture.png" />
-          </div>
-          <div class="flex flex-col chat_border">
-            <div class="text-xs font-medium" style="color: #666666">
-              {{ this.chatsender }}
+          <div v-if="this.chatsend[index]">
+            <div class="pr-2">
+              <img class="w-[30px]" src="@/assets/ProfilePicture.png" />
             </div>
-            <div class="text-sm font-medium" style="color: #333333">
-              {{ message }}
+
+            <div class="flex flex-col chat_border">
+              <div class="text-xs font-medium" style="color: #666666">
+                <!-- <div v-if="this.chatsend[index]"> -->
+                {{ this.chatsender[index] }}
+                <!-- </div> -->
+              </div>
+              <div class="text-sm font-medium" style="color: #333333">
+                {{ message }}
+              </div>
             </div>
           </div>
         </div>
@@ -277,10 +281,12 @@ export default {
     },
 
     onMessageReceived(event) {
-      this.messageList = event.data;
-      console.log("huh", this.messageList);
+      this.messageList = event.data[0].payload.text;
+      const sender = event.data[0].nick;
+      console.log("huh", event);
       this.chatsend.push(this.messageList);
-      this.messageList.forEach((message) => { 
+      this.chatsender.push(sender);
+      this.messageList.forEach((message) => {
         if (message.type === TencentCloudChat.TYPES.MSG_TEXT) {
           // Handle text message
         } else if (message.type === TencentCloudChat.TYPES.MSG_IMAGE) {
@@ -327,7 +333,7 @@ export default {
       //variable to store info related to AVChat room
       groupID: "wtf",
       chatsend: [],
-      chatsender: "",
+      chatsender: [],
 
       // edit stream
       isEditStreamDetailsModalVisible: ref(false),
