@@ -1,10 +1,11 @@
 import VueCookies from 'vue-cookies';
 
-export function setCookie(token, mobile, avatar, username) {
+export function setCookie(token, mobile, avatar, username, role) {
     VueCookies.set('userToken', token, '7d');
     VueCookies.set('phoneNumber', mobile, '7d');
     VueCookies.set('avatar', avatar, '7d');
     VueCookies.set('username', username, '7d');
+    VueCookies.set('role', role, '7d');
   }
 
 export function setNicknameCookie(username) {
@@ -22,4 +23,5 @@ export function removeCookie() {
     VueCookies.remove('token');
     VueCookies.remove('avatar');
     VueCookies.remove('username');
+    VueCookies.remove('role');
   }

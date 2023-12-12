@@ -8,23 +8,26 @@ export default createStore({
     nickName: '',
     phoneNumber: '',
     password: '',
+    role:'',
     userId: null,
     status: false,
     currentChannel: localStorage.getItem('currentChannel') || 'football',
     timInstance: null
   },
   mutations: {
-    setUserData(state, { nickName, phoneNumber, password, userId }) {
+    setUserData(state, { nickName, phoneNumber, password, userId, role }) {
       state.nickName = nickName
       state.phoneNumber = phoneNumber
       state.password = password
       state.userId = userId
+      state.role = role
     },
     clearUserData(state) {
       state.nickName = ''
       state.phoneNumber = ''
       state.password = ''
       state.userId = null
+      state.role = ''
     },
     setForgotPassword(state, { phoneNumber, status, userId }) {
       state.phoneNumber = phoneNumber
@@ -53,10 +56,11 @@ export default createStore({
     }
   },
   actions: {
-    register({ commit }, { nickName, phoneNumber, password, userId }) {
-      commit('setUserData', { nickName, phoneNumber, password, userId })
+    register({ commit }, { nickName, phoneNumber, password, userId, role }) {
+      commit('setUserData', { nickName, phoneNumber, password, userId, role })
       console.log(phoneNumber);
       console.log(userId);
+      console.log(role);
     },
     registerDone({ commit }) {
       commit('clearUserData')
@@ -89,6 +93,7 @@ export default createStore({
     isLoggedIn: state => !!state.userId,
     nickName: state => state.nickName,
     phoneNumber: state => state.phoneNumber,
+    role: state => state.role,
     password: state => state.password,
     status: state => state.status,
     getCurrentChannel: state => state.currentChannel,
