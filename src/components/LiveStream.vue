@@ -121,7 +121,7 @@
       </div>
     </div>
   </div>
-  <div class="flex justify-center" v-show="isStreamer">
+  <div class="flex justify-center" v-show="!isStreamer">
     <div class="flex flex-col max-w-[1519px] w-full">
       <span class="text-lg font-semibold md:pl-12 pl-5 pt-3 pb-1">{{
         $t("Other Live Recommend")
@@ -353,7 +353,7 @@ export default {
     toggleIsStreamer() {
       const role = VueCookies.get("role");
       console.log("role:", role);
-      if (role == "0") {
+      if (role == "1") {
         this.isStreamer = true;
       } else {
         this.isStreamer = false;
