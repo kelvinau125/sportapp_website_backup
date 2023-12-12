@@ -131,7 +131,7 @@
         <div @click="toggleDropdownProfile" class="">
           <img
             :src="avatar"
-            class="max-w-[40px] md:static absolute md:right-0 -right-4 md:top-0 -top-[72px] rounded-full border-2 border-white"
+            class="max-w-[40px] w-[40px] h-[40px] max-h-[40px] md:static absolute md:right-0 -right-4 md:top-0 -top-[72px] rounded-full border-2 border-white"
             style="object-fit: cover"
           />
           <div

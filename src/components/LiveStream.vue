@@ -27,6 +27,7 @@
                 @click="showEditStreamDetailModal()"
                 class="rounded-[30px] md:static relative -top-1"
                 style="background-color: #16b13b"
+                v-show="isStreamer"
               >
                 <div class="flex">
                   <img class="live-image" src="@/assets/live/liveSetting.png" />
@@ -161,13 +162,22 @@ export default {
   },
   computed: {
     getUserRole() {
-      return this.$store.getters.role;
+      //link this one to the cookies or store to get user role
+      return "0";
     },
   },
 
   methods: {
     ...mapActions(["registerDone"]),
     // ...mapActions(["clearAVChatRoom"]),
+
+    toggleUserRole() {
+      if (this.getUserRole === "0") {
+        this.isStreamer = false;
+      } else {
+        this.isStreamer = true;
+      }
+    },
     toLiveStream(liveID) {
       console.log(liveID);
       // // Navigating
@@ -358,6 +368,7 @@ export default {
     },
   },
   mounted() {
+    this.toggleUserRole();
     this.toLogin();
     this.toJoinGroup();
     console.log(
@@ -414,6 +425,7 @@ export default {
       chatsend: [],
       chatsender: [],
       chatsenderPic: [],
+      isStreamer: false,
 
       // edit stream
       isEditStreamDetailsModalVisible: ref(false),

@@ -218,7 +218,8 @@
 
             // Set a flag in local storage to show the edit profile modal after refreshing
             localStorage.setItem('showLoginModal', 'true');
-            window.location.reload();
+            window.location.
+            reload();
         },
 
         closeEditPasswordModalBtn() {

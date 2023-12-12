@@ -43,9 +43,9 @@ import CloseButton from "@/components/CloseButton.vue";
 import { UpdateUserNickname } from "@/service/apiProvider.js";
 
 //tencent api
-import TIM from "tim-js-sdk/tim-js-friendship.js";
-import genTestUserSig from "@/tencent/GenerateTestUserSig.js";
-import TIMUploadPlugin from "tim-upload-plugin";
+// import TIM from "tim-js-sdk/tim-js-friendship.js";
+// import genTestUserSig from "@/tencent/GenerateTestUserSig.js";
+// import TIMUploadPlugin from "tim-upload-plugin";
 import VueCookies from "vue-cookies";
 
 export default {
@@ -62,10 +62,10 @@ export default {
 
   data() {
     return {
-      timInstance: TIM.create({
-        SDKAppID: 20004801,
-        userSig: new genTestUserSig(this.phonenumber).userSig,
-      }),
+      // timInstance: TIM.create({
+      //   SDKAppID: 20004801,
+      //   userSig: new genTestUserSig(this.phonenumber).userSig,
+      // }),
       nickName: "",
       warningMessage: "",
       phonenumber: VueCookies.get("phoneNumber"),
@@ -73,24 +73,24 @@ export default {
   },
 
   methods: {
-    toRegisterPlugin() {
-      this.timInstance?.registerPlugin({
-        "tim-upload-plugin": TIMUploadPlugin,
-      });
-    },
-    toLogin() {
-      this.timInstance
-        .login({
-          userID: this.phonenumber,
-          userSig: new genTestUserSig(this.phonenumber).userSig,
-        })
-        .then((response) => {
-          console.log("logined", response);
-        })
-        .catch((error) => {
-          console.warn("error", error);
-        });
-    },
+    // toRegisterPlugin() {
+    //   this.timInstance?.registerPlugin({
+    //     "tim-upload-plugin": TIMUploadPlugin,
+    //   });
+    // },
+    // toLogin() {
+    //   this.timInstance
+    //     .login({
+    //       userID: this.phonenumber,
+    //       userSig: new genTestUserSig(this.phonenumber).userSig,
+    //     })
+    //     .then((response) => {
+    //       console.log("logined", response);
+    //     })
+    //     .catch((error) => {
+    //       console.warn("error", error);
+    //     });
+    // },
     async editNickname() {
       // validate empty value
       if (
@@ -136,8 +136,8 @@ export default {
   mounted() {
     // Check if the flag is set in local storage
     const showEditProfileModal = localStorage.getItem("showEditProfileModal");
-    this.toRegisterPlugin();
-    this.toLogin();
+    // this.toRegisterPlugin();
+    // this.toLogin();
 
     if (showEditProfileModal === "true") {
       // Call the method to show the edit profile modal
