@@ -37,7 +37,7 @@
                     <div v-for="(message, index) in this.chatsend" :key="index" class="flex pb-4 p-3">
                         <div v-if="this.chatsend[index]" class="flex">
                             <div class="pr-2">
-                                <img class="w-[30px]" src="@/assets/ProfilePicture.png" />
+                                <img class="w-[30px]" :src="this.chatsenderPic[index]" />
                             </div>
 
                             <div class="flex flex-col chat_border">
@@ -56,7 +56,7 @@
                 <div class="flex">
                     <div class="pr-4 pl-1">
                         <input class="w-[140px] pl-3 rounded-[24.46px] h-[44px] font-normal text-xs" v-model="messageInput"
-                            placeholder="输入内容" type="text" />
+                            placeholder="输入内容" type="text" @keyup.enter="toSendMessage" />
                     </div>
                     <div class="mt-1">
                         <button @click="toSendMessage">
@@ -222,6 +222,35 @@ export default {
                 });
         },
 
+    toSendMessage() {
+      console.log(this.messageInput);
+      const msg = this.timInstance.createTextMessage({
+        to: this.groupID,
+        conversationType: TIM.TYPES.CONV_GROUP,
+        payload: {
+          text: this.messageInput,
+        },
+        needReadReceipt: false,
+      });
+      console.log(
+        this.timInstance
+          .sendMessage(msg)
+          .then((imResponse) => {
+            const array = imResponse.data.message.payload.text;
+            this.chatsend.push(array);
+            const sender = imResponse.data.message.nick;
+            this.chatsender.push(sender);
+            const avatar = imResponse.data.message.avatar;
+            this.chatsenderPic.push(avatar);
+            console.log("hahahaha", this.chatsenderPic[0]);
+            console.log("haha", imResponse.data.message.avatar);
+          })
+          .catch((imError) => {
+            console.warn("fuck", imError);
+          })
+      );
+      this.messageInput = "";
+    },
         toSendMessage() {
             console.log(this.messageInput);
             const msg = this.timInstance.createTextMessage({
@@ -257,6 +286,47 @@ export default {
             });
         },
 
+    onMessageReceived(event) {
+      this.messageList = event.data[0].payload.text;
+      const sender = event.data[0].nick;
+      console.log("huh", event.data[0].avatar);
+      this.chatsend.push(this.messageList);
+      this.chatsender.push(sender);
+      const avatar = event.data[0].avatar;
+      this.chatsenderPic.push(avatar);
+      this.messageList.forEach((message) => {
+        if (message.type === TencentCloudChat.TYPES.MSG_TEXT) {
+          // Handle text message
+        } else if (message.type === TencentCloudChat.TYPES.MSG_IMAGE) {
+          // Handle image message
+        } else if (message.type === TencentCloudChat.TYPES.MSG_SOUND) {
+          // Handle audio message
+        } else if (message.type === TencentCloudChat.TYPES.MSG_VIDEO) {
+          // Handle video message
+        } else if (message.type === TencentCloudChat.TYPES.MSG_FILE) {
+          // Handle file message
+        } else if (message.type === TencentCloudChat.TYPES.MSG_CUSTOM) {
+          // Handle custom message
+        } else if (message.type === TencentCloudChat.TYPES.MSG_MERGER) {
+          // Handle merger message
+        } else if (message.type === TencentCloudChat.TYPES.MSG_LOCATION) {
+          // Handle location message
+        } else if (message.type === TencentCloudChat.TYPES.MSG_GRP_TIP) {
+          // Handle group tip message
+        } else if (message.type === TencentCloudChat.TYPES.MSG_GRP_SYS_NOTICE) {
+          // Handle group system notice message
+        }
+      });
+    },
+  },
+  mounted() {
+    this.toLogin();
+    this.toJoinGroup();
+    console.log(
+      this.timInstance.on(TencentCloudChat.EVENT.MESSAGE_RECEIVED, this.onMessageReceived)
+    );
+    // this.toGetMessageList();
+  },
         onMessageReceived(event) {
             this.messageList = event.data[0].payload.text;
             const sender = event.data[0].nick;
@@ -287,15 +357,8 @@ export default {
                 }
             });
         },
-    },
-    mounted() {
-        this.toLogin();
-        this.toJoinGroup();
-        console.log(
-            this.timInstance.on(TencentCloudChat.EVENT.MESSAGE_RECEIVED, this.onMessageReceived)
-        );
-        // this.toGetMessageList();
-    },
+    
+    
 
     data() {
         return {
@@ -307,6 +370,11 @@ export default {
             nickname: VueCookies.get("username"),
             phonenumber: VueCookies.get("phoneNumber"),
 
+      //variable to store info related to AVChat room
+      groupID: "wtf",
+      chatsend: [],
+      chatsender: [],
+      chatsenderPic: [],
             //variable to store info related to AVChat room
             groupID: "wtf",
             chatsend: [],
