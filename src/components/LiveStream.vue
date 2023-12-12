@@ -45,7 +45,7 @@
         <div v-for="(message, index) in this.chatsend" :key="index" class="flex pb-4 p-3">
           <div v-if="this.chatsend[index]">
             <div class="pr-2">
-              <img class="w-[30px]" src="@/assets/ProfilePicture.png" />
+              <img class="w-[30px]" :src="this.chatsenderPic[index]" />
             </div>
 
             <div class="flex flex-col chat_border">
@@ -69,6 +69,7 @@
               v-model="messageInput"
               placeholder="输入内容"
               type="text"
+              @keyup.enter="toSendMessage"
             />
           </div>
           <div class="mt-1">
@@ -263,12 +264,16 @@ export default {
             this.chatsend.push(array);
             const sender = imResponse.data.message.nick;
             this.chatsender.push(sender);
-            console.log("haha", imResponse.data.message.nick);
+            const avatar = imResponse.data.message.avatar;
+            this.chatsenderPic.push(avatar);
+            console.log("hahahaha", this.chatsenderPic[0]);
+            console.log("haha", imResponse.data.message.avatar);
           })
           .catch((imError) => {
             console.warn("fuck", imError);
           })
       );
+      this.messageInput = "";
     },
 
     toGetMessageList() {
@@ -283,9 +288,11 @@ export default {
     onMessageReceived(event) {
       this.messageList = event.data[0].payload.text;
       const sender = event.data[0].nick;
-      console.log("huh", event);
+      console.log("huh", event.data[0].avatar);
       this.chatsend.push(this.messageList);
       this.chatsender.push(sender);
+      const avatar = event.data[0].avatar;
+      this.chatsenderPic.push(avatar);
       this.messageList.forEach((message) => {
         if (message.type === TencentCloudChat.TYPES.MSG_TEXT) {
           // Handle text message
@@ -334,6 +341,7 @@ export default {
       groupID: "wtf",
       chatsend: [],
       chatsender: [],
+      chatsenderPic: [],
 
       // edit stream
       isEditStreamDetailsModalVisible: ref(false),
