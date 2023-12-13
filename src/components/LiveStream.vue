@@ -30,7 +30,7 @@
                 alt="Image"
               />
             </div>
-            <div class="flex flex-col md:pl-3 pl-5 z-10 items-start md:pb-1.5 pb-3 pt-2">
+            <div class="flex flex-col md:pl-3 pl-5 z-10  items-start md:pb-1.5 pb-3 pt-2">
               <div class="text-white font-normal md:text-sm text-10px">
                 <span>{{ this.LiveTitle }}</span> 
               </div>
@@ -179,11 +179,11 @@
                 <div class="pr-1 pl-1 z-10 w-10">
                   <img id="circle" class="rounded-full" :src="livedata.streamerIcon" alt="Image" />
                 </div>
-                <div class="flex flex-col pl-1 z-10 items-start">
-                  <div class="text-white font-medium md:text-sm text-10px">
+                <div class="flex flex-col pl-1 z-10 items-start  w-[210px]">
+                  <div class="text-start text-white font-medium md:text-sm text-10px w-[200px] multiline-ellipsis">
                     <span>{{ livedata.liveTitle }}</span> 
                   </div>
-                  <div class="md:text-10px text-8px font-medium text-white opacity-60">
+                  <div class="text-start md:text-10px text-8px font-medium text-white opacity-60 w-[200px] multiline-ellipsis">
                     {{ livedata.streamerName }}
                   </div>
                 </div>
@@ -741,7 +741,7 @@ export default {
 
 .multiline-ellipsis {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
