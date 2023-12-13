@@ -110,6 +110,7 @@
               placeholder="输入内容"
               type="text"
               @keyup.enter="toSendMessage"
+              maxlength="50"
             />
           </div>
           <div class="mt-1">
