@@ -14,7 +14,19 @@
       <div class="inner-container">
         <div class=" schedule_detail max-w-[892px] w-[100%]">
           <div class=" schedule_detail_box">
-            <ul class=" h-[120px]" v-for="match in filterSearchResult" :key="match.searchLiveTeamResult">
+            <ul class="h-[120px]" v-if="loading">
+              <li class="max-w-full bg-white">
+                Loading...
+              </li>
+            </ul>
+            <ul class="h-[120px]" v-else-if="filterSearchResult.length === 0">
+              <li class="max-w-full bg-white">
+                No data found.
+              </li>
+            </ul>
+
+
+            <ul class=" h-[120px]" v-else v-for="match in filterSearchResult" :key="match.searchLiveTeamResult">
               <li @click="toAllMatchPage(
                 match.linkAddress,
                 match.competitionName,
@@ -118,6 +130,8 @@ export default {
   data() {
 
     return {
+      loading: false,
+
       searchQuery: this.$route.query.searchQuery,
       searchPages: this.$route.query.searchPages,
       searchLiveTeamResult: [],
@@ -160,48 +174,58 @@ export default {
 
     // },
     async search() {
-      if (this.searchQuery === '') {
-        console.log('Search is empty');
-        this.searchLiveTeamResult = [];
-      } else {
-        this.$router.push({ name: 'ResultPage', query: { searchQuery: this.searchQuery } });
 
-        this.filterSearchResult = [];
-        this.searchLiveTeamResult = await searchLiveTeamStream(this.searchQuery, this.isCN, this.currentChannel)
-        this.searchLiveCompetitionResult = await searchLiveCompetitionStream(this.searchQuery, this.isCN, this.currentChannel)
+      try {
+        this.loading = true; // Set loading to true
+        if (this.searchQuery === '') {
+          console.log('Search is empty');
+          this.searchLiveTeamResult = [];
+        } else {
+          this.$router.push({ name: 'ResultPage', query: { searchQuery: this.searchQuery } });
 
-        // console.log(' ' + this.searchQuery);
-        // console.log("THE LIVE TEAM RESULT" + this.searchLiveTeamResult);
-        // console.log("THE COMP TEAM RESULT" + this.searchLiveCompetitionResult);
+          this.filterSearchResult = [];
+          this.searchLiveTeamResult = await searchLiveTeamStream(this.searchQuery, this.isCN, this.currentChannel)
+          this.searchLiveCompetitionResult = await searchLiveCompetitionStream(this.searchQuery, this.isCN, this.currentChannel)
 
-        //Fillter Both Data By id
-        this.filterSearchResultTemp = [
-          ...this.searchLiveTeamResult.filter(team => !this.searchLiveCompetitionResult.find(comp => comp.id === team.id)),
-          ...this.searchLiveCompetitionResult
-        ];
+          // console.log(' ' + this.searchQuery);
+          // console.log("THE LIVE TEAM RESULT" + this.searchLiveTeamResult);
+          // console.log("THE COMP TEAM RESULT" + this.searchLiveCompetitionResult);
 
-        for (let i = 0; i < this.filterSearchResultTemp.length; i++) {
+          //Fillter Both Data By id
+          this.filterSearchResultTemp = [
+            ...this.searchLiveTeamResult.filter(team => !this.searchLiveCompetitionResult.find(comp => comp.id === team.id)),
+            ...this.searchLiveCompetitionResult
+          ];
 
-          const matchId = this.filterSearchResultTemp[i]["id"];
-          // Check if the match ID is in the list of favorite IDs
-          const isFavorite = this.favoriteList.includes(matchId);
+          for (let i = 0; i < this.filterSearchResultTemp.length; i++) {
 
-          this.filterSearchResult.push({
-            competitionName: this.filterSearchResultTemp[i]["competitionName"],
-            matchDate: this.filterSearchResultTemp[i]["matchDate"],
-            matchTimeStr: this.filterSearchResultTemp[i]["matchTimeStr"],
-            homeTeamName: this.filterSearchResultTemp[i]["homeTeamName"],
-            homeTeamLogo: this.filterSearchResultTemp[i]["homeTeamLogo"],
-            homeTeamScore: this.filterSearchResultTemp[i]["homeTeamScore"],
-            awayTeamScore: this.filterSearchResultTemp[i]["awayTeamScore"],
-            awayTeamLogo: this.filterSearchResultTemp[i]["awayTeamLogo"],
-            awayTeamName: this.filterSearchResultTemp[i]["awayTeamName"],
-            favorite: isFavorite,
-            statusStr: this.filterSearchResultTemp[i]["statusStr"],
-            linkAddress: this.filterSearchResultTemp[i]["id"],
-          });
+            const matchId = this.filterSearchResultTemp[i]["id"];
+            // Check if the match ID is in the list of favorite IDs
+            const isFavorite = this.favoriteList.includes(matchId);
+
+            this.filterSearchResult.push({
+              competitionName: this.filterSearchResultTemp[i]["competitionName"],
+              matchDate: this.filterSearchResultTemp[i]["matchDate"],
+              matchTimeStr: this.filterSearchResultTemp[i]["matchTimeStr"],
+              homeTeamName: this.filterSearchResultTemp[i]["homeTeamName"],
+              homeTeamLogo: this.filterSearchResultTemp[i]["homeTeamLogo"],
+              homeTeamScore: this.filterSearchResultTemp[i]["homeTeamScore"],
+              awayTeamScore: this.filterSearchResultTemp[i]["awayTeamScore"],
+              awayTeamLogo: this.filterSearchResultTemp[i]["awayTeamLogo"],
+              awayTeamName: this.filterSearchResultTemp[i]["awayTeamName"],
+              favorite: isFavorite,
+              statusStr: this.filterSearchResultTemp[i]["statusStr"],
+              linkAddress: this.filterSearchResultTemp[i]["id"],
+            });
+          }
         }
+      } catch (error) {
+        console.error('Error occurred during search:', error);
+      } finally {
+        this.loading = false; // Set loading to false whether the search succeeds or fails
       }
+
+
     },
     async toggleFavorite(match, matchID) {
       match.favorite = !match.favorite;
