@@ -396,7 +396,7 @@ export default {
       this.imageCover = this.getLiveDetails["cover"];
       this.userId = this.getLiveDetails["userId"];
 
-      console.log("userIDDDDD:", this.userId);
+      return Promise.resolve();
     },
 
     toggleIsStreamer() {
@@ -404,7 +404,7 @@ export default {
       const user = VueCookies.get("phoneNumber");
       console.log("role:", role);
       console.log("id:", user);
-      console.log("userid:", this.userId);
+      console.log("userid 2:", this.userId);
       console.log("check boolean", user == `${this.userId}`);
       if (role == "1" && user == this.userId) {
         this.isStreamer = true;
@@ -422,17 +422,17 @@ export default {
       return this.imageCover;
     },
   },
-  mounted() {
-    this.displayLive(this.LiveID);
-    this.toggleIsStreamer();
+  async mounted() {
+    await this.displayLive(this.LiveID);
+    
     this.toLogin();
     this.toJoinGroup();
     console.log(
       this.timInstance.on(TencentCloudChat.EVENT.MESSAGE_RECEIVED, this.onMessageReceived)
     );
     this.generateLiveList();
+    this.toggleIsStreamer();
 
-    console.log("show id: ", this.LiveID);
   },
   beforeMount() {
     window.addEventListener("beforeunload", this.beforeUnloadHandler);
