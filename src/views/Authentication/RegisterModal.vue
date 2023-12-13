@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="pt-12">
-                    <ButtonCom @click="register" class="w-screen">{{ $t("Register") }}</ButtonCom>
+                    <ButtonCom @click="register" class="w-screen" :disabled="registerDisabled">{{ $t("Register") }}</ButtonCom>
                     <div class="flex justify-center" style="padding: 20px">
                         <p>{{ $t("Already Have An Account? ") }} <button class="text-green-500" @click="showLoginModal">{{
                             $t("Login Now") }}</button></p>
@@ -107,6 +107,8 @@ export default {
             passwordVisibility2nd: false,
 
             warningMessage: '',
+
+            registerDisabled: false,
         };
     },
 
@@ -129,15 +131,19 @@ export default {
         ...mapActions(['register']),
 
         async register() {
+            this.registerDisabled = true;
+
             // validate phone number
             if (this.countryCode.startsWith('+60') || this.countryCode.startsWith('+86')) {
                 if (this.countryCode.trim().length < 12) {
                     this.warningMessage = this.$t("Please enter the correct phone number");
+                    this.registerDisabled = false;
                     return;
                 }
             } else {
                 if (this.countryCode.trim().length < 8) {
                     this.warningMessage = this.$t("Please enter the correct phone number");
+                    this.registerDisabled = false;
                     return;
                 }
             }
@@ -147,12 +153,14 @@ export default {
 
             if (!this.password || !passwordRegex.test(this.password)) {
                 this.warningMessage = this.$t("Password must be at least 8 characters and include at least 1 capital letter, number, and special character")
+                this.registerDisabled = false;
                 return;
             }
 
             // Validate confirm password
             if (this.password !== this.password2nd) {
                 this.warningMessage = this.$t("Please Make Sure Password are Same");
+                this.registerDisabled = false;
                 return;
             }
 
@@ -161,6 +169,7 @@ export default {
                 this.nickName === null || this.nickName === undefined || this.nickName.trim() === ''
             )) {
                 this.warningMessage = this.$t("NickName cannot be empty");
+                this.registerDisabled = false;
                 return;
             }
 
@@ -168,6 +177,7 @@ export default {
                 this.countryCode === null || this.countryCode === undefined || this.countryCode.trim() === ''
             )) {
                 this.warningMessage = this.$t("Phone Number cannot be empty");
+                this.registerDisabled = false;
                 return;
             }
 
@@ -175,6 +185,7 @@ export default {
                 this.password === null || this.password === undefined || this.password.trim() === ''
             )) {
                 this.warningMessage = this.$t("Passwords cannot be empty");
+                this.registerDisabled = false;
                 return;
             }
 
@@ -182,6 +193,7 @@ export default {
                 this.password2nd === null || this.password2nd === undefined || this.password2nd.trim() === ''
             )) {
                 this.warningMessage = this.$t("Passwords cannot be empty");
+                this.registerDisabled = false;
                 return;
             }
 
