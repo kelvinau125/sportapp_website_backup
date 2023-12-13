@@ -193,6 +193,7 @@
       <h2 class="text-headerFont font-headerWeight">{{ $t("Substitute") }}</h2>
       <div class="pt-3">
         <TournamentSubstitue
+          :tournamentID="this.TournamentID"
           :homeTeamName="this.homeTeamName"
           :awayTeamName="this.awayTeamName"
           :homeTeamLogo="this.homeTeamLogo"
@@ -208,7 +209,7 @@
       <div class="flex flex-col pb-5 team_lineup" style="background-color: white">
         <div class="pt-3">
           <BasketballTournamentSubstitue
-            :tournamentID="1"
+            :tournamentID="this.TournamentID"
             :awayTeamName="this.awayTeamName"
             :homeTeamName="this.homeTeamName"
             :is-home-team="true"
@@ -222,7 +223,7 @@
       <div class="flex flex-col team_lineup pb-5" style="background-color: white">
         <div class="pt-3">
           <BasketballTournamentSubstitue
-            :tournamentID="1"
+            :tournamentID="this.TournamentID"
             :awayTeamName="this.awayTeamName"
             :homeTeamName="this.homeTeamName"
             :is-home-team="false"

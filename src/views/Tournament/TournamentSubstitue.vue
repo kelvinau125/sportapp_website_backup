@@ -53,6 +53,7 @@ import { getFootballLineup } from '@/service/apiFootBallMatchProvider.js';
 
 export default {
     props: {
+        tournamentID: String,
         homeTeamName: String,
         awayTeamName: String,
         homeTeamLogo: String,
@@ -71,6 +72,9 @@ export default {
         console.log()
 
     },
+    mounted() {
+        this.getResult()
+    },
     methods: {
         async getResult() {
             this.getTournamentLineup = await getFootballLineup(this.tournamentID, (this.$i18n.locale === 'ZH')?true :false);
@@ -78,6 +82,7 @@ export default {
             // this.getTournamentLineup = await getFootballLineup(5, true);
             // this.getTournamentLineup = await getFootballLineup(1000, false);
 
+            // console.log("HALLO" + this.tournamentID)
             // console.log("HALLO" + this.getTournamentLineup)
 
             this.homeTeamSubstitute = this.getTournamentLineup['homeMatchLineUpList'];
