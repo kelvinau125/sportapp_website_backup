@@ -311,6 +311,7 @@ export const getLiveStreamMessageListUrl = liveStreamMessageBaseUrl +
 export const getLiveStreamMessageByIdUrl = liveStreamMessageBaseUrl +
     getLiveStreamMessageById; //get live stream message by id
 
+
 //sms
 export const smsBaseUrl = '/api/v1/sms';
 
@@ -389,6 +390,8 @@ export const getStreamDetailsUrl = streamBaseUrl + getStreamDetails; //get strea
 export const editStreamDetailsUrl = streamBaseUrl + editStreamDetails; //edit stream details
 
 export const getAllStreamDetailsUrl = streamBaseUrl + getAllStreamDetails; //edit stream details
+
+export const deleteStreamDetailsByIdUrl = streamBaseUrl + getStreamDetails; //delete stream details when streamer leave the live room
 
 
 

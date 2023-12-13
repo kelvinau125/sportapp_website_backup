@@ -3,6 +3,7 @@ import {
     getRequest,
     postFileRequest,
     patchRequest,
+    deleteLiveStreamDetail
    } from '@/service/apiRequestMethod';
   
 import { 
@@ -13,6 +14,7 @@ import {
     getStreamDetailsUrl,
     editStreamDetailsUrl,
     getAllStreamDetailsUrl,
+    deleteStreamDetailsByIdUrl
     } from '@/utils/apiConfig.js';
 
 // get user cookie / set cookie
@@ -171,6 +173,7 @@ export async function getAllStreamDetails() {
     const data = response.data;
 
     if (code === 0) {
+      console.log("debug: ", data);
       return data;
     }else {
       console.log(`get getAllStreamDetails Unsuccessfully: ${code}`);
@@ -178,6 +181,30 @@ export async function getAllStreamDetails() {
     }
 
   } catch (e) {
+    console.log(`Unsuccessful in provider: ${e}`);
+    return [];
+  }
+}
+
+//delete live stream details after streamer leave the room
+export async function deleteStreamDetails() {
+  const url = baseUrl + deleteStreamDetailsByIdUrl;
+
+  try{
+    const response = await deleteLiveStreamDetail(url);
+
+    const code = response.code;
+    const data = response.data;
+
+    if(code === 0) {
+      console.log("debug: ", data);
+      return data;
+    }else{
+      console.log(`get deleteStreamDetails Unsuccessfully: ${code}`);
+      return [];
+    }
+    
+  }catch(e){
     console.log(`Unsuccessful in provider: ${e}`);
     return [];
   }

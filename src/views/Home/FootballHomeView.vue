@@ -4,24 +4,24 @@
   <div class="w-full flex flex-col">
     <BackgroundImage>
       <div class="live-container">
-        <div class="liveStream ">
+        <div class="liveStream">
           <!-- <div class="live-window"> -->
           <!-- <div>直播窗口内容</div>
             <div>Testing</div> -->
-            <div class=" relative"> 
-              <video
-                ref="videoPlayer"
-                :key="selectedEpic ? selectedEpic.epicMoment : 'default'"
-                id="my-player"
-                class="video-js vjs-default-skin"
-                controls
-                preload="auto"
-                width="892px"
-                height="505px"
-                :poster="selectedLiveStreamImage"
-                style="cursor: pointer"
-              >
-            <!-- <source
+          <div class="relative">
+            <video
+              ref="videoPlayer"
+              :key="selectedEpic ? selectedEpic.epicMoment : 'default'"
+              id="my-player"
+              class="video-js vjs-default-skin"
+              controls
+              preload="auto"
+              width="892px"
+              height="505px"
+              :poster="selectedLiveStreamImage"
+              style="cursor: pointer"
+            >
+              <!-- <source
               :src="
                 selectedEpic
                   ? selectedEpic.videoSource
@@ -43,9 +43,9 @@
 
               <!-- </p> -->
             </video>
-            <div class=" absolute left-5 top-3 flex">
+            <div class="absolute left-5 top-3 flex">
               <div class="pr-2 pl-1 z-10 w-[40px]">
-                <img class="rounded-full" :src= this.StreamIcon alt="Image" />
+                <img class="rounded-full" :src="this.StreamIcon" alt="Image" />
               </div>
               <div class="flex flex-col md:pl-0 pl-5 z-10 items-start md:pb-1.5 pb-3">
                 <div class="text-white font-normal md:text-sm text-10px">
@@ -56,9 +56,7 @@
                 </div>
               </div>
             </div>
-
           </div>
-          
 
           <!-- </div> -->
         </div>
@@ -187,12 +185,10 @@
 import PopularMatch from "@/components/PopularMatch.vue";
 import FooterBar from "@/components/FooterPage.vue";
 import BackgroundImage from "@/components/BackGround.vue";
-import { ref, defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { useTencentSDK } from "@/utils/tencentSDKProvder";
-// import TIMUploadPlugin from "tim-upload-plugin";
-// import genTestUserSig from "@/tencent/GenerateTestUserSig.js";
 
-import { getAllStreamDetails, getStreamDetails } from '@/service/apiStreamProvider.js';
+import { getAllStreamDetails, getStreamDetails } from "@/service/apiStreamProvider.js";
 
 export default defineComponent({
   components: {
@@ -212,38 +208,40 @@ export default defineComponent({
         { name: "主播名称", image: "defaultProfile", no: "520" },
       ],
       epicMoment: [],
-        // {
-        //   image: "moment5",
-        //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
-        //   imgSource:
-        //     "https://butwhytho.net/wp-content/uploads/2023/09/Gojo-Jujutsu-Kaisen-But-Why-Tho-2.jpg",
-        // },
-        // {
-        //   image: "moment5",
-        //   videoSource: "https://vjs.zencdn.net/v/ocean.mp4",
-        //   imgSource:
-        //     "https://i.pinimg.com/736x/d0/52/3d/d0523d4bb70c40d66f7cc6b3d3af2648.jpg",
-        // },
-        // {
-        //   image: "moment5",
-        //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
-        //   imgSource:
-        //     "https://thumb.viva.id/intipseleb/663x372/2023/08/25/64e814afeea6f-trailer-shibuya-incident-jujutsu-kaisen.jpg",
-        // },
-        // {
-        //   image: "moment5",
-        //   videoSource: "https://vjs.zencdn.net/v/ocean.mp4",
-        //   imgSource: "https://fictionhorizon.com/wp-content/uploads/2023/09/GojoStar.jpg",
-        // },
-        // {
-        //   image: "moment5",
-        //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
-        //   imgSource:
-        //     "https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2023/02/gojo-satoru-cosplay.jpg",
-        // },
-      
+      // {
+      //   image: "moment5",
+      //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
+      //   imgSource:
+      //     "https://butwhytho.net/wp-content/uploads/2023/09/Gojo-Jujutsu-Kaisen-But-Why-Tho-2.jpg",
+      // },
+      // {
+      //   image: "moment5",
+      //   videoSource: "https://vjs.zencdn.net/v/ocean.mp4",
+      //   imgSource:
+      //     "https://i.pinimg.com/736x/d0/52/3d/d0523d4bb70c40d66f7cc6b3d3af2648.jpg",
+      // },
+      // {
+      //   image: "moment5",
+      //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
+      //   imgSource:
+      //     "https://thumb.viva.id/intipseleb/663x372/2023/08/25/64e814afeea6f-trailer-shibuya-incident-jujutsu-kaisen.jpg",
+      // },
+      // {
+      //   image: "moment5",
+      //   videoSource: "https://vjs.zencdn.net/v/ocean.mp4",
+      //   imgSource: "https://fictionhorizon.com/wp-content/uploads/2023/09/GojoStar.jpg",
+      // },
+      // {
+      //   image: "moment5",
+      //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
+      //   imgSource:
+      //     "https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2023/02/gojo-satoru-cosplay.jpg",
+      // },
+
       selectedEpic: null,
-      currentChannel: (ref(localStorage.getItem("currentChannel") === "football" ? true : false)),
+      currentChannel: ref(
+        localStorage.getItem("currentChannel") === "football" ? true : false
+      ),
 
       LiveTitle: "",
       StreamIcon: "",
@@ -270,17 +268,13 @@ export default defineComponent({
     useTencentSDK().then((timInstance) => {
       this.tim = timInstance.timInstance._value;
     });
-
-    // this.toSetLogLevel();
-    // this.toRegisterPlugin();
-    // this.toLogin();
   },
 
   methods: {
     async displayLive(liveID) {
-      console.log("-----------------------------")
-      console.log("helllo")
-      console.log(liveID)
+      console.log("-----------------------------");
+      console.log("helllo");
+      console.log(liveID);
 
       this.getLiveDetails = await getStreamDetails(liveID);
 
@@ -288,7 +282,6 @@ export default defineComponent({
       this.StreamIcon = this.getLiveDetails["avatar"];
       this.StreamName = this.getLiveDetails["nickName"];
     },
-    
 
     // toSetLogLevel() {
     //   this.tim.setLogLevel(4);
@@ -336,12 +329,22 @@ export default defineComponent({
         // console.log(this.getLiveList.length)
 
         if (this.getLiveList.length > 0) {
-          for (let j = 0; j < Math.min(1, this.getLiveList.length); j++) {
+          for (let j = 0; j < Math.min(1, this.getLiveList.length) - 1; j++) {
             // Check if sportType is 0 (football)
-            if (this.getLiveList[j]["sportType"] == ((this.currentChannel) ? 0 : 1) && this.getLiveList[j]["isPopular"] == 1) {
+
+            console.log("==========================================");
+            console.log(this.getLiveList[i]);
+            if (
+              this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1) &&
+              this.getLiveList[i]["isPopular"] == 1
+            ) {
               this.epicMoment.push({
                 image: this.getLiveList[j]["cover"],
-                videoSource: "rtmp://" + this.getLiveList[j]["pushHost"] + "/" + this.getLiveList[j]["pushCode"],
+                videoSource:
+                  "rtmp://" +
+                  this.getLiveList[j]["pushHost"] +
+                  "/" +
+                  this.getLiveList[j]["pushCode"],
                 imgSource: this.getLiveList[j]["cover"],
                 liveId: this.getLiveList[j]["id"],
               });
@@ -355,7 +358,7 @@ export default defineComponent({
       // console.log(this.epicMoment.length)
 
       if (this.epicMoment.length < 6) {
-        this.getLiveList = await getAllStreamDetails()
+        this.getLiveList = await getAllStreamDetails();
 
         if (this.getLiveList.length > 0) {
           for (let i = this.epicMoment.length; i < 6; i++) {

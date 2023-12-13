@@ -161,3 +161,21 @@ export async function getRequestSearchStream(url) {
   }
 
 }
+
+export async function deleteLiveStreamDetail(url) {
+  try{
+    const response = await axios.delete(url);
+
+    console.log(response);
+
+    if(response.status === 200) {
+      console.log('Response Data:', response.data);
+
+      return response.data
+    }else{
+      throw new Error(`Error: ${response.status}`);
+    }
+  }catch(e){
+    console.error(`Exception: ${e.message}`);
+  }
+}
