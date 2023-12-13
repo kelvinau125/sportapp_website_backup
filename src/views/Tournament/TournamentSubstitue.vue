@@ -9,8 +9,18 @@
                     <div class="font-normal text-xs pl-2" style="color: #666666;">{{ homeTeamName }}</div>
                 </div>
 
+                <div class="flex items-center h-8 rounded-lg " style=";">
+                    <div class="">
+                        <img class="h-[28px] w-[28px]" src= "@/assets/profile_coach.jpg" />
+                    </div>
+                    <div class="flex flex-col pl-2">
+                        <div class="font-normal text-xs" style="color: #333333;">{{ this.homeCoach }}</div>
+                        <div class="font-normal text-10px" style=" color: #666666;"><p>{{ $t("Coach") }}</p></div>
+                    </div>
+                </div>
+
                 <div v-for="(homeSub, index) in filteredHomeSubPlayers(0)" :key="homeSub.homeTeamSubstitute"
-                    :class="{ 'oddRowColor': index % 2 === 0, 'bg-white': index % 2 !== 0 }"
+                    :class="{ 'oddRowColor': index % 2 !== 0, 'bg-white': index % 2 === 0 }"
                     class="flex justify-start items-center h-10">
                     <div class="homeCircle class flex justify-center items-center ">
                         <div>
@@ -19,7 +29,7 @@
                     </div>
                     <div class="flex flex-col justify-center items-start pl-2">
                         <div class="font-normal text-xs" style="color: #333333;">{{ homeSub.playerName }}</div>
-                        <div class="font-normal text-10px" style=" color: #666666;">{{ homeSub.position }}</div>
+                        <!-- <div class="font-normal text-10px" style=" color: #666666;">{{ homeSub.position }}</div> -->
                     </div>
                 </div>
             </div>
@@ -30,8 +40,19 @@
                     </div>
                     <div class="font-normal text-xs pl-2" style="color: #666666;">{{ awayTeamName }}</div>
                 </div>
+
+                <div class="flex items-center h-8 rounded-lg ">
+                    <div class="">
+                        <img class="h-[28px] w-[28px]" src= "@/assets/profile_coach.jpg" />
+                    </div>
+                    <div class="flex flex-col pl-2">
+                        <div class="font-normal text-xs" style="color: #333333;">{{ this.awayCoach }}</div>
+                        <div class="font-normal text-10px" style=" color: #666666;"><p>{{ $t("Coach") }}</p></div>
+                    </div>
+                </div>
+
                 <div v-for="(awaySub, index) in filteredAwaySubPlayers(0)" :key="awaySub.awayTeamSubstitute"
-                    :class="{ 'oddRowColor': index % 2 === 0, 'bg-white': index % 2 !== 0 }"
+                    :class="{ 'oddRowColor': index % 2 !== 0, 'bg-white': index % 2 === 0 }"
                     class="flex justify-start items-center h-10">
                     <div class="awayCircle class flex justify-center items-center ">
                         <div>
@@ -40,7 +61,7 @@
                     </div>
                     <div class="flex flex-col pl-2">
                         <div class="font-normal text-xs" style="color: #333333;">{{ awaySub.playerName }}</div>
-                        <div class="font-normal text-10px" style=" color: #666666;">{{ awaySub.position }}</div>
+                        <!-- <div class="font-normal text-10px" style=" color: #666666;">{{ awaySub.position }}</div> -->
                     </div>
                 </div>
             </div>
@@ -49,10 +70,11 @@
 </template>
 
 <script>
-import { getFootballLineup } from '@/service/apiFootBallMatchProvider.js';
+import { getFootballLineup, getFootballMatchbyId} from '@/service/apiFootBallMatchProvider.js';
 
 export default {
     props: {
+        tournamentID: String,
         homeTeamName: String,
         awayTeamName: String,
         homeTeamLogo: String,
@@ -65,19 +87,29 @@ export default {
             homeTeamSubstitute: [],
             awayTeamSubstitute: [],
 
+            homeCoach: "",
+            awayCoach: "",
         }
     },
     created() {
         console.log()
 
     },
+    mounted() {
+        this.getResult()
+    },
     methods: {
         async getResult() {
             this.getTournamentLineup = await getFootballLineup(this.tournamentID, (this.$i18n.locale === 'ZH')?true :false);
+            this.getTournamentDetails = await getFootballMatchbyId(this.tournamentID, ((this.$i18n.locale === 'ZH')?true :false));
+
+            this.homeCoach = (this.getTournamentDetails["homeCoach"] || null);
+            this.awayCoach = (this.getTournamentDetails["awayCoach"] || null);
 
             // this.getTournamentLineup = await getFootballLineup(5, true);
             // this.getTournamentLineup = await getFootballLineup(1000, false);
 
+            // console.log("HALLO" + this.tournamentID)
             // console.log("HALLO" + this.getTournamentLineup)
 
             this.homeTeamSubstitute = this.getTournamentLineup['homeMatchLineUpList'];

@@ -193,6 +193,7 @@
       <h2 class="text-headerFont font-headerWeight">{{ $t("Substitute") }}</h2>
       <div class="pt-3">
         <TournamentSubstitue
+          :tournamentID="this.TournamentID"
           :homeTeamName="this.homeTeamName"
           :awayTeamName="this.awayTeamName"
           :homeTeamLogo="this.homeTeamLogo"
