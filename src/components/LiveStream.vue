@@ -77,11 +77,11 @@
             </div>-->
 
       <div class="chat-box border-2 border-white rounded-lg ml-2 flex flex-col">
-        <div class="chat-container overflow-y-auto h-[300px]">
+        <div class="chat-container  overflow-y-auto h-[300px]">
           <div
             v-for="(message, index) in this.chatsend"
             :key="index"
-            class="flex pb-4 p-3"
+            class="flex pb-4 p-3 " 
           >
             <div v-if="this.chatsend[index]" class="flex">
               <img
@@ -89,13 +89,13 @@
                 :src="this.chatsenderPic[index]"
               />
 
-              <div class="flex flex-col chat_border">
+              <div class="flex flex-col chat_border border-2 border-red-500 break-all">
                 <div class="text-xs font-medium" style="color: #666666">
                   <!-- <div v-if="this.chatsend[index]"> -->
                   {{ this.chatsender[index] }}
                   <!-- </div> -->
                 </div>
-                <div class="text-sm font-medium" style="color: #333333">
+                <div class="text-sm font-medium " style="color: #333333">
                   {{ message }}
                 </div>
               </div>
