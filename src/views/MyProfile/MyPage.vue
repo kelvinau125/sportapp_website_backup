@@ -58,7 +58,7 @@
             </div>
 
             <div class="pt-8">
-                <ButtonPress @click="showStreamDetailModal()" class="w-screen font-bold" style="height: 56px;">{{ $t("Broadcasting") }}</ButtonPress>
+                <ButtonPress v-show="this.role" @click="showStreamDetailModal()" class="w-screen font-bold" style="height: 56px;">{{ $t("Broadcasting") }}</ButtonPress>
                 <div class="flex justify-center" style="padding: 8px" />
             </div>
 
@@ -94,6 +94,7 @@ export default {
             nickname: VueCookies.get('username'),
             phonenumber: VueCookies.get('phoneNumber'),
             avatar: VueCookies.get('avatar'),
+            role: (VueCookies.get("role")=="1" ? true : false),
         }
     },
 
@@ -108,7 +109,7 @@ export default {
         logout() {
             removeCookie();
             window.location.reload();
-        }
+        },
     }
 
 }
