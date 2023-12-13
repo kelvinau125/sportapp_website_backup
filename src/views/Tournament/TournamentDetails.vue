@@ -318,6 +318,8 @@ export default {
 
   mounted() {
     this.generateLiveAddress();
+    console.log("check id--------------------");
+    console.log(this.TournamentID);
   },
 
   methods: {

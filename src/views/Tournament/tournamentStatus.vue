@@ -176,8 +176,8 @@ export default {
     console.log(this.tournamentID);
 
     // this.getTournamentDetails = await getFootballMatchbyId(1187648, false);
-    this.getTournamentDetails = await getFootballMatchbyId(this.tournamentID, ((this.$i18n.locale === 'ZH') ? true : false));
-    console.log(this.getTournamentDetails)
+    this.getTournamentDetails = await getFootballMatchbyId(this.tournamentID, ((this.$i18n.locale === 'ZH')?true :false));
+    // console.log(this.getTournamentDetails)
 
     if (this.getTournamentDetails !== null) {
       //homePossessionRate (控球率), awayPossessionRate (控球率)
