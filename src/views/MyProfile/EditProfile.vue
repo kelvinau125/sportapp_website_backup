@@ -29,7 +29,7 @@
             </div>
 
             <div class="pt-5 pb-32">
-                <ButtonPress @click="changePassword" class="w-screen bg-white flex justify-between items-center" style="height: 60px;">
+                <ButtonPress @click="changePassword" :disabled="changePassDisabled" class="w-screen bg-white flex justify-between items-center" style="height: 60px;">
                     <p class="text-base font-normal" style="color: #333333;">{{ $t("Edit Password")}}</p>
                     <img src="@/assets/arrow.png" style="width: 6px; height: 12px;" />
                 </ButtonPress>
@@ -64,6 +64,8 @@
     data() {
         return{
             avatar: VueCookies.get('avatar'),
+
+            changePassDisabled: false,
         }
     },
 
@@ -99,6 +101,7 @@
         },
 
         async changePassword() {
+            this.registerDisabled = true;
             // send OTP to user phone
             const result = await getOTP(VueCookies.get('phoneNumber'), "2");
             // const result = true;
@@ -106,10 +109,13 @@
             if (result === true) {
                 // show modal
                 this.showOTPModal()   
+                this.registerDisabled = false;
             } else if (result === false) {
                 this.warningMessage = "Please check your network";
+                this.registerDisabled = false;
             } else {
                 this.warningMessage = result;
+                this.registerDisabled = false;
             }
         }
     },
