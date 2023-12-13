@@ -169,20 +169,18 @@
 import PopularMatch from "@/components/PopularMatch.vue";
 import FooterBar from "@/components/FooterPage.vue";
 import BackgroundImage from "@/components/BackGround.vue";
-import { ref, defineComponent } from "vue";
+import { ref } from "vue";
 import { useTencentSDK } from "@/utils/tencentSDKProvder";
-// import TIMUploadPlugin from "tim-upload-plugin";
-// import genTestUserSig from "@/tencent/GenerateTestUserSig.js";
 
 import { getAllStreamDetails } from "@/service/apiStreamProvider.js";
 
-export default defineComponent({
+export default {
   components: {
     PopularMatch,
     FooterBar,
     BackgroundImage,
   },
-  async data() {
+  data() {
     return {
       tim: null,
       streamer: [
@@ -250,37 +248,9 @@ export default defineComponent({
     useTencentSDK().then((timInstance) => {
       this.tim = timInstance.timInstance._value;
     });
-
-    // this.toSetLogLevel();
-    // this.toRegisterPlugin();
-    // this.toLogin();
   },
 
   methods: {
-    // toSetLogLevel() {
-    //   this.tim.setLogLevel(4);
-    // },
-
-    // toRegisterPlugin() {
-    //   this.tim?.registerPlugin({
-    //     "tim-upload-plugin": TIMUploadPlugin,
-    //   });
-    // },
-
-    // toLogin() {
-    //   this.tim
-    //     .login({
-    //       userID: this.phonenumber,
-    //       userSig: new genTestUserSig(this.phonenumber).userSig,
-    //     })
-    //     .then((response) => {
-    //       console.log("logined", response);
-    //     })
-    //     .catch((error) => {
-    //       console.warn("error", error);
-    //     });
-    // },
-
     selectEpic(epic) {
       this.selectedEpic = epic;
       this.$refs.videoPlayer.src = "";
@@ -298,8 +268,11 @@ export default defineComponent({
         this.getLiveList = await getAllStreamDetails();
 
         if (this.getLiveList.length > 0) {
-          for (let j = 0; j < Math.min(1, this.getLiveList.length); j++) {
+          for (let j = 0; j < Math.min(1, this.getLiveList.length) - 1; j++) {
             // Check if sportType is 0 (football)
+
+            console.log("==========================================");
+            console.log(this.getLiveList[i]);
             if (
               this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1) &&
               this.getLiveList[i]["isPopular"] == 1
@@ -346,7 +319,7 @@ export default defineComponent({
       // console.log(this.epicMoment)
     },
   },
-});
+};
 </script>
 
 <style scoped>
