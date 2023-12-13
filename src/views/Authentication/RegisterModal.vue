@@ -6,7 +6,7 @@
             <CloseButton @click="closeRegModal"> </CloseButton>
 
             <!-- Register -->
-            <form @submit.prevent="">
+            <form @submit.prevent="" @keydown.enter.prevent>
                 <h2 class="text-xl font-bold" style="padding: 20px">{{ $t('Welcome to Register, Get Started!') }}</h2>
 
                 <div class="form-group flex">

@@ -6,7 +6,7 @@
         <CloseButton @click="closeForgotPasswordModal"> </CloseButton>
     
         <!-- forgot password -->
-        <form @submit.prevent="">
+        <form @submit.prevent="" @keydown.enter.prevent>
             <h2 class="text-xl font-bold" style="padding: 20px">{{ $t("Forgot Password") }}</h2>
             <div class="form-group flex">
                 <!-- https://vuejsexamples.com/international-telephone-input-with-vue/ -->
@@ -25,7 +25,7 @@
 
     
             <div class="pt-12">
-                <ButtonCom @click="forgotPassword()" class="w-screen">{{ $t("Send OTP") }}</ButtonCom>
+                <ButtonCom @click="forgotPassword()" class="w-screen" :disabled="forgotPassDisabled">{{ $t("Send OTP") }}</ButtonCom>
                 <div class="flex justify-center" style="padding: 20px">
                     <p>{{ $t("Remember Password?") }} <button class="text-green-500" @click="showLoginModal">{{ $t("Login Now") }}</button></p>
                 </div>
@@ -71,6 +71,8 @@
             validCharactersOnly: true
         },
         warningMessage: '',
+
+        forgotPassDisabled: false,
         };
     },
 
@@ -78,15 +80,19 @@
         ...mapActions(['forgotPassword']),
 
         async forgotPassword() {
+        this.forgotPassDisabled = true;
+
         // validation of phone number
         if (this.countryCode.startsWith('+60') || this.countryCode.startsWith('+86')){
             if(this.countryCode.trim().length < 12){
                 this.warningMessage = this.$t("Please enter the correct phone number");
+                this.forgotPassDisabled = false;
                 return;
             }
         } else{
             if(this.countryCode.trim().length < 8){
                 this.warningMessage = this.$t("Please enter the correct phone number");
+                this.forgotPassDisabled = false;
                 return;
             }
         }
@@ -96,6 +102,7 @@
         this.countryCode === null || this.countryCode === undefined || this.countryCode.trim() === ''
         )) {
             this.warningMessage = this.$t("Phone Number cannot be empty");
+            this.forgotPassDisabled = false;
             return;
         }
 
