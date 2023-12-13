@@ -177,7 +177,7 @@
                 class="gradient_bottom w-full flex absolute bottom-3 items-center p-1 pb-2"
               >
                 <div class="pr-1 pl-1 z-10 w-10">
-                  <img class="rounded-full" :src="livedata.streamerIcon" alt="Image" />
+                  <img id="circle" class="rounded-full" :src="livedata.streamerIcon" alt="Image" />
                 </div>
                 <div class="flex flex-col pl-1 z-10 items-start">
                   <div class="text-white font-medium md:text-sm text-10px">
@@ -695,6 +695,12 @@ export default {
   width: 270px;
   height: 162px;
   margin-bottom: -35px;
+}
+
+#circle{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 
 .headerBox {
