@@ -89,7 +89,7 @@
                 :src="this.chatsenderPic[index]"
               />
 
-              <div class="flex flex-col chat_border border-2 border-red-500 break-all">
+              <div class="flex flex-col chat_border break-all">
                 <div class="text-xs font-medium" style="color: #666666">
                   <!-- <div v-if="this.chatsend[index]"> -->
                   {{ this.chatsender[index] }}
