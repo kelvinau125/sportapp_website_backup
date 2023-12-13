@@ -14,16 +14,26 @@
       <div class="inner-container">
         <div class=" schedule_detail max-w-[892px] w-[100%]">
           <div class=" schedule_detail_box">
-            <ul class="h-[120px]" v-if="loading">
+            <!-- <ul class="h-[120px]" v-if="loading">
               <li class="max-w-full bg-white">
                 Loading...
               </li>
-            </ul>
-            <ul class="h-[120px]" v-else-if="filterSearchResult.length === 0">
+            </ul> -->
+            <div class="h-[450px] flex items-center justify-center "  v-if="loading">
+              <span class="font-medium text-2xl text-white"> Loading...</span>
+              <img class="pl-5" src="@/assets/pandaLoading.gif" alt="panda loading" style="width:108px;height:108px;">
+
+            </div>
+            <!-- <ul class="h-[120px] border-2" v-else-if="filterSearchResult.length === 0">
               <li class="max-w-full bg-white">
                 No data found.
               </li>
-            </ul>
+            </ul> -->
+            <div class="h-[450px] flex items-center justify-center " v-else-if="filterSearchResult.length === 0">
+              <span class="font-medium text-2xl text-white"> Data not found...</span>
+              <img class="pl-5" src="@/assets/pandaNotFound.gif" alt="panda loading" style="width:108px;height:108px;">
+
+            </div>
 
 
             <ul class=" h-[120px]" v-else v-for="match in filterSearchResult" :key="match.searchLiveTeamResult">
