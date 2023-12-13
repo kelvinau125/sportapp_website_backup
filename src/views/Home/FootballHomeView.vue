@@ -4,22 +4,23 @@
   <div class="w-full flex flex-col">
     <BackgroundImage>
       <div class="live-container">
-        <div class="liveStream">
+        <div class="liveStream ">
           <!-- <div class="live-window"> -->
           <!-- <div>直播窗口内容</div>
             <div>Testing</div> -->
-          <video
-            ref="videoPlayer"
-            :key="selectedEpic ? selectedEpic.epicMoment : 'default'"
-            id="my-player"
-            class="video-js vjs-default-skin"
-            controls
-            preload="auto"
-            width="892px"
-            height="505px"
-            :poster="selectedLiveStreamImage"
-            style="cursor: pointer"
-          >
+            <div class=" relative"> 
+              <video
+                ref="videoPlayer"
+                :key="selectedEpic ? selectedEpic.epicMoment : 'default'"
+                id="my-player"
+                class="video-js vjs-default-skin"
+                controls
+                preload="auto"
+                width="892px"
+                height="505px"
+                :poster="selectedLiveStreamImage"
+                style="cursor: pointer"
+              >
             <!-- <source
               :src="
                 selectedEpic
@@ -29,19 +30,36 @@
               type="video/mp4"
             /> -->
 
-            <source
-              :src="
-                selectedEpic
-                  ? selectedEpic.videoSource
-                  : 'https://vjs.zencdn.net/v/oceans.mp4'
-              "
-              type="video/mp4"
-            />
-            <!-- <p class="vjs-no-js"> -->
-            <!-- <a href="https://vjs.zencdn.net/v/oceans.mp4">`1`ing URL</a> -->
+              <source
+                :src="
+                  selectedEpic
+                    ? selectedEpic.videoSource
+                    : 'https://vjs.zencdn.net/v/oceans.mp4'
+                "
+                type="video/mp4"
+              />
+              <!-- <p class="vjs-no-js"> -->
+              <!-- <a href="https://vjs.zencdn.net/v/oceans.mp4">`1`ing URL</a> -->
 
-            <!-- </p> -->
-          </video>
+              <!-- </p> -->
+            </video>
+            <div class=" absolute left-5 top-3 flex">
+              <div class="pr-2 pl-1 z-10 w-[40px]">
+                <img class="rounded-full" :src= this.StreamIcon alt="Image" />
+              </div>
+              <div class="flex flex-col md:pl-0 pl-5 z-10 items-start md:pb-1.5 pb-3">
+                <div class="text-white font-normal md:text-sm text-10px">
+                  {{ this.LiveTitle }}
+                </div>
+                <div class="md:text-10px text-8px font-bold text-white opacity-60">
+                  {{ this.StreamName }}
+                </div>
+              </div>
+            </div>
+
+          </div>
+          
+
           <!-- </div> -->
         </div>
 
@@ -52,7 +70,7 @@
                 class="w-full"
                 v-for="epic in epicMoment"
                 :key="epic.epicMoment"
-                @click="selectEpic(epic)"
+                @click="selectEpic(epic, epic.liveId)"
               >
                 <img :src="epic.image" alt="Epic Image" style="cursor: pointer" />
               </div>
@@ -174,7 +192,7 @@ import { useTencentSDK } from "@/utils/tencentSDKProvder";
 // import TIMUploadPlugin from "tim-upload-plugin";
 // import genTestUserSig from "@/tencent/GenerateTestUserSig.js";
 
-import { getAllStreamDetails } from "@/service/apiStreamProvider.js";
+import { getAllStreamDetails, getStreamDetails } from '@/service/apiStreamProvider.js';
 
 export default defineComponent({
   components: {
@@ -193,7 +211,7 @@ export default defineComponent({
         { name: "主播名称", image: "defaultProfile", no: "1234" },
         { name: "主播名称", image: "defaultProfile", no: "520" },
       ],
-      epicMoment: [
+      epicMoment: [],
         // {
         //   image: "moment5",
         //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
@@ -223,11 +241,13 @@ export default defineComponent({
         //   imgSource:
         //     "https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2023/02/gojo-satoru-cosplay.jpg",
         // },
-      ],
+      
       selectedEpic: null,
-      currentChannel: ref(
-        localStorage.getItem("currentChannel") === "football" ? true : false
-      ),
+      currentChannel: (ref(localStorage.getItem("currentChannel") === "football" ? true : false)),
+
+      LiveTitle: "",
+      StreamIcon: "",
+      StreamName: "",
     };
   },
   computed: {
@@ -257,6 +277,19 @@ export default defineComponent({
   },
 
   methods: {
+    async displayLive(liveID) {
+      console.log("-----------------------------")
+      console.log("helllo")
+      console.log(liveID)
+
+      this.getLiveDetails = await getStreamDetails(liveID);
+
+      this.LiveTitle = this.getLiveDetails["title"];
+      this.StreamIcon = this.getLiveDetails["avatar"];
+      this.StreamName = this.getLiveDetails["nickName"];
+    },
+    
+
     // toSetLogLevel() {
     //   this.tim.setLogLevel(4);
     // },
@@ -281,7 +314,8 @@ export default defineComponent({
     //     });
     // },
 
-    selectEpic(epic) {
+    selectEpic(epic, liveId) {
+      this.displayLive(liveId);
       this.selectedEpic = epic;
       this.$refs.videoPlayer.src = "";
       this.$nextTick(() => {
@@ -297,32 +331,34 @@ export default defineComponent({
       for (let i = 0; i < 6; i++) {
         this.getLiveList = await getAllStreamDetails();
 
+        // console.log("-----------------------------")
+        // console.log(this.getLiveList)
+        // console.log(this.getLiveList.length)
+
         if (this.getLiveList.length > 0) {
           for (let j = 0; j < Math.min(1, this.getLiveList.length); j++) {
             // Check if sportType is 0 (football)
-            if (
-              this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1) &&
-              this.getLiveList[i]["isPopular"] == 1
-            ) {
+            if (this.getLiveList[j]["sportType"] == ((this.currentChannel) ? 0 : 1) && this.getLiveList[j]["isPopular"] == 1) {
               this.epicMoment.push({
-                image: this.getLiveList[i]["cover"],
-                videoSource:
-                  "rtmp://" +
-                  this.getLiveList[i]["pushHost"] +
-                  "/" +
-                  this.getLiveList[i]["pushCode"],
-                imgSource: this.getLiveList[i]["cover"],
+                image: this.getLiveList[j]["cover"],
+                videoSource: "rtmp://" + this.getLiveList[j]["pushHost"] + "/" + this.getLiveList[j]["pushCode"],
+                imgSource: this.getLiveList[j]["cover"],
+                liveId: this.getLiveList[j]["id"],
               });
             }
           }
         }
       }
 
-      if (this.epicMoment.length <= 6) {
-        this.getLiveList = await getAllStreamDetails();
+      // console.log("---------------------11111-------------------------")
+      // console.log(this.epicMoment)
+      // console.log(this.epicMoment.length)
+
+      if (this.epicMoment.length < 5) {
+        this.getLiveList = await getAllStreamDetails()
 
         if (this.getLiveList.length > 0) {
-          for (let i = this.epicMoment.length; i < 6; i++) {
+          for (let i = this.epicMoment.length; i < 5; i++) {
             // Check if sportType is 0 (football)
             if (
               this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1) &&
@@ -336,6 +372,7 @@ export default defineComponent({
                   "/" +
                   this.getLiveList[i]["pushCode"],
                 imgSource: this.getLiveList[i]["cover"],
+                liveId: this.getLiveList[i]["id"],
               });
             }
           }
