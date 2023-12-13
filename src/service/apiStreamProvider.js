@@ -189,8 +189,9 @@ export async function getAllStreamDetails() {
 }
 
 //delete live stream details after streamer leave the room
-export async function deleteStreamDetails() {
-  const url = baseUrl + deleteStreamDetailsByIdUrl;
+export async function deleteStreamDetails(streamID) {
+  const url = baseUrl + deleteStreamDetailsByIdUrl + streamID;
+  console.log("check del url: ", url);
 
   try{
     const response = await deleteLiveStreamDetail(url);

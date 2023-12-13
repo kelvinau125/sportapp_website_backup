@@ -222,6 +222,7 @@ export default {
 
     //delete live stream room
     deleteLiveRoom() {
+      console.log("check stream id: ", this.LiveID);
       deleteStreamDetails(this.LiveID)
         .then((response) => {
           console.log("delete successfully: ", response);
@@ -424,7 +425,7 @@ export default {
   },
   async mounted() {
     await this.displayLive(this.LiveID);
-    
+    console.log("check stream id at mounted: ", this.LiveID);
     this.toLogin();
     this.toJoinGroup();
     console.log(
