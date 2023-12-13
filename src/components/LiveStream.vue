@@ -77,11 +77,11 @@
             </div>-->
 
       <div class="chat-box border-2 border-white rounded-lg ml-2 flex flex-col">
-        <div class="chat-container  overflow-y-auto h-[300px]" ref="chatContainer">
+        <div class="chat-container overflow-y-auto h-[300px]" ref="chatContainer">
           <div
             v-for="(message, index) in this.chatsend"
             :key="index"
-            class="flex pb-4 p-3 " 
+            class="flex pb-4 p-3"
           >
             <div v-if="this.chatsend[index]" class="flex">
               <img
@@ -95,7 +95,7 @@
                   {{ this.chatsender[index] }}
                   <!-- </div> -->
                 </div>
-                <div class="text-sm font-medium " style="color: #333333">
+                <div class="text-sm font-medium" style="color: #333333">
                   {{ message }}
                 </div>
               </div>
@@ -255,7 +255,7 @@ export default {
               this.chatsenderPic.push(avatar);
 
               // Scroll to the bottom of the chat container
-            this.$refs.chatContainer.scrollTop = this.$refs.chatContainer.scrollHeight;
+              this.$refs.chatContainer.scrollTop = this.$refs.chatContainer.scrollHeight;
             })
             .catch((imError) => {
               console.warn("Error:", imError);
@@ -366,6 +366,8 @@ export default {
   },
 
   mounted() {
+    console.log("=////////////////////////=");
+    console.log(this.timInstance);
     this.toggleIsStreamer();
     this.toLogin();
     this.toJoinGroup();

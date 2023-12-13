@@ -54,11 +54,7 @@
                 :key="epic.epicMoment"
                 @click="selectEpic(epic)"
               >
-                <img
-                  :src= epic.image
-                  alt="Epic Image"
-                  style="cursor: pointer"
-                />
+                <img :src="epic.image" alt="Epic Image" style="cursor: pointer" />
               </div>
             </div>
           </div>
@@ -165,7 +161,6 @@
     </div>
   </div> -->
   <div>
-    
     <FooterBar />
   </div>
 </template>
@@ -174,18 +169,22 @@
 import PopularMatch from "@/components/PopularMatch.vue";
 import FooterBar from "@/components/FooterPage.vue";
 import BackgroundImage from "@/components/BackGround.vue";
-import { ref } from "vue";
+import { ref, defineComponent } from "vue";
+import { useTencentSDK } from "@/utils/tencentSDKProvder";
+// import TIMUploadPlugin from "tim-upload-plugin";
+// import genTestUserSig from "@/tencent/GenerateTestUserSig.js";
 
-import { getAllStreamDetails } from '@/service/apiStreamProvider.js';
+import { getAllStreamDetails } from "@/service/apiStreamProvider.js";
 
-export default {
+export default defineComponent({
   components: {
     PopularMatch,
     FooterBar,
     BackgroundImage,
   },
-  data() {
+  async data() {
     return {
+      tim: null,
       streamer: [
         { name: "主播名称", image: "defaultProfile", no: "1234" },
         { name: "主播名称", image: "defaultProfile", no: "1234" },
@@ -247,10 +246,41 @@ export default {
   },
 
   mounted() {
-    this.generateLiveStreamList()
+    this.generateLiveStreamList();
+    useTencentSDK().then((timInstance) => {
+      this.tim = timInstance.timInstance._value;
+    });
+
+    // this.toSetLogLevel();
+    // this.toRegisterPlugin();
+    // this.toLogin();
   },
 
   methods: {
+    // toSetLogLevel() {
+    //   this.tim.setLogLevel(4);
+    // },
+
+    // toRegisterPlugin() {
+    //   this.tim?.registerPlugin({
+    //     "tim-upload-plugin": TIMUploadPlugin,
+    //   });
+    // },
+
+    // toLogin() {
+    //   this.tim
+    //     .login({
+    //       userID: this.phonenumber,
+    //       userSig: new genTestUserSig(this.phonenumber).userSig,
+    //     })
+    //     .then((response) => {
+    //       console.log("logined", response);
+    //     })
+    //     .catch((error) => {
+    //       console.warn("error", error);
+    //     });
+    // },
+
     selectEpic(epic) {
       this.selectedEpic = epic;
       this.$refs.videoPlayer.src = "";
@@ -265,44 +295,58 @@ export default {
       this.epicMoment = [];
 
       for (let i = 0; i < 6; i++) {
-        this.getLiveList = await getAllStreamDetails()
+        this.getLiveList = await getAllStreamDetails();
 
         if (this.getLiveList.length > 0) {
-           for (let j = 0; j < Math.min(1, this.getLiveList.length); j++) {
+          for (let j = 0; j < Math.min(1, this.getLiveList.length); j++) {
             // Check if sportType is 0 (football)
-            if (this.getLiveList[i]["sportType"] == ((this.currentChannel) ? 0 : 1) && this.getLiveList[i]["isPopular"] == 1) {
+            if (
+              this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1) &&
+              this.getLiveList[i]["isPopular"] == 1
+            ) {
               this.epicMoment.push({
                 image: this.getLiveList[i]["cover"],
-                videoSource: "rtmp://" + this.getLiveList[i]["pushHost"] + "/" + this.getLiveList[i]["pushCode"],
+                videoSource:
+                  "rtmp://" +
+                  this.getLiveList[i]["pushHost"] +
+                  "/" +
+                  this.getLiveList[i]["pushCode"],
                 imgSource: this.getLiveList[i]["cover"],
               });
             }
           }
-        } 
+        }
       }
 
       if (this.epicMoment.length <= 6) {
-        this.getLiveList = await getAllStreamDetails()
+        this.getLiveList = await getAllStreamDetails();
 
         if (this.getLiveList.length > 0) {
           for (let i = this.epicMoment.length; i < 6; i++) {
             // Check if sportType is 0 (football)
-            if (this.getLiveList[i]["sportType"] == ((this.currentChannel) ? 0 : 1) && this.getLiveList[i]["isPopular"] == 0 ) {
+            if (
+              this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1) &&
+              this.getLiveList[i]["isPopular"] == 0
+            ) {
               this.epicMoment.push({
                 image: this.getLiveList[i]["cover"],
-                videoSource: "rtmp://" + this.getLiveList[i]["pushHost"] + "/" + this.getLiveList[i]["pushCode"],
+                videoSource:
+                  "rtmp://" +
+                  this.getLiveList[i]["pushHost"] +
+                  "/" +
+                  this.getLiveList[i]["pushCode"],
                 imgSource: this.getLiveList[i]["cover"],
               });
             }
           }
-        } 
+        }
       }
 
       // console.log("----------------------------------------------")
       // console.log(this.epicMoment)
     },
   },
-};
+});
 </script>
 
 <style scoped>

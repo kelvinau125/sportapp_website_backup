@@ -24,6 +24,7 @@ import {
 // get user cookie / set cookie
 import VueCookies from 'vue-cookies';
 import { setCookie, setNicknameCookie, setImageCookie } from '@/service/cookie';
+import { useTencentSDK } from "@/utils/tencentSDKProvder";
 
 
 // User Login
@@ -311,6 +312,16 @@ export async function updateProfilePic(file) {
 }
 
 export async function pushImageToServer(usertToken, imageToken) {
+  let tim = null;
+  useTencentSDK()
+      .then((result) => {
+        tim = result.timInstance.value;
+        console.log(tim);
+      })
+      .catch((err) => {
+        console.log("error here: ", err);
+      });
+
   const url = baseUrl + updateHeadUrl + usertToken;
 
   // const imageTokenUrl =
@@ -330,6 +341,17 @@ export async function pushImageToServer(usertToken, imageToken) {
 
     if (code === 0) {
       setImageCookie(imageTokenUrl);
+
+      tim.updateMyProfile({
+        avatar: imageTokenUrl,
+      })
+      .then((response) => {
+        console.log("change profile: ", response);
+      })
+      .catch((error) => {
+        console.log("error profile", error);
+      });
+
       return true;
     } else {
       console.log(`picture Unsuccessfully upload to database: ${code}`);

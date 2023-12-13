@@ -6,28 +6,50 @@
   </div> -->
 
   <div class="box" v-show="showbasketballsubstitue">
-    <vue-scrolling-table class="scrolling w2 freezeFirstColumn" ref="scrollingTable"
-      :scroll-vertical="state.scrollVertical" :scroll-horizontal="state.scrollHorizontal">
+    <vue-scrolling-table
+      class="scrolling w2 freezeFirstColumn"
+      ref="scrollingTable"
+      :scroll-vertical="state.scrollVertical"
+      :scroll-horizontal="state.scrollHorizontal"
+    >
       <template #thead>
         <tr class="flex items-center">
-          <th > 
-            <img class="w-[20px] h-[20px] ml-1 mt-1" :src="isHomeTeam ? homeTeamLogo : awayTeamLogo" />
+          <th>
+            <img
+              class="w-[20px] h-[20px] ml-1 mt-1"
+              :src="isHomeTeam ? homeTeamLogo : awayTeamLogo"
+            />
           </th>
-          <th  style="height: 25px; width: 100px" :colspan="6">
-            <span style="font-size: 12px; color: #666666; font-weight: 400;" > {{ isHomeTeam ? homeTeamName : awayTeamName }} </span>
+          <th style="height: 25px; width: 100px" :colspan="6">
+            <span style="font-size: 12px; color: #666666; font-weight: 400">
+              {{ isHomeTeam ? homeTeamName : awayTeamName }}
+            </span>
           </th>
         </tr>
         <tr></tr>
         <tr>
-          <th v-for="(col, index) in useColumns" :key="col.id" :class="{ double: isGrey(index) }" class="">
-            <span style="color: #666666; font-size: 10px; font-weight: 400;">{{ $t(col.title) }}</span>
+          <th
+            v-for="(col, index) in useColumns"
+            :key="col.id"
+            :class="{ double: isGrey(index) }"
+            class=""
+          >
+            <span style="color: #666666; font-size: 10px; font-weight: 400">{{
+              $t(col.title)
+            }}</span>
           </th>
         </tr>
       </template>
       <template #tbody>
-        <tr v-for="(item, index) in items" :key="item.id" :class="{ single: isGrey(index) }">
+        <tr
+          v-for="(item, index) in items"
+          :key="item.id"
+          :class="{ single: isGrey(index) }"
+        >
           <td v-for="col in useColumns" :key="col.id">
-            <span style="color: #666666; font-size: 10px; font-weight: 400;">{{ item[col.id] }} </span>
+            <span style="color: #666666; font-size: 10px; font-weight: 400"
+              >{{ item[col.id] }}
+            </span>
           </td>
         </tr>
       </template>
@@ -57,6 +79,8 @@ export default {
     return {
       homeTeamLineUpList: [],
       awayTeamLineUpList: [],
+      homeTeamLineUpListLength: null,
+      awayTeamLineUpListLength: null,
 
       state: reactive({
         maxRows: 14,
@@ -141,6 +165,22 @@ export default {
     this.homeTeamLineUpList = this.getBasketballLineUpList["home"];
     this.awayTeamLineUpList = this.getBasketballLineUpList["away"];
 
+    console.log("check data home:", this.homeTeamLineUpList);
+    console.log("check data away:", this.awayTeamLineUpList);
+
+    if (this.homeTeamLineUpList != null) {
+      this.homeTeamLineUpListLength = this.homeTeamLineUpList.length;
+    } else {
+      this.homeTeamLineUpListLength = 0;
+    }
+
+    if (this.awayTeamLineUpList != null) {
+      this.awayTeamLineUpListLength = this.awayTeamLineUpList.length;
+    } else {
+      this.awayTeamLineUpListLength = 0;
+    }
+    console.log("check bug: ", this.homeTeamLineUpListLength);
+
     this.homeTeamList();
   },
   computed: {
@@ -155,8 +195,8 @@ export default {
     },
     height() {
       return this.isHomeTeam
-        ? this.homeTeamLineUpList.length * 17.5
-        : this.awayTeamLineUpList.length * 17.5;
+        ? this.homeTeamLineUpListLength * 17.5
+        : this.awayTeamLineUpListLength * 17.5;
     },
   },
 
@@ -164,8 +204,17 @@ export default {
     async homeTeamList() {
       this.homeTeamList = [];
       this.state.allItems = [];
+      let lengthCount = null;
 
-      for (let i = 0; i < this.homeTeamLineUpList.length; i++) {
+      if (this.isHomeTeam) {
+        lengthCount = this.homeTeamLineUpListLength;
+        console.log("check team home: ", lengthCount);
+      } else {
+        lengthCount = this.awayTeamLineUpListLength;
+        console.log("check team away: ", lengthCount);
+      }
+
+      for (let i = 0; i < lengthCount; i++) {
         this.state.allItems.push({
           playerName: this.isHomeTeam
             ? this.homeTeamLineUpList[i].playerName
