@@ -12,9 +12,9 @@
             <div class="w-full h-full ">
               <img class="w-full h-full " :src=livedata.image alt="Image" />
             </div>
-            <div class="gradient_bottom   w-full flex titleBox relative bottom-[50px] items-center p-1 pb-2">
+            <div class="gradient_bottom  w-full flex titleBox relative bottom-[50px] items-center p-1 pb-2">
               <div class="pr-1 pl-1 z-10 contentImage hidden md:pb-1.5">
-                <img class="rounded-full " :src=livedata.streamerIcon alt="Image" />
+                <img id="circle" class="rounded-full" :src=livedata.streamerIcon alt="Image" />
               </div>
               <div class="flex flex-col pl-1 z-10 items-start md:pb-1.5">
                 <div class="text-white font-medium md:text-sm text-10px">{{ livedata.liveTitle }}</div>
@@ -151,7 +151,7 @@ export default {
     z-index: 1;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
     background-size: cover;
-    border-radius: 8px;
+    /* border-radius: 8px; */
   }
 }
 
@@ -248,17 +248,25 @@ export default {
   border-radius: 8px;
 }
 
+#circle{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 
-.gradient_bottom::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  bottom: 0;
-  z-index: 1;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
-  background-size: cover;
-  border-radius: 8px;
+
 }
+
+
+.gradient_bottom::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    background-size: cover;
+  }
+
 </style>
