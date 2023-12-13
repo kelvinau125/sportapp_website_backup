@@ -45,7 +45,7 @@
             </video>
             <div class="items-center absolute left-5 top-3 flex">
               <!-- <div class="pr-2 pl-1 z-10 w-[40px]"> -->
-                <img class="rounded-full w-[30px] z-10 h-[30px]" :src="this.StreamIcon" alt="Image" />
+                <img id="circle" class="rounded-full w-[30px] z-10 h-[30px]" :src="this.StreamIcon" alt="Image" />
               <!-- </div> -->
               <div class="flex flex-col md:pl-3 pl-5 z-10 items-start w-[800px]  md:pb-1.5 pb-3">
                 <div class="text-white font-normal md:text-sm text-10px w-[790px] multiline-ellipsis">
@@ -437,6 +437,13 @@ video:hover {
   width: 892px;
   margin-bottom: 5px;
 }
+
+#circle{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
 
 .epic {
   padding: 10px;
