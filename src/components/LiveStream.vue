@@ -77,7 +77,7 @@
             </div>-->
 
       <div class="chat-box border-2 border-white rounded-lg ml-2 flex flex-col">
-        <div class="chat-container  overflow-y-auto h-[300px]">
+        <div class="chat-container  overflow-y-auto h-[300px]" ref="chatContainer">
           <div
             v-for="(message, index) in this.chatsend"
             :key="index"
@@ -252,6 +252,9 @@ export default {
               this.chatsender.push(sender);
               const avatar = imResponse.data.message.avatar;
               this.chatsenderPic.push(avatar);
+
+              // Scroll to the bottom of the chat container
+            this.$refs.chatContainer.scrollTop = this.$refs.chatContainer.scrollHeight;
             })
             .catch((imError) => {
               console.warn("Error:", imError);
