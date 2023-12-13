@@ -38,7 +38,7 @@
                 {{ this.StreamName }}
               </div>
             </div>
-            <div class="pr-1 pl-5 z-10 pb-1.5">
+            <div class="pr-1 pl-1.5 z-10 pb-1.5">
               <ButtonPress
                 @click="showEditStreamDetailModal()"
                 class="rounded-[30px] md:static relative -top-1"
@@ -51,6 +51,23 @@
                     class="pl-1.5 font-normal md:text-base text-sm text-white md:block hidden"
                   >
                     {{ $t("Live broadcast settings") }}
+                  </div>
+                </div>
+              </ButtonPress>
+            </div>
+            <div class="pr-1 pl-1.5 z-10 pb-1.5">
+              <ButtonPress
+                @click="showEditStreamDetailModal()"
+                class="rounded-[30px] md:static relative -top-1"
+                style="background-color: #16b13b"
+                v-show="isStreamer"
+              >
+                <div class="flex">
+                  <img class="live-image" src="@/assets/live/deleteStream.png" />
+                  <div
+                    class="pl-1 font-normal md:text-base text-sm text-white md:block hidden"
+                  >
+                    {{ $t("Delete Stream") }}
                   </div>
                 </div>
               </ButtonPress>
