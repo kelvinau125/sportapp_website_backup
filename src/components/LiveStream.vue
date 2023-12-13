@@ -388,16 +388,25 @@ export default {
     async displayLive(liveID) {
       this.getLiveDetails = await getStreamDetails(liveID);
 
+      console.log("show live data:", this.getLiveDetails);
+
       this.LiveTitle = this.getLiveDetails["title"];
       this.StreamIcon = this.getLiveDetails["avatar"];
       this.StreamName = this.getLiveDetails["nickName"];
       this.imageCover = this.getLiveDetails["cover"];
+      this.userId = this.getLiveDetails["userId"];
+
+      console.log("userIDDDDD:", this.userId);
     },
 
     toggleIsStreamer() {
       const role = VueCookies.get("role");
+      const user = VueCookies.get("phoneNumber");
       console.log("role:", role);
-      if (role == "1") {
+      console.log("id:", user);
+      console.log("userid:", this.userId);
+      console.log("check boolean", user == `${this.userId}`);
+      if (role == "1" && user == this.userId) {
         this.isStreamer = true;
       } else {
         this.isStreamer = false;
@@ -414,6 +423,7 @@ export default {
     },
   },
   mounted() {
+    this.displayLive(this.LiveID);
     this.toggleIsStreamer();
     this.toLogin();
     this.toJoinGroup();
@@ -421,7 +431,6 @@ export default {
       this.timInstance.on(TencentCloudChat.EVENT.MESSAGE_RECEIVED, this.onMessageReceived)
     );
     this.generateLiveList();
-    this.displayLive(this.LiveID);
 
     console.log("show id: ", this.LiveID);
   },
@@ -452,6 +461,7 @@ export default {
 
       //streamer and basic user
       isStreamer: false,
+      isSameStreamer: false,
 
       //get user information for the chat room
       nickname: VueCookies.get("username"),
@@ -474,6 +484,7 @@ export default {
       StreamName: ref(""),
       liveData: [],
       imageCover: ref(""),
+      userId: null,
 
       // liveData: [
       //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },

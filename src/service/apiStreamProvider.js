@@ -119,6 +119,8 @@ export async function getStreamDetails(streamID) {
     const data = response.data;
 
     if (code === 0) {
+      console.log("show stream data: ", data.userId
+      );
       return data;
     }else {
       console.log(`get getStreamDetails Unsuccessfully: ${code}`);
