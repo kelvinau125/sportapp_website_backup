@@ -385,9 +385,17 @@ export default {
     },
     logout() {
       removeCookie();
-      this.$router.push("/");
-      this.loggedIn = false;
-      window.location.reload();
+      // this.$router.push("/");
+      // this.loggedIn = false;
+      // window.location.reload();
+
+      if (this.$route.path === "/") {
+        this.loggedIn = false;
+        window.location.reload();
+      } else {
+        this.loggedIn = false;
+        this.$router.push("/");
+      }
     },
     showLoginModal() {
       this.isEditPasswordModalVisible = false;
