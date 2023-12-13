@@ -1,18 +1,18 @@
 <template>
   <!-- Main Component -->
   <div class="flex py-2 md:w-[892px]" v-show="showfootballstatus">
-    <div  class="md:w-[890px] statusContainer">
-      <div class=" flex box" >
+    <div class="md:w-[890px] statusContainer">
+      <div class=" flex box">
         <div class="md:flex items-center">
-          <div  class="flex pb-1.5 md:px-3">
+          <div class="flex pb-1.5 md:px-3">
             <img style="width: 24px; height: 24px;" src="@/assets/tournament/jiaoQiu.png" />
             <span class="font-medium text-sm pt-1.5 pr-1">{{ homeCornerKickNum }}</span>
           </div>
-          <div  class="flex  pb-1.5 md:px-3">
+          <div class="flex  pb-1.5 md:px-3">
             <img style="width: 24px; height: 24px;" src="@/assets/tournament/hongPai.png" />
             <span class="font-medium text-sm pt-1.5 pr-1">{{ homeRedCardNum }}</span>
           </div>
-          <div  class="flex pb-1.5 md:px-3">
+          <div class="flex pb-1.5 md:px-3">
             <img style="width: 24px; height: 24px;" src="@/assets/tournament/huangPai.png" />
             <span class="font-medium text-sm pt-1.5 pr-1">{{ homeYellowCardNum }}</span>
           </div>
@@ -39,15 +39,15 @@
           </div>
         </div>
         <div class="md:flex items-center">
-          <div  class="flex pb-1.5 md:px-3">
+          <div class="flex pb-1.5 md:px-3">
             <img style="width: 24px; height: 24px;" src="@/assets/tournament/huangPai.png" />
             <span class="font-medium text-sm pt-1.5 pr-1">{{ awayYellowCardNum }}</span>
           </div>
-          <div  class="flex pb-1.5 md:px-3">
+          <div class="flex pb-1.5 md:px-3">
             <img style="width: 24px; height: 24px;" src="@/assets/tournament/hongPai.png" />
             <span class="font-medium text-sm pt-1.5 pr-1">{{ awayRedCardNum }}</span>
           </div>
-          <div  class="flex pb-1.5 md:px-3">
+          <div class="flex pb-1.5 md:px-3">
             <img style="width: 24px; height: 24px;" src="@/assets/tournament/jiaoQiu.png" />
             <span class="font-medium text-sm pt-1.5 pr-1">{{ awayCornerKickNu }}</span>
           </div>
@@ -125,7 +125,7 @@
           </div>
           <div class="flex flex-col items-center justify-around">
             <div class="md:flex md:px-1 px-0">
-              <p class="font-medium md:text-sm text-10px ">{{ $t("Shoot") + "(" + $t("Score") + ")"  }} </p>
+              <p class="font-medium md:text-sm text-10px ">{{ $t("Shoot") + "(" + $t("Score") + ")" }} </p>
               <!-- <p class="font-medium md:text-sm text-10px ">{{ "(" + $t("Score") + ")" }} </p> -->
             </div>
             <p class="font-medium md:text-sm text-10px ">{{ $t("Penalty") }}</p>
@@ -179,42 +179,42 @@ export default {
     this.getTournamentDetails = await getFootballMatchbyId(this.tournamentID, ((this.$i18n.locale === 'ZH')?true :false));
     // console.log(this.getTournamentDetails)
 
-    if(this.getTournamentDetails !== null) {
+    if (this.getTournamentDetails !== null) {
       //homePossessionRate (控球率), awayPossessionRate (控球率)
-      this.homePossessionRate = parseInt(this.getTournamentDetails['homePossessionRate']);
-      this.awayPossessionRate = parseInt(this.getTournamentDetails['awayPossessionRate']);
+      this.homePossessionRate = parseInt(this.getTournamentDetails['homePossessionRate']) || 0;
+      this.awayPossessionRate = parseInt(this.getTournamentDetails['awayPossessionRate']) || 0;
 
       //homeCornerKickNum (角球)，awayCornerKickNum(角球)
-      this.homeCornerKickNum = this.getTournamentDetails['homeCornerKickNum'];
-      this.awayCornerKickNum = this.getTournamentDetails['awayCornerKickNum'];
+      this.homeCornerKickNum = parseInt(this.getTournamentDetails['homeCornerKickNum']) || 0;
+      this.awayCornerKickNum = parseInt(this.getTournamentDetails['awayCornerKickNum']) || 0;
 
       //homeRedCardNum (红卡), awayRedCardNum(红卡)
-      this.homeRedCardNum = this.getTournamentDetails['homeRedCardNum'];
-      this.awayRedCardNum = this.getTournamentDetails['awayRedCardNum'];
+      this.homeRedCardNum = parseInt(this.getTournamentDetails['homeRedCardNum']) || 0;
+      this.awayRedCardNum = parseInt(this.getTournamentDetails['awayRedCardNum']) || 0;
 
       //homeYellowCardNum（黄卡), awayYellowCardNum(黄卡)
-      this.homeYellowCardNum = this.getTournamentDetails['homeYellowCardNum'];
-      this.awayYellowCardNum = this.getTournamentDetails['awayYellowCardNum'];
+      this.homeYellowCardNum = parseInt(this.getTournamentDetails['homeYellowCardNum']) || 0;
+      this.awayYellowCardNum = parseInt(this.getTournamentDetails['awayYellowCardNum']) || 0;
 
       //Home Attack Number (进攻)， Away Attack Number (进攻)
-      this.homeAttackNum = this.getTournamentDetails['homeAttackNum'];
-      this.awayAttackNum = this.getTournamentDetails['awayAttackNum'];
+      this.homeAttackNum = parseInt(this.getTournamentDetails['homeAttackNum']) || 0;
+      this.awayAttackNum = parseInt(this.getTournamentDetails['awayAttackNum']) || 0;
 
       //homeAttackDangerNum (危险进攻), awayAttackDangerNum (危险进攻)
-      this.homeAttackDangerNum = this.getTournamentDetails['homeAttackDangerNum'];
-      this.awayAttackDangerNum = this.getTournamentDetails['awayAttackDangerNum'];
+      this.homeAttackDangerNum = parseInt(this.getTournamentDetails['homeAttackDangerNum']) || 0;
+      this.awayAttackDangerNum = parseInt(this.getTournamentDetails['awayAttackDangerNum']) || 0;
 
       //homePenaltyNum (点球)，awayPenaltyNum(点球)
-      this.homePenaltyNum = this.getTournamentDetails['homePenaltyNum'];
-      this.awayPenaltyNum = this.getTournamentDetails['awayPenaltyNum'];
+      this.homePenaltyNum = parseInt(this.getTournamentDetails['homePenaltyNum']) || 0;
+      this.awayPenaltyNum = parseInt(this.getTournamentDetails['awayPenaltyNum']) || 0;
 
       //homeShootGoalNum (射正), homeBiasNum (射偏) 
-      this.homeShootGoalNum = this.getTournamentDetails['homeShootGoalNum'];
-      this.homeBiasNum = this.getTournamentDetails['homeBiasNum'];
+      this.homeShootGoalNum = parseInt(this.getTournamentDetails['homeShootGoalNum']) || 0;
+      this.homeBiasNum = parseInt(this.getTournamentDetails['homeBiasNum']) || 0;
 
       //awayShootGoalNum(射正)， awayBiasNum(射偏)
-      this.awayShootGoalNum = this.getTournamentDetails['awayShootGoalNum'];
-      this.awayBiasNum = this.getTournamentDetails['awayBiasNum'];
+      this.awayShootGoalNum = parseInt(this.getTournamentDetails['awayShootGoalNum']) || 0;
+      this.awayBiasNum = parseInt(this.getTournamentDetails['awayBiasNum']) || 0;
     }
   },
 
@@ -402,7 +402,6 @@ export default {
 </script>
   
 <style scoped>
-
 @media (min-width: 300px) {
   .team {
     position: relative;
@@ -410,18 +409,18 @@ export default {
     padding: 20px;
   }
 
-  .teamDown{
+  .teamDown {
     position: relative;
     width: 50px;
     padding: 20px;
 
   }
 
-  .statusContainer{
+  .statusContainer {
     width: 384px;
   }
 
-  .box{
+  .box {
     display: flex;
     justify-content: flex-start;
   }
@@ -434,18 +433,18 @@ export default {
     padding: 20px;
   }
 
-  .teamDown{
+  .teamDown {
     position: relative;
     width: 80px;
     padding: 20px;
 
   }
 
-  .statusContainer{
+  .statusContainer {
     width: 615px;
   }
-  
-  .box{
+
+  .box {
     display: flex;
     justify-content: center;
   }
@@ -459,23 +458,23 @@ export default {
     padding: 20px;
   }
 
-  .teamDown{
+  .teamDown {
     position: relative;
     width: 120px;
     padding: 20px;
 
   }
 
-  .statusContainer{
+  .statusContainer {
     width: 100%;
   }
-  
-  .box{
+
+  .box {
     display: flex;
     justify-content: center;
   }
 
-  
+
 }
 
 .border_leftTB {
