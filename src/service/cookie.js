@@ -21,6 +21,10 @@ export function setRoleCookie(role){
 }
 
 
+export function setMobileCookie(mobile){
+  VueCookies.set('phoneNumber', mobile, '7d');
+}
+
 export function removeCookie() {
     VueCookies.remove('userToken');
     // VueCookies.remove('phoneNumber');
