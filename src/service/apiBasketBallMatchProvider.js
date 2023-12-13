@@ -61,6 +61,11 @@ export async function getBasketballLineUp(matchId, isCN) {
   
       const code = response.code;
       const data = response.data;
+
+
+      console.log("---------------------------");
+      console.log("check data:", url);
+      console.log("check data:", data);
   
       if (code === 0) {
         return data;
