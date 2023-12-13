@@ -169,18 +169,18 @@
 import PopularMatch from "@/components/PopularMatch.vue";
 import FooterBar from "@/components/FooterPage.vue";
 import BackgroundImage from "@/components/BackGround.vue";
-import { ref } from "vue";
+import { defineComponent, ref } from "vue";
 import { useTencentSDK } from "@/utils/tencentSDKProvder";
 
 import { getAllStreamDetails } from "@/service/apiStreamProvider.js";
 
-export default {
+export default defineComponent({
   components: {
     PopularMatch,
     FooterBar,
     BackgroundImage,
   },
-  data() {
+  async data() {
     return {
       tim: null,
       streamer: [
@@ -319,7 +319,7 @@ export default {
       // console.log(this.epicMoment)
     },
   },
-};
+});
 </script>
 
 <style scoped>
