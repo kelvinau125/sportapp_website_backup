@@ -8,19 +8,20 @@
           <!-- <div class="live-window"> -->
           <!-- <div>直播窗口内容</div>
             <div>Testing</div> -->
-          <video
-            ref="videoPlayer"
-            :key="selectedEpic ? selectedEpic.epicMoment : 'default'"
-            id="my-player"
-            class="video-js vjs-default-skin"
-            controls
-            preload="auto"
-            width="892px"
-            height="505px"
-            :poster="selectedLiveStreamImage"
-            style="cursor: pointer"
-          >
-            <!-- <source
+          <div class="relative">
+            <video
+              ref="videoPlayer"
+              :key="selectedEpic ? selectedEpic.epicMoment : 'default'"
+              id="my-player"
+              class="video-js vjs-default-skin"
+              controls
+              preload="auto"
+              width="892px"
+              height="505px"
+              :poster="selectedLiveStreamImage"
+              style="cursor: pointer"
+            >
+              <!-- <source
               :src="
                 selectedEpic
                   ? selectedEpic.videoSource
@@ -29,19 +30,34 @@
               type="video/mp4"
             /> -->
 
-            <source
-              :src="
-                selectedEpic
-                  ? selectedEpic.videoSource
-                  : 'https://vjs.zencdn.net/v/oceans.mp4'
-              "
-              type="video/mp4"
-            />
-            <!-- <p class="vjs-no-js"> -->
-            <!-- <a href="https://vjs.zencdn.net/v/oceans.mp4">`1`ing URL</a> -->
+              <source
+                :src="
+                  selectedEpic
+                    ? selectedEpic.videoSource
+                    : 'https://vjs.zencdn.net/v/oceans.mp4'
+                "
+                type="video/mp4"
+              />
+              <!-- <p class="vjs-no-js"> -->
+              <!-- <a href="https://vjs.zencdn.net/v/oceans.mp4">`1`ing URL</a> -->
 
-            <!-- </p> -->
-          </video>
+              <!-- </p> -->
+            </video>
+            <div class="absolute left-5 top-3 flex">
+              <div class="pr-2 pl-1 z-10 w-[40px]">
+                <img class="rounded-full" :src="this.StreamIcon" alt="Image" />
+              </div>
+              <div class="flex flex-col md:pl-0 pl-5 z-10 items-start md:pb-1.5 pb-3">
+                <div class="text-white font-normal md:text-sm text-10px">
+                  {{ this.LiveTitle }}
+                </div>
+                <div class="md:text-10px text-8px font-bold text-white opacity-60">
+                  {{ this.StreamName }}
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- </div> -->
         </div>
 
@@ -52,7 +68,7 @@
                 class="w-full"
                 v-for="epic in epicMoment"
                 :key="epic.epicMoment"
-                @click="selectEpic(epic)"
+                @click="selectEpic(epic, epic.liveId)"
               >
                 <img :src="epic.image" alt="Epic Image" style="cursor: pointer" />
               </div>
@@ -172,7 +188,7 @@ import BackgroundImage from "@/components/BackGround.vue";
 import { defineComponent, ref } from "vue";
 import { useTencentSDK } from "@/utils/tencentSDKProvder";
 
-import { getAllStreamDetails } from "@/service/apiStreamProvider.js";
+import { getAllStreamDetails, getStreamDetails } from "@/service/apiStreamProvider.js";
 
 export default defineComponent({
   components: {
@@ -180,7 +196,7 @@ export default defineComponent({
     FooterBar,
     BackgroundImage,
   },
-  async data() {
+  data() {
     return {
       tim: null,
       streamer: [
@@ -191,41 +207,45 @@ export default defineComponent({
         { name: "主播名称", image: "defaultProfile", no: "1234" },
         { name: "主播名称", image: "defaultProfile", no: "520" },
       ],
-      epicMoment: [
-        // {
-        //   image: "moment5",
-        //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
-        //   imgSource:
-        //     "https://butwhytho.net/wp-content/uploads/2023/09/Gojo-Jujutsu-Kaisen-But-Why-Tho-2.jpg",
-        // },
-        // {
-        //   image: "moment5",
-        //   videoSource: "https://vjs.zencdn.net/v/ocean.mp4",
-        //   imgSource:
-        //     "https://i.pinimg.com/736x/d0/52/3d/d0523d4bb70c40d66f7cc6b3d3af2648.jpg",
-        // },
-        // {
-        //   image: "moment5",
-        //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
-        //   imgSource:
-        //     "https://thumb.viva.id/intipseleb/663x372/2023/08/25/64e814afeea6f-trailer-shibuya-incident-jujutsu-kaisen.jpg",
-        // },
-        // {
-        //   image: "moment5",
-        //   videoSource: "https://vjs.zencdn.net/v/ocean.mp4",
-        //   imgSource: "https://fictionhorizon.com/wp-content/uploads/2023/09/GojoStar.jpg",
-        // },
-        // {
-        //   image: "moment5",
-        //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
-        //   imgSource:
-        //     "https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2023/02/gojo-satoru-cosplay.jpg",
-        // },
-      ],
+      epicMoment: [],
+      // {
+      //   image: "moment5",
+      //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
+      //   imgSource:
+      //     "https://butwhytho.net/wp-content/uploads/2023/09/Gojo-Jujutsu-Kaisen-But-Why-Tho-2.jpg",
+      // },
+      // {
+      //   image: "moment5",
+      //   videoSource: "https://vjs.zencdn.net/v/ocean.mp4",
+      //   imgSource:
+      //     "https://i.pinimg.com/736x/d0/52/3d/d0523d4bb70c40d66f7cc6b3d3af2648.jpg",
+      // },
+      // {
+      //   image: "moment5",
+      //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
+      //   imgSource:
+      //     "https://thumb.viva.id/intipseleb/663x372/2023/08/25/64e814afeea6f-trailer-shibuya-incident-jujutsu-kaisen.jpg",
+      // },
+      // {
+      //   image: "moment5",
+      //   videoSource: "https://vjs.zencdn.net/v/ocean.mp4",
+      //   imgSource: "https://fictionhorizon.com/wp-content/uploads/2023/09/GojoStar.jpg",
+      // },
+      // {
+      //   image: "moment5",
+      //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
+      //   imgSource:
+      //     "https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2023/02/gojo-satoru-cosplay.jpg",
+      // },
+
       selectedEpic: null,
       currentChannel: ref(
         localStorage.getItem("currentChannel") === "football" ? true : false
       ),
+
+      LiveTitle: "",
+      StreamIcon: "",
+      StreamName: "",
     };
   },
   computed: {
@@ -251,7 +271,44 @@ export default defineComponent({
   },
 
   methods: {
-    selectEpic(epic) {
+    async displayLive(liveID) {
+      console.log("-----------------------------");
+      console.log("helllo");
+      console.log(liveID);
+
+      this.getLiveDetails = await getStreamDetails(liveID);
+
+      this.LiveTitle = this.getLiveDetails["title"];
+      this.StreamIcon = this.getLiveDetails["avatar"];
+      this.StreamName = this.getLiveDetails["nickName"];
+    },
+
+    // toSetLogLevel() {
+    //   this.tim.setLogLevel(4);
+    // },
+
+    // toRegisterPlugin() {
+    //   this.tim?.registerPlugin({
+    //     "tim-upload-plugin": TIMUploadPlugin,
+    //   });
+    // },
+
+    // toLogin() {
+    //   this.tim
+    //     .login({
+    //       userID: this.phonenumber,
+    //       userSig: new genTestUserSig(this.phonenumber).userSig,
+    //     })
+    //     .then((response) => {
+    //       console.log("logined", response);
+    //     })
+    //     .catch((error) => {
+    //       console.warn("error", error);
+    //     });
+    // },
+
+    selectEpic(epic, liveId) {
+      this.displayLive(liveId);
       this.selectedEpic = epic;
       this.$refs.videoPlayer.src = "";
       this.$nextTick(() => {
@@ -267,6 +324,10 @@ export default defineComponent({
       for (let i = 0; i < 6; i++) {
         this.getLiveList = await getAllStreamDetails();
 
+        // console.log("-----------------------------")
+        // console.log(this.getLiveList)
+        // console.log(this.getLiveList.length)
+
         if (this.getLiveList.length > 0) {
           for (let j = 0; j < Math.min(1, this.getLiveList.length) - 1; j++) {
             // Check if sportType is 0 (football)
@@ -278,20 +339,25 @@ export default defineComponent({
               this.getLiveList[i]["isPopular"] == 1
             ) {
               this.epicMoment.push({
-                image: this.getLiveList[i]["cover"],
+                image: this.getLiveList[j]["cover"],
                 videoSource:
                   "rtmp://" +
-                  this.getLiveList[i]["pushHost"] +
+                  this.getLiveList[j]["pushHost"] +
                   "/" +
-                  this.getLiveList[i]["pushCode"],
-                imgSource: this.getLiveList[i]["cover"],
+                  this.getLiveList[j]["pushCode"],
+                imgSource: this.getLiveList[j]["cover"],
+                liveId: this.getLiveList[j]["id"],
               });
             }
           }
         }
       }
 
-      if (this.epicMoment.length <= 6) {
+      // console.log("---------------------11111-------------------------")
+      // console.log(this.epicMoment)
+      // console.log(this.epicMoment.length)
+
+      if (this.epicMoment.length < 6) {
         this.getLiveList = await getAllStreamDetails();
 
         if (this.getLiveList.length > 0) {
@@ -309,6 +375,7 @@ export default defineComponent({
                   "/" +
                   this.getLiveList[i]["pushCode"],
                 imgSource: this.getLiveList[i]["cover"],
+                liveId: this.getLiveList[i]["id"],
               });
             }
           }

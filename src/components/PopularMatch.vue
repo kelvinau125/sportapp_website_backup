@@ -274,6 +274,7 @@ export default {
 
       // console.log("--------------------")
       //   console.log(this.matchDetails)
+      //   console.log(this.matchDetails.length)
       //   console.log("--------------------")
 
       if (this.matchDetails.length <= 4) {
