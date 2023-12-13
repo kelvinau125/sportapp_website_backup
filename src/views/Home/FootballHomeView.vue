@@ -43,15 +43,15 @@
 
               <!-- </p> -->
             </video>
-            <div class="absolute left-5 top-3 flex">
-              <div class="pr-2 pl-1 z-10 w-[40px]">
-                <img class="rounded-full" :src="this.StreamIcon" alt="Image" />
-              </div>
-              <div class="flex flex-col md:pl-0 pl-5 z-10 items-start md:pb-1.5 pb-3">
-                <div class="text-white font-normal md:text-sm text-10px">
+            <div class="items-center absolute left-5 top-3 flex">
+              <!-- <div class="pr-2 pl-1 z-10 w-[40px]"> -->
+                <img class="rounded-full w-[30px] z-10 h-[30px]" :src="this.StreamIcon" alt="Image" />
+              <!-- </div> -->
+              <div class="flex flex-col md:pl-3 pl-5 z-10 items-start w-[800px]  md:pb-1.5 pb-3">
+                <div class="text-white font-normal md:text-sm text-10px w-[790px] multiline-ellipsis">
                   {{ this.LiveTitle }}
                 </div>
-                <div class="md:text-10px text-8px font-bold text-white opacity-60">
+                <div class="md:text-10px text-8px font-bold text-white opacity-60 w-[790px] multiline-ellipsis">
                   {{ this.StreamName }}
                 </div>
               </div>
@@ -480,5 +480,18 @@ video:hover {
 
 div {
   /* border: 1px solid red; */
+}
+
+
+.multiline-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.multiline-ellipsis::after {
+  content: '...';
+  display: inline-block;
 }
 </style>

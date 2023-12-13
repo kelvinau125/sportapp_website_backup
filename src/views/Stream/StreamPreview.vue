@@ -16,12 +16,21 @@
                     </div>
                     <div class="gradient_bottom w-full flex absolute bottom-0 items-center p-1 pb-2">
                         <div class="pr-1 pl-1 z-10 w-10 pb-1.5">
-                        <img :src= avatar class="rounded-full border-2 border-white" alt="Image" style="border-radius:20px "/>
+                            <img :src= avatar class="rounded-full border-2 border-white" alt="Image" style="border-radius:20px "/>
                         </div>
-                        <div class="flex flex-col pl-1 z-10 items-start pb-1.5">
-                        <div class="text-white font-normal text-sm">{{ streamDetailsData.title }}</div>
-                        <div class="text-10px font-bold text-white opacity-60">{{ nickname }}</div>
+                        <div class="flex flex-col pl-1 items-start w-[200px] z-10">
+                            <div class="font-normal text-sm text-white text-start multiline-ellipsis w-[210px] ">{{ streamDetailsData.title }}</div>
+                            <div class="text-10px text-white font-bold opacity-60 text-start multiline-ellipsis  w-[210px]">{{ nickname }}</div>
                         </div>
+
+                        <!-- <div class="flex flex-col pl-1 z-10  pb-1.5">
+                        <div class="text-white font-normal text-sm break-all w-[220px]">
+                            <span class="multiline-ellipsis">{{ streamDetailsData.title }}</span>
+                        </div>
+                        <div class="text-10px font-bold text-white opacity-60 break-all w-[220px]">
+                            <span class="multiline-ellipsis">{{ nickname }}</span>
+                        </div>
+                        </div> -->
                     </div>
                     </div>
                 </div>
@@ -191,5 +200,17 @@ label {
 
   background-size: cover;
   border-radius: 8px;
+}
+
+.multiline-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.multiline-ellipsis::after {
+  content: '...';
+  display: inline-block;
 }
 </style>

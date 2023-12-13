@@ -16,9 +16,9 @@
                   <div class="pr-1 pl-1 pt-1">
                     <img class="rounded-full w-[25px] h-[25px]" :src= livedata.streamerIcon alt="Image" />
                   </div>
-                  <div class="flex flex-col h-[31px]  pl-1 items-start ">
-                    <div class="text-black md:text-xs text-10px font-medium">{{ livedata.liveTitle }}</div>
-                    <div class="font-medium text-grayText md:text-10px text-8px w-[112px] whitespace-nowrap overflow-hidden text-ellipsis" >{{ livedata.streamerName }}</div>
+                  <div class="flex flex-col h-[34px] pl-1 items-start pt-0.5  w-[120px] ">
+                    <div class="text-black md:text-xs text-10px font-medium  w-[100px] text-start multiline-ellipsis">{{ livedata.liveTitle }}</div>
+                    <div class="font-medium text-grayText md:text-10px text-8px w-[112px] whitespace-nowrap overflow-hidden text-ellipsis text-start multiline-ellipsis" >{{ livedata.streamerName }}</div>
                   </div>
                 </div>
               </div>
@@ -137,6 +137,17 @@ export default {
 </script>
   
 <style scoped>
+.multiline-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.multiline-ellipsis::after {
+  content: '...';
+  display: inline-block;
+}
 /* .live_wrapper {
     width: 100%;
     margin: 0px auto;

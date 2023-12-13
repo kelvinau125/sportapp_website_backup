@@ -32,10 +32,10 @@
             </div>
             <div class="flex flex-col md:pl-3 pl-5 z-10 items-start md:pb-1.5 pb-3 pt-2">
               <div class="text-white font-normal md:text-sm text-10px">
-                {{ this.LiveTitle }}
+                <span>{{ this.LiveTitle }}</span> 
               </div>
               <div class="md:text-10px text-8px font-bold text-white opacity-60">
-                {{ this.StreamName }}
+                <span> {{ this.StreamName }}</span>
               </div>
             </div>
             <div class="pr-1 pl-1.5 z-10 pb-1.5">
@@ -174,14 +174,14 @@
                 alt="Image"
               />
               <div
-                class="gradient_bottom w-full flex absolute bottom-3 items-center p-1 pb-2"
+                class="gradient_bottom w-full flex absolute bottom-3  p-1 pb-2"
               >
                 <div class="pr-1 pl-1 z-10 w-10">
                   <img class="rounded-full" :src="livedata.streamerIcon" alt="Image" />
                 </div>
                 <div class="flex flex-col pl-1 z-10 items-start">
                   <div class="text-white font-medium md:text-sm text-10px">
-                    {{ livedata.liveTitle }}
+                    <span>{{ livedata.liveTitle }}</span> 
                   </div>
                   <div class="md:text-10px text-8px font-medium text-white opacity-60">
                     {{ livedata.streamerName }}
@@ -731,5 +731,17 @@ export default {
   background-color: #ffffff;
   border-radius: 8px;
   padding: 10px;
+}
+
+.multiline-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.multiline-ellipsis::after {
+  content: '...';
+  display: inline-block;
 }
 </style>

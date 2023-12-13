@@ -13,20 +13,33 @@
               <img class="w-full h-full " :src=livedata.image alt="Image" />
             </div>
             <div class="gradient_bottom  w-full flex titleBox relative bottom-[50px] items-center p-1 pb-2">
-              <div class="pr-1 pl-1 z-10 contentImage hidden md:pb-1.5">
+              <div class="pr-1 pl-1 z-10 w-full  contentImage hidden md:pb-1.5">
                 <img id="circle" class="rounded-full" :src=livedata.streamerIcon alt="Image" />
               </div>
-              <div class="flex flex-col pl-1 z-10 items-start md:pb-1.5">
-                <div class="text-white font-medium md:text-sm text-10px">{{ livedata.liveTitle }}</div>
-                <div class="md:text-10px text-8px font-medium text-white opacity-60">{{ livedata.streamerName }}</div>
+              <div class="flex flex-col pl-1 items-start w-[220px]  z-10">
+                <div class="text-start font-normal text-sm text-white w-[210px] multiline-ellipsis  ">
+                  <span> {{ livedata.liveTitle }}</span>
+                </div>
+                <div class="text-10px text-white font-bold opacity-60 w-[210px] text-start multiline-ellipsis">{{ livedata.streamerName }}</div>
               </div>
+              <!-- <div class="border-2 w-[200px] z-10">
+                <span>{{ livedata.liveTitle }}</span>
+              </div> -->
+              <!-- <div class="border-2 w-[200px] flex flex-col pl-1 z-10 items-start md:pb-1.5">
+                <div class="text-white font-medium md:text-sm text-10px  break-words ">
+                  <span class="multiline-ellipsis w-[210px]">{{ livedata.liveTitle }}</span>
+                </div>
+                <div class="md:text-10px text-8px font-medium text-white opacity-60 break-all w-[220px]">
+                  <span class="multiline-ellipsis" >{{ livedata.streamerName  }}</span>
+                </div>
+              </div> -->
             </div>
           </div>
         </div>
       </div>
     </main>
   </BackgroundImage>
-  <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal"/>
+  <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal" />
 </template>
 <script>
 import { ref } from 'vue'
@@ -77,7 +90,7 @@ export default {
     closeLoginModal() {
       this.isLoginModalVisible = false;
     },
-    
+
 
     toLiveStream(liveID) {
       // Push to the Live Page
@@ -248,7 +261,7 @@ export default {
   border-radius: 8px;
 }
 
-#circle{
+#circle {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -258,15 +271,26 @@ export default {
 
 
 .gradient_bottom::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    bottom: 0;
-    z-index: 1;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
-    background-size: cover;
-  }
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+  background-size: cover;
+}
 
+.multiline-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.multiline-ellipsis::after {
+  content: '...';
+  /* display: inline-block; */
+}
 </style>
