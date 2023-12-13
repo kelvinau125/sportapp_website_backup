@@ -10,8 +10,8 @@
                 </div>
 
                 <div class="flex items-center h-8 rounded-lg " style=";">
-                    <div class="pl-1.5">
-                        <img class="h-[18px] w-[18px]" src= "@/assets/profile_coach.jpg" />
+                    <div class="">
+                        <img class="h-[28px] w-[28px]" src= "@/assets/profile_coach.jpg" />
                     </div>
                     <div class="flex flex-col pl-2">
                         <div class="font-normal text-xs" style="color: #333333;">{{ this.homeCoach }}</div>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="flex flex-col justify-center items-start pl-2">
                         <div class="font-normal text-xs" style="color: #333333;">{{ homeSub.playerName }}</div>
-                        <div class="font-normal text-10px" style=" color: #666666;">{{ homeSub.position }}</div>
+                        <!-- <div class="font-normal text-10px" style=" color: #666666;">{{ homeSub.position }}</div> -->
                     </div>
                 </div>
             </div>
@@ -42,8 +42,8 @@
                 </div>
 
                 <div class="flex items-center h-8 rounded-lg ">
-                    <div class="pl-1.5">
-                        <img class="h-[18px] w-[18px]" src= "@/assets/profile_coach.jpg" />
+                    <div class="">
+                        <img class="h-[28px] w-[28px]" src= "@/assets/profile_coach.jpg" />
                     </div>
                     <div class="flex flex-col pl-2">
                         <div class="font-normal text-xs" style="color: #333333;">{{ this.awayCoach }}</div>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="flex flex-col pl-2">
                         <div class="font-normal text-xs" style="color: #333333;">{{ awaySub.playerName }}</div>
-                        <div class="font-normal text-10px" style=" color: #666666;">{{ awaySub.position }}</div>
+                        <!-- <div class="font-normal text-10px" style=" color: #666666;">{{ awaySub.position }}</div> -->
                     </div>
                 </div>
             </div>
