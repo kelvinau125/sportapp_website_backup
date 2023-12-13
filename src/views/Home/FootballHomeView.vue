@@ -200,7 +200,7 @@ export default defineComponent({
     FooterBar,
     BackgroundImage,
   },
-  async data() {
+  data() {
     return {
       tim: null,
       streamer: [
@@ -354,11 +354,11 @@ export default defineComponent({
       // console.log(this.epicMoment)
       // console.log(this.epicMoment.length)
 
-      if (this.epicMoment.length < 5) {
+      if (this.epicMoment.length < 6) {
         this.getLiveList = await getAllStreamDetails()
 
         if (this.getLiveList.length > 0) {
-          for (let i = this.epicMoment.length; i < 5; i++) {
+          for (let i = this.epicMoment.length; i < 6; i++) {
             // Check if sportType is 0 (football)
             if (
               this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1) &&
