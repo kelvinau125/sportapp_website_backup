@@ -287,7 +287,7 @@ export default {
         console.log(this.getfootballMatchList)
 
         if (this.getfootballMatchList.length !== 0) {
-          for (let i = this.matchDetails.length; i < 4; i++) {
+          for (let i = this.matchDetails.length; i < Math.min(4, this.matchDetails.length); i++) {
             const matchId = this.getfootballMatchList[i]["id"];
             // Check if the match ID is in the list of favorite IDs
             const isFavorite = this.favoriteList.includes(matchId);
