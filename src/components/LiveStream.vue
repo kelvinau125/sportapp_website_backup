@@ -3,10 +3,10 @@
     <div class="max-w-[1519px] md:flex justify-between pt-1.5">
       <div class="live-container">
         <div class="relative rounded-lg">
-          <div class="bg-gray-200">
+          <div class="bg-gray-200 w-[1037px] h-[587px]">
             <!-- <img class="w-full h-full" src="@/assets/live/liveStreamBackground.png" alt="Image" /> -->
             <video
-              class="cursor-pointer w-[892px] h-[505px] "
+              class="cursor-pointer w-full h-full"
               preload="auto"
               controls
               autoplay
@@ -30,11 +30,11 @@
                 alt="Image"
               />
             </div>
-            <div class="flex flex-col md:pl-3 pl-5 z-10  items-start md:pb-1.5 pb-3 pt-2  ">
-              <div class="text-white font-normal md:text-sm text-10px  w-[200px] multiline-ellipsis">
-                <span>{{ this.LiveTitle }}</span> 
+            <div class="flex flex-col md:pl-3 pl-5 z-10 items-start md:pb-1.5 pb-3 pt-2">
+              <div class="text-white font-normal md:text-sm text-10px">
+                <span>{{ this.LiveTitle }}</span>
               </div>
-              <div class="md:text-10px text-8px font-bold text-white opacity-60  w-[200px] multiline-ellipsis">
+              <div class="md:text-10px text-8px font-bold text-white opacity-60">
                 <span> {{ this.StreamName }}</span>
               </div>
             </div>
@@ -57,7 +57,7 @@
             </div>
             <div class="pr-1 pl-1.5 z-10 pb-1.5">
               <ButtonPress
-                @click="showEditStreamDetailModal()"
+                @click="deleteLiveRoom()"
                 class="rounded-[30px] md:static relative -top-1"
                 style="background-color: #16b13b"
                 v-show="isStreamer"
@@ -250,6 +250,22 @@ export default {
       deleteStreamDetails(this.LiveID)
         .then((response) => {
           console.log("delete successfully: ", response);
+
+          window.location.replace("/live");
+        })
+        .catch((err) => {
+          console.log("error: ", err);
+        });
+
+      const groupID = `panda${this.storedPhoneNumber}`;
+      console.log("check this string :", groupID);
+
+      this.timInstance
+        .dismissGroup({
+          groupID: groupID,
+        })
+        .then((res) => {
+          console.log("delete done: ", res);
         })
         .catch((err) => {
           console.log("error: ", err);
@@ -283,7 +299,7 @@ export default {
     toJoinGroup() {
       this.timInstance
         .joinGroup({
-          groupID: this.groupID,
+          groupID: `panda${this.storedPhoneNumber}`,
           type: TIM.TYPES.GRP_AVCHATROOM,
           applyMessage: "HUHHH",
         })
@@ -291,7 +307,7 @@ export default {
           console.log("joined", response);
         })
         .catch((error) => {
-          console.warn("error", error);
+          console.warn("error join group", error);
         });
     },
 
@@ -300,7 +316,7 @@ export default {
 
       if (this.messageInput !== "" || this.messageInput.trim() !== "") {
         const msg = this.timInstance.createTextMessage({
-          to: this.groupID,
+          to: `panda${this.storedPhoneNumber}`,
           conversationType: TIM.TYPES.CONV_GROUP,
           payload: {
             text: this.messageInput,
@@ -331,7 +347,7 @@ export default {
 
     toGetMessageList() {
       let promise = this.timInstance.getMessageList({
-        conversationID: `GROUP${this.groupID}`,
+        conversationID: `GROUPpanda${this.storedPhoneNumber}`,
       });
       promise.then(function (response) {
         console.log("response sending:", response.data.messageList);
@@ -339,7 +355,6 @@ export default {
     },
 
     onMessageReceived(event) {
-      this.$refs.chatContainer.scrollTop = this.$refs.chatContainer.scrollHeight;
       this.messageList = event.data[0].payload.text;
       const sender = event.data[0].nick;
       this.chatsend.push(this.messageList);
@@ -449,9 +464,15 @@ export default {
     },
   },
   async mounted() {
+    // console.log("check stream iddddd: ", this.str);
+    this.storedPhoneNumber = localStorage.getItem("stream");
+    console.log("-------: ", this.storedPhoneNumber);
+
+    // localStorage.removeItem('stream');
+
     await this.displayLive(this.LiveID);
-    console.log("check stream id at mounted: ", this.LiveID);
-    this.toLogin();
+    console.log("check group id: ", `panda${this.storedPhoneNumber}`);
+    // this.toLogin();
     this.toJoinGroup();
     console.log(
       this.timInstance.on(TencentCloudChat.EVENT.MESSAGE_RECEIVED, this.onMessageReceived)
@@ -459,24 +480,30 @@ export default {
     this.generateLiveList();
     this.toggleIsStreamer();
   },
-  beforeMount() {
-    window.addEventListener("beforeunload", this.beforeUnloadHandler);
-  },
-  beforeUnmount() {
-    console.log("check role: ", this.isStreamer);
-    console.log("check id del: ", this.LiveID);
-    window.removeEventListener("beforeunload", this.beforeUnloadHandler);
-  },
+  // beforeMount() {
+  //   window.addEventListener("beforeunload", this.beforeUnloadHandler);
+  // },
+  // beforeUnmount() {
+  //   console.log("check role: ", this.isStreamer);
+  //   console.log("check id del: ", this.LiveID);
+  //   window.removeEventListener("beforeunload", this.beforeUnloadHandler);
+  // },
   unmounted() {
-    console.log("check role: ", this.isStreamer);
-    console.log("check id del: ", this.LiveID);
-    if (this.isStreamer) {
-      this.deleteLiveRoom();
-    }
+    this.timInstance.quitGroup({
+      groupID: `panda${this.storedPhoneNumber}`,
+    });
+    window.location.reload();
+    // console.log("check role: ", this.isStreamer);
+    // console.log("check id del: ", this.LiveID);
+    // if (this.isStreamer) {
+    //   this.deleteLiveRoom();
+    // }
   },
 
+  props: ["streamerID"],
   data() {
     return {
+      storedPhoneNumber: "",
       selectedEpic: null,
 
       timInstance: TIM.create({
@@ -493,7 +520,7 @@ export default {
       phonenumber: VueCookies.get("phoneNumber"),
 
       //variable to store info related to AVChat room
-      groupID: "wtf",
+      groupID: "",
       chatsend: [],
       chatsender: [],
       chatsenderPic: [],
@@ -748,7 +775,7 @@ export default {
 
 .multiline-ellipsis {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
