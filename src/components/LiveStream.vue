@@ -57,7 +57,7 @@
             </div>
             <div class="pr-1 pl-1.5 z-10 pb-1.5">
               <ButtonPress
-                @click="showEditStreamDetailModal()"
+                @click="deleteLiveRoom()"
                 class="rounded-[30px] md:static relative -top-1"
                 style="background-color: #16b13b"
                 v-show="isStreamer"
@@ -254,6 +254,17 @@ export default {
         .catch((err) => {
           console.log("error: ", err);
         });
+
+      this.timInstance
+        .dismissGroup({
+          groupID: `panda${this.phonenumber}`,
+        })
+        .then((res) => {
+          console.log("delete done: ", res);
+        })
+        .catch((err) => {
+          console.log("error: ", err);
+        });
     },
 
     toSetLogLevel() {
@@ -283,7 +294,7 @@ export default {
     toJoinGroup() {
       this.timInstance
         .joinGroup({
-          groupID: this.groupID,
+          groupID: `panda${this.phonenumber}`,
           type: TIM.TYPES.GRP_AVCHATROOM,
           applyMessage: "HUHHH",
         })
@@ -291,7 +302,7 @@ export default {
           console.log("joined", response);
         })
         .catch((error) => {
-          console.warn("error", error);
+          console.warn("error join group", error);
         });
     },
 
@@ -300,7 +311,7 @@ export default {
 
       if (this.messageInput !== "" || this.messageInput.trim() !== "") {
         const msg = this.timInstance.createTextMessage({
-          to: this.groupID,
+          to: `panda${this.phonenumber}`,
           conversationType: TIM.TYPES.CONV_GROUP,
           payload: {
             text: this.messageInput,
@@ -331,7 +342,7 @@ export default {
 
     toGetMessageList() {
       let promise = this.timInstance.getMessageList({
-        conversationID: `GROUP${this.groupID}`,
+        conversationID: `GROUPpanda${this.phonenumber}`,
       });
       promise.then(function (response) {
         console.log("response sending:", response.data.messageList);
@@ -448,9 +459,13 @@ export default {
     },
   },
   async mounted() {
+    // const streamerID = this.$route.params.streamerID;
+
     await this.displayLive(this.LiveID);
-    console.log("check stream id at mounted: ", this.LiveID);
-    this.toLogin();
+    console.log("check stream id at mounted: ", `panda${this.phonenumber}`);
+    console.log("aacheck live stream room id: ", this.LiveID);
+    console.log("aacheck chat room and group id: ", `panda${this.phonenumber}`);
+    // this.toLogin();
     this.toJoinGroup();
     console.log(
       this.timInstance.on(TencentCloudChat.EVENT.MESSAGE_RECEIVED, this.onMessageReceived)
@@ -467,11 +482,15 @@ export default {
     window.removeEventListener("beforeunload", this.beforeUnloadHandler);
   },
   unmounted() {
-    console.log("check role: ", this.isStreamer);
-    console.log("check id del: ", this.LiveID);
-    if (this.isStreamer) {
-      this.deleteLiveRoom();
-    }
+    this.timInstance.quitGroup({
+      groupID: `panda${this.phonenumber}`,
+    });
+    window.location.reload();
+    // console.log("check role: ", this.isStreamer);
+    // console.log("check id del: ", this.LiveID);
+    // if (this.isStreamer) {
+    //   this.deleteLiveRoom();
+    // }
   },
 
   data() {
@@ -492,7 +511,7 @@ export default {
       phonenumber: VueCookies.get("phoneNumber"),
 
       //variable to store info related to AVChat room
-      groupID: "wtf",
+      groupID: "",
       chatsend: [],
       chatsender: [],
       chatsenderPic: [],
