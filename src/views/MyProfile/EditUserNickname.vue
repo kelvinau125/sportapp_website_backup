@@ -39,6 +39,7 @@
 import ButtonCom from "@/components/ButtonPress.vue";
 import CloseButton from "@/components/CloseButton.vue";
 import { useTencentSDK } from "@/utils/tencentSDKProvder";
+import VueCookies from 'vue-cookies';
 
 // import to run the change password function
 import { UpdateUserNickname } from "@/service/apiProvider.js";
@@ -106,6 +107,7 @@ export default {
   },
 
   mounted() {
+    if (VueCookies.isKey('phoneNumber')) {
     useTencentSDK()
       .then((result) => {
         this.tim = result.timInstance.value;
@@ -114,6 +116,7 @@ export default {
       .catch((err) => {
         console.log("error here: ", err);
       });
+    }
 
     // Check if the flag is set in local storage
     const showEditProfileModal = localStorage.getItem("showEditProfileModal");
