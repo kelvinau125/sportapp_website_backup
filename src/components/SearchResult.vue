@@ -18,7 +18,7 @@
               <li class="max-w-full bg-white">
                 Loading...
               </li>
-            </ul> -->
+            </ul> --> 
             <div class="h-[450px] flex items-center justify-center "  v-if="loading">
               <span class="font-medium text-2xl text-white"> Loading...</span>
               <img class="pl-5" src="@/assets/pandaLoading.gif" alt="panda loading" style="width:108px;height:108px;">
