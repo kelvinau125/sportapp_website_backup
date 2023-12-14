@@ -10,18 +10,8 @@ export default createStore({
     userId: null,
     status: false,
     currentChannel: localStorage.getItem('currentChannel') || 'football',
-    streamID :'',
   },
   mutations: {
-    setStreamID(state, { StreamID }) {
-      state.streamID = StreamID
-      console.log("-------------------------------")
-      console.log(state.streamID)
-    },
-    clearStreamID(state) {
-      state.streamID = ''
-    },
-
     setUserData(state, { nickName, phoneNumber, password, userId }) {
       state.nickName = nickName
       state.phoneNumber = phoneNumber
@@ -71,14 +61,6 @@ export default createStore({
     switchChannel({ commit }, channel) {
       commit('setCurrentChannel', channel);
     },
-    passStreamID({ commit }, { StreamID }) {
-      commit('setStreamID', { StreamID });
-      console.log("check vuex pass stream id: ", StreamID)
-    },
-    passStreamIDDone({ commit }) {
-      commit('clearStreamID')
-      console.log("done delete");
-    },
   },
   getters: {
     isLoggedIn: state => !!state.userId,
@@ -87,6 +69,5 @@ export default createStore({
     password: state => state.password,
     status: state => state.status,
     getCurrentChannel: state => state.currentChannel,
-    streamID: state => state.streamID,
   }
 })

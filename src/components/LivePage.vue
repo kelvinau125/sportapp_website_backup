@@ -69,8 +69,6 @@ import { getAllStreamDetails } from "@/service/apiStreamProvider.js";
 
 import LoginModal from "@/views/Authentication/LoginModal.vue";
 
-import { mapActions } from "vuex";
-
 export default {
   components: {
     PopularMatch,
@@ -104,7 +102,6 @@ export default {
   },
 
   methods: {
-    ...mapActions(["passStreamID"]),
     showLoginModal() {
       this.isLoginModalVisible = true;
     },
@@ -120,8 +117,8 @@ export default {
       if (!userToken) {
         this.showLoginModal();
       } else {
-        console.log(streamerID);
-
+        localStorage.setItem('stream', streamerID);
+        
         const routeData = this.$router.resolve({
           name: "LiveStream",
           query: {
@@ -129,7 +126,6 @@ export default {
           },
         });
 
-        this.$store.dispatch("passStreamID", { StreamID: streamerID });
         window.open(routeData.href, "_blank");
       }
     },

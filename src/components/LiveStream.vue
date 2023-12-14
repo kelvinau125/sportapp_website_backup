@@ -450,11 +450,6 @@ export default {
     },
   },
   computed: {
-    getStreamID() {
-      // console.log(this.$store.getters.streamID);
-      return this.$store.getters.streamID;
-    },
-
     selectedLiveStreamImage() {
       return "https://fictionhorizon.com/wp-content/uploads/2023/09/GojoStar.jpg";
     },
@@ -464,15 +459,11 @@ export default {
     },
   },
   async mounted() {
-    // const streamerID = this.$route.params.streamerID;
-
-    // console.log(streamerID);
-    console.log("---------------------------------------------");
-    // console.log(this.getstreamerID);
-    console.log("aaaaaaaaaaaaaaaaa", this.getStreamID);
-    console.log("kaobei", this.$store.getters.streamID);
-
     // console.log("check stream iddddd: ", this.str);
+    const storedPhoneNumber = localStorage.getItem('stream');
+    console.log("-------: ", storedPhoneNumber)
+
+    // localStorage.removeItem('stream');
 
     await this.displayLive(this.LiveID);
     console.log("check stream id at mounted: ", `panda${this.phonenumber}`);
