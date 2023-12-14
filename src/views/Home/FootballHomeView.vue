@@ -1,6 +1,5 @@
 <template>
   <!-- <div style="height: 150rem" /> -->
-
   <div class="w-full flex flex-col">
     <BackgroundImage>
       <div class="live-container">
@@ -9,43 +8,30 @@
           <!-- <div>直播窗口内容</div>
             <div>Testing</div> -->
           <div class="relative">
-            <video
-              ref="videoPlayer"
-              :key="selectedEpic ? selectedEpic.epicMoment : 'default'"
-              id="my-player"
-              class="video-js vjs-default-skin"
-              controls
-              preload="auto"
-              width="892px"
-              height="505px"
-              :poster="selectedLiveStreamImage"
-              style="cursor: pointer"
-            >
-              <!-- <source
-              :src="
-                selectedEpic
+            <div class="video-wrapper">
+              <video ref="videoPlayer" :key="selectedEpic ? selectedEpic.epicMoment : 'default'" id="my-player"
+                class="video-js vjs-default-skin" controls preload="auto" width="892px" height="505px"
+                :poster="selectedLiveStreamImage" style="cursor: pointer">
+                <source :src="selectedEpic
                   ? selectedEpic.videoSource
                   : 'https://vjs.zencdn.net/v/oceans.mp4'
-              "
-              type="video/mp4"
-            /> -->
+                  " type="video/mp4" />
+                <!-- <p class="vjs-no-js"> -->
+                <!-- <a href="https://vjs.zencdn.net/v/oceans.mp4">`1`ing URL</a> -->
 
-              <source
-                :src="
-                  selectedEpic
-                    ? selectedEpic.videoSource
-                    : 'https://vjs.zencdn.net/v/oceans.mp4'
-                "
-                type="video/mp4"
-              />
-              <!-- <p class="vjs-no-js"> -->
-              <!-- <a href="https://vjs.zencdn.net/v/oceans.mp4">`1`ing URL</a> -->
+                <!-- </p> -->
+              </video>
+              <!-- <div class="hover-button" @click="handleButtonClick"> -->
+              <ButtonPress style="background-color: rgba(0, 0, 0, 1);" class="hover-button w-[150px] h-[46px] opacity-[0.6]" @click="handleButtonClick">
+                <span class="text-base font-normal opacity-100" style="color: rgba(255, 255, 255, 1);">{{ $t('Enter Room') }}</span> 
+              </ButtonPress>
+              <!-- </div> -->
+            </div>
 
-              <!-- </p> -->
-            </video>
+
             <div class="items-center absolute left-5 top-3 flex">
               <!-- <div class="pr-2 pl-1 z-10 w-[40px]"> -->
-                <img id="circle" class="rounded-full w-[30px] z-10 h-[30px]" :src="this.StreamIcon" alt="Image" />
+              <img id="circle" class="rounded-full w-[30px] z-10 h-[30px]" :src="this.StreamIcon" alt="Image" />
               <!-- </div> -->
               <div class="flex flex-col md:pl-3 pl-5 z-10 items-start w-[800px]  md:pb-1.5 pb-3">
                 <div class="text-white font-normal md:text-sm text-10px w-[790px] multiline-ellipsis">
@@ -64,12 +50,8 @@
         <div class="flex justify-center">
           <div class="epic-container" style="width: 892px; height: 92px">
             <div class="epic grid grid-cols-5">
-              <div
-                class="w-full"
-                v-for="epic in epicMoment"
-                :key="epic.epicMoment"
-                @click="selectEpic(epic, epic.liveId)"
-              >
+              <div class="w-full" v-for="epic in epicMoment" :key="epic.epicMoment"
+                @click="selectEpic(epic, epic.liveId)">
                 <img :src="epic.image" alt="Epic Image" style="cursor: pointer" />
               </div>
             </div>
@@ -81,11 +63,8 @@
 
   <div class="flex flex-col justify-center">
     <div class="flex justify-center">
-      <img
-        class="w-[520px] sm:w-[700px] md:w-[800px] lg:w-[897px] md:pl-0 mt-5"
-        src="@/assets/main/advertisment.png"
-        alt="Banner"
-      />
+      <img class="w-[520px] sm:w-[700px] md:w-[800px] lg:w-[897px] md:pl-0 mt-5" src="@/assets/main/advertisment.png"
+        alt="Banner" />
     </div>
     <div class="flex justify-center">
       <div class="w-full md:w-[897px]">
@@ -101,21 +80,11 @@
           {{ $t("Popular anchor list") }}
         </h2>
         <div class="flex gap-[5px] flex-wrap rounded-lg w-full bg-white">
-          <img
-            class="md:w-[142px] w-[120px] md:h-[116px] h-[94px]"
-            src="@/assets/content/champion.png"
-          />
-          <div
-            class="md:w-[120px] w-[103px] flex flex-col items-center py-3"
-            v-for="link in streamer"
-            :key="link.streamer"
-          >
+          <img class="md:w-[142px] w-[120px] md:h-[116px] h-[94px]" src="@/assets/content/champion.png" />
+          <div class="md:w-[120px] w-[103px] flex flex-col items-center py-3" v-for="link in streamer"
+            :key="link.streamer">
             <div>
-              <img
-                class="md:w-[50px]"
-                :src="require(`@/assets/topNav/${link.image}.png`)"
-                alt="Link Image"
-              />
+              <img class="md:w-[50px]" :src="require(`@/assets/topNav/${link.image}.png`)" alt="Link Image" />
             </div>
             <div class="pt-1">
               <p class="md:text-sm text-xs font-normal hover:text-green-500">
@@ -129,11 +98,7 @@
                 </p>
               </div>
               <div>
-                <img
-                  class="pl-1 md:w-[18px] w-[16px]"
-                  src="@/assets/content/Frame.png"
-                  alt="Frame Icon"
-                />
+                <img class="pl-1 md:w-[18px] w-[16px]" src="@/assets/content/Frame.png" alt="Frame Icon" />
               </div>
             </div>
           </div>
@@ -141,41 +106,6 @@
       </div>
     </div>
   </div>
-
-  <!-- <div class="flex justify-center">
-    <div class="flex flex-col w-[897px]">
-      <div class="flex justify-center pb-1">
-        <img class="w-[520px] sm:w-[700px] md:w-[800px] lg:w-full   md:pl-0 mt-5" src="@/assets/main/advertisment.png"
-          alt="Banner" />
-      </div>
-      <div style="border: 1px solid green;" class="w-[897px]">
-        <h2 class="text-2xl pr-5 py-5 font-normal">{{ $t("Popular fixtures") }} </h2>
-        <PopularMatch />
-      </div>
-      <div class="pb-20">
-        <h2 class="text-2xl pr-5 py-5 font-normal">{{ $t("Popular anchor list") }}</h2>
-        <div class="flex">
-          <img style="width: 142px ; height: 116px;" src="@/assets/content/champion.png" />
-          <div class="md:mx-4 w-52 flex flex-col items-center py-3" v-for="link in streamer" :key="link.streamer">
-            <div>
-              <img :src="require(`@/assets/topNav/${link.image}.png`)" alt="Link Image"
-                style="width: 50px; height: 50px;" />
-            </div>
-            <div class="pt-1">
-              <p class="text-sm font-normal hover:text-green-500">{{ link.name }}</p>
-
-            </div>
-            <div class="flex items-center">
-              <p class="text-xs font-normal text-grayText hover:text-green-500">{{ link.no }}</p>
-              <img class="pl-1" src="@/assets/content/Frame.png" alt="Frame Icon">
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div> -->
   <div>
     <FooterBar />
   </div>
@@ -191,11 +121,14 @@ import VueCookies from 'vue-cookies';
 
 import { getAllStreamDetails, getStreamDetails } from "@/service/apiStreamProvider.js";
 
+import ButtonPress from '@/components/ButtonPress.vue'
+
 export default defineComponent({
   components: {
     PopularMatch,
     FooterBar,
     BackgroundImage,
+    ButtonPress,
   },
   data() {
     return {
@@ -274,6 +207,9 @@ export default defineComponent({
   },
 
   methods: {
+    handleButtonClick() {
+      console.log("HALO");
+    },
     async displayLive(liveID) {
       console.log("-----------------------------");
       console.log("helllo");
@@ -440,7 +376,7 @@ video:hover {
   margin-bottom: 5px;
 }
 
-#circle{
+#circle {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -457,7 +393,7 @@ video:hover {
   gap: 10px;
 }
 
-.epic > div > img {
+.epic>div>img {
   height: 100px;
   width: 100%;
 }
@@ -502,5 +438,27 @@ div {
 .multiline-ellipsis::after {
   content: '...';
   display: inline-block;
+}
+
+.video-wrapper {
+  position: relative;
+}
+
+/* Button styling */
+.hover-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: none;
+  /* Hide the button by default */
+}
+
+/* Show the button on video wrapper hover */
+.video-wrapper:hover .hover-button {
+  display: block;
 }
 </style>
