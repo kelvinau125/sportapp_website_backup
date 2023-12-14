@@ -339,6 +339,7 @@ export default {
     },
 
     onMessageReceived(event) {
+      this.$refs.chatContainer.scrollTop = this.$refs.chatContainer.scrollHeight;
       this.messageList = event.data[0].payload.text;
       const sender = event.data[0].nick;
       this.chatsend.push(this.messageList);
