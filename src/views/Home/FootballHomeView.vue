@@ -187,6 +187,7 @@ import FooterBar from "@/components/FooterPage.vue";
 import BackgroundImage from "@/components/BackGround.vue";
 import { defineComponent, ref } from "vue";
 import { useTencentSDK } from "@/utils/tencentSDKProvder";
+import VueCookies from 'vue-cookies';
 
 import { getAllStreamDetails, getStreamDetails } from "@/service/apiStreamProvider.js";
 
@@ -265,9 +266,11 @@ export default defineComponent({
 
   mounted() {
     this.generateLiveStreamList();
-    useTencentSDK().then((timInstance) => {
-      this.tim = timInstance.timInstance._value;
-    });
+    if (VueCookies.isKey('phoneNumber')) {
+      useTencentSDK().then((timInstance) => {
+        this.tim = timInstance.timInstance._value;
+      });
+    }
   },
 
   methods: {
