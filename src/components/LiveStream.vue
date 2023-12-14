@@ -67,7 +67,7 @@
                   <div
                     class="pl-1 font-normal md:text-base text-sm text-white md:block hidden"
                   >
-                    {{ $t("Delete Stream") }}
+                    {{ $t("End Stream") }}
                   </div>
                 </div>
               </ButtonPress>
@@ -173,17 +173,24 @@
                 :src="livedata.image"
                 alt="Image"
               />
-              <div
-                class="gradient_bottom w-full flex absolute bottom-3  p-1 pb-2"
-              >
+              <div class="gradient_bottom w-full flex absolute bottom-3 p-1 pb-2">
                 <div class="pr-1 pl-1 z-10 w-10">
-                  <img id="circle" class="rounded-full" :src="livedata.streamerIcon" alt="Image" />
+                  <img
+                    id="circle"
+                    class="rounded-full"
+                    :src="livedata.streamerIcon"
+                    alt="Image"
+                  />
                 </div>
-                <div class="flex flex-col pl-1 z-10 items-start  w-[210px]">
-                  <div class="text-start text-white font-medium md:text-sm text-10px w-[200px] multiline-ellipsis">
-                    <span>{{ livedata.liveTitle }}</span> 
+                <div class="flex flex-col pl-1 z-10 items-start w-[210px]">
+                  <div
+                    class="text-start text-white font-medium md:text-sm text-10px w-[200px] multiline-ellipsis"
+                  >
+                    <span>{{ livedata.liveTitle }}</span>
                   </div>
-                  <div class="text-start md:text-10px text-8px font-medium text-white opacity-60 w-[200px] multiline-ellipsis">
+                  <div
+                    class="text-start md:text-10px text-8px font-medium text-white opacity-60 w-[200px] multiline-ellipsis"
+                  >
                     {{ livedata.streamerName }}
                   </div>
                 </div>
@@ -450,7 +457,6 @@ export default {
     );
     this.generateLiveList();
     this.toggleIsStreamer();
-
   },
   beforeMount() {
     window.addEventListener("beforeunload", this.beforeUnloadHandler);
@@ -697,7 +703,7 @@ export default {
   margin-bottom: -35px;
 }
 
-#circle{
+#circle {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -747,7 +753,7 @@ export default {
 }
 
 .multiline-ellipsis::after {
-  content: '...';
+  content: "...";
   display: inline-block;
 }
 </style>
