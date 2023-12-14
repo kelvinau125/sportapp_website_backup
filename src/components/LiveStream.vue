@@ -265,6 +265,8 @@ export default {
         .catch((err) => {
           console.log("error: ", err);
         });
+
+      this.$router.push({ name: "live" });
     },
 
     toSetLogLevel() {

@@ -261,6 +261,13 @@ export default {
         .catch((err) => {
           console.log("create error: ", err);
         });
+
+      const routeData = this.$router.resolve({
+        name: "LiveStream",
+        query: {
+          LiveID: liveID,
+        },
+      });
     },
   },
 };
