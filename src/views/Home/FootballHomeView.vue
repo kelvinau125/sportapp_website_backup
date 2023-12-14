@@ -327,9 +327,9 @@ export default defineComponent({
       for (let i = 0; i < 6; i++) {
         this.getLiveList = await getAllStreamDetails();
 
-        // console.log("-----------------------------")
-        // console.log(this.getLiveList)
-        // console.log(this.getLiveList.length)
+        console.log("-----------------------------")
+        console.log(this.getLiveList)
+        console.log(this.getLiveList.length)
 
         if (this.getLiveList.length > 0) {
           for (let j = 0; j < Math.min(1, this.getLiveList.length) - 1; j++) {
@@ -356,19 +356,18 @@ export default defineComponent({
         }
       }
 
-      // console.log("---------------------11111-------------------------")
-      // console.log(this.epicMoment)
-      // console.log(this.epicMoment.length)
+      console.log("---------------------11111-------------------------")
+      console.log(this.epicMoment)
+      console.log(this.epicMoment.length)
 
       if (this.epicMoment.length < 6) {
         this.getLiveList = await getAllStreamDetails();
 
         if (this.getLiveList.length > 0) {
-          for (let i = this.epicMoment.length; i < 6; i++) {
+          for (let i = this.epicMoment.length; i < Math.min(6, this.getLiveList.length); i++) {
             // Check if sportType is 0 (football)
             if (
-              this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1) &&
-              this.getLiveList[i]["isPopular"] == 0
+              this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1) && this.getLiveList[i]["isPopular"] == 0
             ) {
               this.epicMoment.push({
                 image: this.getLiveList[i]["cover"],
