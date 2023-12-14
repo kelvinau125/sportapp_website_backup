@@ -1,4 +1,6 @@
 <template>
+  <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal" />
+
   <BackgroundImage>
     <div class="scroll-container">
       <div class="flex justify-center pt-9 pb-6">
@@ -18,8 +20,8 @@
               <li class="max-w-full bg-white">
                 Loading...
               </li>
-            </ul> --> 
-            <div class="h-[450px] flex items-center justify-center "  v-if="loading">
+            </ul> -->
+            <div class="h-[450px] flex items-center justify-center " v-if="loading">
               <span class="font-medium text-2xl text-white"> Loading...</span>
               <img class="pl-5" src="@/assets/pandaLoading.gif" alt="panda loading" style="width:108px;height:108px;">
 
@@ -36,7 +38,7 @@
             </div>
 
 
-            <ul class=" h-[120px]" v-else v-for="match in filterSearchResult" :key="match.searchLiveTeamResult">
+            <ul class="h-[120px]" v-else v-for="match in filterSearchResult" :key="match.searchLiveTeamResult">
               <li @click="toAllMatchPage(
                 match.linkAddress,
                 match.competitionName,
@@ -133,14 +135,20 @@ import BackgroundImage from '@/components/BackGround.vue'
 
 import { getLiveStreamBookmark, liveStreamSaveBookmark, deleteStreamSaveBookmark } from '@/service/apiBookmarkProvider.js';
 
+import LoginModal from '@/views/Authentication/LoginModal.vue';
+import VueCookies from 'vue-cookies';
+
 export default {
   components: {
-    BackgroundImage
+    BackgroundImage,
+    LoginModal
   },
   data() {
 
     return {
       loading: false,
+
+      isLoginModalVisible: ref(false),
 
       searchQuery: this.$route.query.searchQuery,
       searchPages: this.$route.query.searchPages,
@@ -166,6 +174,12 @@ export default {
 
   },
   methods: {
+    showLoginModal() {
+      this.isLoginModalVisible = true;
+    },
+    closeLoginModal() {
+      this.isLoginModalVisible = false;
+    },
     // async getResult() {
 
     //   this.searchLiveTeamResult = await searchLiveTeamStream(this.searchQuery, this.searchPages)
@@ -238,13 +252,19 @@ export default {
 
     },
     async toggleFavorite(match, matchID) {
-      match.favorite = !match.favorite;
+      const userToken = VueCookies.get('userToken');
 
-      if (match.favorite) {
-        await liveStreamSaveBookmark(matchID, this.currentChannel, this.isCN);
+      if (!userToken) {
+        this.showLoginModal()
       } else {
-        await deleteStreamSaveBookmark(matchID, this.isCN);
+        match.favorite = !match.favorite;
+        if (match.favorite) {
+          await liveStreamSaveBookmark(matchID, this.currentChannel, this.isCN);
+        } else {
+          await deleteStreamSaveBookmark(matchID, this.isCN);
+        }
       }
+
     },
     async getFavoriteFromBookmark() {
       this.getfootballMatchList = await getLiveStreamBookmark(this.isCN, this.currentChannel);
@@ -253,6 +273,8 @@ export default {
       this.search();
     },
     toAllMatchPage(linkAddress, competitionName, matchDate, matchTimeStr, statusStr, homeTeamName, homeTeamScore, homeTeamLogo, awayTeamName, awayTeamScore, awayTeamLogo) {
+      const userToken = VueCookies.get('userToken');
+
       // Push to the Live Page
       const routeData = this.$router.resolve({
         name: 'TournamentDetails', query: {
@@ -270,7 +292,13 @@ export default {
 
         }
       });
-      window.open(routeData.href, '_blank');
+      if (!userToken) {
+        this.showLoginModal()
+      } else {
+        window.open(routeData.href, '_blank');
+
+      }
+      // window.open(routeData.href, '_blank');
     },
   },
 };
