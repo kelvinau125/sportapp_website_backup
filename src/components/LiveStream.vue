@@ -250,14 +250,19 @@ export default {
       deleteStreamDetails(this.LiveID)
         .then((response) => {
           console.log("delete successfully: ", response);
+
+          window.location.replace("/live");
         })
         .catch((err) => {
           console.log("error: ", err);
         });
 
+      const groupID = `panda${this.storedPhoneNumber}`;
+      console.log("check this string :", groupID);
+
       this.timInstance
         .dismissGroup({
-          groupID: `panda${this.storedPhoneNumber}`,
+          groupID: groupID,
         })
         .then((res) => {
           console.log("delete done: ", res);
@@ -265,8 +270,6 @@ export default {
         .catch((err) => {
           console.log("error: ", err);
         });
-
-      this.$router.push({ name: "live" });
     },
 
     toSetLogLevel() {
@@ -477,14 +480,14 @@ export default {
     this.generateLiveList();
     this.toggleIsStreamer();
   },
-  beforeMount() {
-    window.addEventListener("beforeunload", this.beforeUnloadHandler);
-  },
-  beforeUnmount() {
-    console.log("check role: ", this.isStreamer);
-    console.log("check id del: ", this.LiveID);
-    window.removeEventListener("beforeunload", this.beforeUnloadHandler);
-  },
+  // beforeMount() {
+  //   window.addEventListener("beforeunload", this.beforeUnloadHandler);
+  // },
+  // beforeUnmount() {
+  //   console.log("check role: ", this.isStreamer);
+  //   console.log("check id del: ", this.LiveID);
+  //   window.removeEventListener("beforeunload", this.beforeUnloadHandler);
+  // },
   unmounted() {
     this.timInstance.quitGroup({
       groupID: `panda${this.storedPhoneNumber}`,
