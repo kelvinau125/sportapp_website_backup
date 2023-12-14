@@ -9,35 +9,66 @@
             <div>Testing</div> -->
           <div class="relative">
             <div class="video-wrapper">
-              <video ref="videoPlayer" :key="selectedEpic ? selectedEpic.epicMoment : 'default'" id="my-player"
-                class="video-js vjs-default-skin" controls preload="auto" width="892px" height="505px"
-                :poster="selectedLiveStreamImage" style="cursor: pointer">
-                <source :src="selectedEpic
-                  ? selectedEpic.videoSource
-                  : 'https://vjs.zencdn.net/v/oceans.mp4'
-                  " type="video/mp4" />
+              <video
+                ref="videoPlayer"
+                :key="selectedEpic ? selectedEpic.epicMoment : 'default'"
+                id="my-player"
+                class="video-js vjs-default-skin"
+                controls
+                preload="auto"
+                width="892px"
+                height="505px"
+                :poster="selectedLiveStreamImage"
+                style="cursor: pointer"
+              >
+                <source
+                  :src="
+                    selectedEpic
+                      ? selectedEpic.videoSource
+                      : 'https://vjs.zencdn.net/v/oceans.mp4'
+                  "
+                  type="video/mp4"
+                />
                 <!-- <p class="vjs-no-js"> -->
                 <!-- <a href="https://vjs.zencdn.net/v/oceans.mp4">`1`ing URL</a> -->
 
                 <!-- </p> -->
               </video>
               <!-- <div class="hover-button" @click="handleButtonClick"> -->
-              <ButtonPress style="background-color: rgba(0, 0, 0, 1);" class="hover-button w-[150px] h-[46px] opacity-[0.6]" @click="handleButtonClick">
-                <span class="text-base font-normal opacity-100" style="color: rgba(255, 255, 255, 1);">{{ $t('Enter Room') }}</span> 
+              <ButtonPress
+                style="background-color: rgba(0, 0, 0, 1)"
+                class="hover-button w-[150px] h-[46px] opacity-[0.6]"
+                @click="handleButtonClick(selectedEpic.streamerID, selectedEpic.liveId)"
+              >
+                <span
+                  class="text-base font-normal opacity-100"
+                  style="color: rgba(255, 255, 255, 1)"
+                  >{{ $t("Enter Room") }}</span
+                >
               </ButtonPress>
               <!-- </div> -->
             </div>
 
-
             <div class="items-center absolute left-5 top-3 flex">
               <!-- <div class="pr-2 pl-1 z-10 w-[40px]"> -->
-              <img id="circle" class="rounded-full w-[30px] z-10 h-[30px]" :src="this.StreamIcon" alt="Image" />
+              <img
+                id="circle"
+                class="rounded-full w-[30px] z-10 h-[30px]"
+                :src="this.StreamIcon"
+                alt="Image"
+              />
               <!-- </div> -->
-              <div class="flex flex-col md:pl-3 pl-5 z-10 items-start w-[800px]  md:pb-1.5 pb-3">
-                <div class="text-white font-normal md:text-sm text-10px w-[790px] multiline-ellipsis">
+              <div
+                class="flex flex-col md:pl-3 pl-5 z-10 items-start w-[800px] md:pb-1.5 pb-3"
+              >
+                <div
+                  class="text-white font-normal md:text-sm text-10px w-[790px] multiline-ellipsis"
+                >
                   {{ this.LiveTitle }}
                 </div>
-                <div class="md:text-10px text-8px font-bold text-white opacity-60 w-[790px] multiline-ellipsis">
+                <div
+                  class="md:text-10px text-8px font-bold text-white opacity-60 w-[790px] multiline-ellipsis"
+                >
                   {{ this.StreamName }}
                 </div>
               </div>
@@ -50,8 +81,12 @@
         <div class="flex justify-center">
           <div class="epic-container" style="width: 892px; height: 92px">
             <div class="epic grid grid-cols-5">
-              <div class="w-full" v-for="epic in epicMoment" :key="epic.epicMoment"
-                @click="selectEpic(epic, epic.liveId)">
+              <div
+                class="w-full"
+                v-for="epic in epicMoment"
+                :key="epic.epicMoment"
+                @click="selectEpic(epic, epic.liveId)"
+              >
                 <img :src="epic.image" alt="Epic Image" style="cursor: pointer" />
               </div>
             </div>
@@ -63,8 +98,11 @@
 
   <div class="flex flex-col justify-center">
     <div class="flex justify-center">
-      <img class="w-[520px] sm:w-[700px] md:w-[800px] lg:w-[897px] md:pl-0 mt-5" src="@/assets/main/advertisment.png"
-        alt="Banner" />
+      <img
+        class="w-[520px] sm:w-[700px] md:w-[800px] lg:w-[897px] md:pl-0 mt-5"
+        src="@/assets/main/advertisment.png"
+        alt="Banner"
+      />
     </div>
     <div class="flex justify-center">
       <div class="w-full md:w-[897px]">
@@ -80,11 +118,21 @@
           {{ $t("Popular anchor list") }}
         </h2>
         <div class="flex gap-[5px] flex-wrap rounded-lg w-full bg-white">
-          <img class="md:w-[142px] w-[120px] md:h-[116px] h-[94px]" src="@/assets/content/champion.png" />
-          <div class="md:w-[120px] w-[103px] flex flex-col items-center py-3" v-for="link in streamer"
-            :key="link.streamer">
+          <img
+            class="md:w-[142px] w-[120px] md:h-[116px] h-[94px]"
+            src="@/assets/content/champion.png"
+          />
+          <div
+            class="md:w-[120px] w-[103px] flex flex-col items-center py-3"
+            v-for="link in streamer"
+            :key="link.streamer"
+          >
             <div>
-              <img class="md:w-[50px]" :src="require(`@/assets/topNav/${link.image}.png`)" alt="Link Image" />
+              <img
+                class="md:w-[50px]"
+                :src="require(`@/assets/topNav/${link.image}.png`)"
+                alt="Link Image"
+              />
             </div>
             <div class="pt-1">
               <p class="md:text-sm text-xs font-normal hover:text-green-500">
@@ -98,7 +146,11 @@
                 </p>
               </div>
               <div>
-                <img class="pl-1 md:w-[18px] w-[16px]" src="@/assets/content/Frame.png" alt="Frame Icon" />
+                <img
+                  class="pl-1 md:w-[18px] w-[16px]"
+                  src="@/assets/content/Frame.png"
+                  alt="Frame Icon"
+                />
               </div>
             </div>
           </div>
@@ -117,11 +169,11 @@ import FooterBar from "@/components/FooterPage.vue";
 import BackgroundImage from "@/components/BackGround.vue";
 import { defineComponent, ref } from "vue";
 import { useTencentSDK } from "@/utils/tencentSDKProvder";
-import VueCookies from 'vue-cookies';
+import VueCookies from "vue-cookies";
 
 import { getAllStreamDetails, getStreamDetails } from "@/service/apiStreamProvider.js";
 
-import ButtonPress from '@/components/ButtonPress.vue'
+import ButtonPress from "@/components/ButtonPress.vue";
 
 export default defineComponent({
   components: {
@@ -184,7 +236,6 @@ export default defineComponent({
   },
   computed: {
     selectedEpicVideoSource() {
-      console.log("eeeeeeeeeeeeeeeeeeeeeeee");
       console.log(this.selectedEpic.videoSource);
       return this.selectedEpic
         ? this.selectedEpic.videoSource
@@ -199,7 +250,7 @@ export default defineComponent({
 
   mounted() {
     this.generateLiveStreamList();
-    if (VueCookies.isKey('phoneNumber')) {
+    if (VueCookies.isKey("phoneNumber")) {
       useTencentSDK().then((timInstance) => {
         this.tim = timInstance.timInstance._value;
       });
@@ -207,8 +258,25 @@ export default defineComponent({
   },
 
   methods: {
-    handleButtonClick() {
-      console.log("HALO");
+    handleButtonClick(streamerID, liveID) {
+      const userToken = VueCookies.get("userToken");
+      console.log("check bug: ", liveID, " ", streamerID);
+
+      if (!userToken) {
+        this.showLoginModal();
+      } else {
+        localStorage.setItem("stream", streamerID);
+        console.log("check group id: ", streamerID);
+
+        const routeData = this.$router.resolve({
+          name: "LiveStream",
+          query: {
+            LiveID: liveID,
+          },
+        });
+
+        window.location.replace(routeData.href);
+      }
     },
     async displayLive(liveID) {
       console.log("-----------------------------");
@@ -247,6 +315,7 @@ export default defineComponent({
     // },
 
     selectEpic(epic, liveId) {
+      console.log("what is clicking: ", epic, " and ", liveId);
       this.displayLive(liveId);
       this.selectedEpic = epic;
       this.$refs.videoPlayer.src = "";
@@ -263,9 +332,9 @@ export default defineComponent({
       for (let i = 0; i < 6; i++) {
         this.getLiveList = await getAllStreamDetails();
 
-        console.log("-----------------------------")
-        console.log(this.getLiveList)
-        console.log(this.getLiveList.length)
+        console.log("-----------------------------");
+        console.log(this.getLiveList);
+        console.log(this.getLiveList.length);
 
         if (this.getLiveList.length > 0) {
           for (let j = 0; j < Math.min(1, this.getLiveList.length) - 1; j++) {
@@ -286,24 +355,30 @@ export default defineComponent({
                   this.getLiveList[j]["pushCode"],
                 imgSource: this.getLiveList[j]["cover"],
                 liveId: this.getLiveList[j]["id"],
+                streamerID: this.getLiveList[j]["userId"],
               });
             }
           }
         }
       }
 
-      console.log("---------------------11111-------------------------")
-      console.log(this.epicMoment)
-      console.log(this.epicMoment.length)
+      console.log("---------------------11111-------------------------");
+      console.log(this.epicMoment);
+      console.log(this.epicMoment.length);
 
       if (this.epicMoment.length < 6) {
         this.getLiveList = await getAllStreamDetails();
 
         if (this.getLiveList.length > 0) {
-          for (let i = this.epicMoment.length; i < Math.min(6, this.getLiveList.length); i++) {
+          for (
+            let i = this.epicMoment.length;
+            i < Math.min(6, this.getLiveList.length);
+            i++
+          ) {
             // Check if sportType is 0 (football)
             if (
-              this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1) && this.getLiveList[i]["isPopular"] == 0
+              this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1) &&
+              this.getLiveList[i]["isPopular"] == 0
             ) {
               this.epicMoment.push({
                 image: this.getLiveList[i]["cover"],
@@ -314,6 +389,7 @@ export default defineComponent({
                   this.getLiveList[i]["pushCode"],
                 imgSource: this.getLiveList[i]["cover"],
                 liveId: this.getLiveList[i]["id"],
+                streamerID: this.getLiveList[i]["userId"],
               });
             }
           }
@@ -382,7 +458,6 @@ video:hover {
   border-radius: 50%;
 }
 
-
 .epic {
   padding: 10px;
   border-radius: 10px;
@@ -393,7 +468,7 @@ video:hover {
   gap: 10px;
 }
 
-.epic>div>img {
+.epic > div > img {
   height: 100px;
   width: 100%;
 }
@@ -427,7 +502,6 @@ div {
   /* border: 1px solid red; */
 }
 
-
 .multiline-ellipsis {
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -436,7 +510,7 @@ div {
 }
 
 .multiline-ellipsis::after {
-  content: '...';
+  content: "...";
   display: inline-block;
 }
 
