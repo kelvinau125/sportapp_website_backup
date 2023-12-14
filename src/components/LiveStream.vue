@@ -3,10 +3,10 @@
     <div class="max-w-[1519px] md:flex justify-between pt-1.5">
       <div class="live-container">
         <div class="relative rounded-lg">
-          <div class="bg-gray-200">
+          <div class="bg-gray-200 w-[1037px] h-[587px]">
             <!-- <img class="w-full h-full" src="@/assets/live/liveStreamBackground.png" alt="Image" /> -->
             <video
-              class="cursor-pointer w-[892px] h-[505px] "
+              class="cursor-pointer w-full h-full"
               preload="auto"
               controls
               autoplay
@@ -30,11 +30,11 @@
                 alt="Image"
               />
             </div>
-            <div class="flex flex-col md:pl-3 pl-5 z-10  items-start md:pb-1.5 pb-3 pt-2  ">
-              <div class="text-white font-normal md:text-sm text-10px  w-[200px] multiline-ellipsis">
-                <span>{{ this.LiveTitle }}</span> 
+            <div class="flex flex-col md:pl-3 pl-5 z-10 items-start md:pb-1.5 pb-3 pt-2">
+              <div class="text-white font-normal md:text-sm text-10px">
+                <span>{{ this.LiveTitle }}</span>
               </div>
-              <div class="md:text-10px text-8px font-bold text-white opacity-60  w-[200px] multiline-ellipsis">
+              <div class="md:text-10px text-8px font-bold text-white opacity-60">
                 <span> {{ this.StreamName }}</span>
               </div>
             </div>
@@ -350,7 +350,6 @@ export default {
     },
 
     onMessageReceived(event) {
-      this.$refs.chatContainer.scrollTop = this.$refs.chatContainer.scrollHeight;
       this.messageList = event.data[0].payload.text;
       const sender = event.data[0].nick;
       this.chatsend.push(this.messageList);
@@ -451,6 +450,11 @@ export default {
     },
   },
   computed: {
+    getStreamID() {
+      // console.log(this.$store.getters.streamID);
+      return this.$store.getters.streamID;
+    },
+
     selectedLiveStreamImage() {
       return "https://fictionhorizon.com/wp-content/uploads/2023/09/GojoStar.jpg";
     },
@@ -461,6 +465,14 @@ export default {
   },
   async mounted() {
     // const streamerID = this.$route.params.streamerID;
+
+    // console.log(streamerID);
+    console.log("---------------------------------------------");
+    // console.log(this.getstreamerID);
+    console.log("aaaaaaaaaaaaaaaaa", this.getStreamID);
+    console.log("kaobei", this.$store.getters.streamID);
+
+    // console.log("check stream iddddd: ", this.str);
 
     await this.displayLive(this.LiveID);
     console.log("check stream id at mounted: ", `panda${this.phonenumber}`);
@@ -494,6 +506,7 @@ export default {
     // }
   },
 
+  props: ["streamerID"],
   data() {
     return {
       selectedEpic: null,
@@ -767,7 +780,7 @@ export default {
 
 .multiline-ellipsis {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

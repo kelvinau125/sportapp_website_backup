@@ -52,7 +52,7 @@ const routes = [
   {
     path: '/live_stream',
     name: 'LiveStream',
-    component: () => import('@/views/LiveStream/LiveStreamView.vue')
+    component: () => import('@/views/LiveStream/LiveStreamView.vue'),
   },
   
   {
