@@ -257,7 +257,7 @@ export default {
 
       this.timInstance
         .dismissGroup({
-          groupID: `panda${this.phonenumber}`,
+          groupID: `panda${this.storedPhoneNumber}`,
         })
         .then((res) => {
           console.log("delete done: ", res);
@@ -296,7 +296,7 @@ export default {
     toJoinGroup() {
       this.timInstance
         .joinGroup({
-          groupID: `panda${this.phonenumber}`,
+          groupID: `panda${this.storedPhoneNumber}`,
           type: TIM.TYPES.GRP_AVCHATROOM,
           applyMessage: "HUHHH",
         })
@@ -313,7 +313,7 @@ export default {
 
       if (this.messageInput !== "" || this.messageInput.trim() !== "") {
         const msg = this.timInstance.createTextMessage({
-          to: `panda${this.phonenumber}`,
+          to: `panda${this.storedPhoneNumber}`,
           conversationType: TIM.TYPES.CONV_GROUP,
           payload: {
             text: this.messageInput,
@@ -344,7 +344,7 @@ export default {
 
     toGetMessageList() {
       let promise = this.timInstance.getMessageList({
-        conversationID: `GROUPpanda${this.phonenumber}`,
+        conversationID: `GROUPpanda${this.storedPhoneNumber}`,
       });
       promise.then(function (response) {
         console.log("response sending:", response.data.messageList);
@@ -462,15 +462,13 @@ export default {
   },
   async mounted() {
     // console.log("check stream iddddd: ", this.str);
-    const storedPhoneNumber = localStorage.getItem('stream');
-    console.log("-------: ", storedPhoneNumber)
+    this.storedPhoneNumber = localStorage.getItem("stream");
+    console.log("-------: ", this.storedPhoneNumber);
 
     // localStorage.removeItem('stream');
 
     await this.displayLive(this.LiveID);
-    console.log("check stream id at mounted: ", `panda${this.phonenumber}`);
-    console.log("aacheck live stream room id: ", this.LiveID);
-    console.log("aacheck chat room and group id: ", `panda${this.phonenumber}`);
+    console.log("check group id: ", `panda${this.storedPhoneNumber}`);
     // this.toLogin();
     this.toJoinGroup();
     console.log(
@@ -489,7 +487,7 @@ export default {
   },
   unmounted() {
     this.timInstance.quitGroup({
-      groupID: `panda${this.phonenumber}`,
+      groupID: `panda${this.storedPhoneNumber}`,
     });
     window.location.reload();
     // console.log("check role: ", this.isStreamer);
@@ -502,6 +500,7 @@ export default {
   props: ["streamerID"],
   data() {
     return {
+      storedPhoneNumber: "",
       selectedEpic: null,
 
       timInstance: TIM.create({

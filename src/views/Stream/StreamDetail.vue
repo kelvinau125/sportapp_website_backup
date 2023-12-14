@@ -257,17 +257,18 @@ export default {
         })
         .then((res) => {
           console.log("chat room created successfully: ", res);
+          console.log("check group id:", `panda${this.phonenumber}`);
         })
         .catch((err) => {
           console.log("create error: ", err);
         });
 
-      const routeData = this.$router.resolve({
-        name: "LiveStream",
-        query: {
-          LiveID: liveID,
-        },
-      });
+      // const routeData = this.$router.resolve({
+      //   name: "LiveStream",
+      //   query: {
+      //     LiveID: liveID,
+      //   },
+      // });
     },
   },
 };
