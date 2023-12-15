@@ -489,15 +489,19 @@ export default {
   //   window.removeEventListener("beforeunload", this.beforeUnloadHandler);
   // },
   unmounted() {
-    this.timInstance.quitGroup({
-      groupID: `panda${this.storedPhoneNumber}`,
-    });
-    window.location.reload();
+    // this.timInstance.quitGroup({
+    //   // groupID: `panda${this.storedPhoneNumber}`,
+    //   groupID: "panda60122504088"
+    // });
+
+    // window.location.reload();
     // console.log("check role: ", this.isStreamer);
     // console.log("check id del: ", this.LiveID);
-    // if (this.isStreamer) {
-    //   this.deleteLiveRoom();
-    // }
+    if (this.isStreamer) {
+      this.deleteLiveRoom();
+    }else{ 
+      this.timInstance.logout({});
+    }
   },
 
   props: ["streamerID"],
