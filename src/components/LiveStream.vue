@@ -260,16 +260,16 @@ export default {
       const groupID = `panda${this.storedPhoneNumber}`;
       console.log("check this string :", groupID);
 
-      this.timInstance
-        .dismissGroup({
-          groupID: groupID,
-        })
-        .then((res) => {
-          console.log("delete done: ", res);
-        })
-        .catch((err) => {
-          console.log("error: ", err);
-        });
+      // this.timInstance
+      //   .dismissGroup({
+      //     groupID: groupID,
+      //   })
+      //   .then((res) => {
+      //     console.log("delete done: ", res);
+      //   })
+      //   .catch((err) => {
+      //     console.log("error: ", err);
+      //   });
     },
 
     toSetLogLevel() {
@@ -489,19 +489,19 @@ export default {
   //   window.removeEventListener("beforeunload", this.beforeUnloadHandler);
   // },
   unmounted() {
-    // this.timInstance.quitGroup({
-    //   // groupID: `panda${this.storedPhoneNumber}`,
-    //   groupID: "panda60122504088"
-    // });
+    this.timInstance.quitGroup({
+      // groupID: `panda${this.storedPhoneNumber}`,
+      groupID: "panda60122504088",
+    });
 
     // window.location.reload();
     // console.log("check role: ", this.isStreamer);
     // console.log("check id del: ", this.LiveID);
-    if (this.isStreamer) {
-      this.deleteLiveRoom();
-    }else{ 
-      this.timInstance.logout({});
-    }
+    // if (this.isStreamer) {
+    //   this.deleteLiveRoom();
+    // }else{
+    this.timInstance.logout({});
+    // }
   },
 
   props: ["streamerID"],
