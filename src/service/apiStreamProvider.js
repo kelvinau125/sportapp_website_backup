@@ -175,7 +175,7 @@ export async function getAllStreamDetails() {
     const data = response.data;
 
     if (code === 0) {
-      console.log("debug: ", data);
+      // console.log("debug: ", data);
       return data;
     }else {
       console.log(`get getAllStreamDetails Unsuccessfully: ${code}`);
@@ -200,7 +200,7 @@ export async function deleteStreamDetails(streamID) {
     const data = response.data;
 
     if(code === 0) {
-      console.log("debug: ", data);
+      // console.log("debug: ", data);
       return data;
     }else{
       console.log(`get deleteStreamDetails Unsuccessfully: ${code}`);

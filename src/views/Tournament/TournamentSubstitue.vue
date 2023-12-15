@@ -117,7 +117,7 @@ export default {
     };
   },
   created() {
-    console.log();
+    // console.log();
   },
   mounted() {
     this.getResult();
@@ -133,7 +133,7 @@ export default {
         this.$i18n.locale === "ZH" ? true : false
       );
 
-      console.log("debug homeCoach: ", this.getTournamentDetails);
+      // console.log("debug homeCoach: ", this.getTournamentDetails);
       if (this.getTournamentDetails == null) {
         this.homeCoach = "";
         this.awayCoach = "";

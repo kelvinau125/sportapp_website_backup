@@ -269,19 +269,19 @@ export default {
   methods: {
     async getResult() {
       this.getTournamentLineup = await getFootballLineup(1187648, false);
-      console.log("HALLO" + this.getTournamentLineup)
+      // console.log("HALLO" + this.getTournamentLineup)
 
       this.homeTeamSubstitute = this.getTournamentLineup['homeMatchLineUpList'];
       this.awayTeamSubstitute = this.getTournamentLineup['awayMatchLineList'];
 
-      console.log(this.homeTeamSubstitute)
-      console.log("AWAY" + this.awayTeamSubstitute)
+      // console.log(this.homeTeamSubstitute)
+      // console.log("AWAY" + this.awayTeamSubstitute)
 
       this.homeFirstAscending = this.homePlayer
         .filter(player => player.position !== "0") // Exclude players with position 0
         .sort((a, b) => a.position - b.position);
 
-      console.log(this.homeFirstAscending);
+      // console.log(this.homeFirstAscending);
 
       const parts = this.homeFormation.split("-");
       this.defendPlayerIndex = parts[0]
@@ -289,10 +289,10 @@ export default {
       this.FirstPlayerIndex = parts[2]
       this.SSFirstPlayerIndex = parts[3]
 
-      console.log(this.defendPlayerIndex);
-      console.log(this.MiddlePlayerIndex);
-      console.log(this.FirstPlayerIndex);
-      console.log(this.SSFirstPlayerIndex);
+      // console.log(this.defendPlayerIndex);
+      // console.log(this.MiddlePlayerIndex);
+      // console.log(this.FirstPlayerIndex);
+      // console.log(this.SSFirstPlayerIndex);
 
     },
 

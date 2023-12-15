@@ -155,7 +155,7 @@
 
             // reset password otp
             if(this.isLogin){
-                console.log('reset password')
+                // console.log('reset password')
 
                 const result = await verifyOTP(VueCookies.get('phoneNumber'), OTPvalue, "2");
 
@@ -173,7 +173,7 @@
             } 
             // forgot password
             else if (this.getUserForgotPasswordStatus){
-                console.log('forgot password')
+                // console.log('forgot password')
 
                 const result = await verifyOTP(this.getUserPhoneNumber, OTPvalue, "3");
 
@@ -190,7 +190,7 @@
             }
             // register password otp
             else if (!this.isChangePassword && !this.isLogin){
-                console.log('register')
+                // console.log('register')
 
                 const result = await verifyOTP(this.getUserPhoneNumber, OTPvalue, "1");
 
@@ -218,19 +218,19 @@
         async sendAgain() {
             // reset password otp
             if(this.isLogin){
-                console.log('reset password')
+                // console.log('reset password')
                 await getOTP(VueCookies.get('phoneNumber'), "2");
                 this.startCountdown();
             }
             // forgot password
             else if (this.getUserForgotPasswordStatus){
-                console.log('forgot password')
+                // console.log('forgot password')
                 await getOTP(this.getUserPhoneNumber, "3");
                 this.startCountdown();
             }  
             // register password otp
             else {
-                console.log('register')
+                // console.log('register')
                 await getOTP(this.getUserPhoneNumber, "1");
                 this.startCountdown();
             }

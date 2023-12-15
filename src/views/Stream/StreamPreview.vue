@@ -97,7 +97,7 @@ export default {
                 this.closeStreamPreviewModal();
                 window.location.reload();
             } else {
-                console.log("error to create stream")
+                // console.log("error to create stream")
             }
         }
     },

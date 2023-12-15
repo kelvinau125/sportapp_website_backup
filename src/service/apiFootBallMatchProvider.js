@@ -63,7 +63,7 @@ export async function getFootballLineup(matchId, isCN) {
   
       if (code === 0) {
 
-        console.log("debug tournament: ", data);
+        // console.log("debug tournament: ", data);
         return data;
       }else {
         console.log(`get footballlineup Unsuccessfully: ${code}`);

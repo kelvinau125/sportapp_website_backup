@@ -251,7 +251,7 @@ export default {
 
     //delete live stream room
     deleteLiveRoom() {
-      console.log("check stream id: ", this.LiveID);
+      // console.log("check stream id: ", this.LiveID);
       deleteStreamDetails(this.LiveID)
         .then((response) => {
           console.log("delete successfully: ", response);

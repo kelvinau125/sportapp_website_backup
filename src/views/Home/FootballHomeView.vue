@@ -236,7 +236,7 @@ export default defineComponent({
   },
   computed: {
     selectedEpicVideoSource() {
-      console.log(this.selectedEpic.videoSource);
+      // console.log(this.selectedEpic.videoSource);
       return this.selectedEpic
         ? this.selectedEpic.videoSource
         : "https://vjs.zencdn.net/v/oceans.mp4";
@@ -260,13 +260,13 @@ export default defineComponent({
   methods: {
     handleButtonClick(streamerID, liveID) {
       const userToken = VueCookies.get("userToken");
-      console.log("check bug: ", liveID, " ", streamerID);
+      // console.log("check bug: ", liveID, " ", streamerID);
 
       if (!userToken) {
         this.showLoginModal();
       } else {
         localStorage.setItem("stream", streamerID);
-        console.log("check group id: ", streamerID);
+        // console.log("check group id: ", streamerID);
 
         const routeData = this.$router.resolve({
           name: "LiveStream",
@@ -279,9 +279,9 @@ export default defineComponent({
       }
     },
     async displayLive(liveID) {
-      console.log("-----------------------------");
-      console.log("helllo");
-      console.log(liveID);
+      // console.log("-----------------------------");
+      // console.log("helllo");
+      // console.log(liveID);
 
       this.getLiveDetails = await getStreamDetails(liveID);
 
@@ -315,7 +315,7 @@ export default defineComponent({
     // },
 
     selectEpic(epic, liveId) {
-      console.log("what is clicking: ", epic, " and ", liveId);
+      // console.log("what is clicking: ", epic, " and ", liveId);
       this.displayLive(liveId);
       this.selectedEpic = epic;
       this.$refs.videoPlayer.src = "";
@@ -332,16 +332,16 @@ export default defineComponent({
       for (let i = 0; i < 6; i++) {
         this.getLiveList = await getAllStreamDetails();
 
-        console.log("-----------------------------");
-        console.log(this.getLiveList);
-        console.log(this.getLiveList.length);
+        // console.log("-----------------------------");
+        // console.log(this.getLiveList);
+        // console.log(this.getLiveList.length);
 
         if (this.getLiveList.length > 0) {
           for (let j = 0; j < Math.min(1, this.getLiveList.length) - 1; j++) {
             // Check if sportType is 0 (football)
 
-            console.log("==========================================");
-            console.log(this.getLiveList[i]);
+            // console.log("==========================================");
+            // console.log(this.getLiveList[i]);
             if (
               this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1) &&
               this.getLiveList[i]["isPopular"] == 1
@@ -362,9 +362,9 @@ export default defineComponent({
         }
       }
 
-      console.log("---------------------11111-------------------------");
-      console.log(this.epicMoment);
-      console.log(this.epicMoment.length);
+      // console.log("---------------------11111-------------------------");
+      // console.log(this.epicMoment);
+      // console.log(this.epicMoment.length);
 
       if (this.epicMoment.length < 6) {
         this.getLiveList = await getAllStreamDetails();

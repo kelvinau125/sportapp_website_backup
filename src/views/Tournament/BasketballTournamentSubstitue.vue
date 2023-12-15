@@ -165,8 +165,8 @@ export default {
     this.homeTeamLineUpList = this.getBasketballLineUpList["home"];
     this.awayTeamLineUpList = this.getBasketballLineUpList["away"];
 
-    console.log("check data home:", this.homeTeamLineUpList);
-    console.log("check data away:", this.awayTeamLineUpList);
+    // console.log("check data home:", this.homeTeamLineUpList);
+    // console.log("check data away:", this.awayTeamLineUpList);
 
     if (this.homeTeamLineUpList != null) {
       this.homeTeamLineUpListLength = this.homeTeamLineUpList.length;
@@ -179,7 +179,7 @@ export default {
     } else {
       this.awayTeamLineUpListLength = 0;
     }
-    console.log("check bug: ", this.homeTeamLineUpListLength);
+    // console.log("check bug: ", this.homeTeamLineUpListLength);
 
     this.homeTeamList();
   },
@@ -208,10 +208,10 @@ export default {
 
       if (this.isHomeTeam) {
         lengthCount = this.homeTeamLineUpListLength;
-        console.log("check team home: ", lengthCount);
+        // console.log("check team home: ", lengthCount);
       } else {
         lengthCount = this.awayTeamLineUpListLength;
-        console.log("check team away: ", lengthCount);
+        // console.log("check team away: ", lengthCount);
       }
 
       for (let i = 0; i < lengthCount; i++) {
