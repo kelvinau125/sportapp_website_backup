@@ -306,7 +306,7 @@ export default {
         .joinGroup({
           groupID: `panda${this.storedPhoneNumber}`,
           type: TIM.TYPES.GRP_AVCHATROOM,
-          applyMessage: "HUHHH",
+          applyMessage: "Welcome to Panda Sport",
         })
         .then((response) => {
           console.log("joined", response);
@@ -392,9 +392,6 @@ export default {
     },
 
     toLiveStream(liveID) {
-      // Navigating
-      // Push to the Live Page
-      // this.$router.push({ name: 'LiveStream' });
       const routeData = this.$router.resolve({
         name: "LiveStream",
         query: {
