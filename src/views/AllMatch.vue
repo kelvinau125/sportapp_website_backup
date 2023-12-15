@@ -5,13 +5,6 @@
         <div
           class="flex justify-between my-5 max-w-[892px] w-[100%] h-[46px] date-slider"
         >
-          <ButtonPress
-            @click="handleScroll()"
-            class="w-full bg-white"
-            style="width: 105px; height: 60px; border-radius: 8px"
-          >
-            <p class="text-base font-normal" style="color: #333333">系统消息</p>
-          </ButtonPress>
           <div
             class="flex justify-center mt-1"
             style="
@@ -170,6 +163,13 @@
               </li>
             </ul>
           </div>
+          <ButtonPress
+            @click="handleScroll()"
+            class="w-full bg-grey-300"
+            style="width: 105px; height: 60px; border-radius: 8px"
+          >
+            <p class="text-base font-normal" style="color: #333333">More</p>
+          </ButtonPress>
         </div>
       </div>
     </div>
