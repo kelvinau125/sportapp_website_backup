@@ -473,9 +473,26 @@ export default {
     },
   },
   async mounted() {
+    // console.log("check stream iddddd: ", this.str);
+    this.storedPhoneNumber = localStorage.getItem("stream");
+    console.log("-------: ", this.storedPhoneNumber);
+
+    // localStorage.removeItem('stream');
+
+    await this.displayLive(this.LiveID);
+    console.log("check group id: ", `panda${this.storedPhoneNumber}`);
+    // this.toLogin();
+    this.toJoinGroup();
+    console.log(
+      this.timInstance.on(TencentCloudChat.EVENT.MESSAGE_RECEIVED, this.onMessageReceived)
+    );
+    this.generateLiveList();
+    this.toggleIsStreamer();
+
     // Reference to the video element
     const videoElement = this.$refs.myVideo;
 
+    console.log("--whereishereeeeeeeeeeeeee--")
     console.log(this.videoSource)
 
     // Initialize video.js with the FLV video link
@@ -494,22 +511,6 @@ export default {
     //   }
     // });
 
-
-    // console.log("check stream iddddd: ", this.str);
-    this.storedPhoneNumber = localStorage.getItem("stream");
-    console.log("-------: ", this.storedPhoneNumber);
-
-    // localStorage.removeItem('stream');
-
-    await this.displayLive(this.LiveID);
-    console.log("check group id: ", `panda${this.storedPhoneNumber}`);
-    // this.toLogin();
-    this.toJoinGroup();
-    console.log(
-      this.timInstance.on(TencentCloudChat.EVENT.MESSAGE_RECEIVED, this.onMessageReceived)
-    );
-    this.generateLiveList();
-    this.toggleIsStreamer();
   },
   // beforeMount() {
   //   window.addEventListener("beforeunload", this.beforeUnloadHandler);
@@ -519,6 +520,7 @@ export default {
   //   console.log("check id del: ", this.LiveID);
   //   window.removeEventListener("beforeunload", this.beforeUnloadHandler);
   // },
+  
   unmounted() {
     // this.timInstance.quitGroup({
     //   // groupID: `panda${this.storedPhoneNumber}`,
@@ -572,6 +574,7 @@ export default {
       liveData: [],
       imageCover: ref(""),
       userId: null,
+      videoSource: ref(""),
 
       // liveData: [
       //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
