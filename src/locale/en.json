@@ -22,7 +22,7 @@
     "Login Now": "Login Now",
     "Welcome to Register, Get Started!": "Welcome to Register, Get Started!",
     "Please Enter Username": "Please Enter Username",
-    "Password must be at least 8 characters and include at least 1 capital letter, number, and special character": "Password must be at least 8 characters and include at least 1 capital letter, number, and special character",
+    "Password must be at least 8 characters and include at least 1 capital letter, number, and special character": "Password must be at least 8 characters and include at least 1 capital letter, at least 1 lower letter, number, and special character",
     "Please Make Sure Password are Same": "Please Make Sure Password are Same",
     "NickName cannot be empty": "NickName cannot be empty",
     "Phone Number cannot be empty": "Phone Number cannot be empty",
