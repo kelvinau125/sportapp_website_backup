@@ -5,7 +5,7 @@
         <div class="relative rounded-lg">
           <div class="bg-gray-200 w-[1037px] h-[587px]">
             <!-- <img class="w-full h-full" src="@/assets/live/liveStreamBackground.png" alt="Image" /> -->
-            <video
+            <!-- <video
               class="cursor-pointer w-full h-full"
               preload="auto"
               controls
@@ -20,7 +20,9 @@
                 "
                 type="video/mp4"
               />
-            </video>
+            </video> -->
+            <video ref="myVideo" class="video-js vjs-default-skin w-full h-full" controls></video>
+  
           </div>
           <div class="w-full flex headerBox items-center md:pt-4 pt-3 md:pl-2 pb-2">
             <div class="pl-3">
@@ -228,6 +230,9 @@ import genTestUserSig from "@/tencent/GenerateTestUserSig.js";
 import TencentCloudChat from "@tencentcloud/chat";
 import VueCookies from "vue-cookies";
 import TIMUploadPlugin from "tim-upload-plugin";
+
+import videojs from 'video.js';
+import 'video.js/dist/video-js.css';
 
 export default {
   components: {
@@ -464,6 +469,18 @@ export default {
     },
   },
   async mounted() {
+    // Reference to the video element
+    const videoElement = this.$refs.myVideo;
+
+    // Initialize video.js with the FLV video link
+    videojs(videoElement, {
+      techOrder: ['html5', 'flash'],
+      sources: [
+        { type: 'video/x-mpegURL', src: 'http://play.mindark.cloud/live/ae211bd93b8342d4b075f067f1889894.m3u8' }
+      ]
+    });
+
+
     // console.log("check stream iddddd: ", this.str);
     this.storedPhoneNumber = localStorage.getItem("stream");
     console.log("-------: ", this.storedPhoneNumber);
