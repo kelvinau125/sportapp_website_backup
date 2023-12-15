@@ -170,7 +170,7 @@ export default {
     const getStreamUrl = await getPushStreamUrl();
 
     this.code = getStreamUrl["code"];
-    this.host = getStreamUrl["host"];
+    this.host = "rtmp://" +  getStreamUrl["host"] + "/";
     this.time = getStreamUrl["time"];
   },
 

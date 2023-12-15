@@ -107,7 +107,7 @@ export default {
         this.category = (getDetail["sportType"] === "0" ? this.$t("Football") : this.$t("Basketball"))
         this.imageUrl = getDetail["cover"]
         this.title = getDetail["title"]
-        this.host = getDetail["pushHost"]
+        this.host = getDetail["pushHost"] + "/"
         this.code = getDetail["pushCode"]
         this.date = getDetail["liveDate"]
     },
