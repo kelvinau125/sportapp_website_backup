@@ -318,8 +318,8 @@ export default {
 
   mounted() {
     this.generateLiveAddress();
-    console.log("check id--------------------");
-    console.log(this.TournamentID);
+    // console.log("check id--------------------");
+    // console.log(this.TournamentID);
   },
 
   methods: {
@@ -368,7 +368,7 @@ export default {
       } else {
         this.liveAddress = [];
       }
-      console.log("???", this.liveAddress);
+      // console.log("???", this.liveAddress);
     },
   },
 };

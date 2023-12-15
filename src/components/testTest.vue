@@ -54,12 +54,12 @@ export default {
     
     handleFocus(index) {
       // Handle focus if needed
-      console.log(`Input focused at index ${index}`);
+      // console.log(`Input focused at index ${index}`);
     },
 
     handleBlur(index) {
       // Handle blur if needed
-      console.log(`Input blurred at index ${index}`);
+      // console.log(`Input blurred at index ${index}`);
     },
 
     focusNext(index) {
@@ -90,7 +90,7 @@ export default {
 
     readValues() {
       const values = this.controllers.map(controller => controller.value);
-      console.log('Input values:', values);
+      // console.log('Input values:', values);
     },
 
   },

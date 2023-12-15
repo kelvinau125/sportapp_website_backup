@@ -118,7 +118,7 @@ export default {
         this.showLoginModal();
       } else {
         localStorage.setItem("stream", streamerID);
-        console.log("check group id: ", streamerID);
+        // console.log("check group id: ", streamerID);
 
         const routeData = this.$router.resolve({
           name: "LiveStream",

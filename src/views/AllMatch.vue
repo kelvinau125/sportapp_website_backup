@@ -216,7 +216,7 @@ export default {
     selectDate(date) {
       this.selectedDate = date;
       this.activeDate = date;
-      console.log(this.selectedDate);
+      // console.log(this.selectedDate);
       this.generateMatchDetailsList(format(this.selectedDate, 'yyyyMMdd'));
     },
     isActiveDate(date) {

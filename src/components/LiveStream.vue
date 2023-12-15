@@ -5,7 +5,7 @@
         <div class="relative rounded-lg">
           <div class="bg-gray-200 w-[1037px] h-[587px]">
             <!-- <img class="w-full h-full" src="@/assets/live/liveStreamBackground.png" alt="Image" /> -->
-            <video
+            <!-- <video
               class="cursor-pointer w-full h-full"
               preload="auto"
               controls
@@ -20,7 +20,9 @@
                 "
                 type="video/mp4"
               />
-            </video>
+            </video> -->
+            <video ref="myVideo" class="video-js vjs-default-skin w-full h-full" controls></video>
+  
           </div>
           <div class="w-full flex headerBox items-center md:pt-4 pt-3 md:pl-2 pb-2">
             <div class="pl-3">
@@ -229,6 +231,9 @@ import TencentCloudChat from "@tencentcloud/chat";
 import VueCookies from "vue-cookies";
 import TIMUploadPlugin from "tim-upload-plugin";
 
+import videojs from 'video.js';
+import 'video.js/dist/video-js.css';
+
 export default {
   components: {
     ButtonPress,
@@ -246,7 +251,7 @@ export default {
 
     //delete live stream room
     deleteLiveRoom() {
-      console.log("check stream id: ", this.LiveID);
+      // console.log("check stream id: ", this.LiveID);
       deleteStreamDetails(this.LiveID)
         .then((response) => {
           console.log("delete successfully: ", response);
@@ -436,6 +441,7 @@ export default {
       this.StreamName = this.getLiveDetails["nickName"];
       this.imageCover = this.getLiveDetails["cover"];
       this.userId = this.getLiveDetails["userId"];
+      this.videoSource = 	"http://play.mindark.cloud/live/" + (this.getLiveDetails["pushCode"].split('?')[0]) + ".m3u8";
 
       return Promise.resolve();
     },
@@ -479,6 +485,18 @@ export default {
     );
     this.generateLiveList();
     this.toggleIsStreamer();
+
+    // Reference to the video element
+    const videoElement = this.$refs.myVideo;
+
+    // Initialize video.js with the FLV video link
+    videojs(videoElement, {
+      techOrder: ['html5', 'flash'],
+      sources: [
+        { type: 'video/x-mpegURL', src: this.videoSource }
+      ]
+    });
+
   },
   // beforeMount() {
   //   window.addEventListener("beforeunload", this.beforeUnloadHandler);
@@ -488,6 +506,7 @@ export default {
   //   console.log("check id del: ", this.LiveID);
   //   window.removeEventListener("beforeunload", this.beforeUnloadHandler);
   // },
+  
   unmounted() {
     this.timInstance.quitGroup({
       // groupID: `panda${this.storedPhoneNumber}`,
@@ -541,6 +560,7 @@ export default {
       liveData: [],
       imageCover: ref(""),
       userId: null,
+      videoSource: ref(""),
 
       // liveData: [
       //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },

@@ -107,7 +107,7 @@ export default {
         this.category = (getDetail["sportType"] === "0" ? this.$t("Football") : this.$t("Basketball"))
         this.imageUrl = getDetail["cover"]
         this.title = getDetail["title"]
-        this.host = getDetail["pushHost"]
+        this.host = getDetail["pushHost"] + "/"
         this.code = getDetail["pushCode"]
         this.date = getDetail["liveDate"]
     },
@@ -147,12 +147,12 @@ export default {
             });
 
             clipboard.on('success', () => {
-                console.log('Text successfully copied to clipboard');
+                // console.log('Text successfully copied to clipboard');
                 clipboard.destroy();
             });
 
             clipboard.on('error', () => {
-                console.error('Unable to copy text to clipboard');
+                // console.error('Unable to copy text to clipboard');
                 clipboard.destroy();
             });
 

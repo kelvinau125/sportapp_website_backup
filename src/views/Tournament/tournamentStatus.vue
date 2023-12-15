@@ -173,7 +173,7 @@ export default {
 
   async mounted() {
     // --------------------------- call the tournment api --------------------------------------
-    console.log(this.tournamentID);
+    // console.log(this.tournamentID);
 
     // this.getTournamentDetails = await getFootballMatchbyId(1187648, false);
     this.getTournamentDetails = await getFootballMatchbyId(this.tournamentID, ((this.$i18n.locale === 'ZH')?true :false));

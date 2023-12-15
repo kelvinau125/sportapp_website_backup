@@ -25,7 +25,7 @@ export async function useTencentSDK() {
         userID: phonenumber,
         userSig: new genTestUserSig(phonenumber).userSig,
     }).then((result) => {
-        console.log("cheng gong ", result);
+        console.log( result);
     }).catch((err) => {
         console.log("error: ", err);
     }));
