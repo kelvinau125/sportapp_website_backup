@@ -443,9 +443,6 @@ export default {
       this.userId = this.getLiveDetails["userId"];
       this.videoSource = 	"http://play.mindark.cloud/live/" + (this.getLiveDetails["pushCode"].split('?')[0]) + ".m3u8";
 
-      console.log("--adjhfjkafh--")
-      console.log(this.videoSource)
-
       return Promise.resolve();
     },
 
@@ -492,9 +489,6 @@ export default {
     // Reference to the video element
     const videoElement = this.$refs.myVideo;
 
-    console.log("--whereishereeeeeeeeeeeeee--")
-    console.log(this.videoSource)
-
     // Initialize video.js with the FLV video link
     videojs(videoElement, {
       techOrder: ['html5', 'flash'],
@@ -502,14 +496,6 @@ export default {
         { type: 'video/x-mpegURL', src: this.videoSource }
       ]
     });
-
-    // // Optional: Handle component destruction
-    // this.$once('hook:beforeDestroy', () => {
-    //   // Dispose of the video.js player when the component is destroyed
-    //   if (player) {
-    //     player.dispose();
-    //   }
-    // });
 
   },
   // beforeMount() {
