@@ -8,7 +8,11 @@
           <!-- <div>直播窗口内容</div>
             <div>Testing</div> -->
           <div class="relative">
-            <div class="video-wrapper">
+            <div v-show="showWarming" class="video-wrapper w-[892px] h-[505px] rounded-lg bg-black z-10 flex justify-center items-center text-white">
+               <p class="font-medium text-2xl">{{ $t("No live broadcast...") }}</p>
+            </div>
+    
+            <div v-show="!showWarming" class="video-wrapper">
               <!-- <video
                 ref="videoPlayer"
                 :key="selectedEpic ? selectedEpic.epicMoment : 'default'"
@@ -53,7 +57,7 @@
               <!-- </div> -->
             </div>
 
-            <div class="items-center absolute left-5 top-3 flex">
+            <div  v-show="!showWarming" class="items-center absolute left-5 top-3 flex">
               <!-- <div class="pr-2 pl-1 z-10 w-[40px]"> -->
               <img
                 id="circle"
@@ -205,6 +209,7 @@ export default defineComponent({
         { name: "主播名称", image: "defaultProfile", no: "520" },
       ],
       epicMoment: [],
+      showWarming: ref(true),
       // {
       //   image: "moment5",
       //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
@@ -345,6 +350,7 @@ export default defineComponent({
           i++
         ) {
           if (this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1)) {
+            this.showWarming = false;
             this.selectEpic(0, (this.getLiveList[0]["id"]))
             this.selectedEpic = this.getLiveList[0]
 
