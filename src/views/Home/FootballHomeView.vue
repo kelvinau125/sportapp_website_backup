@@ -44,7 +44,7 @@
               <ButtonPress
                 style="background-color: rgba(0, 0, 0, 1)"
                 class="hover-button w-[150px] h-[46px] opacity-[0.6]"
-                @click="handleButtonClick(selectedEpic.streamerID, selectedEpic.liveId)"
+                @click="handleButtonClick((selectedEpic.streamerID || selectedEpic.userId), (selectedEpic.liveId || selectedEpic.id))"
               >
                 <span
                   class="text-base font-normal opacity-100"
@@ -346,6 +346,7 @@ export default defineComponent({
         ) {
           if (this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1)) {
             this.selectEpic(0, (this.getLiveList[0]["id"]))
+            this.selectedEpic = this.getLiveList[0]
 
             if (this.player) {
               this.player.src([{ type: "video/x-mpegURL", src: "http://play.mindark.cloud/live/" + this.getLiveList[0]["pushCode"].split("?")[0] +".m3u8", }]);
