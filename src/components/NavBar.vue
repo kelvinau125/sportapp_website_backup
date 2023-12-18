@@ -1,9 +1,11 @@
 <template>
   <div
-    class="bg-navColor text-white py-1 px-10 shadow md:flex justify-center items-center "
+    class="bg-navColor text-white py-1 px-10 shadow md:flex justify-center items-center"
   >
-    <div class="md:pt-1 pt-2 flex  items-center cursor-pointer">
-      <a href="/"><img class="mr-2" alt="App logo" src="@/assets/topNav/appImage.png" /></a>
+    <div class="md:pt-1 pt-2 flex items-center cursor-pointer">
+      <a href="/"
+        ><img class="mr-2" alt="App logo" src="@/assets/topNav/appImage.png"
+      /></a>
       <div class="items-center md:block hidden">
         <a
           class="md:text-lg text-base font-semibold md:relative"
