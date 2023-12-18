@@ -147,12 +147,12 @@ export default {
             });
 
             clipboard.on('success', () => {
-                console.log('Text successfully copied to clipboard');
+                // console.log('Text successfully copied to clipboard');
                 clipboard.destroy();
             });
 
             clipboard.on('error', () => {
-                console.error('Unable to copy text to clipboard');
+                // console.error('Unable to copy text to clipboard');
                 clipboard.destroy();
             });
 

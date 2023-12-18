@@ -14,7 +14,8 @@ import {
     getStreamDetailsUrl,
     editStreamDetailsUrl,
     getAllStreamDetailsUrl,
-    deleteStreamDetailsByIdUrl
+    deleteStreamDetailsByIdUrl,
+    getPopularStreamDetailsUrl
     } from '@/utils/apiConfig.js';
 
 // get user cookie / set cookie
@@ -175,7 +176,7 @@ export async function getAllStreamDetails() {
     const data = response.data;
 
     if (code === 0) {
-      console.log("debug: ", data);
+      // console.log("debug: ", data);
       return data;
     }else {
       console.log(`get getAllStreamDetails Unsuccessfully: ${code}`);
@@ -187,6 +188,32 @@ export async function getAllStreamDetails() {
     return [];
   }
 }
+
+// get all popular stream details
+export async function getAllPopularStreamDetails() {
+
+  const url = baseUrl + getPopularStreamDetailsUrl
+
+  try {
+    const response = await getRequest(url);
+
+    const code = response.code;
+    const data = response.data;
+
+    if (code === 0) {
+      // console.log("debug: ", data);
+      return data;
+    }else {
+      console.log(`get getAllPopularStreamDetails Unsuccessfully: ${code}`);
+      return [];
+    }
+
+  } catch (e) {
+    console.log(`Unsuccessful in provider: ${e}`);
+    return [];
+  }
+}
+
 
 //delete live stream details after streamer leave the room
 export async function deleteStreamDetails(streamID) {
@@ -200,7 +227,7 @@ export async function deleteStreamDetails(streamID) {
     const data = response.data;
 
     if(code === 0) {
-      console.log("debug: ", data);
+      // console.log("debug: ", data);
       return data;
     }else{
       console.log(`get deleteStreamDetails Unsuccessfully: ${code}`);

@@ -22,7 +22,7 @@
     "Login Now": "Login Now",
     "Welcome to Register, Get Started!": "Welcome to Register, Get Started!",
     "Please Enter Username": "Please Enter Username",
-    "Password must be at least 8 characters and include at least 1 capital letter, number, and special character": "Password must be at least 8 characters and include at least 1 capital letter, number, and special character",
+    "Password must be at least 8 characters and include at least 1 capital letter, number, and special character": "Password must be at least 8 characters and include at least 1 capital letter, at least 1 lower letter, number, and special character",
     "Please Make Sure Password are Same": "Please Make Sure Password are Same",
     "NickName cannot be empty": "NickName cannot be empty",
     "Phone Number cannot be empty": "Phone Number cannot be empty",
@@ -111,7 +111,7 @@
     "Please enter a title": "Please enter a title",
     "Cover": "Cover",
     "Server Address": "Server Address",
-    "Push streaming code": "Push streaming code",
+    "Push streaming code": "Stream Key",
     "Start browsing": "Start browsing",
     "Live broadcast settings": "Live settings",
     "Confirm changes": "Confirm changes",
@@ -138,6 +138,8 @@
 
     "End Stream" : "End Stream",
 
-    "Enter Room" : "Enter Room"
+    "Enter Room" : "Enter Room",
 
+    "Show More": "Show More",
+    "No live broadcast...": "No live broadcast..."
 }

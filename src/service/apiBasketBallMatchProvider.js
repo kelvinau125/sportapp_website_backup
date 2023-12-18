@@ -82,12 +82,12 @@ export async function getBasketballLineUp(matchId, isCN) {
   }
 
 // getMatchByDate
-export async function getBasketballMatchByDate(date, isCN) {
+export async function getBasketballMatchByDate(date, isCN, page) {
     let url = "";
 
     (isCN)
-    ? (url = baseUrl + getBasketballMatchByDateUrl + date)
-    : (url = baseUrl + getBasketballMatchByDateENurl + date);
+    ? (url = baseUrl + getBasketballMatchByDateUrl + date + `?page=${page}&size=20`)
+    : (url = baseUrl + getBasketballMatchByDateENurl + date + `?page=${page}&size=20`);
   
     try {
       const response = await getRequest(url);

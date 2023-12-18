@@ -225,7 +225,7 @@ export default {
 
     // this.getTournamentLineup = await getFootballLineup(5, true);
 
-    console.log(this.getTournamentLineup)
+    // console.log(this.getTournamentLineup)
 
     if (this.getTournamentLineup !== null) {
       if (this.getTournamentDetails !== null) {

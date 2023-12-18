@@ -381,11 +381,15 @@ export const editStreamDetails = '/';
 
 export const getAllStreamDetails = '/list';
 
+export const getAllPopularStreamDetails = '/list/popular';
+
 export const pushStreamUrl = streamBaseUrl + pushStream; //push stream
 
 export const createStreamUrl = streamBaseUrl + createStream; //create live stream
 
 export const getStreamDetailsUrl = streamBaseUrl + getStreamDetails; //get stream details
+
+export const getPopularStreamDetailsUrl = streamBaseUrl + getAllPopularStreamDetails; //get popular stream details
 
 export const editStreamDetailsUrl = streamBaseUrl + editStreamDetails; //edit stream details
 

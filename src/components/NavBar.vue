@@ -1,9 +1,11 @@
 <template>
   <div
-    class="bg-navColor text-white py-1 px-10 shadow md:flex justify-center items-center "
+    class="bg-navColor text-white py-1 px-10 shadow md:flex justify-center items-center"
   >
-    <div class="md:pt-1 pt-2 flex  items-center cursor-pointer">
-      <a href="/"><img class="mr-2" alt="App logo" src="@/assets/topNav/appImage.png" /></a>
+    <div class="md:pt-1 pt-2 flex items-center cursor-pointer">
+      <a href="/"
+        ><img class="mr-2" alt="App logo" src="@/assets/topNav/appImage.png"
+      /></a>
       <div class="items-center md:block hidden">
         <a
           class="md:text-lg text-base font-semibold md:relative"
@@ -273,7 +275,7 @@ export default {
   computed: {
     ...mapState(["currentChannel"]),
     currentChannelComponent() {
-      console.log(this.currentChannel);
+      // console.log(this.currentChannel);
       return this.currentChannel === "football" ? "football" : "basketball";
     },
   },
@@ -351,7 +353,7 @@ export default {
       const searchPages = "1";
 
       if (this.searchQuery === "") {
-        console.log("Search is empty");
+        // console.log("Search is empty");
       } else {
         // this.$router.push({ name: 'ResultPage', query: { searchQuery: this.searchQuery, searchPages: searchPages } });
         this.routeData = this.$router.resolve({
@@ -523,7 +525,7 @@ export default {
     languageChange(locale) {
       this.isDropdownOpenLanguage = false;
       this.$i18n.locale = locale;
-      console.log("let me see see: " + locale);
+      // console.log("let me see see: " + locale);
 
       // Save the selected language to localStorage
       localStorage.setItem("locale", locale);

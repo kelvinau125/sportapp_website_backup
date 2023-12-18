@@ -163,7 +163,7 @@
         }
 
         if(this.$store.getters.status){
-            console.log('forgot password')
+            // console.log('forgot password')
             // change password
             const result = await ForgotPassword(this.getUserPhoneNumber,this.password);
 
@@ -179,7 +179,7 @@
             }
         }
         else {
-            console.log('reset password')
+            // console.log('reset password')
             // change password
             const result = await UpdateUserPassword(this.password);
 
