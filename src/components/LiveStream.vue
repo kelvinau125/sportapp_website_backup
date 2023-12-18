@@ -509,10 +509,10 @@ export default {
   // },
 
   unmounted() {
-    this.timInstance.quitGroup({
-      // groupID: `panda${this.storedPhoneNumber}`,
-      groupID: "panda60122504088",
-    });
+    // this.timInstance.quitGroup({
+    //   // groupID: `panda${this.storedPhoneNumber}`,
+    //   groupID: "panda60122504088",
+    // });
 
     // window.location.reload();
     // console.log("check role: ", this.isStreamer);

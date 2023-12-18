@@ -177,7 +177,7 @@ import { defineComponent, ref } from "vue";
 import { useTencentSDK } from "@/utils/tencentSDKProvder";
 import VueCookies from "vue-cookies";
 
-import { getAllStreamDetails, getStreamDetails } from "@/service/apiStreamProvider.js";
+import { getAllPopularStreamDetails, getStreamDetails } from "@/service/apiStreamProvider.js";
 
 import ButtonPress from "@/components/ButtonPress.vue";
 
@@ -333,54 +333,26 @@ export default defineComponent({
 
     async generateLiveStreamList() {
       this.epicMoment = [];
-      for (let i = 0; i < 6; i++) {
-        this.getLiveList = await getAllStreamDetails();
 
-        if (this.getLiveList.length > 0) {
-          for (let j = 0; j < Math.min(1, this.getLiveList.length) - 1; j++) {
-            if (
-              this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1) &&
-              this.getLiveList[i]["isPopular"] == 1
-            ) {
-              this.epicMoment.push({
-                image: this.getLiveList[j]["cover"],
-                videoSource:
-                  "http://play.mindark.cloud/live/" +
-                  this.getLiveList[j]["pushCode"].split("?")[0] +
-                  ".m3u8",
-                imgSource: this.getLiveList[j]["cover"],
-                liveId: this.getLiveList[j]["id"],
-                streamerID: this.getLiveList[j]["userId"],
-              });
-            }
-          }
-        }
-      }
+      this.getLiveList = await getAllPopularStreamDetails();
 
-      if (this.epicMoment.length < 6) {
-        this.getLiveList = await getAllStreamDetails();
-
-        if (this.getLiveList.length > 0) {
-          for (
-            let i = this.epicMoment.length;
-            i < Math.min(6, this.getLiveList.length);
-            i++
-          ) {
-            if (
-              this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1) &&
-              this.getLiveList[i]["isPopular"] == 0
-            ) {
-              this.epicMoment.push({
-                image: this.getLiveList[i]["cover"],
-                videoSource:
-                  "http://play.mindark.cloud/live/" +
-                  this.getLiveList[i]["pushCode"].split("?")[0] +
-                  ".m3u8",
-                imgSource: this.getLiveList[i]["cover"],
-                liveId: this.getLiveList[i]["id"],
-                streamerID: this.getLiveList[i]["userId"],
-              });
-            }
+      if (this.getLiveList.length > 0) {
+        for (
+          let i = this.epicMoment.length;
+          i < Math.min(6, this.getLiveList.length);
+          i++
+        ) {
+          if (this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1)) {
+            this.epicMoment.push({
+              image: this.getLiveList[i]["cover"],
+              videoSource:
+                "http://play.mindark.cloud/live/" +
+                this.getLiveList[i]["pushCode"].split("?")[0] +
+                ".m3u8",
+              imgSource: this.getLiveList[i]["cover"],
+              liveId: this.getLiveList[i]["id"],
+              streamerID: this.getLiveList[i]["userId"],
+            });
           }
         }
       }
