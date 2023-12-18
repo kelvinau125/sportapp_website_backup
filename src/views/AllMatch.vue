@@ -163,13 +163,17 @@
               </li>
             </ul>
           </div>
-          <ButtonPress
-            @click="handleScroll()"
-            class="w-full bg-grey-300"
-            style="width: 105px; height: 60px; border-radius: 8px"
-          >
-            <p class="text-base font-normal" style="color: #333333">More</p>
-          </ButtonPress>
+          <div class="pt-6">
+            <ButtonPress
+              @click="handleScroll()"
+              class="w-full bg-grey-300"
+              style="width: 180px; height: 60px; border-radius: 8px"
+            >
+              <p class="text-base font-normal" style="color: #ffffff">
+                {{ $t("Show More") }}
+              </p>
+            </ButtonPress>
+          </div>
         </div>
       </div>
     </div>
@@ -197,7 +201,7 @@ export default {
   },
 
   async mounted() {
-    // ------------------------------------------------------------------- Translation Part ------------------------------------------ Remember Change It ----------------------------
+    this.loadSelectedDate = format(this.currentDate, "yyyyMMdd");
     this.isCN = this.$i18n.locale === "ZH" ? true : false;
     // this.isCN = false;
     // this.handleScroll;
@@ -220,6 +224,8 @@ export default {
       currentDate: ref(new Date()),
       daysToShow: ref(7),
       selectedDate: ref(null),
+
+      loadSelectedDate: ref(null),
 
       favoriteList: [],
       matchdate: "",
@@ -252,7 +258,6 @@ export default {
       console.log(event);
     },
     handleScroll() {
-      console.log("aaaaa");
       // const scrollContainer = this.$refs.scrollContainer;
 
       // const container = this.$el;
@@ -287,12 +292,13 @@ export default {
       //   this.generateMatchDetailsList(this.selectedDate, this.page);
       // }
       this.page++;
-      this.getFavoriteFromBookmark();
+      this.loadMoreGenerateMatchDetailsList(this.loadSelectedDate, this.page);
     },
 
     async toggleFavorite(match, matchID) {
       match.favorite = !match.favorite;
 
+      console.log(matchID);
       if (match.favorite) {
         await liveStreamSaveBookmark(matchID, this.currentChannel, this.isCN);
       } else {
@@ -346,6 +352,7 @@ export default {
     selectDate(date) {
       this.selectedDate = date;
       this.activeDate = date;
+      this.loadSelectedDate = format(date, "yyyyMMdd");
       // console.log(this.selectedDate);
       this.generateMatchDetailsList(format(this.selectedDate, "yyyyMMdd"), this.page);
     },
@@ -355,6 +362,40 @@ export default {
 
     async generateMatchDetailsList(matchdate, page) {
       this.matchDetails = [];
+      this.currentChannel
+        ? //football
+          (this.getMatchList = await getMatchByDate(matchdate, this.isCN, page))
+        : //basketball
+          (this.getMatchList = await getBasketballMatchByDate(
+            matchdate,
+            this.isCN,
+            page
+          ));
+
+      for (let i = 0; i < this.getMatchList.length; i++) {
+        const matchId = this.getMatchList[i]["id"];
+        // Check if the match ID is in the list of favorite IDs
+        const isFavorite = this.favoriteList.includes(matchId);
+
+        this.matchDetails.push({
+          matchType: this.getMatchList[i]["competitionName"],
+          date: this.getMatchList[i]["matchDate"],
+          time: this.getMatchList[i]["matchTimeStr"],
+          homeTeamName: this.getMatchList[i]["homeTeamName"],
+          homeTeamIcon: this.getMatchList[i]["homeTeamLogo"],
+          homeTeamScore: this.getMatchList[i]["homeTeamScore"],
+          awayTeamName: this.getMatchList[i]["awayTeamName"],
+          awayTeamIcon: this.getMatchList[i]["awayTeamLogo"],
+          awayTeamScore: this.getMatchList[i]["awayTeamScore"],
+          overTime: "null",
+          favorite: isFavorite,
+          statusStr: this.getMatchList[i]["statusStr"],
+          linkAddress: this.getMatchList[i]["id"],
+        });
+      }
+    },
+
+    async loadMoreGenerateMatchDetailsList(matchdate, page) {
       this.currentChannel
         ? //football
           (this.getMatchList = await getMatchByDate(matchdate, this.isCN, page))
