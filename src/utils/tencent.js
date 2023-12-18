@@ -1,9 +1,6 @@
 
 // tencent api
-import TIM from "tim-js-sdk/tim-js-friendship.js";
 import genTestUserSig from "@/tencent/GenerateTestUserSig.js";
-import TencentCloudChat from "@tencentcloud/chat";
-import VueCookies from "vue-cookies";
 import TIMUploadPlugin from "tim-upload-plugin";
 
 

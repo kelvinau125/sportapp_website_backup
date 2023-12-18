@@ -78,12 +78,12 @@ export async function getFootballLineup(matchId, isCN) {
   }
 
 // getMatchByDate
-export async function getMatchByDate(date, isCN) {
+export async function getMatchByDate(date, isCN, page) {
     let url = "";
 
     (isCN)
-    ? (url = baseUrl + getMatchByDateUrl + date)
-    : (url = baseUrl + getFootballMatchListByDateENurl + date);
+    ? (url = baseUrl + getMatchByDateUrl + date + `?page=${page}&size=20`)
+    : (url = baseUrl + getFootballMatchListByDateENurl + date + `?page=${page}&size=20`);
   
     try {
       const response = await getRequest(url);

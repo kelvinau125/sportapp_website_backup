@@ -22,7 +22,7 @@
     "Login Now": "现在登入",
     "Welcome to Register, Get Started!": "欢迎注册， 开始使用!",
     "Please Enter Username": "请输入用户名",
-    "Password must be at least 8 characters and include at least 1 capital letter, number, and special character": "密码必须至少为 8 个字符，并且至少包含 1 个大写字母、数字和特殊字符",
+    "Password must be at least 8 characters and include at least 1 capital letter, number, and special character": "密码必须至少为 8 个字符，并且至少包含 1 个大写字母、一个小写字母、数字和特殊字符",
     "Please Make Sure Password are Same": "请确保密码的一致性",
     "NickName cannot be empty": "昵称不能为空",
     "Phone Number cannot be empty": "手机号不能为空",
@@ -138,6 +138,7 @@
 
     "End Stream" : "结束直播",
 
-    "Enter Room" : "进入直播间"
+    "Enter Room" : "进入直播间",
 
+    "Show More": "展示更多"
 }
