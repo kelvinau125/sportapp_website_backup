@@ -21,8 +21,11 @@
                 type="video/mp4"
               />
             </video> -->
-            <video ref="myVideo" class="video-js vjs-default-skin w-full h-full" controls></video>
-  
+            <video
+              ref="myVideo"
+              class="video-js vjs-default-skin w-full h-full"
+              controls
+            ></video>
           </div>
           <div class="w-full flex headerBox items-center md:pt-4 pt-3 md:pl-2 pb-2">
             <div class="pl-3">
@@ -231,8 +234,8 @@ import TencentCloudChat from "@tencentcloud/chat";
 import VueCookies from "vue-cookies";
 import TIMUploadPlugin from "tim-upload-plugin";
 
-import videojs from 'video.js';
-import 'video.js/dist/video-js.css';
+import videojs from "video.js";
+import "video.js/dist/video-js.css";
 
 export default {
   components: {
@@ -438,7 +441,10 @@ export default {
       this.StreamName = this.getLiveDetails["nickName"];
       this.imageCover = this.getLiveDetails["cover"];
       this.userId = this.getLiveDetails["userId"];
-      this.videoSource = 	"http://play.mindark.cloud/live/" + (this.getLiveDetails["pushCode"].split('?')[0]) + ".m3u8";
+      this.videoSource =
+        "http://play.mindark.cloud/live/" +
+        this.getLiveDetails["pushCode"].split("?")[0] +
+        ".m3u8";
 
       return Promise.resolve();
     },
@@ -485,15 +491,13 @@ export default {
 
     // Reference to the video element
     const videoElement = this.$refs.myVideo;
+    console.log("check url video: ", videoElement.src);
 
     // Initialize video.js with the FLV video link
     videojs(videoElement, {
-      techOrder: ['html5', 'flash'],
-      sources: [
-        { type: 'video/x-mpegURL', src: this.videoSource }
-      ]
+      techOrder: ["html5", "flash"],
+      sources: [{ type: "video/x-mpegURL", src: this.videoSource }],
     });
-
   },
   // beforeMount() {
   //   window.addEventListener("beforeunload", this.beforeUnloadHandler);
@@ -503,7 +507,7 @@ export default {
   //   console.log("check id del: ", this.LiveID);
   //   window.removeEventListener("beforeunload", this.beforeUnloadHandler);
   // },
-  
+
   unmounted() {
     this.timInstance.quitGroup({
       // groupID: `panda${this.storedPhoneNumber}`,

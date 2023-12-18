@@ -38,27 +38,13 @@
                 style="cursor: pointer"
                 autoPlay
                 controls
-              >
-                <source
-                  :src="
-                    this.selectedEpic
-                      ? this.selectedEpic.videoSource
-                      : 'rtmp://play.mindark.cloud/live/1bc2209896b6423abc90753a9e87f1ac.m3u8'
-                  "
-                  type="video/x-mpegURL"
-                />
-              </video>
+              ></video>
 
               <!-- <div class="hover-button" @click="handleButtonClick"> -->
               <ButtonPress
                 style="background-color: rgba(0, 0, 0, 1)"
                 class="hover-button w-[150px] h-[46px] opacity-[0.6]"
-                @click="
-                  handleButtonClick(
-                    selectedEpic.streamerID,
-                    selectedEpic.liveId
-                  )
-                "
+                @click="handleButtonClick(selectedEpic.streamerID, selectedEpic.liveId)"
               >
                 <span
                   class="text-base font-normal opacity-100"
@@ -107,11 +93,7 @@
                 :key="epic.epicMoment"
                 @click="selectEpic(epic, epic.liveId)"
               >
-                <img
-                  :src="epic.image"
-                  alt="Epic Image"
-                  style="cursor: pointer"
-                />
+                <img :src="epic.image" alt="Epic Image" style="cursor: pointer" />
               </div>
             </div>
           </div>
@@ -165,9 +147,7 @@
             </div>
             <div class="flex items-center">
               <div>
-                <p
-                  class="text-10px font-normal text-grayText hover:text-green-500"
-                >
+                <p class="text-10px font-normal text-grayText hover:text-green-500">
                   {{ link.no }}
                 </p>
               </div>
@@ -197,10 +177,7 @@ import { defineComponent, ref } from "vue";
 import { useTencentSDK } from "@/utils/tencentSDKProvder";
 import VueCookies from "vue-cookies";
 
-import {
-  getAllStreamDetails,
-  getStreamDetails,
-} from "@/service/apiStreamProvider.js";
+import { getAllStreamDetails, getStreamDetails } from "@/service/apiStreamProvider.js";
 
 import ButtonPress from "@/components/ButtonPress.vue";
 
@@ -216,6 +193,9 @@ export default defineComponent({
   },
   data() {
     return {
+      myVideo: ref(
+        "http://play.mindark.cloud/live/1bc2209896b6423abc90753a9e87f1ac.m3u8"
+      ),
       tim: null,
       streamer: [
         { name: "主播名称", image: "defaultProfile", no: "1234" },
@@ -269,14 +249,9 @@ export default defineComponent({
   },
   computed: {
     selectedEpicVideoSource() {
-      // console.log(this.selectedEpic.videoSource);
-      return this.selectedEpic
-        ? this.selectedEpic.videoSource
-        : "https://vjs.zencdn.net/v/oceans.mp4";
+      return this.myVideo.videoSource;
     },
     selectedLiveStreamImage() {
-      // console.log("check poster: ", this.selectedEpic.imgSource);
-
       return this.selectedEpic
         ? this.selectedEpic.imgSource
         : "https://fictionhorizon.com/wp-content/uploads/2023/09/GojoStar.jpg";
@@ -284,8 +259,6 @@ export default defineComponent({
   },
 
   mounted() {
-    this.$refs.myVideo.src = this.selectedEpic.videoSource;
-
     this.generateLiveStreamList();
     if (VueCookies.isKey("phoneNumber")) {
       useTencentSDK().then((timInstance) => {
@@ -293,27 +266,24 @@ export default defineComponent({
       });
     }
     this.initVideoPlayer();
-    // // Reference to the video element
-    // const videoElement = this.$refs.myVideo;
-
-    // // Initialize video.js with the FLV video link
-    // videojs(videoElement, {
-    //   techOrder: ['html5', 'flash'],
-    //   sources: [
-    //     { type: 'video/x-mpegURL', src: "http://play.mindark.cloud/live/499309c35e4c4701b96abe5f26a974a5.m3u8" }
-    //   ]
-    // });
   },
   methods: {
     initVideoPlayer() {
       // Reference to the video element
       const videoElement = this.$refs.myVideo;
+      console.log("check ref:", this.$refs.myVideo);
 
       // Initialize video.js with the FLV video link
       this.player = videojs(videoElement, {
         techOrder: ["html5", "flash"],
-        sources: [{ type: "video/x-mpegURL", src: this.liveVideoSouce }],
+        sources: [
+          {
+            type: "video/x-mpegURL",
+            src: this.myVideo,
+          },
+        ],
       });
+      console.log("check in init:", this.myVideo);
 
       // Autoplay the video
       this.player.autoplay(true);
@@ -339,10 +309,6 @@ export default defineComponent({
       }
     },
     async displayLive(liveID) {
-      // console.log("-----------------------------");
-      // console.log("helllo");
-      // console.log(liveID);
-
       this.getLiveDetails = await getStreamDetails(liveID);
 
       this.LiveTitle = this.getLiveDetails["title"];
@@ -350,86 +316,46 @@ export default defineComponent({
       this.StreamName = this.getLiveDetails["nickName"];
     },
 
-    // toSetLogLevel() {
-    //   this.tim.setLogLevel(4);
-    // },
-
-    // toRegisterPlugin() {
-    //   this.tim?.registerPlugin({
-    //     "tim-upload-plugin": TIMUploadPlugin,
-    //   });
-    // },
-
-    // toLogin() {
-    //   this.tim
-    //     .login({
-    //       userID: this.phonenumber,
-    //       userSig: new genTestUserSig(this.phonenumber).userSig,
-    //     })
-    //     .then((response) => {
-    //       console.log("logined", response);
-    //     })
-    //     .catch((error) => {
-    //       console.warn("error", error);
-    //     });
-    // },
-
     selectEpic(epic, liveId) {
-      // console.log("what is clicking: ", epic, " and ", liveId);
       this.displayLive(liveId);
+      let myVideo = epic;
       this.selectedEpic = epic;
-      // this.$refs.videoPlayer.src = "";
-      console.log("------------------------------");
-      console.log("check selected epic:", this.selectedEpic.videoSource);
+
+      if (this.player) {
+        this.player.src([{ type: "video/x-mpegURL", src: epic.videoSource }]);
+        this.player.autoplay(true);
+      }
+
       this.$nextTick(() => {
-        this.liveVideoSouce =
-          "rtmp://play.mindark.cloud/live/1030b78dcb57475782b9f1925fa1b7f9.m3u8";
-        // this.$refs.videoPlayer.src = this.selectedEpic
-        //   ? "https://vjs.zencdn.net/v/oceans.mp4"
-        //   : "https://vjs.zencdn.net/v/oceans.mp4";
+        this.liveVideoSouce = myVideo;
       });
     },
 
     async generateLiveStreamList() {
       this.epicMoment = [];
-
       for (let i = 0; i < 6; i++) {
         this.getLiveList = await getAllStreamDetails();
 
-        // console.log("-----------------------------");
-        // console.log(this.getLiveList);
-        // console.log(this.getLiveList.length);
-
         if (this.getLiveList.length > 0) {
           for (let j = 0; j < Math.min(1, this.getLiveList.length) - 1; j++) {
-            // Check if sportType is 0 (football)
-
-            // console.log("==========================================");
-            // console.log(this.getLiveList[i]);
             if (
-              this.getLiveList[i]["sportType"] ==
-                (this.currentChannel ? 0 : 1) &&
+              this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1) &&
               this.getLiveList[i]["isPopular"] == 1
             ) {
               this.epicMoment.push({
                 image: this.getLiveList[j]["cover"],
                 videoSource:
-                  "rtmp://play.mindark.cloud/live/" +
-                  this.getLiveList[j]["pushCode"].split("?")[0],
+                  "http://play.mindark.cloud/live/" +
+                  this.getLiveList[j]["pushCode"].split("?")[0] +
+                  ".m3u8",
                 imgSource: this.getLiveList[j]["cover"],
                 liveId: this.getLiveList[j]["id"],
                 streamerID: this.getLiveList[j]["userId"],
               });
             }
           }
-
-          console.log("check live: ", this.epicMoment);
         }
       }
-
-      // console.log("---------------------11111-------------------------");
-      // console.log(this.epicMoment);
-      // console.log(this.epicMoment.length);
 
       if (this.epicMoment.length < 6) {
         this.getLiveList = await getAllStreamDetails();
@@ -440,30 +366,24 @@ export default defineComponent({
             i < Math.min(6, this.getLiveList.length);
             i++
           ) {
-            // Check if sportType is 0 (football)
             if (
-              this.getLiveList[i]["sportType"] ==
-                (this.currentChannel ? 0 : 1) &&
+              this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1) &&
               this.getLiveList[i]["isPopular"] == 0
             ) {
               this.epicMoment.push({
                 image: this.getLiveList[i]["cover"],
                 videoSource:
-                  "rtmp://play.mindark.cloud/live/" +
-                  this.getLiveList[i]["pushCode"].split("?")[0],
+                  "http://play.mindark.cloud/live/" +
+                  this.getLiveList[i]["pushCode"].split("?")[0] +
+                  ".m3u8",
                 imgSource: this.getLiveList[i]["cover"],
                 liveId: this.getLiveList[i]["id"],
                 streamerID: this.getLiveList[i]["userId"],
               });
             }
-
-            console.log("check epic: ", this.epicMoment);
           }
         }
       }
-
-      // console.log("----------------------------------------------")
-      // console.log(this.epicMoment)
     },
   },
 });
