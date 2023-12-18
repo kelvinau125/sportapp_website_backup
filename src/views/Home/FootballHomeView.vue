@@ -36,8 +36,6 @@
                 preload="auto"
                 class="video-js vjs-default-skin w-full h-full"
                 style="cursor: pointer"
-                autoPlay
-                controls
               ></video>
 
               <!-- <div class="hover-button" @click="handleButtonClick"> -->
@@ -284,6 +282,8 @@ export default defineComponent({
             src: this.myVideo,
           },
         ],
+        autoPlay: true,
+        muted: true,
       });
       console.log("check in init:", this.myVideo);
 

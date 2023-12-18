@@ -25,6 +25,8 @@
               ref="myVideo"
               class="video-js vjs-default-skin w-full h-full"
               controls
+              autoplay
+              muted
             ></video>
           </div>
           <div class="w-full flex headerBox items-center md:pt-4 pt-3 md:pl-2 pb-2">
