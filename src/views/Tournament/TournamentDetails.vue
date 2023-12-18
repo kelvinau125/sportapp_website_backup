@@ -122,7 +122,7 @@
     </div>
   </div>
 
-  <div class="flex justify-center">
+  <div v-show="false" class="flex justify-center">
     <div class="liveContainer">
       <h2 class="text-headerFont font-headerWeight">{{ $t("Live") }}</h2>
       <div>
@@ -135,10 +135,10 @@
       </div>
     </div>
   </div>
-  <div class="py-3 flex justify-center">
+  <div v-show="false" class="py-3 flex justify-center">
     <LiveList />
   </div>
-  <div class="flex justify-center">
+  <div v-show="false" class="flex justify-center">
     <div class="w-[892px]">
       <div class="flex items-center">
         <img src="@/assets//tournament/streamIcon.png" />
@@ -386,7 +386,7 @@ export default {
   width: 100%;
   box-sizing: border-box;
   text-align: start;
-  padding: 20px;
+  /* padding: 20px; */
   margin: 0 auto;
 }
 
