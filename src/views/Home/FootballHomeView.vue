@@ -9,7 +9,7 @@
             <div>Testing</div> -->
           <div class="relative">
             <div class="video-wrapper">
-              <video
+              <!-- <video
                 ref="videoPlayer"
                 :key="selectedEpic ? selectedEpic.epicMoment : 'default'"
                 id="my-player"
@@ -29,16 +29,36 @@
                   "
                   type="video/mp4"
                 />
-                <!-- <p class="vjs-no-js"> -->
-                <!-- <a href="https://vjs.zencdn.net/v/oceans.mp4">`1`ing URL</a> -->
-
-                <!-- </p> -->
+              </video> -->
+              <!-- <video ref="myVideo" preload="auto" class="video-js vjs-default-skin w-full h-full" controls autoplay></video> -->
+              <video
+                ref="myVideo"
+                preload="auto"
+                class="video-js vjs-default-skin w-full h-full"
+                style="cursor: pointer"
+                autoPlay
+                controls
+              >
+                <source
+                  :src="
+                    this.selectedEpic
+                      ? this.selectedEpic.videoSource
+                      : 'rtmp://play.mindark.cloud/live/1bc2209896b6423abc90753a9e87f1ac.m3u8'
+                  "
+                  type="video/x-mpegURL"
+                />
               </video>
+
               <!-- <div class="hover-button" @click="handleButtonClick"> -->
               <ButtonPress
                 style="background-color: rgba(0, 0, 0, 1)"
                 class="hover-button w-[150px] h-[46px] opacity-[0.6]"
-                @click="handleButtonClick(selectedEpic.streamerID, selectedEpic.liveId)"
+                @click="
+                  handleButtonClick(
+                    selectedEpic.streamerID,
+                    selectedEpic.liveId
+                  )
+                "
               >
                 <span
                   class="text-base font-normal opacity-100"
@@ -87,7 +107,11 @@
                 :key="epic.epicMoment"
                 @click="selectEpic(epic, epic.liveId)"
               >
-                <img :src="epic.image" alt="Epic Image" style="cursor: pointer" />
+                <img
+                  :src="epic.image"
+                  alt="Epic Image"
+                  style="cursor: pointer"
+                />
               </div>
             </div>
           </div>
@@ -141,7 +165,9 @@
             </div>
             <div class="flex items-center">
               <div>
-                <p class="text-10px font-normal text-grayText hover:text-green-500">
+                <p
+                  class="text-10px font-normal text-grayText hover:text-green-500"
+                >
                   {{ link.no }}
                 </p>
               </div>
@@ -171,9 +197,15 @@ import { defineComponent, ref } from "vue";
 import { useTencentSDK } from "@/utils/tencentSDKProvder";
 import VueCookies from "vue-cookies";
 
-import { getAllStreamDetails, getStreamDetails } from "@/service/apiStreamProvider.js";
+import {
+  getAllStreamDetails,
+  getStreamDetails,
+} from "@/service/apiStreamProvider.js";
 
 import ButtonPress from "@/components/ButtonPress.vue";
+
+import videojs from "video.js";
+import "video.js/dist/video-js.css";
 
 export default defineComponent({
   components: {
@@ -232,6 +264,7 @@ export default defineComponent({
       LiveTitle: "",
       StreamIcon: "",
       StreamName: "",
+      liveVideoSouce: "",
     };
   },
   computed: {
@@ -242,6 +275,8 @@ export default defineComponent({
         : "https://vjs.zencdn.net/v/oceans.mp4";
     },
     selectedLiveStreamImage() {
+      // console.log("check poster: ", this.selectedEpic.imgSource);
+
       return this.selectedEpic
         ? this.selectedEpic.imgSource
         : "https://fictionhorizon.com/wp-content/uploads/2023/09/GojoStar.jpg";
@@ -249,15 +284,40 @@ export default defineComponent({
   },
 
   mounted() {
+    this.$refs.myVideo.src = this.selectedEpic.videoSource;
+
     this.generateLiveStreamList();
     if (VueCookies.isKey("phoneNumber")) {
       useTencentSDK().then((timInstance) => {
         this.tim = timInstance.timInstance._value;
       });
     }
-  },
+    this.initVideoPlayer();
+    // // Reference to the video element
+    // const videoElement = this.$refs.myVideo;
 
+    // // Initialize video.js with the FLV video link
+    // videojs(videoElement, {
+    //   techOrder: ['html5', 'flash'],
+    //   sources: [
+    //     { type: 'video/x-mpegURL', src: "http://play.mindark.cloud/live/499309c35e4c4701b96abe5f26a974a5.m3u8" }
+    //   ]
+    // });
+  },
   methods: {
+    initVideoPlayer() {
+      // Reference to the video element
+      const videoElement = this.$refs.myVideo;
+
+      // Initialize video.js with the FLV video link
+      this.player = videojs(videoElement, {
+        techOrder: ["html5", "flash"],
+        sources: [{ type: "video/x-mpegURL", src: this.liveVideoSouce }],
+      });
+
+      // Autoplay the video
+      this.player.autoplay(true);
+    },
     handleButtonClick(streamerID, liveID) {
       const userToken = VueCookies.get("userToken");
       // console.log("check bug: ", liveID, " ", streamerID);
@@ -318,11 +378,15 @@ export default defineComponent({
       // console.log("what is clicking: ", epic, " and ", liveId);
       this.displayLive(liveId);
       this.selectedEpic = epic;
-      this.$refs.videoPlayer.src = "";
+      // this.$refs.videoPlayer.src = "";
+      console.log("------------------------------");
+      console.log("check selected epic:", this.selectedEpic.videoSource);
       this.$nextTick(() => {
-        this.$refs.videoPlayer.src = this.selectedEpic
-          ? this.selectedEpic.videoSource
-          : "https://vjs.zencdn.net/v/oceans.mp4";
+        this.liveVideoSouce =
+          "rtmp://play.mindark.cloud/live/1030b78dcb57475782b9f1925fa1b7f9.m3u8";
+        // this.$refs.videoPlayer.src = this.selectedEpic
+        //   ? "https://vjs.zencdn.net/v/oceans.mp4"
+        //   : "https://vjs.zencdn.net/v/oceans.mp4";
       });
     },
 
@@ -343,22 +407,23 @@ export default defineComponent({
             // console.log("==========================================");
             // console.log(this.getLiveList[i]);
             if (
-              this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1) &&
+              this.getLiveList[i]["sportType"] ==
+                (this.currentChannel ? 0 : 1) &&
               this.getLiveList[i]["isPopular"] == 1
             ) {
               this.epicMoment.push({
                 image: this.getLiveList[j]["cover"],
                 videoSource:
-                  "rtmp://" +
-                  this.getLiveList[j]["pushHost"] +
-                  "/" +
-                  this.getLiveList[j]["pushCode"],
+                  "rtmp://play.mindark.cloud/live/" +
+                  this.getLiveList[j]["pushCode"].split("?")[0],
                 imgSource: this.getLiveList[j]["cover"],
                 liveId: this.getLiveList[j]["id"],
                 streamerID: this.getLiveList[j]["userId"],
               });
             }
           }
+
+          console.log("check live: ", this.epicMoment);
         }
       }
 
@@ -377,21 +442,22 @@ export default defineComponent({
           ) {
             // Check if sportType is 0 (football)
             if (
-              this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1) &&
+              this.getLiveList[i]["sportType"] ==
+                (this.currentChannel ? 0 : 1) &&
               this.getLiveList[i]["isPopular"] == 0
             ) {
               this.epicMoment.push({
                 image: this.getLiveList[i]["cover"],
                 videoSource:
-                  "rtmp://" +
-                  this.getLiveList[i]["pushHost"] +
-                  "/" +
-                  this.getLiveList[i]["pushCode"],
+                  "rtmp://play.mindark.cloud/live/" +
+                  this.getLiveList[i]["pushCode"].split("?")[0],
                 imgSource: this.getLiveList[i]["cover"],
                 liveId: this.getLiveList[i]["id"],
                 streamerID: this.getLiveList[i]["userId"],
               });
             }
+
+            console.log("check epic: ", this.epicMoment);
           }
         }
       }
