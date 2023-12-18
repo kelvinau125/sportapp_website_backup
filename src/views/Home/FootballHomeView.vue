@@ -193,9 +193,10 @@ export default defineComponent({
   },
   data() {
     return {
-      myVideo: ref(
-        "http://play.mindark.cloud/live/1bc2209896b6423abc90753a9e87f1ac.m3u8"
-      ),
+      // myVideo: ref(
+      //   "http://play.mindark.cloud/live/1bc2209896b6423abc90753a9e87f1ac.m3u8"
+      // ),
+      myVideo: ref(),
       tim: null,
       streamer: [
         { name: "主播名称", image: "defaultProfile", no: "1234" },
@@ -267,6 +268,7 @@ export default defineComponent({
     }
     this.initVideoPlayer();
   },
+
   methods: {
     initVideoPlayer() {
       // Reference to the video element
@@ -343,6 +345,13 @@ export default defineComponent({
           i++
         ) {
           if (this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1)) {
+            this.selectEpic(0, (this.getLiveList[0]["id"]))
+
+            if (this.player) {
+              this.player.src([{ type: "video/x-mpegURL", src: "http://play.mindark.cloud/live/" + this.getLiveList[0]["pushCode"].split("?")[0] +".m3u8", }]);
+              this.player.autoplay(true);
+            }
+
             this.epicMoment.push({
               image: this.getLiveList[i]["cover"],
               videoSource:
