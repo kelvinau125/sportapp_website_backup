@@ -9,9 +9,10 @@
               <img src="@/assets/toLeft.png" alt="Previous Week" class="" />
             </button>
           </div>
-          <div @click="selectDate(day)" v-for="day in week" :key="day" class="date-item  px-0.5 rounded-lg"
+          
+          <div @click="selectDate(day);" v-for="day in week" :key="day" class="date-item  px-0.5 rounded-lg"
             style="width: 119px; height: 35px;">
-            <div :class="{ 'active-date': isActiveDate(day) }"
+            <div :class="{ 'active-date': isActiveDate(day,week)}"
               class="flex flex-col hover:bg-hoverGreen items-center rounded-lg h-[45px]">
               <div class="font-medium text-sm pt-1">{{ formatDay(day) }}</div>
               <div class="day-of-week font-medium text-xs text-grayText">{{ $t(formatDayOfWeek(day)) }}</div>
@@ -133,6 +134,7 @@ export default {
     // ------------------------------------------------------------------- Translation Part ------------------------------------------ Remember Change It ----------------------------
     this.isCN = ((this.$i18n.locale === 'ZH') ? true : false)
     // this.isCN = false;
+    this.activeDate= new Date(), // Initialize activeDate with the current date
 
     this.getFavoriteFromBookmark();
   },
@@ -144,6 +146,9 @@ export default {
       currentChannel: ref((localStorage.getItem('currentChannel') === "football") ? true : false),
       activeDate: null,
 
+      todayDate: new Date(),
+      firstReload: true,
+      count: ref(0),
       currentDate: ref(new Date()),
       daysToShow: ref(7),
       selectedDate: ref(null),
@@ -216,11 +221,27 @@ export default {
     selectDate(date) {
       this.selectedDate = date;
       this.activeDate = date;
-      console.log(this.selectedDate);
       this.generateMatchDetailsList(format(this.selectedDate, 'yyyyMMdd'));
     },
-    isActiveDate(date) {
-      return this.activeDate === date;
+    isActiveDate(date, week) {
+      this.count ++;
+
+      if(this.firstReload)
+      {
+        if(this.count >= (week.length*304) )
+        {
+          console.log("here");
+          this.firstReload = false;
+        }
+        const dateToCompare = new Date(date);
+        // Set time components to zero for accurate date comparison
+        dateToCompare.setHours(0, 0, 0, 0);
+        this.todayDate.setHours(0, 0, 0, 0);
+        return dateToCompare.getTime() === this.todayDate.getTime();
+      }
+      else{
+        return this.activeDate === date;
+      }
     },
 
     async generateMatchDetailsList(matchdate) {

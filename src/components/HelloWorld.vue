@@ -1,4 +1,9 @@
 <template>
+  <div style="width: 100%; height: 100%; position: relative">
+    <div style="width: 101px; height: 0px; left: 0px; top: 6px; position: absolute; border: 1px #999999 solid"></div>
+    <div style="width: 102px; height: 0px; left: 201px; top: 6px; position: absolute; border: 1px #999999 solid"></div>
+    <div style="left: 107px; top: 0px; position: absolute; text-align: center; color: #666666; font-size: 12px; font-family: PingFang SC; font-weight: 400; line-height: 12px; letter-spacing: 0.12px; word-wrap: break-word">Product Details</div>
+</div>
   <div class="flex justify-center">
     <div class="max-w-[1519px]  md:flex justify-between pt-1.5">
       <div class="live-container  ">
