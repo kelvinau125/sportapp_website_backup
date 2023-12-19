@@ -355,20 +355,20 @@ export default {
           ? //football
             (this.getfootballMatchList = await getMatchByDate(
               format(this.currentDate, "yyyyMMdd"),
-              this.isCN
+              this.isCN,
+              1
             ))
           : //basketball
             (this.getfootballMatchList = await getBasketballMatchByDate(
               format(this.currentDate, "yyyyMMdd"),
-              this.isCN
+              this.isCN,
+              1
             ));
-
-        console.log(this.getfootballMatchList);
 
         if (this.getfootballMatchList.length !== 0) {
           for (
             let i = this.matchDetails.length;
-            i < Math.min(4, this.matchDetails.length);
+            i < Math.min(4, this.matchDetails.length + 4);
             i++
           ) {
             const matchId = this.getfootballMatchList[i]["id"];
@@ -389,7 +389,6 @@ export default {
               favourite: isFavorite,
               linkAddress: this.getfootballMatchList[i]["id"],
               status: this.getfootballMatchList[i]["statusStr"],
-              // status: "开",
             });
           }
         }
@@ -400,7 +399,6 @@ export default {
 </script>
 <style scoped>
 .border {
-  /* border: 1px solid red; */
   border-radius: 8px;
 }
 
