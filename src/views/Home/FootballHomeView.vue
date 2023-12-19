@@ -6,7 +6,7 @@
           <div class="relative">
             <div
               v-show="showWarming"
-              class="video-wrapper w-[892px] h-[505px] rounded-lg bg-black z-10 flex justify-center items-center text-white"
+              class="video-wrapper w-[892px] h-[505px] rounded-lg bg-transparent z-10 flex justify-center items-center text-white"
             >
               <p class="font-medium text-2xl">{{ $t("No live broadcast...") }}</p>
             </div>
@@ -330,7 +330,7 @@ export default defineComponent({
             name: this.getAnchorList[i]["nickName"],
             image: this.getAnchorList[i]["head"],
             // no: this.getAnchorList[i]["popularAnchor"],
-            no: 99999,
+            no: 9999 + "+",
           });
         }
       }
