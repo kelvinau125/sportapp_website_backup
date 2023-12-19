@@ -280,14 +280,15 @@ export default {
       if (this.matchDetails.length <= 4) {
         (this.currentChannel)
           //football
-          ? this.getfootballMatchList = await getMatchByDate(format(this.currentDate, 'yyyyMMdd'), this.isCN)
+          ? this.getfootballMatchList = await getMatchByDate(format(this.currentDate, 'yyyyMMdd'), this.isCN, 1)
           //basketball
-          : this.getfootballMatchList = await getBasketballMatchByDate(format(this.currentDate, 'yyyyMMdd'), this.isCN);
+          : this.getfootballMatchList = await getBasketballMatchByDate(format(this.currentDate, 'yyyyMMdd'), this.isCN, 1);
 
         console.log(this.getfootballMatchList)
+        console.log(this.matchDetails.length)
 
         if (this.getfootballMatchList.length !== 0) {
-          for (let i = this.matchDetails.length; i < Math.min(4, this.matchDetails.length); i++) {
+          for (let i = this.matchDetails.length; i < Math.min(4, this.matchDetails.length+4); i++) {
             const matchId = this.getfootballMatchList[i]["id"];
             // Check if the match ID is in the list of favorite IDs
             const isFavorite = this.favoriteList.includes(matchId);

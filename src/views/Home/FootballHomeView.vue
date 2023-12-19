@@ -280,7 +280,7 @@ export default defineComponent({
     initVideoPlayer() {
       // Reference to the video element
       const videoElement = this.$refs.myVideo;
-      console.log("check ref:", this.$refs.myVideo);
+      // console.log("check ref:", this.$refs.myVideo);
 
       // Initialize video.js with the FLV video link
       this.player = videojs(videoElement, {
@@ -294,7 +294,7 @@ export default defineComponent({
         autoPlay: true,
         muted: true,
       });
-      console.log("check in init:", this.myVideo);
+      // console.log("check in init:", this.myVideo);
 
       // Autoplay the video
       this.player.autoplay(true);
