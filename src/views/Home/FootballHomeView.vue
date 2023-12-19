@@ -120,7 +120,9 @@
               />
             </div>
             <div class="pt-1">
-              <p class="md:text-sm text-xs font-normal hover:text-green-500">
+              <p
+                class="md:text-sm text-xs font-normal hover:text-green-500 whitespace-nowrap overflow-ellipsis"
+              >
                 {{ link.name }}
               </p>
             </div>
