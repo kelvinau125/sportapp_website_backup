@@ -59,8 +59,6 @@ export async function loginUser(phoneNumber, password) {
 
       setCookie(token, mobile, avatar, username, role);
 
-      console.log("user logined: ",response);
-
       if (data !== '') {
         return true;
       }
@@ -316,17 +314,12 @@ export async function pushImageToServer(usertToken, imageToken) {
   useTencentSDK()
       .then((result) => {
         tim = result.timInstance.value;
-        console.log(tim);
       })
       .catch((err) => {
         console.log("error here: ", err);
       });
 
   const url = baseUrl + updateHeadUrl + usertToken;
-
-  // const imageTokenUrl =
-  //   "https://live-stream-1321239144.cos.ap-singapore.myqcloud.com/head/" +
-  //   imageToken;
 
   const imageTokenUrl = imageToken;
 

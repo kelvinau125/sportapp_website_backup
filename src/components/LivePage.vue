@@ -40,17 +40,6 @@
                   {{ livedata.streamerName }}
                 </div>
               </div>
-              <!-- <div class="border-2 w-[200px] z-10">
-                <span>{{ livedata.liveTitle }}</span>
-              </div> -->
-              <!-- <div class="border-2 w-[200px] flex flex-col pl-1 z-10 items-start md:pb-1.5">
-                <div class="text-white font-medium md:text-sm text-10px  break-words ">
-                  <span class="multiline-ellipsis w-[210px]">{{ livedata.liveTitle }}</span>
-                </div>
-                <div class="md:text-10px text-8px font-medium text-white opacity-60 break-all w-[220px]">
-                  <span class="multiline-ellipsis" >{{ livedata.streamerName  }}</span>
-                </div>
-              </div> -->
             </div>
           </div>
         </div>
@@ -81,20 +70,6 @@ export default {
       isLoginModalVisible: ref(false),
 
       liveData: [],
-      // liveData: [
-      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-      //   { image: 'LiveImage', liveTitle: '直播标题', streamerName: '主播昵称', streamerIcon: 'defaultStreamerIcon' },
-      // ]
     };
   },
   mounted() {
@@ -111,14 +86,12 @@ export default {
 
     toLiveStream(liveID, streamerID) {
       // Push to the Live Page
-      // this.$router.push({ name: 'LiveStream' });
       const userToken = VueCookies.get("userToken");
 
       if (!userToken) {
         this.showLoginModal();
       } else {
         localStorage.setItem("stream", streamerID);
-        // console.log("check group id: ", streamerID);
 
         const routeData = this.$router.resolve({
           name: "LiveStream",
@@ -300,6 +273,5 @@ export default {
 
 .multiline-ellipsis::after {
   content: "...";
-  /* display: inline-block; */
 }
 </style>

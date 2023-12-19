@@ -27,7 +27,6 @@ export function setMobileCookie(mobile){
 
 export function removeCookie() {
     VueCookies.remove('userToken');
-    // VueCookies.remove('phoneNumber');
     VueCookies.remove('token');
     VueCookies.remove('avatar');
     VueCookies.remove('username');

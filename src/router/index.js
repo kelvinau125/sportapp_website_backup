@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/Home/FootballHomeView.vue'
 import RegisterView from '@/views/RegisterView.vue'
-// import AboutView from '@/views/AboutView.vue'
 import LoginForm from '@/views/LoginView.vue'
 import AllMatch from '@/views/AllMatch.vue'
 import TournamentDetails from '@/views/Tournament/TournamentDetails.vue'
@@ -53,12 +52,6 @@ const routes = [
     path: '/live_stream',
     name: 'LiveStream',
     component: () => import('@/views/LiveStream/LiveStreamView.vue'),
-  },
-  
-  {
-    path: '/test',
-    name: 'testTest',
-    component: () => import('@/components/HelloWorld.vue')
   },
   {
     //Non-exists page

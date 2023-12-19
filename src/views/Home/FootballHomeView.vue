@@ -8,10 +8,13 @@
           <!-- <div>直播窗口内容</div>
             <div>Testing</div> -->
           <div class="relative">
-            <div v-show="showWarming" class="video-wrapper w-[892px] h-[505px] rounded-lg bg-black z-10 flex justify-center items-center text-white">
-               <p class="font-medium text-2xl">{{ $t("No live broadcast...") }}</p>
+            <div
+              v-show="showWarming"
+              class="video-wrapper w-[892px] h-[505px] rounded-lg bg-black z-10 flex justify-center items-center text-white"
+            >
+              <p class="font-medium text-2xl">{{ $t("No live broadcast...") }}</p>
             </div>
-    
+
             <div v-show="!showWarming" class="video-wrapper">
               <!-- <video
                 ref="videoPlayer"
@@ -46,7 +49,12 @@
               <ButtonPress
                 style="background-color: rgba(0, 0, 0, 1)"
                 class="hover-button w-[150px] h-[46px] opacity-[0.6]"
-                @click="handleButtonClick((selectedEpic.streamerID || selectedEpic.userId), (selectedEpic.liveId || selectedEpic.id))"
+                @click="
+                  handleButtonClick(
+                    selectedEpic.streamerID || selectedEpic.userId,
+                    selectedEpic.liveId || selectedEpic.id
+                  )
+                "
               >
                 <span
                   class="text-base font-normal opacity-100"
@@ -57,7 +65,7 @@
               <!-- </div> -->
             </div>
 
-            <div  v-show="!showWarming" class="items-center absolute left-5 top-3 flex">
+            <div v-show="!showWarming" class="items-center absolute left-5 top-3 flex">
               <!-- <div class="pr-2 pl-1 z-10 w-[40px]"> -->
               <img
                 id="circle"
@@ -179,7 +187,10 @@ import { defineComponent, ref } from "vue";
 import { useTencentSDK } from "@/utils/tencentSDKProvder";
 import VueCookies from "vue-cookies";
 
-import { getAllPopularStreamDetails, getStreamDetails } from "@/service/apiStreamProvider.js";
+import {
+  getAllPopularStreamDetails,
+  getStreamDetails,
+} from "@/service/apiStreamProvider.js";
 
 import ButtonPress from "@/components/ButtonPress.vue";
 
@@ -195,9 +206,6 @@ export default defineComponent({
   },
   data() {
     return {
-      // myVideo: ref(
-      //   "http://play.mindark.cloud/live/1bc2209896b6423abc90753a9e87f1ac.m3u8"
-      // ),
       myVideo: ref(),
       tim: null,
       streamer: [
@@ -210,35 +218,6 @@ export default defineComponent({
       ],
       epicMoment: [],
       showWarming: ref(true),
-      // {
-      //   image: "moment5",
-      //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
-      //   imgSource:
-      //     "https://butwhytho.net/wp-content/uploads/2023/09/Gojo-Jujutsu-Kaisen-But-Why-Tho-2.jpg",
-      // },
-      // {
-      //   image: "moment5",
-      //   videoSource: "https://vjs.zencdn.net/v/ocean.mp4",
-      //   imgSource:
-      //     "https://i.pinimg.com/736x/d0/52/3d/d0523d4bb70c40d66f7cc6b3d3af2648.jpg",
-      // },
-      // {
-      //   image: "moment5",
-      //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
-      //   imgSource:
-      //     "https://thumb.viva.id/intipseleb/663x372/2023/08/25/64e814afeea6f-trailer-shibuya-incident-jujutsu-kaisen.jpg",
-      // },
-      // {
-      //   image: "moment5",
-      //   videoSource: "https://vjs.zencdn.net/v/ocean.mp4",
-      //   imgSource: "https://fictionhorizon.com/wp-content/uploads/2023/09/GojoStar.jpg",
-      // },
-      // {
-      //   image: "moment5",
-      //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
-      //   imgSource:
-      //     "https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2023/02/gojo-satoru-cosplay.jpg",
-      // },
 
       selectedEpic: null,
       currentChannel: ref(
@@ -276,7 +255,6 @@ export default defineComponent({
     initVideoPlayer() {
       // Reference to the video element
       const videoElement = this.$refs.myVideo;
-      console.log("check ref:", this.$refs.myVideo);
 
       // Initialize video.js with the FLV video link
       this.player = videojs(videoElement, {
@@ -290,20 +268,17 @@ export default defineComponent({
         autoPlay: true,
         muted: true,
       });
-      console.log("check in init:", this.myVideo);
 
       // Autoplay the video
       this.player.autoplay(true);
     },
     handleButtonClick(streamerID, liveID) {
       const userToken = VueCookies.get("userToken");
-      // console.log("check bug: ", liveID, " ", streamerID);
 
       if (!userToken) {
         this.showLoginModal();
       } else {
         localStorage.setItem("stream", streamerID);
-        // console.log("check group id: ", streamerID);
 
         const routeData = this.$router.resolve({
           name: "LiveStream",
@@ -351,11 +326,19 @@ export default defineComponent({
         ) {
           if (this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1)) {
             this.showWarming = false;
-            this.selectEpic(0, (this.getLiveList[0]["id"]))
-            this.selectedEpic = this.getLiveList[0]
+            this.selectEpic(0, this.getLiveList[0]["id"]);
+            this.selectedEpic = this.getLiveList[0];
 
             if (this.player) {
-              this.player.src([{ type: "video/x-mpegURL", src: "http://play.mindark.cloud/live/" + this.getLiveList[0]["pushCode"].split("?")[0] +".m3u8", }]);
+              this.player.src([
+                {
+                  type: "video/x-mpegURL",
+                  src:
+                    "http://play.mindark.cloud/live/" +
+                    this.getLiveList[0]["pushCode"].split("?")[0] +
+                    ".m3u8",
+                },
+              ]);
               this.player.autoplay(true);
             }
 
@@ -473,7 +456,6 @@ video:hover {
 }
 
 div {
-  /* border: 1px solid red; */
 }
 
 .multiline-ellipsis {

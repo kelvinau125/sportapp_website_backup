@@ -40,7 +40,6 @@
             <div class="font-normal text-xs" style="color: #333333">
               {{ homeSub.playerName }}
             </div>
-            <!-- <div class="font-normal text-10px" style=" color: #666666;">{{ homeSub.position }}</div> -->
           </div>
         </div>
       </div>
@@ -83,7 +82,6 @@
             <div class="font-normal text-xs" style="color: #333333">
               {{ awaySub.playerName }}
             </div>
-            <!-- <div class="font-normal text-10px" style=" color: #666666;">{{ awaySub.position }}</div> -->
           </div>
         </div>
       </div>
@@ -116,9 +114,7 @@ export default {
       awayCoach: "",
     };
   },
-  created() {
-    // console.log();
-  },
+  created() {},
   mounted() {
     this.getResult();
   },
@@ -133,7 +129,6 @@ export default {
         this.$i18n.locale === "ZH" ? true : false
       );
 
-      // console.log("debug homeCoach: ", this.getTournamentDetails);
       if (this.getTournamentDetails == null) {
         this.homeCoach = "";
         this.awayCoach = "";
@@ -142,20 +137,8 @@ export default {
         this.awayCoach = this.getTournamentDetails["awayCoach"];
       }
 
-      //   this.homeCoach = this.getTournamentDetails["homeCoach"] || "";
-      //   this.awayCoach = this.getTournamentDetails["awayCoach"] || "";
-
-      // this.getTournamentLineup = await getFootballLineup(5, true);
-      // this.getTournamentLineup = await getFootballLineup(1000, false);
-
-      // console.log("HALLO" + this.tournamentID)
-      // console.log("HALLO" + this.getTournamentLineup)
-
       this.homeTeamSubstitute = this.getTournamentLineup["homeMatchLineUpList"];
       this.awayTeamSubstitute = this.getTournamentLineup["awayMatchLineList"];
-
-      // console.log(this.homeTeamSubstitute)
-      // console.log("AWAY" + this.awayTeamSubstitute)
     },
   },
   computed: {
@@ -189,7 +172,6 @@ export default {
 
 <style scoped>
 div {
-  /* border: 1px solid red; */
 }
 
 .homeCircle {
