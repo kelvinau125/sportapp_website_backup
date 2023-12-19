@@ -130,7 +130,7 @@
         </div>
       </div>
       <div class="md:flex relative items-center pl-1">
-        <div @click="toggleDropdownProfile" class="">
+        <div @click="toggleDropdownProfile" class="modalProfile">
           <img
             :src="avatar"
             class="max-w-[40px] w-[40px] h-[40px] max-h-[40px] md:static absolute md:right-0 -right-4 md:top-0 -top-[72px] rounded-full border-2 border-white"
@@ -559,6 +559,10 @@ export default {
 </script>
 
 <style scoped>
+.modalProfile:hover {
+  cursor: pointer;
+}
+
 @media (min-width: 300px) {
   .menu-list {
     display: static;
