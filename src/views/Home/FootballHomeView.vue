@@ -136,9 +136,10 @@
             :key="link.streamer"
           >
             <div>
-              <img
-                class="md:w-[50px]"
-                :src="require(`@/assets/topNav/${link.image}.png`)"
+              <img    
+                id="circle2"
+                class="rounded-full w-[50px] z-10 h-[50px]"
+                :src="link.image"
                 alt="Link Image"
               />
             </div>
@@ -180,11 +181,13 @@ import { useTencentSDK } from "@/utils/tencentSDKProvder";
 import VueCookies from "vue-cookies";
 
 import { getAllPopularStreamDetails, getStreamDetails } from "@/service/apiStreamProvider.js";
+import { getPopularAnchor } from "@/service/apiProvider";
 
 import ButtonPress from "@/components/ButtonPress.vue";
 
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
+
 
 export default defineComponent({
   components: {
@@ -201,12 +204,12 @@ export default defineComponent({
       myVideo: ref(),
       tim: null,
       streamer: [
-        { name: "主播名称", image: "defaultProfile", no: "1234" },
-        { name: "主播名称", image: "defaultProfile", no: "1234" },
-        { name: "主播名称", image: "defaultProfile", no: "1234" },
-        { name: "主播名称", image: "defaultProfile", no: "1234" },
-        { name: "主播名称", image: "defaultProfile", no: "1234" },
-        { name: "主播名称", image: "defaultProfile", no: "520" },
+        // { name: "主播名称", image: "defaultProfile", no: "1234" },
+        // { name: "主播名称", image: "defaultProfile", no: "1234" },
+        // { name: "主播名称", image: "defaultProfile", no: "1234" },
+        // { name: "主播名称", image: "defaultProfile", no: "1234" },
+        // { name: "主播名称", image: "defaultProfile", no: "1234" },
+        // { name: "主播名称", image: "defaultProfile", no: "520" },
       ],
       epicMoment: [],
       showWarming: ref(true),
@@ -264,6 +267,7 @@ export default defineComponent({
 
   mounted() {
     this.generateLiveStreamList();
+    this.generatePopularAnchorList();
     if (VueCookies.isKey("phoneNumber")) {
       useTencentSDK().then((timInstance) => {
         this.tim = timInstance.timInstance._value;
@@ -345,7 +349,7 @@ export default defineComponent({
 
       if (this.getLiveList.length > 0) {
         for (
-          let i = this.epicMoment.length;
+          let i = 0;
           i < Math.min(6, this.getLiveList.length);
           i++
         ) {
@@ -370,6 +374,23 @@ export default defineComponent({
               streamerID: this.getLiveList[i]["userId"],
             });
           }
+        }
+      }
+    },
+
+    async generatePopularAnchorList() {
+      this.streamer = [];
+
+      this.getAnchorList = await getPopularAnchor();
+
+      if (this.getAnchorList.length > 0) {
+        for (let i = 0; i < Math.min(6, this.getAnchorList.length);i++) {
+            this.streamer.push({
+              name: this.getAnchorList[i]["nickName"],
+              image: this.getAnchorList[i]["head"],
+              no: this.getAnchorList[i]["popularAnchor"],
+            });
+       
         }
       }
     },
@@ -429,6 +450,12 @@ video:hover {
 #circle {
   width: 30px;
   height: 30px;
+  border-radius: 50%;
+}
+
+#circle2 {
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
 }
 
