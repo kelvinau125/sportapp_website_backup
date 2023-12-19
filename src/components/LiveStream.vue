@@ -4,29 +4,11 @@
       <div class="live-container">
         <div class="relative rounded-lg">
           <div class="bg-gray-200 w-[1037px] h-[587px]">
-            <!-- <img class="w-full h-full" src="@/assets/live/liveStreamBackground.png" alt="Image" /> -->
-            <!-- <video
-              class="cursor-pointer w-full h-full"
-              preload="auto"
-              controls
-              autoplay
-              :poster="posterImage"
-            >
-              <source
-                :src="
-                  selectedEpic
-                    ? selectedEpic.videoSource
-                    : 'https://vjs.zencdn.net/v/oceans.mp4'
-                "
-                type="video/mp4"
-              />
-            </video> -->
             <video
               ref="myVideo"
               class="video-js vjs-default-skin w-full h-full"
               controls
               autoplay
-              muted
             ></video>
           </div>
           <div class="w-full flex headerBox items-center md:pt-4 pt-3 md:pl-2 pb-2">
@@ -475,11 +457,8 @@ export default {
     },
   },
   async mounted() {
-    // console.log("check stream iddddd: ", this.str);
     this.storedPhoneNumber = localStorage.getItem("stream");
-    console.log("-------: ", this.storedPhoneNumber);
 
-    // localStorage.removeItem('stream');
 
     await this.displayLive(this.LiveID);
     console.log("check group id: ", `panda${this.storedPhoneNumber}`);
@@ -517,8 +496,6 @@ export default {
     // });
 
     // window.location.reload();
-    // console.log("check role: ", this.isStreamer);
-    // console.log("check id del: ", this.LiveID);
     // if (this.isStreamer) {
     //   this.deleteLiveRoom();
     // }else{
@@ -565,19 +542,6 @@ export default {
       userId: null,
       videoSource: ref(""),
 
-      // liveData: [
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
-
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-      // ],
     };
   },
 };
