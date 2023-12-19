@@ -327,7 +327,8 @@ export default defineComponent({
           this.streamer.push({
             name: this.getAnchorList[i]["nickName"],
             image: this.getAnchorList[i]["head"],
-            no: this.getAnchorList[i]["popularAnchor"],
+            // no: this.getAnchorList[i]["popularAnchor"],
+            no: 99999,
           });
         }
       }
