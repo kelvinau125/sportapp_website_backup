@@ -210,8 +210,6 @@ export default {
         .catch((err) => {
           console.log("error: ", err);
         });
-
-      const groupID = `panda${this.storedPhoneNumber}`;
     },
 
     toSetLogLevel() {
@@ -254,7 +252,6 @@ export default {
     },
 
     toSendMessage() {
-
       if (this.messageInput !== "" || this.messageInput.trim() !== "") {
         const msg = this.timInstance.createTextMessage({
           to: `panda${this.storedPhoneNumber}`,
