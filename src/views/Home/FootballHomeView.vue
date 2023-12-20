@@ -162,6 +162,7 @@ import VueCookies from "vue-cookies";
 import {
   getAllPopularStreamDetails,
   getStreamDetails,
+  getAllStreamDetails,
 } from "@/service/apiStreamProvider.js";
 import { getPopularAnchor } from "@/service/apiProvider";
 
@@ -299,8 +300,11 @@ export default defineComponent({
 
       this.getLiveList = await getAllPopularStreamDetails();
 
+      let secondLoopCount = 0; // Counter for the second loop
+
       if (this.getLiveList.length > 0) {
-        for (let i = 0; i < Math.min(6, this.getLiveList.length); i++) {
+        for (let i = 0; i < Math.min(7, this.getLiveList.length); i++  &&
+            secondLoopCount <= 6-(this.epicMoment.length)) {
           if (this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1)) {
             this.showWarming = false;
             this.selectEpic(0, this.getLiveList[0]["id"]);
@@ -329,6 +333,51 @@ export default defineComponent({
               liveId: this.getLiveList[i]["id"],
               streamerID: this.getLiveList[i]["userId"],
             });
+          }
+        }
+      }
+
+      // console.log(this.epicMoment.length)
+
+      if (this.epicMoment.length < 5) {
+        this.getLiveList = await getAllStreamDetails();
+
+        let secondLoopCount = 0; // Counter for the second loop
+
+        for (let j = 0; j < this.getLiveList.length; j++) {
+          if (
+            this.getLiveList[j]["sportType"] == (this.currentChannel ? 0 : 1) &&
+            secondLoopCount <= 6-(this.epicMoment.length)
+          ) {
+            this.showWarming = false;
+            this.selectEpic(0, this.getLiveList[j]["id"]);
+            this.selectedEpic = this.getLiveList[j];
+
+            if (this.player) {
+              this.player.src([
+                {
+                  type: "video/x-mpegURL",
+                  src:
+                    "http://play.mindark.cloud/live/" +
+                    this.getLiveList[j]["pushCode"].split("?")[0] +
+                    ".m3u8",
+                },
+              ]);
+              this.player.autoplay(true);
+            }
+
+            this.epicMoment.push({
+              image: this.getLiveList[j]["cover"],
+              videoSource:
+                "http://play.mindark.cloud/live/" +
+                this.getLiveList[j]["pushCode"].split("?")[0] +
+                ".m3u8",
+              imgSource: this.getLiveList[j]["cover"],
+              liveId: this.getLiveList[j]["id"],
+              streamerID: this.getLiveList[j]["userId"],
+            });
+
+            secondLoopCount++; // Increment the counter for the second loop
           }
         }
       }
