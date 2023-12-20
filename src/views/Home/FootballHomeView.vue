@@ -148,6 +148,7 @@
   <div>
     <FooterBar />
   </div>
+  <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal" />
 </template>
 
 <script>
@@ -166,6 +167,8 @@ import { getPopularAnchor } from "@/service/apiProvider";
 
 import ButtonPress from "@/components/ButtonPress.vue";
 
+import LoginModal from "@/views/Authentication/LoginModal.vue";
+
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 
@@ -175,6 +178,7 @@ export default defineComponent({
     FooterBar,
     BackgroundImage,
     ButtonPress,
+    LoginModal,
   },
   data() {
     return {
@@ -193,6 +197,8 @@ export default defineComponent({
       StreamIcon: "",
       StreamName: "",
       liveVideoSouce: "",
+
+      isLoginModalVisible: ref(false),
     };
   },
   computed: {
@@ -218,6 +224,13 @@ export default defineComponent({
   },
 
   methods: {
+    showLoginModal() {
+      this.isLoginModalVisible = true;
+    },
+    closeLoginModal() {
+      this.isLoginModalVisible = false;
+    },
+
     initVideoPlayer() {
       // Reference to the video element
       const videoElement = this.$refs.myVideo;
@@ -240,6 +253,8 @@ export default defineComponent({
     },
     handleButtonClick(streamerID, liveID) {
       const userToken = VueCookies.get("userToken");
+
+      console.log("phillipmana")
 
       if (!userToken) {
         this.showLoginModal();

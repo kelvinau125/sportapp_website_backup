@@ -54,7 +54,7 @@ import PopularMatch from "@/components/PopularMatch.vue";
 import BackgroundImage from "@/components/BackGround.vue";
 import VueCookies from "vue-cookies";
 
-import { getAllStreamDetails } from "@/service/apiStreamProvider.js";
+import { getAllStreamDetails, getAllPopularStreamDetails } from "@/service/apiStreamProvider.js";
 
 import LoginModal from "@/views/Authentication/LoginModal.vue";
 
@@ -106,6 +106,22 @@ export default {
 
     async generateLiveList() {
       this.liveData = [];
+
+      this.getPopularLiveList = await getAllPopularStreamDetails();
+
+      for (let i = 0; i < this.getPopularLiveList.length; i++) {
+        // Check if sportType is 0 (football)
+        if (this.getPopularLiveList[i]["sportType"] == this.currentChannel) {
+          this.liveData.push({
+            liveID: this.getPopularLiveList[i]["id"],
+            image: this.getPopularLiveList[i]["cover"],
+            liveTitle: this.getPopularLiveList[i]["title"],
+            streamerName: this.getPopularLiveList[i]["nickName"],
+            streamerIcon: this.getPopularLiveList[i]["avatar"],
+            streamerID: this.getPopularLiveList[i]["userId"],
+          });
+        }
+      }
 
       this.getLiveList = await getAllStreamDetails();
 
