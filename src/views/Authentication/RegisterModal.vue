@@ -250,6 +250,7 @@ export default {
 
       // send OTP to user phone
       const result = await getOTP(countryCode, "1");
+      this.registerDisabled = false;
 
       if (result === true) {
         // pass value to OTPVerficaition.vue
