@@ -120,8 +120,8 @@ export async function getStreamDetails(streamID) {
     const data = response.data;
 
     if (code === 0) {
-      console.log("show stream data: ", data.userId
-      );
+      // console.log("show stream data: ", data.userId
+      // );
       return data;
     }else {
       console.log(`get getStreamDetails Unsuccessfully: ${code}`);
@@ -176,7 +176,6 @@ export async function getAllStreamDetails() {
     const data = response.data;
 
     if (code === 0) {
-      // console.log("debug: ", data);
       return data;
     }else {
       console.log(`get getAllStreamDetails Unsuccessfully: ${code}`);
@@ -201,7 +200,6 @@ export async function getAllPopularStreamDetails() {
     const data = response.data;
 
     if (code === 0) {
-      // console.log("debug: ", data);
       return data;
     }else {
       console.log(`get getAllPopularStreamDetails Unsuccessfully: ${code}`);
@@ -227,7 +225,6 @@ export async function deleteStreamDetails(streamID) {
     const data = response.data;
 
     if(code === 0) {
-      // console.log("debug: ", data);
       return data;
     }else{
       console.log(`get deleteStreamDetails Unsuccessfully: ${code}`);

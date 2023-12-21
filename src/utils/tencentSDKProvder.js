@@ -32,8 +32,6 @@ export async function useTencentSDK() {
 
     console.log("set log: ", timInstance.value.setLogLevel(4));
 
-
-
     provide(TencentSDKSymbol, timInstance.value);
 
     return {

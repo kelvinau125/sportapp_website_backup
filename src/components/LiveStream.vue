@@ -4,29 +4,11 @@
       <div class="live-container">
         <div class="relative rounded-lg">
           <div class="bg-gray-200 w-[1037px] h-[587px]">
-            <!-- <img class="w-full h-full" src="@/assets/live/liveStreamBackground.png" alt="Image" /> -->
-            <!-- <video
-              class="cursor-pointer w-full h-full"
-              preload="auto"
-              controls
-              autoplay
-              :poster="posterImage"
-            >
-              <source
-                :src="
-                  selectedEpic
-                    ? selectedEpic.videoSource
-                    : 'https://vjs.zencdn.net/v/oceans.mp4'
-                "
-                type="video/mp4"
-              />
-            </video> -->
             <video
               ref="myVideo"
               class="video-js vjs-default-skin w-full h-full"
               controls
               autoplay
-              muted
             ></video>
           </div>
           <div class="w-full flex headerBox items-center md:pt-4 pt-3 md:pl-2 pb-2">
@@ -82,39 +64,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="chat-container border-2 border-white rounded-lg ml-2 relative  ">
-                <div class="flex pb-4 p-3">
-                    <div class="pr-2">
-                        <img class="w-[30px]" src="@/assets/ProfilePicture.png" />
-                    </div>
-                    <div class="flex flex-col chat_border">
-                        <div class="text-xs font-medium" style="color: #666666;">ZHENAYUUUUUUUUUUUU</div>
-                        <div class="text-sm font-medium" style="color: #333333;">Halo World</div>
-                    </div>
-                </div>
-                <div class=" flex pb-4 p-3">
-                    <div class="pr-2">
-                        <img class="w-[30px]" src="@/assets/ProfilePicture.png" />
-                    </div>
-                    <div class="flex flex-col chat_border">
-                        <div class="text-xs font-medium" style="color: #666666;">俐敏俐敏俐敏俐敏</div>
-                        <div class="text-sm font-medium" style="color: #333333;">俐敏 你好</div>
-                    </div>
-                </div>
-
-                <div class="absolute bottom-0 flex pb-3">
-                    Enter to send message...
-                    <div class="pr-4">
-                        <input class="w-[300px] pl-3 rounded-[24.46px] h-[44px] font-normal text-xs" placeholder="输入内容"
-                            type="text" />
-                    </div>
-                    <div class="mt-1">
-                        <button>
-                            <img class="w-[36px] h-[36px]" src="@/assets/live/chatSend.png" />
-                        </button>
-                    </div>
-                </div>
-            </div>-->
 
       <div class="chat-box border-2 border-white rounded-lg ml-2 flex flex-col">
         <div class="chat-container overflow-y-auto h-[300px]" ref="chatContainer">
@@ -131,9 +80,7 @@
 
               <div class="flex flex-col chat_border break-all">
                 <div class="text-xs font-medium" style="color: #666666">
-                  <!-- <div v-if="this.chatsend[index]"> -->
                   {{ this.chatsender[index] }}
-                  <!-- </div> -->
                 </div>
                 <div class="text-sm font-medium" style="color: #333333">
                   {{ message }}
@@ -216,8 +163,6 @@
 </template>
 
 <script>
-// import { useRouter } from 'vue-router'
-
 import { ref } from "vue";
 import ButtonPress from "@/components/ButtonPress.vue";
 import EditStreamDetailModal from "@/views/Stream/EditStreamDetail.vue";
@@ -256,7 +201,6 @@ export default {
 
     //delete live stream room
     deleteLiveRoom() {
-      // console.log("check stream id: ", this.LiveID);
       deleteStreamDetails(this.LiveID)
         .then((response) => {
           console.log("delete successfully: ", response);
@@ -266,20 +210,6 @@ export default {
         .catch((err) => {
           console.log("error: ", err);
         });
-
-      const groupID = `panda${this.storedPhoneNumber}`;
-      console.log("check this string :", groupID);
-
-      // this.timInstance
-      //   .dismissGroup({
-      //     groupID: groupID,
-      //   })
-      //   .then((res) => {
-      //     console.log("delete done: ", res);
-      //   })
-      //   .catch((err) => {
-      //     console.log("error: ", err);
-      //   });
     },
 
     toSetLogLevel() {
@@ -322,8 +252,6 @@ export default {
     },
 
     toSendMessage() {
-      console.log("input:", this.messageInput);
-
       if (this.messageInput !== "" || this.messageInput.trim() !== "") {
         const msg = this.timInstance.createTextMessage({
           to: `panda${this.storedPhoneNumber}`,
@@ -454,10 +382,6 @@ export default {
     toggleIsStreamer() {
       const role = VueCookies.get("role");
       const user = VueCookies.get("phoneNumber");
-      console.log("role:", role);
-      console.log("id:", user);
-      console.log("userid 2:", this.userId);
-      console.log("check boolean", user == `${this.userId}`);
       if (role == "1" && user == this.userId) {
         this.isStreamer = true;
       } else {
@@ -475,11 +399,7 @@ export default {
     },
   },
   async mounted() {
-    // console.log("check stream iddddd: ", this.str);
     this.storedPhoneNumber = localStorage.getItem("stream");
-    console.log("-------: ", this.storedPhoneNumber);
-
-    // localStorage.removeItem('stream');
 
     await this.displayLive(this.LiveID);
     console.log("check group id: ", `panda${this.storedPhoneNumber}`);
@@ -493,7 +413,6 @@ export default {
 
     // Reference to the video element
     const videoElement = this.$refs.myVideo;
-    console.log("check url video: ", videoElement.src);
 
     // Initialize video.js with the FLV video link
     videojs(videoElement, {
@@ -517,8 +436,6 @@ export default {
     // });
 
     // window.location.reload();
-    // console.log("check role: ", this.isStreamer);
-    // console.log("check id del: ", this.LiveID);
     // if (this.isStreamer) {
     //   this.deleteLiveRoom();
     // }else{
@@ -564,20 +481,6 @@ export default {
       imageCover: ref(""),
       userId: null,
       videoSource: ref(""),
-
-      // liveData: [
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'NAME', streamerIcon: 'defaultStreamerIcon' },
-
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-      //     { image: 'LiveImage', liveTitle: '直播标题', streamerName: 'CX', streamerIcon: 'defaultStreamerIcon' },
-      // ],
     };
   },
 };

@@ -19,8 +19,6 @@ export async function postRequest(url, body) {
       headers: header,
     });
 
-    // console.log(response);
-
     if (response.status === 200) {
       return response.data;
     } else {
@@ -34,8 +32,6 @@ export async function postRequest(url, body) {
   export async function getRequest(url) {
     try {
       const response = await axios.get(url);
-  
-      // console.log(response);
   
       if (response.status === 200) {
         return response.data;
@@ -53,8 +49,6 @@ export async function postRequest(url, body) {
         headers: headerBookmark,
       });
   
-      // console.log(response);
-  
       if (response.status === 200) {
         return response.data;
       } else {
@@ -70,8 +64,6 @@ export async function postRequest(url, body) {
       const response = await axios.post(url, body, {
         headers: headerBookmark,
       });
-  
-      // console.log(response);
   
       if (response.status === 200) {
         return response.data;
@@ -89,8 +81,6 @@ export async function postRequest(url, body) {
         headers: headerBookmark,
       });
   
-      // console.log(response);
-  
       if (response.status === 200) {
         return response.data;
       } else {
@@ -106,8 +96,6 @@ export async function patchRequest(url, body) {
     const response = await axios.patch(url, body, {
       headers: header,
     });
-
-    // console.log(response);
 
     if (response.status === 200) {
       return response.data;
@@ -130,8 +118,6 @@ export async function postFileRequest(file, url) {
       },
     });
 
-    // console.log(response);
-
     if (response.status === 200) {
       return response.data;
     } else {
@@ -146,10 +132,8 @@ export async function getRequestSearchStream(url) {
   try {
     const response = await axios.get(url);
     
-    // console.log(response);
 
     if (response.status === 200) {
-      // const jsonData = response.data;
       console.log('Response Data:', response.data);
 
       return response.data
@@ -165,8 +149,6 @@ export async function getRequestSearchStream(url) {
 export async function deleteLiveStreamDetail(url) {
   try{
     const response = await axios.delete(url);
-
-    // console.log(response);
 
     if(response.status === 200) {
       console.log('Response Data:', response.data);

@@ -18,11 +18,18 @@
               <img src="@/assets/toLeft.png" alt="Previous Week" class="" />
             </button>
           </div>
-          
-          <div @click="selectDate(day);" v-for="day in week" :key="day" class="date-item  px-0.5 rounded-lg"
-            style="width: 119px; height: 35px;">
-            <div :class="{ 'active-date': isActiveDate(day,week)}"
-              class="flex flex-col hover:bg-hoverGreen items-center rounded-lg h-[45px]">
+
+          <div
+            @click="selectDate(day)"
+            v-for="day in week"
+            :key="day"
+            class="date-item px-0.5 rounded-lg"
+            style="width: 119px; height: 35px"
+          >
+            <div
+              :class="{ 'active-date': isActiveDate(day, week) }"
+              class="flex flex-col hover:bg-hoverGreen items-center rounded-lg h-[45px]"
+            >
               <div class="font-medium text-sm pt-1">{{ formatDay(day) }}</div>
               <div class="day-of-week font-medium text-xs text-grayText">
                 {{ $t(formatDayOfWeek(day)) }}
@@ -200,9 +207,8 @@ export default {
     // this.isCN = false;
     // this.handleScroll;
     window.addEventListener("scroll", this.actionScroll);
-    this.activeDate= new Date(), // Initialize activeDate with the current date
-
-    this.getFavoriteFromBookmark();
+    (this.activeDate = new Date()), // Initialize activeDate with the current date
+      this.getFavoriteFromBookmark();
   },
 
   data() {
@@ -229,16 +235,6 @@ export default {
       matchdate: "",
       getMatchList: [],
       matchDetails: [],
-      // matchDetails: [
-      //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
-      //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: false },
-      //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
-      //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: false },
-      //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
-      //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
-      //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
-      //   { matchType: '欧冠', date: '10月08日', time: '00:00', homeTeamName: 'CX Team', homeTeamIcon: 'homeTeamIcon', homeTeamScore: '0', awayTeamName: 'Shawn Team', awayTeamIcon: 'awayTeamIcon', awayTeamScore: '0', overTime: 'null', favorite: true },
-      // ],
     };
   },
   computed: {
@@ -251,44 +247,9 @@ export default {
   },
   methods: {
     actionScroll(event) {
-      const scroll = window.scrollY;
-      console.log("huh", scroll);
       console.log(event);
     },
     handleScroll() {
-      // const scrollContainer = this.$refs.scrollContainer;
-
-      // const container = this.$el;
-      // Detect if the user is scrolling down
-      // if (scrollTop + clientHeight >= scrollHeight) {
-
-      // window.onscroll = () => {
-      //   let bottomOfWin =
-      //     Math.max(
-      //       window.pageYOffset,
-      //       document.documentElement.scrollTop,
-      //       document.body.scrollTop
-      //     ) +
-      //       window.innerHeight ===
-      //     document.documentElement.offsetHeight;
-      //   if (bottomOfWin) {
-      //     this.scrolledToBottom = true;
-      //     // replace it with your code
-      //     this.page++;
-      //     console.log("page: " + this.page);
-      //     this.generateMatchDetailsList(this.selectedDate, this.page);
-      //   }
-      // };
-
-      // }
-
-      // const container = this.$el;
-      // if (container.scrollHeight - container.scrollTop === container.clientHeight) {
-      //   // Increment the page number and fetch more data
-      //   console.log("page: " + this.page);
-      //   this.page++;
-      //   this.generateMatchDetailsList(this.selectedDate, this.page);
-      // }
       this.page++;
       this.loadMoreGenerateMatchDetailsList(this.loadSelectedDate, this.page);
     },
@@ -351,17 +312,13 @@ export default {
       this.selectedDate = date;
       this.activeDate = date;
       this.loadSelectedDate = format(date, "yyyyMMdd");
-      // console.log(this.selectedDate);
       this.generateMatchDetailsList(format(this.selectedDate, "yyyyMMdd"), this.page);
     },
     isActiveDate(date, week) {
-      this.count ++;
+      this.count++;
 
-      if(this.firstReload)
-      {
-        if(this.count >= (week.length*304) )
-        {
-          console.log("here");
+      if (this.firstReload) {
+        if (this.count >= week.length * 304) {
           this.firstReload = false;
         }
         const dateToCompare = new Date(date);
@@ -369,8 +326,7 @@ export default {
         dateToCompare.setHours(0, 0, 0, 0);
         this.todayDate.setHours(0, 0, 0, 0);
         return dateToCompare.getTime() === this.todayDate.getTime();
-      }
-      else{
+      } else {
         return this.activeDate === date;
       }
     },

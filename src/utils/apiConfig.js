@@ -30,6 +30,8 @@ export const updateHead = '/updateHead/';
 
 export const updateforgotPassword = '/updatePassByForgot/';
 
+export const getPopularAnchor = '/popular-anchor';
+
 export const updatePasswordUrl =
     liveStreamUserBaseUrl + updatePassword; //update password
 
@@ -47,6 +49,9 @@ export const updateHeadUrl =
 
 export const updateforgotPasswordurl =
     liveStreamUserBaseUrl + updateforgotPassword; //update forgot password
+
+export const getPopularAnchorurl =
+    liveStreamUserBaseUrl + getPopularAnchor; //get popular anchor
 
 //Basketball CN--------------------------------------------------------------------------------------------//
 export const basketballBaseUrl = '/api/v1/basketballs/match';

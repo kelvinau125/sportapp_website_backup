@@ -130,7 +130,7 @@
         </div>
       </div>
       <div class="md:flex relative items-center pl-1">
-        <div @click="toggleDropdownProfile" class="">
+        <div @click="toggleDropdownProfile" class="modalProfile">
           <img
             :src="avatar"
             class="max-w-[40px] w-[40px] h-[40px] max-h-[40px] md:static absolute md:right-0 -right-4 md:top-0 -top-[72px] rounded-full border-2 border-white"
@@ -275,7 +275,6 @@ export default {
   computed: {
     ...mapState(["currentChannel"]),
     currentChannelComponent() {
-      // console.log(this.currentChannel);
       return this.currentChannel === "football" ? "football" : "basketball";
     },
   },
@@ -290,7 +289,6 @@ export default {
         { name: "myfavouritelive", link: "/favourite" },
       ],
       avatar: ref(""),
-      // img: ref(require('@/assets/topNav/football.png')),
       img: "",
       isDropdownOpen: ref(false),
       showDropdown: ref(false),
@@ -353,9 +351,8 @@ export default {
       const searchPages = "1";
 
       if (this.searchQuery === "") {
-        // console.log("Search is empty");
+        console.log("Empty search");
       } else {
-        // this.$router.push({ name: 'ResultPage', query: { searchQuery: this.searchQuery, searchPages: searchPages } });
         this.routeData = this.$router.resolve({
           name: "ResultPage",
           query: { searchQuery: this.searchQuery, searchPages: searchPages },
@@ -525,7 +522,6 @@ export default {
     languageChange(locale) {
       this.isDropdownOpenLanguage = false;
       this.$i18n.locale = locale;
-      // console.log("let me see see: " + locale);
 
       // Save the selected language to localStorage
       localStorage.setItem("locale", locale);
@@ -559,6 +555,10 @@ export default {
 </script>
 
 <style scoped>
+.modalProfile:hover {
+  cursor: pointer;
+}
+
 @media (min-width: 300px) {
   .menu-list {
     display: static;

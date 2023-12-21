@@ -55,9 +55,6 @@ export async function liveStreamSaveBookmark(matchId, isFootBall, isCN) {
 export async function getLiveStreamBookmark(isCN, isFootBall) {
     let url = "";
 
-    // (isCN)
-    // ? (url = baseUrl + getAllStreamCollectionListFootballUrl)
-    // : (url = baseUrl + getAllStreamCollectionListEngUrlFootball);
 
     (isCN)
     ? ((isFootBall)

@@ -1,5 +1,4 @@
 <template>
-  <!-- <div style="height: 150rem" /> -->
   <div class="w-full flex flex-col">
     <BackgroundImage>
       <div class="live-container scroll-container">
@@ -9,33 +8,14 @@
             <div>Testing</div> -->
             
           <div class="relative">
-            <div v-show="showWarming" class="video-wrapper w-[892px] h-[505px] rounded-lg bg-black z-10 flex justify-center items-center text-white">
-               <p class="font-medium text-2xl">{{ $t("No live broadcast...") }}</p>
+            <div
+              v-show="showWarming"
+              class="video-wrapper w-[892px] h-[505px] rounded-lg bg-transparent z-10 flex justify-center items-center text-white"
+            >
+              <p class="font-medium text-2xl">{{ $t("No live broadcast...") }}</p>
             </div>
-    
+
             <div v-show="!showWarming" class="video-wrapper">
-              <!-- <video
-                ref="videoPlayer"
-                :key="selectedEpic ? selectedEpic.epicMoment : 'default'"
-                id="my-player"
-                class="video-js vjs-default-skin"
-                controls
-                preload="auto"
-                width="892px"
-                height="505px"
-                :poster="selectedLiveStreamImage"
-                style="cursor: pointer"
-              >
-                <source
-                  :src="
-                    selectedEpic
-                      ? selectedEpic.videoSource
-                      : 'https://vjs.zencdn.net/v/oceans.mp4'
-                  "
-                  type="video/mp4"
-                />
-              </video> -->
-              <!-- <video ref="myVideo" preload="auto" class="video-js vjs-default-skin w-full h-full" controls autoplay></video> -->
               <video
                 ref="myVideo"
                 preload="auto"
@@ -43,11 +23,15 @@
                 style="cursor: pointer"
               ></video>
 
-              <!-- <div class="hover-button" @click="handleButtonClick"> -->
               <ButtonPress
                 style="background-color: rgba(0, 0, 0, 1)"
                 class="hover-button w-[150px] h-[46px] opacity-[0.6]"
-                @click="handleButtonClick((selectedEpic.streamerID || selectedEpic.userId), (selectedEpic.liveId || selectedEpic.id))"
+                @click="
+                  handleButtonClick(
+                    selectedEpic.streamerID || selectedEpic.userId,
+                    selectedEpic.liveId || selectedEpic.id
+                  )
+                "
               >
                 <span
                   class="text-base font-normal opacity-100"
@@ -55,18 +39,15 @@
                   >{{ $t("Enter Room") }}</span
                 >
               </ButtonPress>
-              <!-- </div> -->
             </div>
 
-            <div  v-show="!showWarming" class="items-center absolute left-5 top-3 flex">
-              <!-- <div class="pr-2 pl-1 z-10 w-[40px]"> -->
+            <div v-show="!showWarming" class="items-center absolute left-5 top-3 flex">
               <img
                 id="circle"
                 class="rounded-full w-[30px] z-10 h-[30px]"
                 :src="this.StreamIcon"
                 alt="Image"
               />
-              <!-- </div> -->
               <div
                 class="flex flex-col md:pl-3 pl-5 z-10 items-start w-[800px] md:pb-1.5 pb-3"
               >
@@ -83,8 +64,6 @@
               </div>
             </div>
           </div>
-
-          <!-- </div> -->
         </div>
 
         <div class="flex justify-center">
@@ -138,13 +117,16 @@
           >
             <div>
               <img
-                class="md:w-[50px]"
-                :src="require(`@/assets/topNav/${link.image}.png`)"
+                id="circle2"
+                class="rounded-full w-[50px] z-10 h-[50px]"
+                :src="link.image"
                 alt="Link Image"
               />
             </div>
             <div class="pt-1">
-              <p class="md:text-sm text-xs font-normal hover:text-green-500">
+              <p
+                class="md:text-sm text-xs font-normal hover:text-green-500 whitespace-nowrap overflow-ellipsis"
+              >
                 {{ link.name }}
               </p>
             </div>
@@ -170,6 +152,7 @@
   <div>
     <FooterBar />
   </div>
+  <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal" />
 </template>
 
 <script>
@@ -180,9 +163,16 @@ import { defineComponent, ref } from "vue";
 import { useTencentSDK } from "@/utils/tencentSDKProvder";
 import VueCookies from "vue-cookies";
 
-import { getAllPopularStreamDetails, getStreamDetails } from "@/service/apiStreamProvider.js";
+import {
+  getAllPopularStreamDetails,
+  getStreamDetails,
+  getAllStreamDetails,
+} from "@/service/apiStreamProvider.js";
+import { getPopularAnchor } from "@/service/apiProvider";
 
 import ButtonPress from "@/components/ButtonPress.vue";
+
+import LoginModal from "@/views/Authentication/LoginModal.vue";
 
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
@@ -193,53 +183,15 @@ export default defineComponent({
     FooterBar,
     BackgroundImage,
     ButtonPress,
+    LoginModal,
   },
   data() {
     return {
-      // myVideo: ref(
-      //   "http://play.mindark.cloud/live/1bc2209896b6423abc90753a9e87f1ac.m3u8"
-      // ),
       myVideo: ref(),
       tim: null,
-      streamer: [
-        { name: "主播名称", image: "defaultProfile", no: "1234" },
-        { name: "主播名称", image: "defaultProfile", no: "1234" },
-        { name: "主播名称", image: "defaultProfile", no: "1234" },
-        { name: "主播名称", image: "defaultProfile", no: "1234" },
-        { name: "主播名称", image: "defaultProfile", no: "1234" },
-        { name: "主播名称", image: "defaultProfile", no: "520" },
-      ],
+      streamer: [],
       epicMoment: [],
       showWarming: ref(true),
-      // {
-      //   image: "moment5",
-      //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
-      //   imgSource:
-      //     "https://butwhytho.net/wp-content/uploads/2023/09/Gojo-Jujutsu-Kaisen-But-Why-Tho-2.jpg",
-      // },
-      // {
-      //   image: "moment5",
-      //   videoSource: "https://vjs.zencdn.net/v/ocean.mp4",
-      //   imgSource:
-      //     "https://i.pinimg.com/736x/d0/52/3d/d0523d4bb70c40d66f7cc6b3d3af2648.jpg",
-      // },
-      // {
-      //   image: "moment5",
-      //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
-      //   imgSource:
-      //     "https://thumb.viva.id/intipseleb/663x372/2023/08/25/64e814afeea6f-trailer-shibuya-incident-jujutsu-kaisen.jpg",
-      // },
-      // {
-      //   image: "moment5",
-      //   videoSource: "https://vjs.zencdn.net/v/ocean.mp4",
-      //   imgSource: "https://fictionhorizon.com/wp-content/uploads/2023/09/GojoStar.jpg",
-      // },
-      // {
-      //   image: "moment5",
-      //   videoSource: "https://vjs.zencdn.net/v/oceans.mp4",
-      //   imgSource:
-      //     "https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2023/02/gojo-satoru-cosplay.jpg",
-      // },
 
       selectedEpic: null,
       currentChannel: ref(
@@ -250,6 +202,8 @@ export default defineComponent({
       StreamIcon: "",
       StreamName: "",
       liveVideoSouce: "",
+
+      isLoginModalVisible: ref(false),
     };
   },
   computed: {
@@ -265,6 +219,7 @@ export default defineComponent({
 
   mounted() {
     this.generateLiveStreamList();
+    this.generatePopularAnchorList();
     if (VueCookies.isKey("phoneNumber")) {
       useTencentSDK().then((timInstance) => {
         this.tim = timInstance.timInstance._value;
@@ -274,10 +229,16 @@ export default defineComponent({
   },
 
   methods: {
+    showLoginModal() {
+      this.isLoginModalVisible = true;
+    },
+    closeLoginModal() {
+      this.isLoginModalVisible = false;
+    },
+
     initVideoPlayer() {
       // Reference to the video element
       const videoElement = this.$refs.myVideo;
-      console.log("check ref:", this.$refs.myVideo);
 
       // Initialize video.js with the FLV video link
       this.player = videojs(videoElement, {
@@ -291,20 +252,19 @@ export default defineComponent({
         autoPlay: true,
         muted: true,
       });
-      console.log("check in init:", this.myVideo);
 
       // Autoplay the video
       this.player.autoplay(true);
     },
     handleButtonClick(streamerID, liveID) {
       const userToken = VueCookies.get("userToken");
-      // console.log("check bug: ", liveID, " ", streamerID);
+
+      console.log("phillipmana")
 
       if (!userToken) {
         this.showLoginModal();
       } else {
         localStorage.setItem("stream", streamerID);
-        // console.log("check group id: ", streamerID);
 
         const routeData = this.$router.resolve({
           name: "LiveStream",
@@ -344,19 +304,26 @@ export default defineComponent({
 
       this.getLiveList = await getAllPopularStreamDetails();
 
+      let secondLoopCount = 0; // Counter for the second loop
+
       if (this.getLiveList.length > 0) {
-        for (
-          let i = this.epicMoment.length;
-          i < Math.min(6, this.getLiveList.length);
-          i++
-        ) {
+        for (let i = 0; i < Math.min(7, this.getLiveList.length); i++  &&
+            secondLoopCount <= 6-(this.epicMoment.length)) {
           if (this.getLiveList[i]["sportType"] == (this.currentChannel ? 0 : 1)) {
             this.showWarming = false;
-            this.selectEpic(0, (this.getLiveList[0]["id"]))
-            this.selectedEpic = this.getLiveList[0]
+            this.selectEpic(0, this.getLiveList[0]["id"]);
+            this.selectedEpic = this.getLiveList[0];
 
             if (this.player) {
-              this.player.src([{ type: "video/x-mpegURL", src: "http://play.mindark.cloud/live/" + this.getLiveList[0]["pushCode"].split("?")[0] +".m3u8", }]);
+              this.player.src([
+                {
+                  type: "video/x-mpegURL",
+                  src:
+                    "http://play.mindark.cloud/live/" +
+                    this.getLiveList[0]["pushCode"].split("?")[0] +
+                    ".m3u8",
+                },
+              ]);
               this.player.autoplay(true);
             }
 
@@ -371,6 +338,68 @@ export default defineComponent({
               streamerID: this.getLiveList[i]["userId"],
             });
           }
+        }
+      }
+
+      // console.log(this.epicMoment.length)
+
+      if (this.epicMoment.length < 5) {
+        this.getLiveList = await getAllStreamDetails();
+
+        let secondLoopCount = 0; // Counter for the second loop
+
+        for (let j = 0; j < this.getLiveList.length; j++) {
+          if (
+            this.getLiveList[j]["sportType"] == (this.currentChannel ? 0 : 1) &&
+            secondLoopCount <= 6-(this.epicMoment.length)
+          ) {
+            this.showWarming = false;
+            this.selectEpic(0, this.getLiveList[j]["id"]);
+            this.selectedEpic = this.getLiveList[j];
+
+            if (this.player) {
+              this.player.src([
+                {
+                  type: "video/x-mpegURL",
+                  src:
+                    "http://play.mindark.cloud/live/" +
+                    this.getLiveList[j]["pushCode"].split("?")[0] +
+                    ".m3u8",
+                },
+              ]);
+              this.player.autoplay(true);
+            }
+
+            this.epicMoment.push({
+              image: this.getLiveList[j]["cover"],
+              videoSource:
+                "http://play.mindark.cloud/live/" +
+                this.getLiveList[j]["pushCode"].split("?")[0] +
+                ".m3u8",
+              imgSource: this.getLiveList[j]["cover"],
+              liveId: this.getLiveList[j]["id"],
+              streamerID: this.getLiveList[j]["userId"],
+            });
+
+            secondLoopCount++; // Increment the counter for the second loop
+          }
+        }
+      }
+    },
+
+    async generatePopularAnchorList() {
+      this.streamer = [];
+
+      this.getAnchorList = await getPopularAnchor();
+
+      if (this.getAnchorList.length > 0) {
+        for (let i = 0; i < Math.min(6, this.getAnchorList.length); i++) {
+          this.streamer.push({
+            name: this.getAnchorList[i]["nickName"],
+            image: this.getAnchorList[i]["head"],
+            // no: this.getAnchorList[i]["popularAnchor"],
+            no: 9999 + "+",
+          });
         }
       }
     },
@@ -433,6 +462,12 @@ video:hover {
   border-radius: 50%;
 }
 
+#circle2 {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
 .epic {
   padding: 10px;
   border-radius: 10px;
@@ -474,7 +509,6 @@ video:hover {
 }
 
 div {
-  /* border: 1px solid red; */
 }
 
 .multiline-ellipsis {

@@ -27,5 +27,3 @@ export function toLogin(tim) {
             console.warn("error", error);
         });
 }
-
-import appData, { toSetLogLevel, toRegisterPlugin, toLogin } from ''

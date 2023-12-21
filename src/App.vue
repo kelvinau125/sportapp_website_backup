@@ -13,9 +13,7 @@
 
 </template>
 <script setup>
-// import { ref } from 'vue'
 import Navbar from './components/NavBar.vue'
-// import FooterPage from './components/FooterPage.vue'
 
 const scrollToTop = () => {
   // 添加了overflow导致scrollToTop功能失效，
@@ -29,10 +27,6 @@ const scrollToTop = () => {
   }
 };
 
-
-// import HomeView from './views/HomeView.vue'
-
-// const img = ref(require('./assets/topNav/football.png'))
 
 </script>
 

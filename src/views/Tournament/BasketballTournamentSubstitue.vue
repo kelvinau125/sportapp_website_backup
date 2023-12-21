@@ -1,10 +1,4 @@
 <template>
-  <!-- <div class="flex justify-center border-2">
-    <div class="w-[892px]">
-      HALO
-    </div>
-  </div> -->
-
   <div class="box" v-show="showbasketballsubstitue">
     <vue-scrolling-table
       class="scrolling w2 freezeFirstColumn"
@@ -165,9 +159,6 @@ export default {
     this.homeTeamLineUpList = this.getBasketballLineUpList["home"];
     this.awayTeamLineUpList = this.getBasketballLineUpList["away"];
 
-    // console.log("check data home:", this.homeTeamLineUpList);
-    // console.log("check data away:", this.awayTeamLineUpList);
-
     if (this.homeTeamLineUpList != null) {
       this.homeTeamLineUpListLength = this.homeTeamLineUpList.length;
     } else {
@@ -179,7 +170,6 @@ export default {
     } else {
       this.awayTeamLineUpListLength = 0;
     }
-    // console.log("check bug: ", this.homeTeamLineUpListLength);
 
     this.homeTeamList();
   },
@@ -208,10 +198,8 @@ export default {
 
       if (this.isHomeTeam) {
         lengthCount = this.homeTeamLineUpListLength;
-        // console.log("check team home: ", lengthCount);
       } else {
         lengthCount = this.awayTeamLineUpListLength;
-        // console.log("check team away: ", lengthCount);
       }
 
       for (let i = 0; i < lengthCount; i++) {
@@ -312,7 +300,6 @@ td {
   width: 75px;
   min-width: 70px;
   max-width: 75px;
-  /* border: 1px solid black; */
   padding: 3px;
   text-align: center;
 }
@@ -329,7 +316,6 @@ th:first-child {
   position: sticky;
   position: -webkit-sticky;
   left: 0;
-  /* background-color: white; */
   text-align: left;
 }
 

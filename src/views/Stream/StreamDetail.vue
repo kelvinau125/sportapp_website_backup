@@ -29,14 +29,12 @@
               style="width: 117px; height: 67px; border: 1px solid #ccc"
             >
               <img v-if="imageUrl" :src="imageUrl" class="w-full h-full border-2" />
-              <!-- <span v-if="!imageUrl" @click="removeImage" class="absolute top-[130px] left-[178px] cursor-pointer text-red-500 p-2"  >X</span> -->
               <img
                 v-if="!imageUrl"
                 src="@/assets/add_picture.png"
                 class="border-2 border-white mx-auto mt-6"
                 style="width: 20px; height: 20px"
               />
-              <!-- <img src="@/assets/add_picture.png" class="border-2 border-white mx-auto mt-4" style="width: 20px; height: 20px;" /> -->
               <input
                 type="file"
                 id="upload"
@@ -170,7 +168,7 @@ export default {
     const getStreamUrl = await getPushStreamUrl();
 
     this.code = getStreamUrl["code"];
-    this.host = "rtmp://" +  getStreamUrl["host"] + "/";
+    this.host = "rtmp://" + getStreamUrl["host"] + "/";
     this.time = getStreamUrl["time"];
   },
 
@@ -262,13 +260,6 @@ export default {
         .catch((err) => {
           console.log("create error: ", err);
         });
-
-      // const routeData = this.$router.resolve({
-      //   name: "LiveStream",
-      //   query: {
-      //     LiveID: liveID,
-      //   },
-      // });
     },
   },
 };

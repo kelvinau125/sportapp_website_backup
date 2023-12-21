@@ -14,11 +14,6 @@ import {
     searchFootballMatchTodayENurl,
     } from '@/utils/apiConfig.js';
   
-// get user cookie / set cookie
-//   import VueCookies from 'vue-cookies';
-//   import { setCookie, setNicknameCookie, setImageCookie } from '@/service/cookie';
-
-
 // getFootballMatchId
 export async function getFootballMatchbyId(matchId, isCN) {
     let url = "";
@@ -63,7 +58,6 @@ export async function getFootballLineup(matchId, isCN) {
   
       if (code === 0) {
 
-        // console.log("debug tournament: ", data);
         return data;
       }else {
         console.log(`get footballlineup Unsuccessfully: ${code}`);

@@ -62,47 +62,7 @@
       </div>
     </div>
   </div>
-  <!-- <div class="tournament-container">
-    <div class="tournament">
-      <div class="tournament_window">
-        <div class="content_s">
-          <div class="flex flex-col items-center">
-            <span class="font-semibold text-lg text-white">{{ this.competitionName }}</span>
-            <div class="flex flex-col items-center pt-2">
-              <span style="color: #F8FEE4;" class="font-normal text-xs text-white">{{ this.matchDate + " " +
-                this.matchTimeStr }}</span>
-              <span style="color: #F8FEE4;" class="font-normal text-xs ">{{ this.statusStr }}</span>
-            </div>
-          </div>
-        </div>
-        <div class="flex tournament_icon">
-          <div class="" style="margin-right: 80px;">
-            <div class="flex flex-col items-center">
-              <img class="pb-3" :src="this.homeTeamLogo" style="
-                    height: 46px;
-                    width: 46px;
-                " />
-              <p class="text-white">{{ this.homeTeamName }}</p>
-            </div>
-          </div>
-          <div class="text-white flex w-24 justify-between pt-10">
-            <span class="text-3xl font-semibold">{{ this.homeTeamScore }}</span>
-            <span class="text-3xl font-semibold">-</span>
-            <span class="text-3xl font-semibold">{{ this.awayTeamScore }}</span>
-          </div>
-          <div class="" style="margin-left: 80px;">
-            <div class="flex flex-col items-center">
-              <img class="pb-3" :src="this.awayTeamLogo" style="
-                    height: 46px;
-                    width: 46px;
-                " />
-              <p class="text-white">{{ this.awayTeamName }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
+
   <div class="flex justify-center">
     <div class="w-full md:w-[892px] flex flex-col">
       <h2 class="pt-6 text-headerFont font-headerWeight">
@@ -170,9 +130,6 @@
         <div class="flex justify-center pb-10">
           <div class="w-[892px]">
             <h2 class="text-headerFont font-headerWeight">{{ $t("Line Up") }}</h2>
-            <!-- <div class="pt-3">
-          <LineUp :tournamentID="this.TournamentID" :homeTeamLogo="this.homeTeamLogo" :awayTeamLogo="this.awayTeamLogo" />
-        </div> -->
           </div>
         </div>
         <div class="flex justify-center pb-10">
@@ -236,29 +193,6 @@
       </div>
     </div>
   </div>
-
-  <!-- <div class="flex justify-center pb-10" v-show="!currentChannel">
-    <div class="max-w-[892px] w-full">
-      <h2 class="text-headerFont font-headerWeight pb-3">{{ $t("Data analysis") }}</h2>
-      <div class="flex flex-col pb-5 team_lineup" style="background-color: white">
-        <div class="pt-3">
-          <BasketballTournamentSubstitue :tournamentID="1" :awayTeamName="this.awayTeamName"
-            :homeTeamName="this.homeTeamName" :is-home-team="true" :home-team-logo="this.homeTeamLogo"
-            :away-team-logo="this.awayTeamLogo" :showbasketballsubstitue="!currentChannel">
-          </BasketballTournamentSubstitue>
-        </div>
-      </div>
-
-      <div class="flex flex-col team_lineup pb-5" style="background-color: white">
-        <div class="pt-3">
-          <BasketballTournamentSubstitue :tournamentID="1" :awayTeamName="this.awayTeamName"
-            :homeTeamName="this.homeTeamName" :is-home-team="false" :home-team-logo="this.homeTeamLogo"
-            :away-team-logo="this.awayTeamLogo" :showbasketballsubstitue="!currentChannel">
-          </BasketballTournamentSubstitue>
-        </div>
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <script>
@@ -289,12 +223,7 @@ export default {
       ),
       isCN: this.$i18n.locale === "ZH" ? true : false,
 
-      liveAddress: [
-        // { liveAddress: this.$t("Broadcast address"), addressLink: "/" },
-        // { liveAddress: this.$t("Broadcast address"), addressLink: "/live" },
-        // { liveAddress: this.$t("Broadcast address"), addressLink: "/" },
-        // { liveAddress: this.$t("Broadcast address"), addressLink: "/" },
-      ],
+      liveAddress: [],
 
       TournamentID: this.$route.query.TournamentID,
       competitionName: this.$route.query.competitionName,
@@ -308,18 +237,12 @@ export default {
       awayTeamScore: this.$route.query.awayTeamScore,
       awayTeamLogo: this.$route.query.awayTeamLogo,
 
-      // TournamentID: "1000",
-      // homeTeamName: "kelvin 1",
-      // awayTeamName: "phillip 1",
-
       liveAdressName: ["直播地址 - 标清", "直播地址 -  华语", "直播地址 - 英文"],
     };
   },
 
   mounted() {
     this.generateLiveAddress();
-    // console.log("check id--------------------");
-    // console.log(this.TournamentID);
   },
 
   methods: {
@@ -368,7 +291,6 @@ export default {
       } else {
         this.liveAddress = [];
       }
-      // console.log("???", this.liveAddress);
     },
   },
 };
@@ -386,7 +308,6 @@ export default {
   width: 100%;
   box-sizing: border-box;
   text-align: start;
-  /* padding: 20px; */
   margin: 0 auto;
 }
 
@@ -498,15 +419,6 @@ export default {
   margin: auto;
   position: relative;
 }
-
-/* .tournament_icon {
-  position: absolute;
-  top: 75px;
-  left: 252px;
-  display: flex;
-  align-items: center;
-
-} */
 
 .wrapper {
   width: 100%;

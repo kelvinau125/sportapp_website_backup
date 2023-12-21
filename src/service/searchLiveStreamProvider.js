@@ -19,7 +19,6 @@ import {
 
 export async function searchLiveTeamStream(teamName, isCN, isFootBall) {
 
-    // const url = baseUrl + searchFootballMatchTodayENurl + 'teamName=' + teamName
     let url;
 
     (isCN)
@@ -51,7 +50,6 @@ export async function searchLiveTeamStream(teamName, isCN, isFootBall) {
 }
 
 export async function searchLiveCompetitionStream(competitionName, isCN, isFootBall) {
-    // const url = baseUrl + searchFootballMatchTodayENurl + 'competitionName=' + competitionName
     let url;
 
     (isCN)
@@ -83,7 +81,6 @@ export async function searchLiveCompetitionStream(competitionName, isCN, isFootB
 }
 
 export async function searchLiveAddress(homeName, awayName, mathcId, isCN, isFootBall) {
-    // const url = baseUrl + searchFootballMatchTodayENurl + 'competitionName=' + competitionName
     let url;
 
     (isCN)
@@ -101,8 +98,6 @@ export async function searchLiveAddress(homeName, awayName, mathcId, isCN, isFoo
 
         const data = response.data
         const code = response.code;
-
-        console.log("hahahahahahahaha",data)
 
         if (code === 0) {
             return data;
