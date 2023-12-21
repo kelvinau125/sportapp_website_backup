@@ -2,11 +2,12 @@
   <!-- <div style="height: 150rem" /> -->
   <div class="w-full flex flex-col">
     <BackgroundImage>
-      <div class="live-container">
-        <div class="liveStream">
+      <div class="live-container scroll-container">
+        <div class="liveStream inner-container">
           <!-- <div class="live-window"> -->
           <!-- <div>直播窗口内容</div>
             <div>Testing</div> -->
+            
           <div class="relative">
             <div v-show="showWarming" class="video-wrapper w-[892px] h-[505px] rounded-lg bg-black z-10 flex justify-center items-center text-white">
                <p class="font-medium text-2xl">{{ $t("No live broadcast...") }}</p>
@@ -38,7 +39,7 @@
               <video
                 ref="myVideo"
                 preload="auto"
-                class="video-js vjs-default-skin w-full h-full"
+                class="video-js vjs-default-skin w-[892px] h-[505px]"
                 style="cursor: pointer"
               ></video>
 
@@ -508,5 +509,23 @@ div {
 /* Show the button on video wrapper hover */
 .video-wrapper:hover .hover-button {
   display: block;
+}
+
+.scroll-container {
+  position: absolute;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+
+}
+
+.inner-container {
+  max-width: 892px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+.scroll-container::-webkit-scrollbar {
+  display: none;
 }
 </style>
