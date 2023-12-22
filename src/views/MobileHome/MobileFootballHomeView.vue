@@ -32,8 +32,8 @@
       <span class="font-medium text-lg">{{ $t('Event') }}</span>
   </div>
 
-  <div class="flex justify-between mt-5  ml-4 max-w-[345px] h-[46px]">
-      <div class="flex justify-center mt-1。5" style="
+  <div class="flex justify-between mt-5 ml-4 w-[93%] h-[46px]">
+      <div class="flex justify-center mt-1.5" style="
               height: 32px;
               width: 17px;
               background-color: #808f7e;
@@ -66,7 +66,7 @@
           </button>
       </div>
   </div>
-  <div class="schedule_detail pl-4 pr-4 w-[100%] ">
+  <div class="schedule_detail pl-4 pr-4 pb-16 w-[100%] ">
       <div class="schedule_detail_box">
           <ul class="h-[90px]" v-for="match in matchDetails" :key="match.matchDetails">
               <li @click="

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/Home/FootballHomeView.vue'
+// import HomeView from '@/views/Home/FootballHomeView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import LoginForm from '@/views/LoginView.vue'
 import AllMatch from '@/views/AllMatch.vue'
@@ -9,12 +9,14 @@ import ResultPage from '@/components/SearchResult.vue'
 import MobileHomePage from '@/views/MobileHome/MobileFootballHomeView.vue'
 import MobileTournamentStatus from '@/views/MobileTournament/mobileTournamentStatus.vue'
 
+import Page from '@/views/HomeView.vue'
+
 const routes = [
 
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: Page
   },
   {
     path: '/live',
