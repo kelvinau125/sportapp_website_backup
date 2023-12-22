@@ -1,37 +1,59 @@
 <template>
-  <div class="bg-navColor">
-    <Navbar />
-  </div>
-    <router-view/>
-     <!-- HOMEVIEW FOR LIVE (BANNER) 
-     热门赛程
-     热门主播榜 -->
-    <!-- <FooterPage/> -->
-    <div class="go-up">
-      <img @click="scrollToTop" src="./assets/goUp.png" />
+  <div>
+    <component v-if="!isMobileView" :is="navbarComponent" />
+    <router-view />
+      <div class="go-up">
+        <img @click="scrollToTop" src="./assets/goUp.png" />
+      </div>
+      <div class="sticky-navbar">
+      <!-- Render Navbar or MobileNavbar based on the screen width -->
+      <component v-if="isMobileView" :is="navbarComponent" />
     </div>
-
+  </div>
 </template>
-<script setup>
-import Navbar from './components/NavBar.vue'
 
-const scrollToTop = () => {
-  // 添加了overflow导致scrollToTop功能失效，
-  // 因为window.scrollTo只能滚动到可滚动元素的顶部，而不是整个窗口的顶部。
-  // 可以将滚动操作应用于#app元素而不是window
+<script>
+import Navbar from './components/NavBar.vue';
+import MobileNavbar from './components/MobileNavBar.vue';
 
-  const appElement = document.getElementById('app');
-  if (appElement) {
-    appElement.scrollTo({ top: 0,  behavior: 'smooth' });
-    console.log(appElement);
-  }
+export default {
+  components: {
+    Navbar,
+    MobileNavbar,
+  },
+
+  data() {
+    return {
+      navbarComponent: null,
+      isMobileView: false,
+    };
+  },
+
+  methods: {
+    scrollToTop() {
+      const appElement = document.getElementById('app');
+      if (appElement) {
+        appElement.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    },
+    updateNavbarComponent() {
+      this.isMobileView = window.innerWidth <= 767;
+      this.navbarComponent = window.innerWidth <= 767 ? 'MobileNavbar' : 'Navbar';
+    },
+  },
+
+  mounted() {
+    this.updateNavbarComponent();
+    window.addEventListener('resize', this.updateNavbarComponent);
+  },
+
+  beforeUnmount() {
+    window.removeEventListener('resize', this.updateNavbarComponent);
+  },
 };
-
-
 </script>
 
 <style>
-
 #app {
   width: 100%;
   background-color: #F4F9F4;
@@ -41,11 +63,18 @@ const scrollToTop = () => {
 }
 
 .go-up {
-  position:fixed;
+  position: fixed;
   bottom: 20%;
   right: 15%;
   cursor: pointer;
   z-index: 1000;
 }
 
+.sticky-navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
 </style>

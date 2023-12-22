@@ -41,6 +41,9 @@
     "live": "直播",
     "myfavouritelive": "收藏",
     "Search event/team": "搜索赛事/ 球队",
+    "me": "我的",
+    "My Favourite Live": "我的收藏直播",
+    "Change Language": "语言切换",
 
     "Notification": "系统消息",
     "Contact Us": "联系我们",
@@ -143,5 +146,8 @@
     "Show More": "展示更多",
     "No live broadcast...": "无直播...",
 
-    "Event" : "赛事"
+    "Event" : "赛事",
+    "Download App": "下载APP",
+    "For more live matches, click to download the App": "更多比赛直播 点击下载App",
+    "Download": "下载"
 }

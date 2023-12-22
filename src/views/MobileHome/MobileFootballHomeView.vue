@@ -1,6 +1,8 @@
 <template>
   <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal" />
 
+  <DownloadAPP :showDownloadAPPModal="isDownloadAPPModalVisible" :closeDownloadAPPModal="closeDownloadAPPModal" />
+
   <Carousel :items-to-show="1.5" :wrap-around="true">
       <Slide v-for="(livedata, index) in liveData.slice(0, 5)" :key="index">
           <div @click="goLogin()" class="carousel__item ">
@@ -25,15 +27,15 @@
       </Slide>
   </Carousel>
   <div @click="downloadApp()" class="flex justify-center ">
-      <img class="w-[343px] h-[58px]" src="@/assets/main/advertisment.png">
+      <img class="w-[95%] h-[58px] mt-2" src="@/assets/main/advertisment.png">
   </div>
 
   <div class="pt-4 px-3">
       <span class="font-medium text-lg">{{ $t('Event') }}</span>
   </div>
 
-  <div class="flex justify-between mt-5  ml-4 max-w-[345px] h-[46px]">
-      <div class="flex justify-center mt-1。5" style="
+  <div class="flex justify-between mt-5 ml-4 w-[93%] h-[46px]">
+      <div class="flex justify-center mt-1.5" style="
               height: 32px;
               width: 17px;
               background-color: #808f7e;
@@ -66,7 +68,7 @@
           </button>
       </div>
   </div>
-  <div class="schedule_detail pl-4 pr-4 w-[100%] ">
+  <div class="schedule_detail pl-4 pr-4 pb-16 w-[100%] ">
       <div class="schedule_detail_box">
           <ul class="h-[90px]" v-for="match in matchDetails" :key="match.matchDetails">
               <li @click="
@@ -162,9 +164,8 @@
 import { Carousel, Slide } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
 import LoginModal from "@/views/Authentication/LoginModal.vue";
+import DownloadAPP from "@/components/DownloadApp.vue";
 import ButtonPress from "@/components/ButtonPress.vue";
-
-
 
 import { addDays, startOfWeek, format, isToday } from "date-fns";
 import { ref } from "vue";
@@ -184,7 +185,7 @@ export default {
       Slide,
       LoginModal,
       ButtonPress,
-
+      DownloadAPP,
   },
 
   async mounted() {
@@ -229,8 +230,9 @@ export default {
           matchdate: "",
           getMatchList: [],
           matchDetails: [],
-          isLoginModalVisible: ref(false),
 
+          isLoginModalVisible: ref(false),
+          isDownloadAPPModalVisible: ref(false),
       };
   },
   computed: {
@@ -424,22 +426,30 @@ export default {
           const userToken = VueCookies.get("userToken");
 
           if (!userToken) {
-              this.showLoginModal();
-              console.log("HALO")
+            this.showLoginModal();
+            console.log("HALO")
 
           } else {
-              console.log("Please DOWNLOAD APP")
+            this.downloadApp()
           }
 
       },
       downloadApp() {
-          console.log("Download App");
+        this.showDownloadAPPModal();
       },
+
       showLoginModal() {
           this.isLoginModalVisible = true;
       },
       closeLoginModal() {
           this.isLoginModalVisible = false;
+      },
+
+      showDownloadAPPModal() {
+          this.isDownloadAPPModalVisible = true;
+      },
+      closeDownloadAPPModal() {
+          this.isDownloadAPPModalVisible = false;
       },
 
 

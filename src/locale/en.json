@@ -41,6 +41,9 @@
     "live": "Live",
     "myfavouritelive": "Favourite",
     "Search event/team": "Search event/team",
+    "me": "Me",
+    "My Favourite Live":"My Favourite Live",
+    "Change Language": "Change Language",
 
     "Notification": "Notification",
     "ContactUs": "ContactUs",
@@ -83,7 +86,7 @@
     "Agreement Privacy Policy": "Agreement Privacy Policy",
     "Disclaimer" :"Disclaimer",
     "Permission details": "Permission details",
-    "Contact us":"Contact us",
+    "Contact us":"ContactUs",
     "All live broadcasts on this site are from the Internet. This site is not engaged in any business. It only provides free live broadcasts for sports enthusiasts. If your rights are infringed, please contact us":"All live broadcasts on this site are from the Internet. This site is not engaged in any business. It only provides free live broadcasts for sports enthusiasts. If your rights are infringed, please contact us",
 
     "Popular fixtures": "Popular Fixtures",
@@ -143,6 +146,9 @@
     "Show More": "Show More",
     "No live broadcast...": "No live broadcast...",
 
-    "Event" : "Events"
+    "Event" : "Events",
+    "Download App": "Download App",
+    "For more live matches, click to download the App": "For more live matches, click to download the App",
+    "Download": "Download"
 
 }

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/Home/FootballHomeView.vue'
+// import HomeView from '@/views/Home/FootballHomeView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import LoginForm from '@/views/LoginView.vue'
 import AllMatch from '@/views/AllMatch.vue'
@@ -8,20 +8,20 @@ import NotFound from '@/components/NotFound.vue'
 import ResultPage from '@/components/SearchResult.vue'
 import MobileHomePage from '@/views/MobileHome/MobileFootballHomeView.vue'
 import MobileTournamentStatus from '@/views/MobileTournament/mobileTournamentStatus.vue'
+import downloadapp from '@/components/DownloadApp.vue'
+
+import Page from '@/views/HomeView.vue'
 
 const routes = [
 
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: Page
   },
   {
     path: '/live',
     name: 'live',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '@/views/Home/LiveView.vue')
   },
   {
@@ -51,6 +51,11 @@ const routes = [
     component: TournamentDetails
   },
   {
+    path: '/mobile_my_profile',
+    name: 'MobileMyProfile',
+    component: () => import('@/views/MobileMyProfile/MobileMyPage.vue'),
+  },
+  {
     path: '/live_stream',
     name: 'LiveStream',
     component: () => import('@/views/LiveStream/LiveStreamView.vue'),
@@ -77,7 +82,11 @@ const routes = [
     name: 'MobileTournamentStatus',
     component: MobileTournamentStatus
   },
-  
+  {
+    path: '/test',
+    name: 'test',
+    component: downloadapp
+  }
 
 ]
 
