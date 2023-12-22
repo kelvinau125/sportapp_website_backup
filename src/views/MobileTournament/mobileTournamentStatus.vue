@@ -1,7 +1,199 @@
 <template>
   <!-- Main Component -->
-  <div class="flex py-2 w-[375px] border-2" v-show="showfootballstatus">
-    <div class="w-full border-2 statusContainer">
+  <div class=" flex justify-center" v-show="showfootballstatus">
+    <div class="flex flex-col">
+      <div class="flex justify-between w-[340px] px-4">
+        <div class="flex items-center">
+          <div class="flex pb-1.5 md:px-3">
+            <img style="width: 24px; height: 24px" src="@/assets/tournament/jiaoQiu.png" />
+            <span class="font-medium text-sm pt-1.5 pr-1">{{ homeCornerKickNum }}</span>
+          </div>
+          <div class="flex pb-1.5 md:px-3">
+            <img style="width: 24px; height: 24px" src="@/assets/tournament/hongPai.png" />
+            <span class="font-medium text-sm pt-1.5 pr-1">{{ homeRedCardNum }}</span>
+          </div>
+          <div class="flex pb-1.5 md:px-3">
+            <img style="width: 24px; height: 24px" src="@/assets/tournament/huangPai.png" />
+            <span class="font-medium text-sm pt-1.5 pr-1">{{ homeYellowCardNum }}</span>
+          </div>
+        </div>
+        <div class="flex items-center">
+          <div class="flex pb-1.5 md:px-3">
+            <img style="width: 24px; height: 24px" src="@/assets/tournament/huangPai.png" />
+            <span class="font-medium text-sm pt-1.5 pr-1">{{ awayYellowCardNum }}</span>
+          </div>
+          <div class="flex pb-1.5 md:px-3">
+            <img style="width: 24px; height: 24px" src="@/assets/tournament/hongPai.png" />
+            <span class="font-medium text-sm pt-1.5 pr-1">{{ awayRedCardNum }}</span>
+          </div>
+          <div class="flex pb-1.5 md:px-3">
+            <img style="width: 24px; height: 24px" src="@/assets/tournament/jiaoQiu.png" />
+            <span class="font-medium text-sm pt-1.5 pr-1">{{ awayCornerKickNu }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center justify-start  w-[340px]">
+        <div class="flex items-center justify-between  w-[115px]  ">
+          <p class="font-medium md:text-sm text-10px pr-1">
+            {{ homePossessionRate + "%" }}
+          </p>
+          <div class="team relative w-[90px] p-[20px] ">
+            <div class="stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
+            <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAPossessionRate + '%' }"></div>
+          </div>
+        </div>
+        <div class="flex justify-center w-[100px] ">
+          <span class="md:text-sm text-xs font-medium">{{
+            $t("Possession")
+          }}</span>
+        </div>
+        <div class="flex items-center  w-[115px] ">
+          <div class="team relative w-[90px] p-[20px]">
+            <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%"></div>
+            <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBPossessionRate + '%' }">
+            </div>
+          </div>
+          <p class="font-medium md:text-sm text-10px pl-3 pr-1">
+            {{ awayPossessionRate + "%" }}
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center justify-start  w-[340px]">
+        <div class="flex items-center justify-between w-[115px]   ">
+          <p class="font-medium md:text-sm text-10px">
+            {{ homeAttackDangerNum }}
+          </p>
+          <div class="team relative w-[90px] p-[20px] ">
+            <div class="stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
+            <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamADangerNum + '%' }"></div>
+          </div>
+        </div>
+        <div class="flex justify-center w-[100px]   ">
+          <span class="md:text-sm text-xs font-medium">{{
+            $t("Danger")
+          }}</span>
+        </div>
+        <div class="flex items-center  w-[115px] ">
+          <div class="team relative w-[90px] p-[20px] ">
+            <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%"></div>
+            <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBDangerNum + '%' }">
+            </div>
+          </div>
+          <p class="font-medium md:text-sm text-10px pl-3 pr-1">
+            {{ awayAttackDangerNum }}
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-start w-[340px] ">
+        <div class="flex items-center justify-between w-[115px]  ">
+          <p class="font-medium md:text-sm text-10px pr-1.5">
+            {{ homeAttackNum }}
+          </p>
+          <div class="team relative w-[90px] p-[20px]">
+            <div class="stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
+            <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAAttackNumber + '%' }"></div>
+          </div>
+        </div>
+        <div class="flex justify-center w-[100px]  ">
+          <span class="md:text-sm text-xs font-medium  ">{{
+            $t("Attack")
+          }}</span>
+        </div>
+        <div class="flex items-center  w-[115px]  ">
+          <div class="team relative w-[90px] p-[20px]">
+            <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%"></div>
+            <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBShotPercentage + '%' }">
+            </div>
+          </div>
+          <p class="font-medium md:text-sm text-10px pl-3 pr-1">
+            {{ awayAttackNum }}
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-start w-[340px] ">
+        <div class="flex items-center justify-between  w-[115px]  ">
+          <p class="font-medium md:text-sm text-10px pr-3">
+            {{ homePenaltyNum }}
+          </p>
+          <div class="team relative w-[90px] p-[20px]">
+            <div class="stat-bar-left totalGrayBar border_leftTB" :style="{ width: 100 + '%' }"></div>
+            <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAPenaltyNum + '%' }"></div>
+          </div>
+        </div>
+        <div class="flex justify-center w-[90px] text-center ">
+          <span class="md:text-sm text-xs font-medium md:px-2.5 px-1">{{
+            $t("Penalty")
+          }}</span>
+        </div>
+        <div class="flex items-center  w-[115px] ml-2  ">
+          <div class="team relative w-[90px] p-[20px]">
+            <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%"></div>
+            <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBPenaltyNum + '%' }">
+            </div>
+          </div>
+          <p class="font-medium md:text-sm text-10px pl-3 pr-1">
+            {{ awayPenaltyNum }}
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center justify-start w-[340px]">
+
+        <div class="flex items-center w-[115px] justify-between ">
+          <div class="flex items-center ">
+            <p class="font-medium md:text-sm text-10px">
+              {{ teamAtotalShotNum }}
+            </p>
+            <p class="font-medium md:text-sm text-10px pr-0.5">
+              {{ "(" + homeShootGoalNum + ")" }}
+            </p>
+          </div>
+          <div class="teamDown relative w-[90px] p-[20px]">
+            <div class="stat-bar-left totalGrayBar border_leftTB" style="width: 100%"></div>
+            <div class="stat-bar-left total-shots border_leftTB" :style="{ width: teamAtotalShotPercent + '%' }">
+            </div>
+            <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAGoalPercentage + '%' }">
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-center w-[90px] text-center pl-2 ">
+          <p class="md:text-sm text-xs font-medium">
+            {{ $t("Shoot") + "(" + $t("Score") + ")" }}
+          </p>
+        </div>
+
+        <div class="flex items-center">
+          <div class="flex items-center w-[115px]  ml-2">
+            <div class="teamDown  relative w-[90px] p-[20px] ">
+              <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%"></div>
+              <div class="stat-bar-right total-shotsB border_rightTB" :style="{ width: teamBtotalShotPercent + '%' }">
+              </div>
+              <div class="stat-bar-right shots-on-target border_rightTB" :style="{ width: teamBGoalPercentage + '%' }">
+              </div>
+            </div>
+
+            <div class="flex items-center ">
+              <p class="font-medium md:text-sm text-10px pl-1">
+                {{ teamBtotalShotNum }}
+              </p>
+              <p class="font-medium md:text-sm text-10px pl-0.5">
+                {{ "(" + awayShootGoalNum + ")" }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </div>
+
+  <!-- <div class="flex py-2 w-[375px]" v-show="showfootballstatus">
+    <div class="w-full   statusContainer">
       <div class="flex justify-between px-4">
         <div class="flex items-center">
           <div class="flex pb-1.5 md:px-3">
@@ -33,7 +225,7 @@
         </div>
       </div>
       <div class="flex flex-col items-center">
-        <div class="flex items-center justify-center border-2 w-[330px]">
+        <div class="flex items-center justify-center  w-[330px]">
           <div class="flex items-center">
             <p class="font-medium md:text-sm text-10px md:pr-2 pr-1">
               {{ homePossessionRate + "%" }}
@@ -43,7 +235,7 @@
               <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAPossessionRate + '%' }"></div>
             </div>
           </div>
-          <div class="flex justify-center w-[80px] border-2 border-red-500">
+          <div class="flex justify-center w-[110px]  ">
             <span class="md:text-sm text-xs font-medium md:px-2.5 px-1">{{
               $t("Possession")
             }}</span>
@@ -71,13 +263,13 @@
               <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamADangerNum + '%' }"></div>
             </div>
           </div>
-          <div class="flex justify-center w-[80px] border-2 border-red-500">
+          <div class="flex justify-center w-[110px]  ">
             <span class="md:text-sm text-xs font-medium md:px-2.5 px-1">{{
               $t("Danger")
             }}</span>
           </div>
           <div class="flex items-center">
-            <div class="team relative w-[50px] p-[20px]">
+            <div class="team relative w-[50px] p-[20px] ">
               <div class="stat-bar-right totalGrayBar border_rightTB" style="width: 100%"></div>
               <div class="stat-bar-right right-bar-color border_rightTB" :style="{ width: teamBDangerNum + '%' }">
               </div>
@@ -99,7 +291,7 @@
               <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAAttackNumber + '%' }"></div>
             </div>
           </div>
-          <div>
+          <div class="flex justify-center w-[110px]  ">
             <span class="md:text-sm text-xs font-medium md:px-2.5 px-1">{{
               $t("Attack")
             }}</span>
@@ -126,7 +318,7 @@
               <div class="stat-bar-left left-bar-color border_leftTB" :style="{ width: teamAPenaltyNum + '%' }"></div>
             </div>
           </div>
-          <div>
+          <div class="flex justify-center w-[110px]  ">
             <span class="md:text-sm text-xs font-medium md:px-2.5 px-1">{{
               $t("Penalty")
             }}</span>
@@ -147,7 +339,7 @@
           <div class="flex items-center">
 
             <div class="flex items-center">
-              <div class="flex items-center">
+              <div class="flex items-center ">
                 <p class="font-medium md:text-sm text-10px pl-1">
                   {{ teamAtotalShotNum }}
                 </p>
@@ -165,7 +357,7 @@
             </div>
           </div>
 
-          <div>
+          <div class="flex justify-center w-[110px]  ">
             <p class="font-medium md:text-sm text-10px">
               {{ $t("Shoot") + "(" + $t("Score") + ")" }}
             </p>
@@ -181,7 +373,7 @@
                 </div>
               </div>
 
-              <div class="flex items-center">
+              <div class="flex items-center ">
                 <p class="font-medium md:text-sm text-10px pl-1">
                   {{ teamBtotalShotNum }}
                 </p>
@@ -197,7 +389,7 @@
       </div>
 
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -449,7 +641,7 @@ export default {
 </script>
 
 <style scoped>
-@media (min-width: 300px) {
+/* @media (min-width: 300px) {
   .team {
     position: relative;
     width: 70px;
@@ -470,9 +662,9 @@ export default {
     display: flex;
     justify-content: flex-start;
   }
-}
+} */
 
-@media (min-width: 500px) {
+/* @media (min-width: 500px) {
   .team {
     position: relative;
     width: 100px;
@@ -516,7 +708,7 @@ export default {
     display: flex;
     justify-content: center;
   }
-}
+} */
 
 .border_leftTB {
   border-top-left-radius: 12px;
@@ -530,7 +722,7 @@ export default {
 
 .stat-bar-right {
   height: 9px;
-  width: 137px;
+  width: 300px;
   position: absolute;
   left: 0;
   bottom: 8px;
