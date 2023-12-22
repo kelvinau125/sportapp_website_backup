@@ -1,7 +1,5 @@
 <template>
-  <div class="bg-navColor">
-    <Navbar />
-  </div>
+
     <router-view/>
      <!-- HOMEVIEW FOR LIVE (BANNER) 
      热门赛程
@@ -10,24 +8,30 @@
     <div class="go-up">
       <img @click="scrollToTop" src="./assets/goUp.png" />
     </div>
+    <!-- <div class="bg-navColor"> -->
+    <div class="sticky-navbar">
+    <Navbar />
+  </div>
 
 </template>
-<script setup>
-import Navbar from './components/NavBar.vue'
 
-const scrollToTop = () => {
-  // 添加了overflow导致scrollToTop功能失效，
-  // 因为window.scrollTo只能滚动到可滚动元素的顶部，而不是整个窗口的顶部。
-  // 可以将滚动操作应用于#app元素而不是window
+<script>
+import Navbar from './components/MobileNavBar.vue';
 
-  const appElement = document.getElementById('app');
-  if (appElement) {
-    appElement.scrollTo({ top: 0,  behavior: 'smooth' });
-    console.log(appElement);
+export default {
+  components: {
+    Navbar
+  },
+  methods: {
+    scrollToTop() {
+      const appElement = document.getElementById('app');
+      if (appElement) {
+        appElement.scrollTo({ top: 0, behavior: 'smooth' });
+        console.log(appElement);
+      }
+    }
   }
 };
-
-
 </script>
 
 <style>
@@ -45,6 +49,14 @@ const scrollToTop = () => {
   bottom: 20%;
   right: 15%;
   cursor: pointer;
+  z-index: 1000;
+}
+
+.sticky-navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   z-index: 1000;
 }
 

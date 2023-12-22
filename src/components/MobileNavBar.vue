@@ -1,26 +1,10 @@
 <template>
-  <div
-    class="bg-navColor text-white py-1 px-10 shadow md:flex justify-center items-center"
-  >
+  <!-- <div class="bg-white text-white py-1 px-10 shadow md:flex justify-center items-center">
     <div class="md:pt-1 pt-2 flex items-center cursor-pointer">
-      <a href="/"
-        ><img class="mr-2" alt="App logo" src="@/assets/topNav/appImage.png"
-      /></a>
-      <div class="items-center md:block hidden">
-        <a
-          class="md:text-lg text-base font-semibold md:relative"
-          style="color: #33ba53"
-          href="/"
-        >
-          {{ $t("PandaSport") }}</a
-        >
-      </div>
-
-      <div class="md:static relative w-[300px]">
+      <div class="relative w-[300px]">
         <ul
           style="z-index: 1000"
-          :class="openNav ? 'block' : 'hidden'"
-          class="md:block items-center md:pr-0 pr-2 md:pl-5 pl-5 md:static absolute bg-navColor md:w-auto w-auto md:left-0 -left-[90px] md:top-14 top-14"
+          class=" items-center md:pr-0 pr-2 md:pl-5 pl-5 md:w-auto w-auto md:left-0 -left-[90px] md:top-14 top-14"
         >
           <li
             class="md:inline-flex flex-col ml-4 my-2.5"
@@ -37,133 +21,60 @@
         </ul>
       </div>
     </div>
-    <div class="md:flex items-center">
-      <div class="relative">
-        <div
-          @click="MenuOpen()"
-          class="md:static absolute md:hidden md:pl-0 pl-10 md:left-0 left-[10px] md:top-0 -top-[37px]"
-          style="width: 60px"
-        >
-          <img class="cursor-pointer" v-if="openNav" src="@/assets/topNav/x.png" />
-          <img class="cursor-pointer" v-else src="@/assets/topNav/hamburger.png" />
-        </div>
+  </div> -->
+  <!-- <div class="bg-white text-white py-1 px-10 shadow">
+    <div class="pt-2 cursor-pointer">
+      <div class="flex justify-between text-black">
+        <button class="button " @click="handleButtonClick('Button 1')">
+          <div class="flex flex-col items-center">
+            <img 
+              class="w-[24px] h-[24px]"
+              src="@/assets/main/home.png"
+              alt="Frame Icon">
+            <span class="text">首页</span>
+          </div>
+        </button>
+
+        <button class="button" @click="handleButtonClick('Button 2')">
+          <div class="flex flex-col items-center">
+            <img 
+              class="w-[24px] h-[24px]"
+              src="@/assets/main/live.png"
+              alt="Frame Icon">
+            <span class="text">直播</span>
+          </div>
+        </button>
+
+        <button class="button" @click="handleButtonClick('Button 3')">
+          <div class="flex flex-col items-center">
+            <img 
+              class="w-[24px] h-[24px]"
+              src="@/assets/main/me.png"
+              alt="Frame Icon">
+            <span class="text">我的</span>
+          </div>
+        </button>
       </div>
-      <div class="md:flex relative">
-        <div @click="search" class="md:block hidden pt-2.5">
-          <img
-            src="@/assets/topNav/search.png"
-            alt="Search Icon"
-            class="absolute left-0.5 w-6 h-6 m-2"
-          />
-        </div>
-        <div class="md:block hidden pt-2.5">
-          <input
-            v-model="searchQuery"
-            @keyup.enter="search"
-            type="text"
-            :placeholder="$t('Search event/team')"
-            maxlength="20"
-            class="pl-10 lg:w-72 md:w-60 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-10 text-white bg-slate-50"
-          />
-        </div>
+    </div>
+  </div> -->
 
-        <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between pb-1.5">
-          <div class="md:flex items-center">
-            <div
-              class="dropdown-button language-dropdown md:pt-2.5 md:pl-2.5"
-              style="width: 100px"
-            >
-              <button
-                class="language-toggle md:static absolute md:right-10 right-20 md:top-0 -top-8 pl-5"
-                @click="toggleDropdownLanguage"
-              >
-                <div class="flex pb-2.5">
-                  <span class="">{{ $t($i18n.locale) }} </span>
-                  <span> &#9662;</span>
-                </div>
-              </button>
-              <div
-                v-show="isDropdownOpenLanguage"
-                class="language-options md:hidden absolute md:right-[120px] right-[90px] md:top-[100%] top-0"
-              >
-                <button
-                  v-for="locale in $i18n.availableLocales"
-                  :key="locale"
-                  @click="languageChange(locale)"
-                  class="languages"
-                >
-                  {{ $t(locale) }}
-                </button>
-              </div>
-            </div>
+  <div class="bg-white text-white py-1 px-10 shadow">
+    <div class="pt-2 cursor-pointer">
+      <div class="flex justify-between text-black">
+        <button v-for="(button, index) in buttons" :key="index" class="button" @click="handleButtonClick(button, button.route)">
+          <div class="flex flex-col items-center">
+            <img 
+              class="w-[24px] h-[24px]"
+              :src="button === currentButton ? button.clickImage : button.image"
+              alt="Frame Icon">
+            <span class="text">{{ button.name }}</span>
           </div>
-
-          <button
-            class="pt-0 md:flex cursor-pointer text-xl mr-2.5 items-center md:pl-3"
-            @click="toggleDropdown"
-          >
-            <img
-              :src="img"
-              class="max-w-[24px] md:static absolute md:right-0 right-10 md:top-0 bottom-9 hover:bg-blue-950"
-              alt="defaultFootBall Image"
-            />
-            <img
-              class="md:block hidden pl-1.5 py-1"
-              src="@/assets/topNav/arrowDown.png"
-              alt="Arrow Down"
-            />
-            <!-- <p>{{ this.currentChannel }}</p> -->
-          </button>
-
-          <div
-            style="z-index: 1000"
-            class="dropdown-content md:hidden absolute md:right-6 right-8 md:top-10 top-0"
-            :class="{ 'show-dropdown': isDropdownOpen }"
-          >
-            <button class="dropdown-button" @click="basketballchoice()">
-              <img src="@/assets/topNav/basketball.png" alt="Basketball" />
-            </button>
-            <button class="dropdown-button" @click="footballchoice()">
-              <img src="@/assets/topNav/football.png" alt="Football" />
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="md:flex relative items-center pl-1">
-        <div @click="toggleDropdownProfile" class="modalProfile">
-          <img
-            :src="avatar"
-            class="max-w-[40px] w-[40px] h-[40px] max-h-[40px] md:static absolute md:right-0 -right-4 md:top-0 -top-[72px] rounded-full border-2 border-white"
-            style="object-fit: cover"
-          />
-          <div
-            style="z-index: 1000"
-            v-show="showDropdown"
-            class="md:absolute absolute md:right-0 -right-4 md:top-12 -top-6 bg-gray-900 mt-1 p-1 py-3"
-          >
-            <div class="pr-1 pt-1 pb-2 flex flex-col w-[80px]">
-              <!-- <button to="/register" class="px-1 hover:text-green-500 text-white">注册</button>
-              <button to="/login" class="px-1 hover:text-green-500 text-white">登入</button> -->
-              <button v-if="!loggedIn" class="px-1" @click="showRegisterModal">
-                {{ $t("Register") }}
-              </button>
-              <button v-if="!loggedIn" class="px-1" @click="showLoginModal">
-                {{ $t("Login") }}
-              </button>
-              <button v-if="loggedIn" class="px-1" @click="showMyPageModal">
-                {{ $t("MyPage") }}
-              </button>
-              <button v-if="loggedIn" @click="logout" class="block text-white">
-                {{ $t("Logout") }}
-              </button>
-            </div>
-          </div>
-        </div>
+        </button>
       </div>
     </div>
   </div>
+
   <div class="md:flex items-center pl-1">
-    <!-- login modal -->
     <LoginModal
       :showModal="isLoginModalVisible"
       :closeModal="closeLoginModal"
@@ -171,7 +82,6 @@
       :showForgotPasswordModal="showForgotPasswordModal"
     />
 
-    <!-- register modal -->
     <RegisterModal
       :showRegModal="isResgitserModalVisible"
       :closeRegModal="closeRegisterModal"
@@ -252,8 +162,8 @@ import RegisterModal from "@/views/Authentication/RegisterModal.vue";
 import OTPModal from "@/views/Authentication/OTPVerification.vue";
 import ForgotPasswordModal from "@/views/Authentication/ForgotPassword.vue";
 import EditPassword from "@/views/MyProfile/EditPassword.vue";
-// import MyPage from "@/views/MyProfile/MyPage.vue";
-import MyPage from "@/views/MobileMyProfile/MobileMyPage.vue";
+import MyPage from "@/views/MyProfile/MyPage.vue";
+// import MyPage from "@/views/MobileMyProfile/MobileMyPage.vue";
 import EditProfile from "@/views/MyProfile/EditProfile.vue";
 import EditNicknameModal from "@/views/MyProfile/EditUserNickname.vue";
 import StreamDetailModal from "@/views/Stream/StreamDetail.vue";
@@ -278,17 +188,29 @@ export default {
     currentChannelComponent() {
       return this.currentChannel === "football" ? "football" : "basketball";
     },
+
+    currentImage() {
+      return this.currentButton ? this.currentButton.clickImage : '';
+    },
   },
 
   data() {
     return {
+      buttons: [
+        { name: '首页', image: require('@/assets/main/home.png'), clickImage: require('@/assets/main/clickedhome.png'), route: '/' },
+        { name: '直播', image: require('@/assets/main/live.png'), clickImage: require('@/assets/main/clickedlive.png'), route: '/live' },
+        { name: '我的', image: require('@/assets/main/me.png'), clickImage: require('@/assets/main/clickedme.png'), route: '/mobile_my_profile' },
+      ],
+      currentButton: null,
+
       searchQuery: "",
 
       Links: [
-        { name: "main", link: "/" },
-        { name: "live", link: "/live" },
-        { name: "myfavouritelive", link: "/favourite" },
+        { name: 'main', link: '/', image: './assets/main/home.png', clickedImage: './assets/main/clickedhome.png' },
+        { name: 'live', link: '/live', image: './assets/main/live.png', clickedImage: './assets/main/clickedlive.png' },
+        { name: 'myfavouritelive', link: '/favourite', image: './assets/main/me.png', clickedImage: './assets/main/clickedme.png' },
       ],
+      
       avatar: ref(""),
       img: "",
       isDropdownOpen: ref(false),
@@ -311,6 +233,19 @@ export default {
   },
 
   methods: {
+    handleButtonClick(button, route) {
+      this.currentButton = button;
+
+      const userToken = VueCookies.get("userToken");
+
+      if (!userToken) {
+        this.showLoginModal();
+      } else {
+        // User is logged in, navigate to the selected route
+        this.$router.push(route);
+      }
+    },
+
     checkUserAndNavigate(route) {
       const userToken = VueCookies.get("userToken");
 
@@ -558,39 +493,6 @@ export default {
 <style scoped>
 .modalProfile:hover {
   cursor: pointer;
-}
-
-@media (min-width: 300px) {
-  .menu-list {
-    display: static;
-    position: absolute;
-  }
-}
-
-@media (min-width: 500px) {
-  .menu-list {
-    display: static;
-  }
-}
-
-@media (min-width: 640px) {
-  .menu-list {
-    display: block;
-    position: absolute;
-  }
-}
-
-@media (min-width: 760px) {
-  .menu-list {
-    display: block;
-    position: static;
-  }
-}
-
-@media (min-width: 1024px) {
-  .menu-list {
-    display: static;
-  }
 }
 
 .nav-button {

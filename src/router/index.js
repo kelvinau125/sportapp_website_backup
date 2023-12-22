@@ -17,9 +17,6 @@ const routes = [
   {
     path: '/live',
     name: 'live',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '@/views/Home/LiveView.vue')
   },
   {
@@ -47,6 +44,11 @@ const routes = [
     path: '/tournament_details',
     name: 'TournamentDetails',
     component: TournamentDetails
+  },
+  {
+    path: '/mobile_my_profile',
+    name: 'MobileMyProfile',
+    component: () => import('@/views/MobileMyProfile/MobileMyPage.vue'),
   },
   {
     path: '/live_stream',
