@@ -45,7 +45,7 @@
             class="w-full bg-white pl-6 pr-6"
             style="width: 100%; height: 60px; border-radius: 8px"
           >
-            <p class="text-base font-normal flex justify-center" style="color: #333333">
+            <p class="text-base font-normal flex justify-center whitespace-nowrap overflow-ellipsis" style="color: #333333">
               {{ $t("Notification") }}
             </p>
           </ButtonPress>
@@ -65,7 +65,7 @@
             class="w-full bg-white pl-6 pr-6"
             style="width: 100%; height: 60px; border-radius: 8px"
           >
-            <p class="text-base font-normal flex justify-center" style="color: #333333">
+            <p class="text-base font-normal flex justify-center whitespace-nowrap overflow-ellipsis" style="color: #333333">
               {{ $t("Settings") }}
             </p>
           </ButtonPress>
@@ -146,7 +146,6 @@ export default {
   padding: 20px;
   border-radius: 8px;
   text-align: center;
-  width: 400px;
   color: black;
   position: relative;
 }
