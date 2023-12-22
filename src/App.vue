@@ -1,41 +1,59 @@
 <template>
-
-    <router-view/>
-     <!-- HOMEVIEW FOR LIVE (BANNER) 
-     热门赛程
-     热门主播榜 -->
-    <!-- <FooterPage/> -->
-    <div class="go-up">
-      <img @click="scrollToTop" src="./assets/goUp.png" />
+  <div>
+    <component v-if="!isMobileView" :is="navbarComponent" />
+    <router-view />
+      <div class="go-up">
+        <img @click="scrollToTop" src="./assets/goUp.png" />
+      </div>
+      <div class="sticky-navbar">
+      <!-- Render Navbar or MobileNavbar based on the screen width -->
+      <component v-if="isMobileView" :is="navbarComponent" />
     </div>
-    <!-- <div class="bg-navColor"> -->
-    <div class="sticky-navbar">
-    <Navbar />
   </div>
-
 </template>
 
 <script>
-import Navbar from './components/MobileNavBar.vue';
+import Navbar from './components/NavBar.vue';
+import MobileNavbar from './components/MobileNavBar.vue';
 
 export default {
   components: {
-    Navbar
+    Navbar,
+    MobileNavbar,
   },
+
+  data() {
+    return {
+      navbarComponent: null,
+      isMobileView: false,
+    };
+  },
+
   methods: {
     scrollToTop() {
       const appElement = document.getElementById('app');
       if (appElement) {
         appElement.scrollTo({ top: 0, behavior: 'smooth' });
-        console.log(appElement);
       }
-    }
-  }
+    },
+    updateNavbarComponent() {
+      this.isMobileView = window.innerWidth <= 767;
+      this.navbarComponent = window.innerWidth <= 767 ? 'MobileNavbar' : 'Navbar';
+    },
+  },
+
+  mounted() {
+    this.updateNavbarComponent();
+    window.addEventListener('resize', this.updateNavbarComponent);
+  },
+
+  beforeUnmount() {
+    window.removeEventListener('resize', this.updateNavbarComponent);
+  },
 };
 </script>
 
 <style>
-
 #app {
   width: 100%;
   background-color: #F4F9F4;
@@ -45,7 +63,7 @@ export default {
 }
 
 .go-up {
-  position:fixed;
+  position: fixed;
   bottom: 20%;
   right: 15%;
   cursor: pointer;
@@ -59,5 +77,4 @@ export default {
   width: 100%;
   z-index: 1000;
 }
-
 </style>
