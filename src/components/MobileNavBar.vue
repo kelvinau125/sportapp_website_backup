@@ -65,9 +65,9 @@
           <div class="flex flex-col items-center">
             <img 
               class="w-[24px] h-[24px]"
-              :src="button === currentButton ? button.clickImage : button.image"
+              :src="isButtonActive(button) ? button.clickImage : button.image"
               alt="Frame Icon">
-            <span class="text">{{ button.name }}</span>
+            <span class="text">{{ $t(button.name) }}</span>
           </div>
         </button>
       </div>
@@ -197,9 +197,9 @@ export default {
   data() {
     return {
       buttons: [
-        { name: '首页', image: require('@/assets/main/home.png'), clickImage: require('@/assets/main/clickedhome.png'), route: '/' },
-        { name: '直播', image: require('@/assets/main/live.png'), clickImage: require('@/assets/main/clickedlive.png'), route: '/live' },
-        { name: '我的', image: require('@/assets/main/me.png'), clickImage: require('@/assets/main/clickedme.png'), route: '/mobile_my_profile' },
+        { name: 'main', image: require('@/assets/main/home.png'), clickImage: require('@/assets/main/clickedhome.png'), route: '/' },
+        { name: 'live', image: require('@/assets/main/live.png'), clickImage: require('@/assets/main/clickedlive.png'), route: '/live' },
+        { name: 'me', image: require('@/assets/main/me.png'), clickImage: require('@/assets/main/clickedme.png'), route: '/mobile_my_profile' },
       ],
       currentButton: null,
 
@@ -233,18 +233,26 @@ export default {
   },
 
   methods: {
-    handleButtonClick(button, route) {
-      this.currentButton = button;
-
+    isButtonActive(button) {
       const userToken = VueCookies.get("userToken");
+      const isButtonCurrent = this.currentButton === button;
+      const isRouteMatching = this.$route.path === button.route;
 
-      if (!userToken) {
-        this.showLoginModal();
-      } else {
-        // User is logged in, navigate to the selected route
-        this.$router.push(route);
-      }
+      return userToken && (isButtonCurrent || isRouteMatching);
     },
+    
+    handleButtonClick(button, route) {
+    this.currentButton = button;
+
+    const userToken = VueCookies.get("userToken");
+
+    if (!userToken) {
+      this.showLoginModal();
+    } else {
+      // User is logged in, navigate to the selected route
+      this.$router.push(route);
+    }
+  },
 
     checkUserAndNavigate(route) {
       const userToken = VueCookies.get("userToken");

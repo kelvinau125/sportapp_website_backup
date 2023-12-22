@@ -33,7 +33,7 @@
         @click="showStreamDetailModal()"
         class="w-screen relative" 
         style="height: 60px">
-          我的收藏直播
+          {{ $t("My Favourite Live") }}
           <img class="absolute top-[10px] right-[10px] w-[40px] h-[40px]" src="@/assets/favorite.png" alt="Favorite" />
         </ButtonPress>
         
@@ -64,9 +64,11 @@
           <ButtonPress
             class="w-full bg-white pl-6 pr-6"
             style="width: 100%; height: 60px; border-radius: 8px"
+            @click="languageChange(this.currentLocale)"
           >
-            <p class="text-base font-normal flex justify-center whitespace-nowrap overflow-ellipsis" style="color: #333333">
-              {{ $t("Settings") }}
+            <p class="text-base font-normal flex justify-center" style="color: #333333">
+              <!-- {{ $t("Settings") }} -->
+              {{ $t( "Change Language" ) }}
             </p>
           </ButtonPress>
         </div>
@@ -103,6 +105,8 @@ export default {
 
   data() {
     return {
+      currentLocale: localStorage.getItem('locale') || "ZH",
+
       nickname: VueCookies.get("username"),
       phonenumber: VueCookies.get("phoneNumber"),
       avatar: VueCookies.get("avatar"),
@@ -118,6 +122,19 @@ export default {
   },
 
   methods: {
+    languageChange(currentLocale) {
+      console.log(currentLocale)
+      const oppositeLocale = currentLocale === 'EN' ? 'ZH' : 'EN';
+      this.$i18n.locale = oppositeLocale;
+      localStorage.setItem("locale", oppositeLocale);
+
+      if (this.$route.path === "/") {
+        window.location.reload();
+      } else {
+        this.$router.push("/");
+      }
+    },
+
     logout() {
       removeCookie();
       window.location.reload();
