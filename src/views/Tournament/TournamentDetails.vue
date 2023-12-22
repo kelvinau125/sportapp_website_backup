@@ -200,7 +200,8 @@ import { ref } from "vue";
 
 import LiveList from "@/components/ListOfLive.vue";
 import LineUp from "@/views/Tournament/tournamentLineUp.vue";
-import TournamentStatus from "@/views/Tournament/tournamentStatus.vue";
+// import TournamentStatus from "@/views/Tournament/tournamentStatus.vue";
+import TournamentStatus from "@/views/MobileTournament/mobileTournamentStatus.vue";
 import TournamentSubstitue from "./TournamentSubstitue.vue";
 import BasketballTournamentSubstitue from "@/views/Tournament/BasketballTournamentSubstitue.vue";
 import BasketballTournamentStatus from "@/views/Tournament/basketballTournamentStatus.vue";

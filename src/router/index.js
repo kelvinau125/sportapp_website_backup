@@ -7,6 +7,7 @@ import TournamentDetails from '@/views/Tournament/TournamentDetails.vue'
 import NotFound from '@/components/NotFound.vue'
 import ResultPage from '@/components/SearchResult.vue'
 import MobileHomePage from '@/views/MobileHome/MobileFootballHomeView.vue'
+import MobileTournamentStatus from '@/views/MobileTournament/mobileTournamentStatus.vue'
 
 const routes = [
 
@@ -70,6 +71,11 @@ const routes = [
     path: '/mobileHome',
     name: "MobileHomeView",
     component: MobileHomePage,
+  },
+  {
+    path: '/mobile_tournament_Status',
+    name: 'MobileTournamentStatus',
+    component: MobileTournamentStatus
   },
   
 

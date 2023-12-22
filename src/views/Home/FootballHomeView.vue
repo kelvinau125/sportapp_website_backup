@@ -259,8 +259,6 @@ export default defineComponent({
     handleButtonClick(streamerID, liveID) {
       const userToken = VueCookies.get("userToken");
 
-      console.log("phillipmana")
-
       if (!userToken) {
         this.showLoginModal();
       } else {
