@@ -1,9 +1,6 @@
 <template>
-  <div class="my-page-modal" v-show="showMyPageModal">
-    <div class="modal-content">
-      <!-- close button -->
-      <CloseButton @click="closeMyPageModal"> </CloseButton>
-      <!-- Above -->
+  <div class="w-full flex flex-col">
+    <div class="page-content">
       <div class="mt-10">
         <div class="">
           <div class="flex flex-col items-center">
@@ -13,11 +10,6 @@
                 class="rounded-full border-2 border-white"
                 style="width: 114px; height: 114px; object-fit: cover"
               />
-              <!-- Add upload button here -->
-              <!-- <label for="upload" class="absolute bottom-0 right-0 cursor-pointer">
-                        <img src="@/assets/upload-icon.png" style="width: 24px; height: 24px;" />
-                        <button style="display: none;" @click="showEditProfileModal" />
-                        </label> -->
 
               <button
                 class="absolute bottom-0 right-0 cursor-pointer"
@@ -35,58 +27,62 @@
         </div>
       </div>
 
-      <div class="flex justify-between pt-7" style="width: 100%">
-        <div class="w-1/2 pr-2">
+      <div class="pt-7">
+        <ButtonPress 
+        v-show="this.role"
+        @click="showStreamDetailModal()"
+        class="w-screen relative" 
+        style="height: 60px">
+          {{ $t("My Favourite Live") }}
+          <img class="absolute top-[10px] right-[10px] w-[40px] h-[40px]" src="@/assets/favorite.png" alt="Favorite" />
+        </ButtonPress>
+        
+      </div>
+
+      <div class="flex justify-between pt-3" style="width: 100%">
+        <div class="w-1/3 pr-2">
           <ButtonPress
             class="w-full bg-white pl-6 pr-6"
             style="width: 100%; height: 60px; border-radius: 8px"
           >
-            <p class="text-base font-normal" style="color: #333333">
+            <p class="text-base font-normal flex justify-center whitespace-nowrap overflow-ellipsis" style="color: #333333">
               {{ $t("Notification") }}
             </p>
           </ButtonPress>
         </div>
-        <div class="w-1/2 pl-2">
+        <div class="w-1/3 pl-2 pr-2">
           <ButtonPress
             class="w-full bg-white pl-6 pr-6"
             style="width: 100%; height: 60px; border-radius: 8px"
           >
-            <p class="text-base font-normal" style="color: #333333">
-              {{ $t("Contact us") }}
+            <p class="text-base font-normal flex justify-center overflow-ellipsis whitespace-nowrap" style="color: #333333">
+              {{ $t("ContactUs") }}
             </p>
           </ButtonPress>
         </div>
-        <!-- <div>
-                    <ButtonPress class="w-full bg-white pl-6 pr-6" style="width: 100%; height: 60px;">
-                        <p class="text-base font-normal" style="color: #333333;">{{ $t("ContactUs") }}</p>
-                    </ButtonPress>
-                </div>
-                <div>
-                    <ButtonPress class="w-full bg-white pl-6 pr-6" style="width: 100%; height: 60px;">
-                        <p class="text-base font-normal" style="color: #333333;">{{ $t("Settings") }}</p>
-                    </ButtonPress>
-
-                </div> -->
+        <div class="w-1/3 pl-2">
+          <ButtonPress
+            class="w-full bg-white pl-6 pr-6"
+            style="width: 100%; height: 60px; border-radius: 8px"
+            @click="languageChange(this.currentLocale)"
+          >
+            <p class="text-base font-normal flex justify-center" style="color: #333333">
+              <!-- {{ $t("Settings") }} -->
+              {{ $t( "Change Language" ) }}
+            </p>
+          </ButtonPress>
+        </div>
       </div>
 
-      <div class="pt-8">
-        <ButtonPress
-          v-show="this.role"
-          @click="showStreamDetailModal()"
-          class="w-screen font-bold"
-          style="height: 56px"
-          >{{ $t("Broadcasting") }}</ButtonPress
-        >
-        <div class="flex justify-center" style="padding: 8px" />
-      </div>
 
-      <div>
+      <div class="pt-16">
         <ButtonPress
           @click="logout"
-          class="w-screen border-2 bg-transparent border-green-400 font-bold hover:bg-green-300 duration-300"
-          style="height: 56px; color: #16b13b"
-          >{{ $t("Logout") }}</ButtonPress
-        >
+          class=" bg-white pl-6 pr-6 w-[120px] h-[40px] rounded-[50px]">
+          <p class="text-base font-normal flex justify-center" style="color: #333333">
+            {{ $t("Logout") }}
+          </p>
+          </ButtonPress>
         <div class="flex justify-center" style="padding: 20px" />
       </div>
     </div>
@@ -95,7 +91,6 @@
 
 <script>
 import ButtonPress from "@/components/ButtonPress.vue";
-import CloseButton from "@/components/CloseButton.vue";
 
 // get the avatar
 import VueCookies from "vue-cookies";
@@ -106,11 +101,12 @@ import { removeCookie } from "@/service/cookie";
 export default {
   components: {
     ButtonPress,
-    CloseButton,
   },
 
   data() {
     return {
+      currentLocale: localStorage.getItem('locale') || "ZH",
+
       nickname: VueCookies.get("username"),
       phonenumber: VueCookies.get("phoneNumber"),
       avatar: VueCookies.get("avatar"),
@@ -126,6 +122,19 @@ export default {
   },
 
   methods: {
+    languageChange(currentLocale) {
+      console.log(currentLocale)
+      const oppositeLocale = currentLocale === 'EN' ? 'ZH' : 'EN';
+      this.$i18n.locale = oppositeLocale;
+      localStorage.setItem("locale", oppositeLocale);
+
+      if (this.$route.path === "/") {
+        window.location.reload();
+      } else {
+        this.$router.push("/");
+      }
+    },
+
     logout() {
       removeCookie();
       window.location.reload();
@@ -149,12 +158,11 @@ export default {
   z-index: 1000;
 }
 
-.modal-content {
+.page-content {
   background: #f4f9f4;
   padding: 20px;
   border-radius: 8px;
   text-align: center;
-  width: 400px;
   color: black;
   position: relative;
 }
