@@ -9,6 +9,7 @@ import ResultPage from '@/components/SearchResult.vue'
 import MobileHomePage from '@/views/MobileHome/MobileFootballHomeView.vue'
 import MobileTournamentStatus from '@/views/MobileTournament/mobileTournamentStatus.vue'
 import downloadapp from '@/components/DownloadApp.vue'
+import MobileLivePage from '@/views/MobileLivePage/MobileLivePage.vue'
 
 import Page from '@/views/HomeView.vue'
 
@@ -86,6 +87,11 @@ const routes = [
     path: '/test',
     name: 'test',
     component: downloadapp
+  },
+  {
+    path: '/mobileLivePage',
+    name: 'MobileLivePage',
+    component: MobileLivePage
   }
 
 ]
