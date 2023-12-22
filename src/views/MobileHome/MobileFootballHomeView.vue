@@ -28,7 +28,7 @@
   </div>
 
   <div class="pt-4 px-3">
-    <span class="font-medium text-lg">赛事</span>
+    <span class="font-medium text-lg">{{ $t('Event') }}</span>
   </div>
 
   <div class="flex justify-between mt-5 max-w-[450px] w-[100%] h-[46px] date-slider">
@@ -249,7 +249,6 @@ export default ({
       this.currentDate = addDays(this.currentDate, 7);
     },
     selectDate(date) {
-      console.log("Trigger");
       this.selectedDate = date;
       this.activeDate = date;
       this.generateMatchDetailsList(format(this.selectedDate, "yyyyMMdd"));
@@ -271,34 +270,47 @@ export default ({
       awayTeamScore,
       awayTeamLogo
     ) {
-      console.log("test");
-      // Push to the Live Page
-      const routeData = this.$router.resolve({
-        name: "TournamentDetails",
-        query: {
-          TournamentID: linkAddress,
-          competitionName: competitionName,
-          matchDate: matchDate,
-          matchTimeStr: matchTimeStr,
-          statusStr: statusStr,
-          homeTeamName: homeTeamName,
-          homeTeamScore: homeTeamScore,
-          homeTeamLogo: homeTeamLogo,
-          awayTeamName: awayTeamName,
-          awayTeamScore: awayTeamScore,
-          awayTeamLogo: awayTeamLogo,
-        },
-      });
-      window.open(routeData.href, "_blank");
+      const userToken = VueCookies.get("userToken");
+
+      if (!userToken) {
+        this.showLoginModal();
+      } else {
+        // Push to the Live Page
+        const routeData = this.$router.resolve({
+          name: "TournamentDetails",
+          query: {
+            TournamentID: linkAddress,
+            competitionName: competitionName,
+            matchDate: matchDate,
+            matchTimeStr: matchTimeStr,
+            statusStr: statusStr,
+            homeTeamName: homeTeamName,
+            homeTeamScore: homeTeamScore,
+            homeTeamLogo: homeTeamLogo,
+            awayTeamName: awayTeamName,
+            awayTeamScore: awayTeamScore,
+            awayTeamLogo: awayTeamLogo,
+          },
+        });
+        window.open(routeData.href, "_blank");
+      }
     },
     async toUnfavourite(match, matchID) {
-      match.favourite = !match.favourite;
 
-      if (!match.favourite) {
-        await liveStreamSaveBookmark(matchID, this.currentChannel, this.isCN);
+      const userToken = VueCookies.get("userToken");
+
+      if (!userToken) {
+        this.showLoginModal();
       } else {
-        await deleteStreamSaveBookmark(matchID, this.isCN);
+        match.favourite = !match.favourite;
+
+        if (!match.favourite) {
+          await liveStreamSaveBookmark(matchID, this.currentChannel, this.isCN);
+        } else {
+          await deleteStreamSaveBookmark(matchID, this.isCN);
+        }
       }
+
     },
 
     async generateMatchDetailsList(matchdate) {
