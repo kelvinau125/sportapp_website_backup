@@ -1,6 +1,6 @@
 <template>
   <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal" />
-
+    
   <DownloadAPP :showDownloadAPPModal="isDownloadAPPModalVisible" :closeDownloadAPPModal="closeDownloadAPPModal" />
 
   <Carousel :items-to-show="1.5" :wrap-around="true">
@@ -101,9 +101,9 @@
                                   </div>
                               </div>
                           </div>
-                          <div class="flex justify-between w-[80px]">
-                              <div>
-                                  <span class="text-xs font-normal" :class="{
+                          <div class="flex justify-between w-[100px]">
+                              <div class="w-[70px] ">
+                                  <span class="text-10px font-normal w-[70px] multiline-ellipsis" :class="{
                                       'bg-transparent': match.statusStr === ' ',
                                       statusBorder: match.statusStr !== '',
                                   }">
@@ -120,7 +120,7 @@
 
                       <div class="pl-2 pr-2 pt-2 flex justify-start">
                           <div class="flex w-full">
-                              <div class="flex justify-between items-center w-[40%] ">
+                              <div class="flex justify-between items-center w-[32%] ">
                                   <div class="w-[100px] overflow-hidden">
                                       <span class="text-sm font-normal pr-2 whitespace-nowrap overflow-ellipsis">{{
                                           match.homeTeamName
@@ -128,14 +128,14 @@
                                   </div>
                                   <img :src="match.homeTeamIcon" style="width: 24px; height: 24px; border-radius: 20px" />
                               </div>
-                              <div class="flex flex-col items-center  w-[20%]">
+                              <div class="flex flex-col items-center w-[35%]">
                                   <div class="font-semibold text-base">
                                       <span>{{ match.homeTeamScore }}</span>
                                       <span class="px-2">-</span>
                                       <span>{{ match.awayTeamScore }}</span>
                                   </div>
                               </div>
-                              <div class=" flex text-end w-[40%]">
+                              <div class=" flex text-end w-[32%]">
                                   <img :src="match.awayTeamIcon" style="width: 24px; height: 24px; border-radius: 20px" />
                                   <div class=" w-[150px] overflow-hidden">
                                       <span class="text-sm font-normal whitespace-nowrap overflow-ellipsis">{{
@@ -533,6 +533,7 @@ export default {
   background-color: #eeedf4;
   border-radius: 8px;
   width: auto;
+  height: 24px;
   padding: 8px;
 }
 
@@ -572,4 +573,17 @@ export default {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+.multiline-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.multiline-ellipsis::after {
+  content: "...";
+  display: inline-block;
+}
+
 </style>
