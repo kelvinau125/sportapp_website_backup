@@ -264,10 +264,7 @@ export default {
       this.liveData = [];
 
       this.getPopularLiveList = await getAllPopularStreamDetails();
-      console.log(this.getPopularLiveList.length);
-      for (let i = 0; i < 3; i++) {
-        console.log(i);
-        console.log("+==========++++");
+      for (let i = 0; i < this.getPopularLiveList.length; i++) {
         // Check if sportType is 0 (football)
         if (this.getPopularLiveList[i]["sportType"] == this.currentChannel) {
           this.liveData.push({
