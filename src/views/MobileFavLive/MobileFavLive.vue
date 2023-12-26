@@ -117,7 +117,7 @@
             return {
                 isCN: Boolean,
 
-                currentChannel: ref(localStorage.getItem("currentChannel") === "football" ? 0 : 1),
+                currentChannel: ref(localStorage.getItem("currentChannel") === "football" ? 1 : 0),
                 isLoginModalVisible: ref(false),
                 previousDate: '',
                 // dateArrData: [],
@@ -127,6 +127,7 @@
             };
         },
         mounted() {
+            this.isCN = this.$i18n.locale === "ZH" ? true : false;
             this.generateMatchDetailsList();
         },
         methods: {
