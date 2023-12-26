@@ -1,4 +1,59 @@
 <template>
+    <LoginModal
+      :showModal="isLoginModalVisible"
+      :closeModal="closeLoginModal"
+      :showRegisterModal="showRegisterModal"
+      :showForgotPasswordModal="showForgotPasswordModal"
+    />
+
+    <RegisterModal
+      :showRegModal="isResgitserModalVisible"
+      :closeRegModal="closeRegisterModal"
+      :showLoginModal="showLoginModal"
+      :showOTPModal="showOTPModal"
+    />
+
+    <OTPModal
+      :showOTPModal="isOTPModalVisible"
+      :closeOTPModal="closeOTPModal"
+      :showLoginModal="showLoginModal"
+      :showEditPasswordModal="showEditPasswordModal"
+    />
+
+    <ForgotPasswordModal
+      :showForgotPasswordModal="isForgotPasswordModalVisible"
+      :closeForgotPasswordModal="closeForgotPasswordModal"
+      :showLoginModal="showLoginModal"
+      :showOTPModal="showOTPModal"
+    />
+
+    <EditPassword
+      :showEditPasswordModal="isEditPasswordModalVisible"
+      :closeEditPasswordModal="closeEditPasswordModal"
+      :showLoginModal="showLoginModal"
+    />
+
+    <MyPage
+      :showMyPageModal="isMyPageModalVisible"
+      :closeMyPageModal="closeMyPageModal"
+      :showEditProfileModal="showEditProfileModal"
+      :showStreamDetailModal="showStreamDetailModal"
+    />
+
+    <EditProfile
+      :showEditProfileModal="isEditProfileModalVisible"
+      :closeEditProfileModal="closeEditProfileModal"
+      :gobackmypage="gobackmypage"
+      :showOTPModal="showOTPModal"
+      :showEditNicknameModal="showEditNicknameModal"
+    />
+
+    <EditNicknameModal
+      :showEditNicknameModal="isEditNicknameModalVisible"
+      :closeEditNicknameModal="closeEditNicknameModal"
+      :showEditProfileModal="showEditProfileModal"
+    />
+
   <div>
     <component v-if="!isMobileView" :is="navbarComponent" />
     <component v-if="isMobileView" :is="topnavbarComponent" />
@@ -37,11 +92,23 @@
 </template>
 
 <script>
+import { ref } from "vue";
+
 import Navbar from './components/NavBar.vue';
 import MobileNavbar from './components/MobileNavBar.vue';
 import MobileTopNavbar from './components/MobileTopNavBar.vue';
 import ButtonButton from '@/components/ButtonPress.vue';
 // import { ref, watch, onMounted } from 'vue';
+
+import LoginModal from "@/views/Authentication/LoginModal.vue";
+import RegisterModal from "@/views/Authentication/RegisterModal.vue";
+import OTPModal from "@/views/Authentication/OTPVerification.vue";
+import ForgotPasswordModal from "@/views/Authentication/ForgotPassword.vue";
+import EditPassword from "@/views/MyProfile/EditPassword.vue";
+import MyPage from "@/views/MyProfile/MyPage.vue";
+import EditProfile from "@/views/MyProfile/EditProfile.vue";
+import EditNicknameModal from "@/views/MyProfile/EditUserNickname.vue";
+import VueCookies from "vue-cookies";
 
 
 export default {
@@ -49,7 +116,15 @@ export default {
     Navbar,
     MobileNavbar,
     MobileTopNavbar,
-    ButtonButton
+    ButtonButton,
+    LoginModal,
+    RegisterModal,
+    OTPModal,
+    ForgotPasswordModal,
+    EditPassword,
+    MyPage,
+    EditProfile,
+    EditNicknameModal,
   },
 
   data() {
@@ -59,10 +134,105 @@ export default {
       isMobileView: false,
 
       isVisible: false,
+      isLoginModalVisible: ref(false),
+      isResgitserModalVisible: ref(false),
+      isOTPModalVisible: ref(false),
+      isForgotPasswordModalVisible: ref(false),
+      isEditPasswordModalVisible: ref(false),
+      isMyPageModalVisible: ref(false),
+      isEditProfileModalVisible: ref(false),
+      isEditNicknameModalVisible: ref(false),
     };
   },
 
   methods: {
+    showLoginModal() {
+      this.isEditPasswordModalVisible = false;
+      this.isForgotPasswordModalVisible = false;
+      this.isResgitserModalVisible = false;
+      this.isLoginModalVisible = true;
+    },
+    closeLoginModal() {
+      this.isLoginModalVisible = false;
+    },
+
+    // register
+    showRegisterModal() {
+      this.isLoginModalVisible = false;
+      this.isResgitserModalVisible = true;
+    },
+
+    closeRegisterModal() {
+      this.isResgitserModalVisible = false;
+    },
+
+    // OTP Modal
+    showOTPModal() {
+      this.isForgotPasswordModalVisible = false;
+      this.isEditProfileModalVisible = false;
+      this.isOTPModalVisible = true;
+    },
+
+    closeOTPModal() {
+      this.isOTPModalVisible = false;
+    },
+
+    // Forgot Passowrd Modal
+    showForgotPasswordModal() {
+      this.isLoginModalVisible = false;
+      this.isForgotPasswordModalVisible = true;
+    },
+
+    closeForgotPasswordModal() {
+      this.isForgotPasswordModalVisible = false;
+    },
+
+    // Edit Passowrd Modal
+    showEditPasswordModal() {
+      this.isOTPModalVisible = false;
+      this.isForgotPasswordModalVisible = false;
+      this.isEditPasswordModalVisible = true;
+    },
+
+    closeEditPasswordModal() {
+      this.isEditPasswordModalVisible = false;
+    },
+
+    // My Page Modal
+    showMyPageModal() {
+      this.isMyPageModalVisible = true;
+    },
+
+    closeMyPageModal() {
+      this.isMyPageModalVisible = false;
+    },
+
+    // Edit Profile Modal
+    showEditProfileModal() {
+      this.isEditNicknameModalVisible = false;
+      this.isMyPageModalVisible = false;
+      this.isEditProfileModalVisible = true;
+    },
+
+    closeEditProfileModal() {
+      this.isEditProfileModalVisible = false;
+    },
+
+    gobackmypage() {
+      this.isMyPageModalVisible = true;
+      this.isEditProfileModalVisible = false;
+      this.isStreamDetailModalVisible = false;
+    },
+
+    // Edit Nickname Modal
+    showEditNicknameModal() {
+      this.isEditProfileModalVisible = false;
+      this.isEditNicknameModalVisible = true;
+    },
+
+    closeEditNicknameModal() {
+      this.isEditNicknameModalVisible = false;
+    },
 
     scrollToTop() {
       const appElement = document.getElementById('app');
@@ -102,6 +272,12 @@ export default {
   },
 
   mounted() {
+    const userToken = VueCookies.get("userToken");
+
+    if (!userToken) {
+      this.showLoginModal();
+    }
+
     this.updateNavbarComponent();
     window.addEventListener('resize', this.updateNavbarComponent);
     this.autoShowAfterDelay();
