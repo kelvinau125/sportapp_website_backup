@@ -91,19 +91,19 @@
                           <div class="pl-2 flex items-center justify-between w-[200px] ">
                               <div class="px-3 flex justify-center overflow-clip  MatchTypeBorder">
                                   <span class="text-xs font-medium whitespace-nowrap overflow-hidden text-ellipsis"
-                                      style="color: #666666">{{
+                                      style="color: rgba(102, 102, 102, 1)">{{
                                           match.matchType
                                       }}</span>
                               </div>
                               <div class="flex items-end ml-10">
-                                  <div class="font-semibold text-xs" style="color: #333333">
+                                  <div class="font-normal text-xs" style="color: #333333">
                                       <span>{{ match.time }}</span>
                                   </div>
                               </div>
                           </div>
                           <div class="flex justify-between w-[80px]">
                               <div>
-                                  <span class="text-xs" :class="{
+                                  <span class="text-xs font-normal" :class="{
                                       'bg-transparent': match.statusStr === ' ',
                                       statusBorder: match.statusStr !== '',
                                   }">
@@ -122,14 +122,14 @@
                           <div class="flex w-full">
                               <div class="flex justify-end items-center w-[40%] ">
                                   <div class="w-[150px] overflow-hidden">
-                                      <span class="text-sm font-semibold pr-2 whitespace-nowrap overflow-ellipsis">{{
+                                      <span class="text-sm font-normal pr-2 whitespace-nowrap overflow-ellipsis">{{
                                           match.homeTeamName
                                       }}</span>
                                   </div>
                                   <img :src="match.homeTeamIcon" style="width: 24px; height: 24px; border-radius: 20px" />
                               </div>
                               <div class="flex flex-col items-center  w-[20%]">
-                                  <div class="font-semibold text-sm">
+                                  <div class="font-semibold text-base">
                                       <span>{{ match.homeTeamScore }}</span>
                                       <span class="px-2">-</span>
                                       <span>{{ match.awayTeamScore }}</span>
@@ -138,7 +138,7 @@
                               <div class=" flex text-end w-[40%]">
                                   <img :src="match.awayTeamIcon" style="width: 24px; height: 24px; border-radius: 20px" />
                                   <div class=" w-[150px] overflow-hidden">
-                                      <span class="text-sm font-semibold whitespace-nowrap overflow-ellipsis">{{
+                                      <span class="text-sm font-normal whitespace-nowrap overflow-ellipsis">{{
                                           match.awayTeamName
                                       }}</span>
                                   </div>
