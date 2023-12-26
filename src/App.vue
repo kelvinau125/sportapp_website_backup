@@ -7,7 +7,7 @@
       <img @click="scrollToTop" src="./assets/goUp.png" />
     </div>
 
-    <div ref="downloadApp" v-show="isVisible" class="downloadApp">
+    <div ref="downloadApp" v-if="!isMobileView" v-show="isVisible" class="downloadApp">
       <div class=" flex justify-end pb-2">
         <img @click="hideAndShowAfterDelay" class="w-[24px] h-[24px] cursor-pointer" src='@/assets/closeButton.png' />
       </div>
