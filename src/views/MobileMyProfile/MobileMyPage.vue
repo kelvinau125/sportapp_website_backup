@@ -1,4 +1,33 @@
 <template>
+  <!-- <EditProfile :showEditProfileModal="isEditProfileModalVisible" :closeEditProfileModal="closeEditProfileModal" /> -->
+
+  <EditProfile
+      :showEditProfileModal="isEditProfileModalVisible"
+      :closeEditProfileModal="closeEditProfileModal"
+      :gobackmypage="gobackmypage"
+      :showOTPModal="showOTPModal"
+      :showEditNicknameModal="showEditNicknameModal"
+    />
+
+    <OTPModal
+      :showOTPModal="isOTPModalVisible"
+      :closeOTPModal="closeOTPModal"
+      :showLoginModal="showLoginModal"
+      :showEditPasswordModal="showEditPasswordModal"
+    />
+
+    <EditPassword
+      :showEditPasswordModal="isEditPasswordModalVisible"
+      :closeEditPasswordModal="closeEditPasswordModal"
+      :showLoginModal="showLoginModal"
+    />
+
+    <EditNicknameModal
+      :showEditNicknameModal="isEditNicknameModalVisible"
+      :closeEditNicknameModal="closeEditNicknameModal"
+      :showEditProfileModal="showEditProfileModal"
+    />
+
   <div class="w-full flex flex-col">
     <div class="page-content">
       <div class="mt-10">
@@ -51,14 +80,16 @@
           </ButtonPress>
         </div>
         <div class="w-1/3 pl-2 pr-2">
-          <ButtonPress
-            class="w-full bg-white pl-6 pr-6"
-            style="width: 100%; height: 60px; border-radius: 8px"
-          >
-            <p class="text-base font-normal flex justify-center overflow-ellipsis whitespace-nowrap" style="color: #333333">
-              {{ $t("ContactUs") }}
-            </p>
-          </ButtonPress>
+          <a href="https://wa.me/60123456789">
+            <ButtonPress
+              class="w-full bg-white pl-6 pr-6"
+              style="width: 100%; height: 60px; border-radius: 8px"
+            >
+              <p class="text-base font-normal flex justify-center overflow-ellipsis whitespace-nowrap" style="color: #333333">
+                {{ $t("ContactUs") }}
+              </p>
+            </ButtonPress>
+          </a>
         </div>
         <div class="w-1/3 pl-2">
           <ButtonPress
@@ -91,16 +122,26 @@
 
 <script>
 import ButtonPress from "@/components/ButtonPress.vue";
+import EditProfile from "@/views/MyProfile/EditProfile.vue";
 
 // get the avatar
 import VueCookies from "vue-cookies";
+import { ref } from "vue";
 
 // import the remove cookie function
 import { removeCookie } from "@/service/cookie";
 
+import EditNicknameModal from "@/views/MyProfile/EditUserNickname.vue";
+import EditPassword from "@/views/MyProfile/EditPassword.vue";
+import OTPModal from "@/views/Authentication/OTPVerification.vue";
+
 export default {
   components: {
     ButtonPress,
+    EditProfile,
+    EditNicknameModal,
+    EditPassword,
+    OTPModal,
   },
 
   data() {
@@ -111,13 +152,18 @@ export default {
       phonenumber: VueCookies.get("phoneNumber"),
       avatar: VueCookies.get("avatar"),
       role: VueCookies.get("role") == "1" ? true : false,
+
+      isEditProfileModalVisible: ref(false),
+      isEditNicknameModalVisible: ref(false),
+      isOTPModalVisible: ref(false),
+      isEditPasswordModalVisible: ref(false),
     };
   },
 
   props: {
     showMyPageModal: Boolean,
     closeMyPageModal: Function,
-    showEditProfileModal: Function,
+    // showEditProfileModal: Function,
     showStreamDetailModal: Function,
   },
 
@@ -135,9 +181,52 @@ export default {
       }
     },
 
+    showEditProfileModal() {
+      this.isEditProfileModalVisible = true;
+    },
+    closeEditProfileModal() {
+      this.isEditProfileModalVisible = false;
+    },
+
+    // Edit Passowrd Modal
+    showEditPasswordModal() {
+      this.isOTPModalVisible = false;
+      this.isForgotPasswordModalVisible = false;
+      this.isEditPasswordModalVisible = true;
+    },
+
+    closeEditPasswordModal() {
+      this.isEditPasswordModalVisible = false;
+    },
+
+    // Edit Nickname Modal
+    showEditNicknameModal() {
+      this.isEditProfileModalVisible = false;
+      this.isEditNicknameModalVisible = true;
+    },
+
+    closeEditNicknameModal() {
+      this.isEditNicknameModalVisible = false;
+    },
+
+    // OTP Modal
+    showOTPModal() {
+      this.isForgotPasswordModalVisible = false;
+      this.isEditProfileModalVisible = false;
+      this.isOTPModalVisible = true;
+    },
+
+    closeOTPModal() {
+      this.isOTPModalVisible = false;
+    },
+
     logout() {
       removeCookie();
-      window.location.reload();
+      if (this.$route.path === "/") {
+        window.location.reload();
+      } else {
+        this.$router.push("/");
+      }
     },
   },
 };

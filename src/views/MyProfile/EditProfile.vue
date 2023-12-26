@@ -29,7 +29,7 @@
             </div>
 
             <div class="pt-5 pb-32">
-                <ButtonPress @click="changePassword" :disabled="changePassDisabled" class="w-screen bg-white flex justify-between items-center" style="height: 60px;">
+                <ButtonPress @click="changePassword()" :disabled="changePassDisabled" class="w-screen bg-white flex justify-between items-center" style="height: 60px;">
                     <p class="text-base font-normal" style="color: #333333;">{{ $t("Edit Password")}}</p>
                     <img src="@/assets/arrow.png" style="width: 6px; height: 12px;" />
                 </ButtonPress>
