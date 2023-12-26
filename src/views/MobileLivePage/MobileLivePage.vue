@@ -233,6 +233,7 @@ export default {
     },
     showAllFavourite() {
       console.log("Show Favourite Page");
+      this.$router.push('/mobileFavLive');
     },
 
     showLoginModal() {

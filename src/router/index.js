@@ -10,6 +10,7 @@ import MobileHomePage from '@/views/MobileHome/MobileFootballHomeView.vue'
 import MobileTournamentStatus from '@/views/MobileTournament/mobileTournamentStatus.vue'
 import downloadapp from '@/components/DownloadApp.vue'
 import MobileLivePage from '@/views/MobileLivePage/MobileLivePage.vue'
+import MobileFavLive from '@/views/MobileFavLive/MobileFavLive.vue'
 
 import Page from '@/views/HomeView.vue'
 import livePage from '@/views/LiveView.vue'
@@ -93,6 +94,11 @@ const routes = [
     path: '/mobileLivePage',
     name: 'MobileLivePage',
     component: MobileLivePage
+  },
+  {
+    path: '/mobileFavLive',
+    name: 'MobileFavLive',
+    component: MobileFavLive
   }
 
 ]

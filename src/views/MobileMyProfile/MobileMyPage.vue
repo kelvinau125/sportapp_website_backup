@@ -164,7 +164,7 @@ export default {
     showMyPageModal: Boolean,
     closeMyPageModal: Function,
     // showEditProfileModal: Function,
-    showStreamDetailModal: Function,
+    // showStreamDetailModal: Function,
   },
 
   methods: {
@@ -179,6 +179,9 @@ export default {
       } else {
         this.$router.push("/");
       }
+    },
+    showStreamDetailModal(){
+      this.$router.push("/mobileFavLive");
     },
 
     showEditProfileModal() {
