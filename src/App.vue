@@ -58,7 +58,7 @@
     <component v-if="!isMobileView" :is="navbarComponent" />
     <component v-if="isMobileView" :is="topnavbarComponent" />
     <router-view />
-    <div class="go-up">
+    <div v-if="!isMobileView" class="go-up">
       <img @click="scrollToTop" src="./assets/goUp.png" />
     </div>
 
