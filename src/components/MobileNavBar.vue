@@ -250,7 +250,11 @@ export default {
       this.showLoginModal();
     } else {
       // User is logged in, navigate to the selected route
-      this.$router.push(route);
+      // this.$router.push(route);
+      this.$router.push(route).then(() => {
+        // Reload the page after navigating to the new route
+        window.location.reload();
+      });
     }
   },
 
