@@ -35,7 +35,7 @@
   </div>
 
   <div class="flex justify-between mt-5 ml-4 w-[93%] h-[46px]">
-      <div class="flex justify-center mt-1.5" style="
+      <div class="flex justify-center mt-0.5" style="
               height: 32px;
               width: 17px;
               background-color: #808f7e;
@@ -57,7 +57,7 @@
 
           </div>
       </div>
-      <div class="flex justify-center mt-1.5" style="
+      <div class="flex justify-center mt-0.5" style="
               height: 32px;
               width: 17px;
               background-color: #808f7e;
@@ -120,8 +120,8 @@
 
                       <div class="pl-2 pr-2 pt-2 flex justify-start">
                           <div class="flex w-full">
-                              <div class="flex justify-end items-center w-[40%] ">
-                                  <div class="w-[150px] overflow-hidden">
+                              <div class="flex justify-between items-center w-[40%] ">
+                                  <div class="w-[100px] overflow-hidden">
                                       <span class="text-sm font-normal pr-2 whitespace-nowrap overflow-ellipsis">{{
                                           match.homeTeamName
                                       }}</span>
