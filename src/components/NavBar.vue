@@ -275,7 +275,7 @@ export default {
   computed: {
     ...mapState(["currentChannel"]),
     currentChannelComponent() {
-      return this.currentChannel == localStorage.getItem('currentChannel') || "basketball";
+      return this.currentChannel == (localStorage.getItem('currentChannel') || "basketball");
     },
   },
 
