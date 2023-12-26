@@ -59,7 +59,6 @@ export default {
       isMobileView: false,
 
       isVisible: false,
-
     };
   },
 
@@ -74,6 +73,7 @@ export default {
     updateNavbarComponent() {
       this.isMobileView = window.innerWidth <= 767;
       this.navbarComponent = window.innerWidth <= 767 ? 'MobileNavbar' : 'Navbar';
+      this.topnavbarComponent = window.innerWidth <= 767 ? 'MobileTopNavbar' : '';
     },
     showDownloadApp() {
       this.isVisible = true;
