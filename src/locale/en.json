@@ -161,7 +161,9 @@
 
     "Image cannot be empty": "Image cannot be empty",
     "Title cannot be empty": "Title cannot be empty",
-    "Scan the QR code to download the latest installation package":"Scan to download the installation package"
+    "Scan the QR code to download the latest installation package":"Scan to download the installation package",
+
+    "Copyright": "Copyright © 2021 All Rights Reserved"
 
 
 }

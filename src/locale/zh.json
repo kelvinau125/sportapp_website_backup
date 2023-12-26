@@ -161,7 +161,10 @@
 
     "Image cannot be empty": "照片不可为空",
     "Title cannot be empty": "标题不可为空",
-    "Scan the QR code to download the latest installation package":"扫码下载最新安装包"
+    "Scan the QR code to download the latest installation package":"扫码下载最新安装包",
+
+    "Copyright": "版权所有 © 2021 保留所有权利"
+
 
 
 

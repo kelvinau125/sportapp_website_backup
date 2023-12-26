@@ -31,7 +31,7 @@
       <div
         class="flex justify-center text-10px md:text-xs font-normal text-grayText mt-1"
       >
-        <span>Copyright © 2021 All Rights Reserved</span>
+        <span>{{ $t("Copyright") }}</span>
       </div>
     </div>
   </footer>
