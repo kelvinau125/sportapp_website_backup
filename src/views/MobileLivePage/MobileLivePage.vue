@@ -115,14 +115,16 @@
     </div>
   </main>
   <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal" />
+  <DownloadAPP :showDownloadAPPModal="isDownloadAPPModalVisible" :closeDownloadAPPModal="closeDownloadAPPModal" />
 </template>
 <script>
 import { ref } from "vue";
-import VueCookies from "vue-cookies";
+// import VueCookies from "vue-cookies";
 
 import { getAllStreamDetails, getAllPopularStreamDetails } from "@/service/apiStreamProvider.js";
 
 import LoginModal from "@/views/Authentication/LoginModal.vue";
+import DownloadAPP from "@/components/DownloadApp.vue";
 
 import {
   getLiveStreamBookmark,
@@ -133,6 +135,7 @@ import {
 export default {
   components: {
     LoginModal,
+    DownloadAPP,
   },
   data() {
     return {
@@ -141,6 +144,7 @@ export default {
       livecurrentChannel: ref(localStorage.getItem("currentChannel") === "football" ? 1 : 0),
       currentChannel: ref(localStorage.getItem("currentChannel") === "football" ? 0 : 1),
       isLoginModalVisible: ref(false),
+      isDownloadAPPModalVisible: ref(false),
 
       liveData: [],
       matchDetails: [],
@@ -238,24 +242,15 @@ export default {
       this.isLoginModalVisible = false;
     },
 
-    toLiveStream(liveID, streamerID) {
-      // Push to the Live Page
-      const userToken = VueCookies.get("userToken");
+    showDownloadAPPModal() {
+          this.isDownloadAPPModalVisible = true;
+    },
+    closeDownloadAPPModal() {
+        this.isDownloadAPPModalVisible = false;
+    },
 
-      if (!userToken) {
-        this.showLoginModal();
-      } else {
-        localStorage.setItem("stream", streamerID);
-
-        const routeData = this.$router.resolve({
-          name: "LiveStream",
-          query: {
-            LiveID: liveID,
-          },
-        });
-
-        window.open(routeData.href, "_blank");
-      }
+    toLiveStream() {
+      this.showDownloadAPPModal();
     },
 
     async generateLiveList() {

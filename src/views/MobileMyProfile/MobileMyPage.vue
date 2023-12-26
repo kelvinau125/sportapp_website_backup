@@ -97,7 +97,8 @@
             style="width: 100%; height: 60px; border-radius: 8px"
             @click="languageChange(this.currentLocale)"
           >
-            <p class="text-base font-normal flex justify-center" style="color: #333333">
+            <!-- <p class="text-base font-normal flex justify-center" style="color: #333333"> -->
+            <p style="color: #333333" :class="{ 'text-base font-normal flex justify-center overflow-ellipsis whitespace-nowrap': this.isCN, 'text-base font-normal flex justify-center': ! this.isCN }">
               <!-- {{ $t("Settings") }} -->
               {{ $t( "Change Language" ) }}
             </p>
@@ -146,6 +147,8 @@ export default {
 
   data() {
     return {
+      isCN: this.$i18n.locale === "ZH" ? true : false,
+
       currentLocale: localStorage.getItem('locale') || "ZH",
 
       nickname: VueCookies.get("username"),
