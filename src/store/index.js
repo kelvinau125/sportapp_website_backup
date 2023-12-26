@@ -9,7 +9,7 @@ export default createStore({
     password: '',
     userId: null,
     status: false,
-    currentChannel: localStorage.getItem('currentChannel') || 'football',
+    currentChannel: localStorage.getItem('currentChannel') || 'basketball',
   },
   mutations: {
     setUserData(state, { nickName, phoneNumber, password, userId }) {
