@@ -144,6 +144,7 @@ export default {
     return {
       isCN: Boolean,
 
+      livecurrentChannel: ref(localStorage.getItem("currentChannel") === "football" ? 1 : 0),
       currentChannel: ref(localStorage.getItem("currentChannel") === "football" ? 0 : 1),
       isLoginModalVisible: ref(false),
 
@@ -196,7 +197,7 @@ export default {
     async toUnfavourite(match, matchID) {
       match.favourite = !match.favourite;
       if (!match.favourite) {
-        await liveStreamSaveBookmark(matchID, this.currentChannel, this.isCN);
+        await liveStreamSaveBookmark(matchID, this.livecurrentChannel, this.isCN);
       } else {
         await deleteStreamSaveBookmark(matchID, this.isCN);
       }
@@ -205,7 +206,7 @@ export default {
       this.matchDetails = [];
       this.getfootballMatchList = await getLiveStreamBookmark(
         this.isCN,
-        this.currentChannel
+        this.livecurrentChannel
       );
 
       for (let i = 0; i < Math.min(3, this.getfootballMatchList.length); i++) {
