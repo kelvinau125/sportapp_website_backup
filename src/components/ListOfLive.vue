@@ -15,7 +15,7 @@
       >
         <Slide class="" v-for="livedata in liveData" :key="livedata.liveData">
           <div class="card_container items-center pl-1">
-            <div @click="toLiveStream(livedata.liveID)" class="card_ pr-2" style="">
+            <div @click="toLiveStream(livedata.liveID)" class="card_ cursor-pointer pr-2" style="">
               <div @click="test" class="">
                 <img
                   class="w-full"
