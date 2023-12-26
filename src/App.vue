@@ -243,7 +243,9 @@ export default {
     updateNavbarComponent() {
       this.isMobileView = window.innerWidth <= 767;
       this.navbarComponent = window.innerWidth <= 767 ? 'MobileNavbar' : 'Navbar';
-      this.topnavbarComponent = window.innerWidth <= 767 ? 'MobileTopNavbar' : '';
+      if(window.location.pathname !== "/results" && window.location.pathname !== "/mobile_my_profile"){
+        this.topnavbarComponent = window.innerWidth <= 767 ? 'MobileTopNavbar' : '';
+      }
     },
     showDownloadApp() {
       this.isVisible = true;

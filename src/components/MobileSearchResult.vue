@@ -1,22 +1,34 @@
 <template>
   <LoginModal :showModal="isLoginModalVisible" :closeModal="closeLoginModal" />
 
-  <BackgroundImage >
-    <div class="scroll-container">
-      <div class="flex justify-center pt-9 pb-6">
-        <div class="searchContainer flex">
-          <input class="searchInput pl-4 w-full h-full text-xs font-normal text-grayText" v-model="searchQuery"
-            @keyup.enter="search" type="text" placeholder="搜索赛事/球队" maxlength="20" />
-          <button @click="search" class="searchButton w-full h-full flex justify-center items-center pl-1">
-            <img src="@/assets/topNav/search.png" alt="Search Icon" class="" />
-            <span class="text-white font-normal text-xs pb-0.5 pr-2">{{
-              $t("Search")
-            }}</span>
-          </button>
+  <div class="bg-mobilenavcolor text-white py-2 px-10 shadow flex justify-center items-center">
+      <div class="flex items-center">
+        <div class="flex relative">
+          <div @click="search" class="">
+            <img
+              src="@/assets/topNav/search.png"
+              alt="Search Icon"
+              class="absolute left-0.5 w-6 h-6 m-2"
+            />
+          </div>
+          <div class="">
+            <input
+              v-model="searchQuery"
+              @keyup.enter="search"
+              type="text"
+              :placeholder="$t('Search event/team')"
+              maxlength="20"
+              class="pl-10 w-72 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-30 text-white placeholder:text-white bg-slate-50"
+            />
+          </div>
         </div>
+        <div class="px-2" @click="clearQuery()">Cancel</div>
       </div>
+    </div>
+
+    <div class="scroll-container">
       <div class="inner-container">
-        <div class="schedule_detail pl-4 pr-4 pb-16 w-[100%]">
+        <div class="schedule_detail pb-16 w-[100%]">
           <div class="schedule_detail_box  ">
             <div class="h-[450px] flex items-center justify-center" v-if="loading">
               <span class="font-medium text-2xl text-white"> {{ $t("Loading") }}</span>
@@ -109,7 +121,6 @@
         </div>
       </div>
     </div>
-  </BackgroundImage>
 </template>
 
 <script>
@@ -118,7 +129,6 @@ import {
   searchLiveTeamStream,
   searchLiveCompetitionStream,
 } from "@/service/searchLiveStreamProvider.js";
-import BackgroundImage from "@/components/BackGround.vue";
 
 import {
   getLiveStreamBookmark,
@@ -131,7 +141,6 @@ import VueCookies from "vue-cookies";
 
 export default {
   components: {
-    BackgroundImage,
     LoginModal,
   },
   data() {
@@ -169,7 +178,10 @@ export default {
     closeLoginModal() {
       this.isLoginModalVisible = false;
     },
-
+    clearQuery() {
+      this.searchQuery = '';
+      this.filterSearchResult = [];
+    },
     async search() {
       try {
         this.loading = true; // Set loading to true
