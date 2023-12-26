@@ -255,9 +255,9 @@ export default {
       this.showDownloadApp();
 
       // Set an interval to periodically hide and show the download window
-      setInterval(() => {
-        this.hideAndShowAfterDelay();
-      }, 10000); // Adjust the interval as needed
+      // setInterval(() => {
+      //   this.hideAndShowAfterDelay();
+      // }, 10000); // Adjust the interval as needed
     },
     hideAndShowAfterDelay() {
       this.hideDownloadApp();
