@@ -21,7 +21,7 @@
           </div>
         </div>
         <button
-            class="pt-0 flex cursor-pointer text-xl mr-2.5 items-center pl-3"
+            class="pt-0 flex cursor-pointer text-xl mr-2.5 items-center pl-1"
             @click="toggleDropdown"
           >
             <img
@@ -34,7 +34,6 @@
               src="@/assets/topNav/arrowDown.png"
               alt="Arrow Down"
             />
-            <!-- <p>{{ this.currentChannel }}</p> -->
           </button>
 
           <div
