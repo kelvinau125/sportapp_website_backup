@@ -12,6 +12,7 @@ import downloadapp from '@/components/DownloadApp.vue'
 import MobileLivePage from '@/views/MobileLivePage/MobileLivePage.vue'
 
 import Page from '@/views/HomeView.vue'
+import livePage from '@/views/LiveView.vue'
 
 const routes = [
 
@@ -23,7 +24,7 @@ const routes = [
   {
     path: '/live',
     name: 'live',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/Home/LiveView.vue')
+    component: livePage
   },
   {
     path: '/favourite',
