@@ -1,5 +1,5 @@
 <template>
-    <div class="p-5 bg-green-600 text-zinc-50">
+    <div class="p-5">
         <div class="absolute left-4" @click="goBackMyPage()">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div class="schedule_detail p-4 w-[100%] ">
+    <div class="schedule_detail p-4 pb-20 w-[100%] ">
         <div class="schedule_detail_box">
             <div class="" v-for="(match, index) in matchDetails" :key="index">
 
