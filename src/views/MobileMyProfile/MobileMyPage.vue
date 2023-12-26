@@ -80,14 +80,16 @@
           </ButtonPress>
         </div>
         <div class="w-1/3 pl-2 pr-2">
-          <ButtonPress
-            class="w-full bg-white pl-6 pr-6"
-            style="width: 100%; height: 60px; border-radius: 8px"
-          >
-            <p class="text-base font-normal flex justify-center overflow-ellipsis whitespace-nowrap" style="color: #333333">
-              {{ $t("ContactUs") }}
-            </p>
-          </ButtonPress>
+          <a href="https://wa.me/60123456789">
+            <ButtonPress
+              class="w-full bg-white pl-6 pr-6"
+              style="width: 100%; height: 60px; border-radius: 8px"
+            >
+              <p class="text-base font-normal flex justify-center overflow-ellipsis whitespace-nowrap" style="color: #333333">
+                {{ $t("ContactUs") }}
+              </p>
+            </ButtonPress>
+          </a>
         </div>
         <div class="w-1/3 pl-2">
           <ButtonPress
