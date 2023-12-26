@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-navColor text-white py-1 px-10 shadow md:flex justify-around items-center"
+    class="bg-navColor text-white py-1 px-10 shadow md:flex justify-center items-center"
   >
     <div class="md:pt-1 pt-2 flex items-center cursor-pointer">
       <a href="/"
@@ -56,8 +56,6 @@
             class="absolute left-0.5 w-6 h-6 m-2"
           />
         </div>
-        
-
         <div class="md:block hidden pt-2.5">
           <input
             v-model="searchQuery"
@@ -69,18 +67,8 @@
           />
         </div>
 
-        
-        <!-- <div @click="searchMobile" class="min-[320px]:text-center left-36 bottom-7 absolute justify-center min-[600px]:hidden"> -->
-        
         <div class="pr-4 md:flex items-center w-full h-1/2 m-1 justify-between pb-1.5">
           <div class="md:flex items-center">
-            <div @click="searchMobile" class="min-[320px]:absolute bottom-8 right-40 min-[600px]:hidden">
-              <img
-                src="@/assets/topNav/search.png"
-                alt="Search Icon"
-                class="w-6 h-6 m-2"
-              />
-            </div>
             <div
               class="dropdown-button language-dropdown md:pt-2.5 md:pl-2.5"
               style="width: 100px"
@@ -109,10 +97,6 @@
               </div>
             </div>
           </div>
-
-
-          
-
 
           <button
             class="pt-0 md:flex cursor-pointer text-xl mr-2.5 items-center md:pl-3"
@@ -547,9 +531,6 @@ export default {
         this.$router.push("/");
       }
     },
-    searchMobile(){
-      this.$router.push("/searchStream");
-    }
   },
 
   mounted() {

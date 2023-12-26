@@ -4,7 +4,6 @@ import RegisterView from '@/views/RegisterView.vue'
 import LoginForm from '@/views/LoginView.vue'
 import AllMatch from '@/views/AllMatch.vue'
 import TournamentDetails from '@/views/Tournament/TournamentDetails.vue'
-import SearchStream from '@/views/SearchStream/searchStream.vue'
 import NotFound from '@/components/NotFound.vue'
 import ResultPage from '@/components/SearchResult.vue'
 import MobileHomePage from '@/views/MobileHome/MobileFootballHomeView.vue'
@@ -56,11 +55,6 @@ const routes = [
     path: '/mobile_my_profile',
     name: 'MobileMyProfile',
     component: () => import('@/views/MobileMyProfile/MobileMyPage.vue'),
-  },
-  {
-    path: '/searchStream',
-    name: 'SearchStream',
-    component: SearchStream,
   },
   {
     path: '/live_stream',
