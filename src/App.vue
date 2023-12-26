@@ -15,10 +15,10 @@
         <div class="flex flex-col items-center">
           <span class="text-10px font-normal pb-2" style="color: rgba(153, 153, 153, 1);">扫码下载最新安装包</span>
           <ButtonButton style="background-color: rgba(252, 86, 41, 1);" class="rounded-[4px] flex items-center justify-center w-[105px] h-[30px] mb-1">
-            <span class="font-normal text-xs " style="color: rgba(255, 255, 255, 1);">IOS下载</span>
+            <a href="#" class="font-normal text-xs " style="color: rgba(255, 255, 255, 1);">IOS下载</a>
           </ButtonButton>
           <ButtonButton style="background-color: rgba(252, 86, 41, 1);" class="rounded-[4px] flex items-center justify-center w-[105px] h-[30px] mt-1  ">
-            <span class="font-normal text-xs" style="color: rgba(255, 255, 255, 1);">Android下载</span>
+            <a href="#" class="font-normal text-xs" style="color: rgba(255, 255, 255, 1);">Android下载</a>
           </ButtonButton>
 
         </div>
