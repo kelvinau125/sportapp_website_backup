@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-between p-5">
     <span class="text-lg font-medium" style="color: rgba(51, 51, 51, 1);">{{$t("My Favourite Live")}}</span>
-    <span @click="showAllFavourite()" class="text-sm font-medium" style="color: rgba(102, 102, 102, 1)">展示所有</span>
+    <span @click="showAllFavourite()" class="text-sm font-medium" style="color: rgba(102, 102, 102, 1)">{{ $t('Show All') }}</span>
   </div>
   <!-- <div class="h-[200px] border-2">
     我收藏的直播.....
@@ -94,24 +94,21 @@
   </div>
 
   <main class="wrapper pb-12">
-    <div class="card-container flex justify-start w-full">
-      <div class="card h-44 py-2 px-1 relative md:w-1/2 lg: w-1/3 xl:w-1/4" v-for="livedata in liveData"
+    <div class="card-container ml-3 flex justify-start w-full">
+      <div class="card  h-44 py-2" v-for="livedata in liveData"
         :key="livedata.liveData">
         <div @click="toLiveStream(livedata.liveID, livedata.streamerID)" class="card-body ">
           <div class="w-full h-[92px]">
             <img class="w-full h-full" :src="livedata.image" alt="Image" />
           </div>
-          <div class="bg-white w-full h-[50px] flex titleBox relative bottom-[50px] items-center pb-2">
-
-            <!-- <div class=" pr-1 pl-1 z-10 w-full contentImage hidden md:pb-1.5"> -->
+          <div class="bg-white w-full h-[50px] flex titleBox  bottom-[50px] items-center pb-2">
             <img id="circle" class="rounded-full pr-1 " :src="livedata.streamerIcon" alt="Image" />
-            <!-- </div> -->
-            <div class="flex flex-col pl-1 items-start w-[220px] z-10">
-              <div class="text-start font-normal text-sm  w-[210px] multiline-ellipsis">
+            <div class="flex flex-col pl-1 items-start  w-[110px]">
+              <div class="text-start font-normal text-sm  w-[110px] multiline-ellipsis">
                 <span style="color: rgba(51, 51, 51, 1);"> {{ livedata.liveTitle }}</span>
               </div>
               <div style="color: rgba(153, 153, 153, 1);"
-                class="text-10px font-medium opacity-60 w-[210px] text-start multiline-ellipsis">
+                class="text-10px font-medium opacity-60 w-[110px] text-start multiline-ellipsis">
                 {{ livedata.streamerName }}
               </div>
             </div>
