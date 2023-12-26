@@ -156,7 +156,8 @@
 
     "Page Not Exist": "Page Not Exist",
 
-    "Data not found" : "Data not found..."
+    "Data not found" : "Data not found...",
+    "Loading" : "Loading..."
 
 
 }
