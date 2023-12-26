@@ -11,6 +11,7 @@ module.exports = {
       backgroundColor: {
         'hoverGreen': '#D6F1DD',
         'navColor' : '#092A5D',
+        'mobilenavcolor': '#16B13B',
       },
       textColor:{
         'grayText': '#999999',

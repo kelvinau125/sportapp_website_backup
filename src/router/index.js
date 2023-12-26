@@ -8,11 +8,13 @@ import NotFound from '@/components/NotFound.vue'
 import ResultPage from '@/components/SearchResult.vue'
 import MobileHomePage from '@/views/MobileHome/MobileFootballHomeView.vue'
 import MobileTournamentStatus from '@/views/MobileTournament/mobileTournamentStatus.vue'
-import downloadapp from '@/components/DownloadApp.vue'
+// import downloadapp from '@/components/DownloadApp.vue'
 import MobileLivePage from '@/views/MobileLivePage/MobileLivePage.vue'
 
 import Page from '@/views/HomeView.vue'
 import livePage from '@/views/LiveView.vue'
+
+import helloisme from '@/components/MobileTopNavBar.vue'
 
 const routes = [
 
@@ -87,7 +89,7 @@ const routes = [
   {
     path: '/test',
     name: 'test',
-    component: downloadapp
+    component: helloisme
   },
   {
     path: '/mobileLivePage',

@@ -1,6 +1,7 @@
 <template>
   <div>
     <component v-if="!isMobileView" :is="navbarComponent" />
+    <component v-if="isMobileView" :is="topnavbarComponent" />
     <router-view />
       <div class="go-up">
         <img @click="scrollToTop" src="./assets/goUp.png" />
@@ -15,11 +16,13 @@
 <script>
 import Navbar from './components/NavBar.vue';
 import MobileNavbar from './components/MobileNavBar.vue';
+import MobileTopNavbar from './components/MobileTopNavBar.vue';
 
 export default {
   components: {
     Navbar,
     MobileNavbar,
+    MobileTopNavbar,
   },
 
   data() {
@@ -39,6 +42,7 @@ export default {
     updateNavbarComponent() {
       this.isMobileView = window.innerWidth <= 767;
       this.navbarComponent = window.innerWidth <= 767 ? 'MobileNavbar' : 'Navbar';
+      this.topnavbarComponent = window.innerWidth <= 767 ? 'MobileTopNavbar' : '';
     },
   },
 
