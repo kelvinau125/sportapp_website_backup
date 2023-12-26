@@ -52,7 +52,7 @@
             style="width: 100%; height: 60px; border-radius: 8px"
           >
             <p class="text-base font-normal" style="color: #333333">
-              {{ $t("Contact us") }}
+              {{ $t("ContactUs") }}
             </p>
           </ButtonPress>
         </div>

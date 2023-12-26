@@ -157,7 +157,13 @@
     "Page Not Exist": "页面不存在",
 
     "Data not found" : "数据不存在...",
-    "Loading" : "加载中..."
+    "Loading" : "加载中...",
+
+    "Image cannot be empty": "照片不可为空",
+    "Title cannot be empty": "标题不可为空",
+    "Scan the QR code to download the latest installation package":"扫码下载最新安装包"
+
+
 
 
 

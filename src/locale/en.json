@@ -157,7 +157,11 @@
     "Page Not Exist": "Page Not Exist",
 
     "Data not found" : "Data not found...",
-    "Loading" : "Loading..."
+    "Loading" : "Loading...",
+
+    "Image cannot be empty": "Image cannot be empty",
+    "Title cannot be empty": "Title cannot be empty",
+    "Scan the QR code to download the latest installation package":"Scan to download the installation package"
 
 
 }

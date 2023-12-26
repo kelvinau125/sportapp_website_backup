@@ -68,12 +68,12 @@
       </div>
       <div class="w-[251px] h-[126px] bg-white rounded-lg flex justify-evenly items-center">
         <div class="flex flex-col items-center">
-          <span class="text-10px font-normal pb-2" style="color: rgba(153, 153, 153, 1);">扫码下载最新安装包</span>
-          <ButtonButton style="background-color: rgba(252, 86, 41, 1);" class="rounded-[4px] flex items-center justify-center w-[105px] h-[30px] mb-1">
-            <a href="#" class="font-normal text-xs " style="color: rgba(255, 255, 255, 1);">IOS下载</a>
+          <span class="w-[100px]  text-10px font-normal text-center pb-2" style="color: rgba(153, 153, 153, 1);">{{$t("Scan the QR code to download the latest installation package")}}</span>
+          <ButtonButton style="background-color: rgba(252, 86, 41, 1);" class="py-4 rounded-[4px] flex items-center justify-center w-[105px] h-[30px] mb-1">
+            <a href="#" class="font-normal text-xs " style="color: rgba(255, 255, 255, 1);">IOS {{ $t("Download") }}</a>
           </ButtonButton>
-          <ButtonButton style="background-color: rgba(252, 86, 41, 1);" class="rounded-[4px] flex items-center justify-center w-[105px] h-[30px] mt-1  ">
-            <a href="#" class="font-normal text-xs" style="color: rgba(255, 255, 255, 1);">Android下载</a>
+          <ButtonButton style="background-color: rgba(252, 86, 41, 1);" class="py-4 rounded-[4px] flex items-center justify-center w-[105px] h-[30px] mt-1  ">
+            <a href="#" class="font-normal text-xs" style="color: rgba(255, 255, 255, 1);">Android {{ $t("Download") }}</a>
           </ButtonButton>
 
         </div>
