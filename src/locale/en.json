@@ -154,7 +154,9 @@
     "On Live": "On Live",
     "Show All": "Show All",
 
-    "Page Not Exist": "Page Not Exist"
+    "Page Not Exist": "Page Not Exist",
+
+    "Data not found" : "Data not found..."
 
 
 }

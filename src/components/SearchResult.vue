@@ -28,7 +28,7 @@
         <div class="schedule_detail max-w-[892px] w-[100%]">
           <div class="schedule_detail_box">
             <div class="h-[450px] flex items-center justify-center" v-if="loading">
-              <span class="font-medium text-2xl text-white"> Loading...</span>
+              <span class="font-medium text-2xl text-white"> {{ $t("Loading") }}</span>
               <img
                 class="pl-5"
                 src="@/assets/pandaLoading.gif"
@@ -40,7 +40,7 @@
               class="h-[450px] flex items-center justify-center"
               v-else-if="filterSearchResult.length === 0"
             >
-              <span class="font-medium text-2xl text-white"> Data not found...</span>
+              <span class="font-medium text-2xl text-white"> {{ $t('Data not found') }}</span>
               <img
                 class="pl-5"
                 src="@/assets/pandaNotFound.gif"
