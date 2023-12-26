@@ -28,6 +28,7 @@ export default {
   data() {
     return {
       navbarComponent: null,
+      topnavbarComponent: null,
       isMobileView: false,
     };
   },

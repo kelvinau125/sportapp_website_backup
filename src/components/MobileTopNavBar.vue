@@ -16,7 +16,7 @@
               type="text"
               :placeholder="$t('Search event/team')"
               maxlength="20"
-              class="pl-10 w-72 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-10 text-white bg-slate-50"
+              class="pl-10 w-72 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-30 text-white placeholder:text-white bg-slate-50"
             />
           </div>
         </div>
