@@ -1,7 +1,7 @@
 <template>
   <div class="w-full flex flex-col">
     <BackgroundImage>
-      <div class="live-container scroll-container">
+      <div class="live-container h-[650px] scroll-container ">
         <div class="liveStream inner-container">
           <!-- <div class="live-window"> -->
           <!-- <div>直播窗口内容</div>

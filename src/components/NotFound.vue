@@ -1,7 +1,7 @@
 <template>
     <BackgroundImage>
         <div class="h-[650px] flex items-center justify-center">
-            <span class="font-medium text-2xl text-white">Page Not Exist</span>
+            <span class="font-medium text-2xl text-white">{{ $t("Page Not Exist") }}</span>
             <img class="pl-5" src="@/assets/pandaNotFound.gif" alt="panda loading" style="width: 108px; height: 108px" />
         </div>
     </BackgroundImage>

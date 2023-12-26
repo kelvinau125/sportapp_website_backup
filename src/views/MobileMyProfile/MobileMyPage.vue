@@ -173,12 +173,8 @@ export default {
       const oppositeLocale = currentLocale === 'EN' ? 'ZH' : 'EN';
       this.$i18n.locale = oppositeLocale;
       localStorage.setItem("locale", oppositeLocale);
+      window.location.reload();
 
-      if (this.$route.path === "/") {
-        window.location.reload();
-      } else {
-        this.$router.push("/");
-      }
     },
     showStreamDetailModal(){
       this.$router.push("/mobileFavLive");
