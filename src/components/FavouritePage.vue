@@ -51,6 +51,8 @@
         </div>
         <div class="schedule_detail max-w-[892px] w-[100%]">
           <div class="schedule_detail_box">
+
+
             <ul class="h-[120px]" v-for="match in matchDetails" :key="match.matchDetails">
               <li
                 @click="
@@ -71,17 +73,30 @@
                 class="max-w-full bg-white"
               >
                 <div class="h-[120px] p-5">
-                  <div class="flex justify-between">
-                    <div class="flex items-center justify-start w-[350px]">
+                  <div class="max-[892px]:flex justify-start min-[893px]:flex justify-between">
+                    <div class="flex items-center justify-start ">
+
                       <div class="w-6 h-6">
                         <img src="@/assets/favourite/footIcon.png" />
                       </div>
-                      <div class="px-3 flex justify-center ml-2 MatchTypeBorder">
-                        <span class="text-xs font-medium" style="color: #666666">{{
+                      <div class="px-3 flex justify-center ml-2 MatchTypeBorder w-24">
+                        <span class="text-xs font-medium truncate" style="color: #666666">{{
                           match.matchType
                         }}</span>
                       </div>
+
+                      <div class="flex items-center px-3 min-[893px]:hidden">
+                        <div class="font-semibold text-xs px-2" style="color: #333333">
+                          <span>{{ match.time }}</span>
+                        </div>
+                        <span v-if="match.statusStr !== ' '" 
+                            class="bottom-0 -right-[130px] " 
+                            :class="{ 'bg-transparent': match.statusStr === ' ', statusBorderRes: match.statusStr !== ''}">
+                            {{ match.statusStr }}
+                          </span>
+                      </div>
                     </div>
+
                     <button @click.stop="toUnfavourite(match, match.linkAddress)">
                       <img
                         v-if="match.favourite"
@@ -92,8 +107,8 @@
                     </button>
                   </div>
 
-                  <div class="flex justify-start">
-                    <div class="flex items-end">
+                  <div class="min-[893px]:flex justify-start ">
+                    <div class="flex items-end max-[893px]:hidden">
                       <div class="pr-2 font-medium text-xs text-grayText">
                         <span>{{ match.date }}</span>
                       </div>
@@ -101,44 +116,46 @@
                         <span>{{ match.time }}</span>
                       </div>
                     </div>
-                    <div class="flex" style="width: 570px">
-                      <div class="flex justify-end items-center w-full">
-                        <div class="w-[160px] overflow-hidden">
+
+
+                    <div class="flex min-[893px]:w-570 max-[892px]:flex justify-center py-3">
+                      <div class="max-[892px]:flex justify-end items-center w-[50%] min-[893px]:flex justify-end items-center w-full ">
+                        <div class="min-[893px]:w-[160px] overflow-hidden max-[892px]:w-[80px] overflow-hidden text-left truncate">
                           <span
-                            class="text-lg font-semibold pr-2 whitespace-nowrap overflow-ellipsis"
+                            class="text-lg font-medium pr-2 whitespace-nowrap overflow-ellipsis"
                             >{{ match.homeTeamName }}</span
                           >
                         </div>
                         <div>
                           <img
                             :src="match.homeTeamIcon"
-                            style="width: 40px; height: 40px; border-radius: 20px"
+                            style="width: 30px; height: 30px; border-radius: 15px"
                           />
                         </div>
                       </div>
-                      <div class="flex flex-col items-center w-[60%]">
+                      <div class="max-[892px]:flex flex-col items-center w-[30%] min-[893px]:flex flex-col items-center w-[60%]">
                         <div class="font-semibold text-2xl">
                           <span>{{ match.homeTeamScore }}</span>
                           <span class="px-2">-</span>
                           <span>{{ match.awayTeamScore }}</span>
                         </div>
                       </div>
-                      <div class="flex items-center justify-start w-full">
+                      <div class="max-[892px]:flex items-center justify-start w-[50%] min-[893px]:flex items-center justify-start w-full">
                         <div>
                           <img
                             :src="match.awayTeamIcon"
-                            style="width: 40px; height: 40px; border-radius: 20px"
+                            style="width: 30px; height: 30px; border-radius: 15px"
                           />
                         </div>
-                        <div class="pl-3 w-[160px] overflow-hidden">
+                        <div class="pl-3 w-[80px] overflow-hidden truncate">
                           <span
-                            class="text-lg font-semibold whitespace-nowrap overflow-ellipsis"
+                            class="text-lg font-medium whitespace-nowrap overflow-ellipsis"
                             >{{ match.awayTeamName }}</span
                           >
                         </div>
                       </div>
                     </div>
-                    <div class="relative pt-2">
+                    <div class="relative pt-2 max-[892px]:hidden">
                       <span
                         class="absolute bottom-0 -right-[130px]"
                         :class="{
@@ -357,6 +374,13 @@ export default {
   }
 }
 
+@media (max-width: 892px) and (min-width: 320px) {
+    .inner-container {
+      min-width: 320px;
+      max-width: 892px;
+    }
+  }
+
 .MatchTypeBorder {
   background-color: #f5f5f5;
   border: 1px solid rgba(156, 163, 175, 0.5);
@@ -400,6 +424,15 @@ export default {
   border-radius: 8px;
   width: auto;
   padding: 8px;
+}
+
+.statusBorderRes {
+  background-color: #eeedf4;
+  border-radius: 8px;
+  width: auto;
+  font-weight: 100;
+  font-size: small;
+  padding: 0px 8px;
 }
 
 .schedule_list .schedule_detail .schedule_detail_box > ul {
