@@ -1,5 +1,5 @@
 <template>
-    <button class="reverse-button">
+    <button class="reverse-button md:block hidden">
         <img src="@/assets/reversebtn.png" alt="reverse btn" />
     </button>
 </template>

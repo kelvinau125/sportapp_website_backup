@@ -190,6 +190,12 @@ export default {
       this.isEditProfileModalVisible = false;
     },
 
+    gobackmypage() {
+      this.isMyPageModalVisible = true;
+      this.isEditProfileModalVisible = false;
+      this.isStreamDetailModalVisible = false;
+    },
+
     // Edit Passowrd Modal
     showEditPasswordModal() {
       this.isOTPModalVisible = false;

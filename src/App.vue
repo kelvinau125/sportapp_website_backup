@@ -265,7 +265,7 @@ export default {
       // Set a timeout to show the download window again after a certain delay
       setTimeout(() => {
         this.showDownloadApp();
-      }, 5000); // Adjust the delay as needed
+      }, 30000); // Adjust the delay as needed
     },
 
 
@@ -320,7 +320,7 @@ export default {
 
 .downloadApp {
   position: fixed;
-  bottom: 50%;
+  bottom: 30%;
   right: 8%;
   z-index: 1000;
 }

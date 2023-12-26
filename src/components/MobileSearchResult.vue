@@ -16,8 +16,8 @@
         </div>
       </div>
       <div class="inner-container">
-        <div class="schedule_detail pr-4 pb-16 w-[100%]">
-          <div class="schedule_detail_box">
+        <div class="schedule_detail pl-4 pr-4 pb-16 w-[100%]">
+          <div class="schedule_detail_box  ">
             <div class="h-[450px] flex items-center justify-center" v-if="loading">
               <span class="font-medium text-2xl text-white"> {{ $t("Loading") }}</span>
               <img class="pl-5" src="@/assets/pandaLoading.gif" alt="panda loading" style="width: 108px; height: 108px" />
