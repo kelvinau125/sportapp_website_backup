@@ -5,9 +5,9 @@
     <div class="scroll-container">
       <div class="flex justify-center pt-9 pb-6">
         <div class="searchContainer flex">
-          <input class="searchInput pl-4 w-full h-full text-xs font-normal text-grayText" v-model="searchQuery"
+          <input :disabled="Disabled" class="searchInput pl-4 w-full h-full text-xs font-normal text-grayText" v-model="searchQuery"
             @keyup.enter="search" type="text" placeholder="搜索赛事/球队" maxlength="20" />
-          <button @click="search" class="searchButton w-full h-full flex justify-center items-center pl-1">
+          <button :disabled="Disabled"  @click="search" class="searchButton w-full h-full flex justify-center items-center pl-1">
             <img src="@/assets/topNav/search.png" alt="Search Icon" class="" />
             <span class="text-white font-normal text-xs pb-0.5 pr-2">{{
               $t("Search")
@@ -16,8 +16,8 @@
         </div>
       </div>
       <div class="inner-container">
-        <div class="schedule_detail pl-4 pr-4 pb-16 w-[100%]">
-          <div class="schedule_detail_box  ">
+        <div class="schedule_detail pr-4 pb-16 w-[100%]">
+          <div class="schedule_detail_box ">
             <div class="h-[450px] flex items-center justify-center" v-if="loading">
               <span class="font-medium text-2xl text-white"> {{ $t("Loading") }}</span>
               <img class="pl-5" src="@/assets/pandaLoading.gif" alt="panda loading" style="width: 108px; height: 108px" />
@@ -61,7 +61,7 @@
                     </div>
                     <div class="flex justify-between w-[80px]">
                       <div>
-                        <span class="text-xs font-" :class="{
+                        <span class="text-xs font-medium" :class="{
                           'bg-transparent': match.statusStr === ' ',
                           statusBorder: match.statusStr !== '',
                         }">
@@ -77,7 +77,7 @@
 
                   <div class="pl-2 pr-2 pt-2 flex justify-start">
                     <div class="flex w-full">
-                      <div class="flex justify-end items-center w-[40%] ">
+                      <div class="flex justify-end items-center w-[38%] ">
                         <div class="w-[150px] overflow-hidden">
                           <span class="text-sm font-normal pr-2 whitespace-nowrap overflow-ellipsis">{{
                             match.homeTeamName
@@ -86,13 +86,13 @@
                         <img :src="match.homeTeamLogo" style="width: 24px; height: 24px; border-radius: 20px" />
                       </div>
                       <div class="flex flex-col items-center  w-[20%]">
-                        <div class="font-semibold text-base">
+                        <div class="font-semibold text-sm">
                           <span>{{ match.homeTeamScore }}</span>
                           <span class="px-2">-</span>
                           <span>{{ match.awayTeamScore }}</span>
                         </div>
                       </div>
-                      <div class=" flex text-end w-[40%]">
+                      <div class=" flex text-end w-[38%]">
                         <img :src="match.awayTeamLogo" style="width: 24px; height: 24px; border-radius: 20px" />
                         <div class=" w-[150px] overflow-hidden">
                           <span class="text-sm font-normal whitespace-nowrap overflow-ellipsis">{{
@@ -136,6 +136,8 @@ export default {
   },
   data() {
     return {
+      Disabled: false,
+
       loading: false,
 
       isLoginModalVisible: ref(false),
@@ -171,10 +173,14 @@ export default {
     },
 
     async search() {
+      this.Disabled = true;
+      
       try {
         this.loading = true; // Set loading to true
         if (this.searchQuery === "") {
           this.searchLiveTeamResult = [];
+
+          this.Disabled = false;
         } else {
           this.$router.push({
             name: "ResultPage",
@@ -222,11 +228,17 @@ export default {
               linkAddress: this.filterSearchResultTemp[i]["id"],
             });
           }
+          this.Disabled = false;
+
         }
       } catch (error) {
         console.error("Error occurred during search:", error);
+        this.Disabled = false;
+
       } finally {
         this.loading = false; // Set loading to false whether the search succeeds or fails
+        this.Disabled = false;
+
       }
     },
     async toggleFavorite(match, matchID) {

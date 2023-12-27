@@ -506,8 +506,7 @@ video:hover {
   margin: auto;
 }
 
-div {
-}
+
 
 .multiline-ellipsis {
   display: -webkit-box;

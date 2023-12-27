@@ -6,6 +6,7 @@
       <div class="flex justify-center pt-9 pb-6">
         <div class="searchContainer flex">
           <input
+            :disabled="Disabled"
             class="searchInput pl-4 w-full h-full text-xs font-normal text-grayText"
             v-model="searchQuery"
             @keyup.enter="search"
@@ -13,7 +14,7 @@
             placeholder="搜索赛事/球队"
             maxlength="20"
           />
-          <button
+          <button :disabled="Disabled" 
             @click="search"
             class="searchButton w-full h-full flex justify-center items-center pl-1"
           >
@@ -195,6 +196,8 @@ export default {
   },
   data() {
     return {
+      Disabled: false,
+
       loading: false,
 
       isLoginModalVisible: ref(false),
@@ -230,10 +233,15 @@ export default {
     },
 
     async search() {
+      
       try {
+        this.Disabled = true;
+
         this.loading = true; // Set loading to true
         if (this.searchQuery === "") {
           this.searchLiveTeamResult = [];
+
+          this.Disabled = false;
         } else {
           this.$router.push({
             name: "ResultPage",
@@ -281,11 +289,17 @@ export default {
               linkAddress: this.filterSearchResultTemp[i]["id"],
             });
           }
+          this.Disabled = false;
+
         }
       } catch (error) {
         console.error("Error occurred during search:", error);
+        this.Disabled = false;
+
       } finally {
         this.loading = false; // Set loading to false whether the search succeeds or fails
+        this.Disabled = false;
+
       }
     },
     async toggleFavorite(match, matchID) {

@@ -16,7 +16,7 @@
               type="text"
               :placeholder="$t('Search event/team')"
               maxlength="20"
-              class="pl-10 w-72 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-opacity-30 text-white placeholder:text-white bg-slate-50"
+              class="pl-10 w-72 h-10 rounded-3xl border-gray-300 text-xs font-normal bg-slate-50 bg-opacity-30 text-white placeholder:text-white "
             />
           </div>
         </div>
@@ -26,7 +26,7 @@
           >
             <img
               :src="img"
-              class="max-w-[24px] hover:bg-blue-950"
+              class="max-w-[24px] "
               alt="defaultFootBall Image"
             />
             <img
@@ -38,14 +38,14 @@
 
           <div
             style="z-index: 1000"
-            class="dropdown-content right-10 top-11"
+            class="dropdown-content right-6 top-11"
             :class="{ 'show-dropdown': isDropdownOpen }"
           >
             <button class="dropdown-button" @click="basketballchoice()">
-              <img src="@/assets/topNav/basketball.png" alt="Basketball" />
+              <img style="width: 24px; height: 24px;" src="@/assets/topNav/basketball3x.png" alt="Basketball" />
             </button>
             <button class="dropdown-button" @click="footballchoice()">
-              <img src="@/assets/topNav/football.png" alt="Football" />
+              <img style="width: 24px; height: 24px;" src="@/assets/topNav/football3x.png" alt="Football" />
             </button>
           </div>
       </div>
@@ -113,7 +113,7 @@
       },
   
       basketballchoice() {
-        this.selectOption(require("@/assets/topNav/basketball.png"));
+        this.selectOption(require("@/assets/topNav/basketball3x.png"));
         this.switchChannel("basketball");
         if (this.$route.path === "/") {
           window.location.reload();
@@ -122,7 +122,7 @@
         }
       },
       footballchoice() {
-        this.selectOption(require("@/assets/topNav/football.png"));
+        this.selectOption(require("@/assets/topNav/football3x.png"));
         this.switchChannel("football");
         if (this.$route.path === "/") {
           window.location.reload();
@@ -197,8 +197,8 @@
       }
   
       this.currentChannel == "football"
-        ? (this.img = require("@/assets/topNav/football.png"))
-        : (this.img = require("@/assets/topNav/basketball.png"));
+        ? (this.img = require("@/assets/topNav/football3x.png"))
+        : (this.img = require("@/assets/topNav/basketball3x.png"));
     },
   };
 </script>
@@ -271,9 +271,7 @@
   .dropdown-content {
     display: none;
     position: absolute;
-    --tw-bg-opacity: 1;
-    background-color: rgb(17 24 39 / var(--tw-bg-opacity));
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    background-color: rgba(211, 255, 212, 1);
     width: 40px;
     z-index: 1px;
   }
@@ -315,31 +313,5 @@
     background-color: #33ba53;
   }
   
-  /* language switching drop down button */
-  .language-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .language-options {
-    position: absolute;
-    /* top: 100%; */
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(17 24 39 / var(--tw-bg-opacity));
-    border: 1px solid rgb(17 24 39 / var(--tw-bg-opacity));
-    border-radius: 4px;
-    padding: 5px;
-  }
-  
-  .languages:hover {
-    color: #33ba53;
-  }
-  
-  .language-toggle:hover {
-    color: #33ba53;
-  }
 </style>
   

@@ -1,7 +1,8 @@
 <template>
   <div class="flex justify-between p-5 ">
-    <span class="text-lg font-medium" style="color: rgba(51, 51, 51, 1);">{{$t("My Favourite Live")}}</span>
-    <span @click="showAllFavourite()" class="text-sm font-medium" style="color: rgba(102, 102, 102, 1)">{{ $t('Show All') }}</span>
+    <span class="text-lg font-medium" style="color: rgba(51, 51, 51, 1);">{{ $t("My Favourite Live") }}</span>
+    <span @click="showAllFavourite()" class="text-sm font-medium" style="color: rgba(102, 102, 102, 1)">{{ $t('Show All')
+    }}</span>
   </div>
   <div class="schedule_detail pl-4 pr-4 w-[100%] ">
     <div class="schedule_detail_box">
@@ -23,7 +24,7 @@
           " class="max-w-full bg-white">
           <div class="h-[80px] pt-2 pb-5 pr-2">
             <div class="flex justify-between ">
-              <div class="pl-2 flex items-center justify-between w-[200px] ">
+              <div class="pl-2 flex items-center justify-between w-[53%]">
                 <div class="px-3 flex justify-center overflow-clip  MatchTypeBorder">
                   <span class="text-xs font-medium whitespace-nowrap overflow-hidden text-ellipsis"
                     style="color: #666666">{{
@@ -45,7 +46,8 @@
                     {{ match.statusStr }}</span>
                 </div>
                 <button @click.stop="toUnfavourite(match, match.linkAddress)">
-                  <img style="width: 24px; height: 24px;" v-if="match.favourite" src="@/assets/content/Unfavourite.png" alt="Unfavourite" />
+                  <img style="width: 24px; height: 24px;" v-if="match.favourite" src="@/assets/content/Unfavourite.png"
+                    alt="Unfavourite" />
                   <img style="width: 24px; height: 24px;" v-else src="@/assets/content/Favourite.png" alt="Favourite" />
                 </button>
 
@@ -54,7 +56,7 @@
 
             <div class="pl-2 pr-2 pt-2 flex justify-start">
               <div class="flex w-full">
-                <div class="flex justify-between items-center w-[40%] ">
+                <div class="flex justify-between items-center w-[38%] pr-1 ">
                   <div class="w-[100px] overflow-hidden">
                     <span class="text-sm font-normal pr-2 whitespace-nowrap overflow-ellipsis">{{
                       match.homeTeamName
@@ -63,13 +65,17 @@
                   <img :src="match.homeTeamIcon" style="width: 24px; height: 24px; border-radius: 20px" />
                 </div>
                 <div class="flex flex-col items-center  w-[20%]">
-                  <div class="font-semibold text-base">
+                  <div class="font-semibold text-sm">
                     <span>{{ match.homeTeamScore }}</span>
+                    <!-- <span>{{ 111 }}</span> -->
+
                     <span class="px-2">-</span>
                     <span>{{ match.awayTeamScore }}</span>
+                    <!-- <span>{{ 111 }}</span> -->
+
                   </div>
                 </div>
-                <div class=" flex text-end w-[40%]">
+                <div class=" flex text-end w-[38%] pl-1 ">
                   <img :src="match.awayTeamIcon" style="width: 24px; height: 24px; border-radius: 20px" />
                   <div class=" w-[150px] overflow-hidden">
                     <span class="text-sm font-normal whitespace-nowrap overflow-ellipsis">{{
@@ -86,14 +92,13 @@
   </div>
 
   <div class="flex justify-between items-center p-5">
-    <span class="text-lg font-medium" style="color: rgba(51, 51, 51, 1);">{{$t("On Live")}}</span>
+    <span class="text-lg font-medium" style="color: rgba(51, 51, 51, 1);">{{ $t("On Live") }}</span>
     <!-- <span class="text-sm font-medium" style="rgba(102, 102, 102, 1)">展示所有</span> -->
   </div>
 
   <main class="wrapper pb-12">
     <div class="card-container pl-3 flex justify-start w-full">
-      <div class="card h-44 py-2" v-for="livedata in liveData"
-        :key="livedata.liveData">
+      <div class="card h-44 py-2" v-for="livedata in liveData" :key="livedata.liveData">
         <div @click="toLiveStream(livedata.liveID, livedata.streamerID)" class="card-body ">
           <div class="w-full h-[92px]">
             <img class="w-full h-full" :src="livedata.image" alt="Image" />
@@ -243,10 +248,10 @@ export default {
     },
 
     showDownloadAPPModal() {
-          this.isDownloadAPPModalVisible = true;
+      this.isDownloadAPPModalVisible = true;
     },
     closeDownloadAPPModal() {
-        this.isDownloadAPPModalVisible = false;
+      this.isDownloadAPPModalVisible = false;
     },
 
     toLiveStream() {

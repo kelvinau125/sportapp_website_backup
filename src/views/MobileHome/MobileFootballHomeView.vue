@@ -7,9 +7,9 @@
       <Slide v-for="(livedata, index) in liveData.slice(0, 5)" :key="index">
           <div @click="goLogin()" class="carousel__item ">
               <div class="card-body relative">
-                  <img class="rounded-lg h-full" :src="require(`@/assets/live/${livedata.image}.png`)" alt="Image" />
+                  <img class="rounded-lg h-[150px] w-full" :src="require(`@/assets/live/${livedata.image}.png`)" alt="Image" />
                   <div class=" w-full flex absolute bottom-0 p-1 pb-2 pl-2">
-                      <img class="w-[30px] h-[30px] pr-1" :src="require(`@/assets/live/${livedata.streamerIcon}.png`)"
+                      <img  class="w-[30px] h-[30px] pr-1" :src="require(`@/assets/live/${livedata.streamerIcon}.png`)"
                           alt="Image" />
 
                       <div class="flex flex-col pl-1 z-10 items-start w-[210px]">
@@ -88,7 +88,7 @@
                   " class="max-w-full bg-white">
                   <div class="h-[80px] pt-2 pb-5 pr-2">
                       <div class="flex justify-between ">
-                          <div class="pl-2 flex items-center justify-between w-[200px] ">
+                          <div class="pl-2 flex items-center justify-between w-[53%] ">
                               <div class="px-3 flex justify-center overflow-clip  MatchTypeBorder">
                                   <span class="text-xs font-medium whitespace-nowrap overflow-hidden text-ellipsis"
                                       style="color: rgba(102, 102, 102, 1)">{{
@@ -120,7 +120,7 @@
 
                       <div class="pl-2 pr-2 pt-2 flex justify-start">
                           <div class="flex w-full">
-                              <div class="flex justify-between items-center w-[32%] ">
+                              <div class="flex justify-between items-center w-[38%] ">
                                   <div class="w-[100px] overflow-hidden">
                                       <span class="text-sm font-normal pr-2 whitespace-nowrap overflow-ellipsis">{{
                                           match.homeTeamName
@@ -128,14 +128,14 @@
                                   </div>
                                   <img :src="match.homeTeamIcon" style="width: 24px; height: 24px; border-radius: 20px" />
                               </div>
-                              <div class="flex flex-col items-center w-[35%]">
-                                  <div class="font-semibold text-base">
+                              <div class="flex flex-col items-center w-[20%]">
+                                  <div class="font-semibold text-sm">
                                       <span>{{ match.homeTeamScore }}</span>
                                       <span class="px-2">-</span>
                                       <span>{{ match.awayTeamScore }}</span>
                                   </div>
                               </div>
-                              <div class=" flex text-end w-[32%]">
+                              <div class=" flex text-end w-[38%]">
                                   <img :src="match.awayTeamIcon" style="width: 24px; height: 24px; border-radius: 20px" />
                                   <div class=" w-[150px] overflow-hidden">
                                       <span class="text-sm font-normal whitespace-nowrap overflow-ellipsis">{{
@@ -201,10 +201,10 @@ export default {
   data() {
       return {
           liveData: [
-              { image: 'LiveImage', liveTitle: '陈俐敏', streamerName: '陈俐敏', streamerIcon: 'defaultStreamerIcon' },
-              { image: 'LiveImage', liveTitle: '吕子芯', streamerName: '吕子芯', streamerIcon: 'defaultStreamerIcon' },
-              { image: 'LiveImage', liveTitle: '区证尧', streamerName: '区证尧', streamerIcon: 'defaultStreamerIcon' },
-              { image: 'LiveImage', liveTitle: '黄良健', streamerName: '黄良健', streamerIcon: 'defaultStreamerIcon' },
+              { image: 'moment_3', liveTitle: '直播标题1', streamerName: '名字1', streamerIcon: 'defaultStreamerIcon' },
+              { image: 'moment_2', liveTitle: '直播标题2', streamerName: '名字2', streamerIcon: 'defaultStreamerIcon' },
+              { image: 'LiveImage', liveTitle: '直播标题3', streamerName: '名字3', streamerIcon: 'defaultStreamerIcon' },
+              { image: 'moment_4', liveTitle: '直播标题4', streamerName: '名字4', streamerIcon: 'defaultStreamerIcon' },
 
           ],
           // check language and basketball and football swtich
