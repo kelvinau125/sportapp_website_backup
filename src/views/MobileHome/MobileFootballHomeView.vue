@@ -9,7 +9,7 @@
               <div class="card-body relative">
                   <img class="rounded-lg h-[150px] w-full" :src="require(`@/assets/live/${livedata.image}.png`)" alt="Image" />
                   <div class=" w-full flex absolute bottom-0 p-1 pb-2 pl-2">
-                      <img  class="w-[30px] h-[30px] pr-1" :src="require(`@/assets/live/${livedata.streamerIcon}.png`)"
+                      <img  class="w-[30px] h-[30px] mx-1" :src="require(`@/assets/live/${livedata.streamerIcon}.png`)"
                           alt="Image" />
 
                       <div class="flex flex-col pl-1 z-10 items-start w-[210px]">
